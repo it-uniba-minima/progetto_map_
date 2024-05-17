@@ -1,7 +1,12 @@
 package org.it.uniba.minima;
+import javax.swing.JButton;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.GroupLayout;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.SwingConstants;
+import java.awt.Component;
 
 public class MenuGUI extends javax.swing.JFrame{
-
     /**
      * Creates new form MenuGUI
      */
@@ -19,11 +24,13 @@ public class MenuGUI extends javax.swing.JFrame{
     private void initComponents() {
 
         BackGroundPanel = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
+        NewGame = new javax.swing.JButton();
+        NewGame.setAlignmentX(Component.CENTER_ALIGNMENT);
+        Sound = new javax.swing.JButton();
+        Help = new javax.swing.JButton();
+        Help.setText("?");
+        LoadGame = new javax.swing.JButton();
+        Credits = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(800, 600));
@@ -35,88 +42,88 @@ public class MenuGUI extends javax.swing.JFrame{
         BackGroundPanel.setPreferredSize(new java.awt.Dimension(800, 600));
         BackGroundPanel.setRequestFocusEnabled(false);
 
-        jButton2.setText("jButton1");
-        jButton2.setMaximumSize(new java.awt.Dimension(240, 60));
-        jButton2.setMinimumSize(new java.awt.Dimension(240, 60));
-        jButton2.setPreferredSize(new java.awt.Dimension(240, 60));
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        NewGame.setText("Nuova Partita");
+        NewGame.setMaximumSize(new java.awt.Dimension(240, 60));
+        NewGame.setMinimumSize(new java.awt.Dimension(240, 60));
+        NewGame.setPreferredSize(new java.awt.Dimension(240, 60));
+        NewGame.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
 
-        jButton4.setMaximumSize(new java.awt.Dimension(40, 40));
-        jButton4.setMinimumSize(new java.awt.Dimension(40, 40));
-        jButton4.setPreferredSize(new java.awt.Dimension(40, 40));
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        Sound.setMaximumSize(new java.awt.Dimension(40, 40));
+        Sound.setMinimumSize(new java.awt.Dimension(40, 40));
+        Sound.setPreferredSize(new java.awt.Dimension(40, 40));
+        Sound.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
             }
         });
 
-        jButton5.setMaximumSize(new java.awt.Dimension(40, 40));
-        jButton5.setMinimumSize(new java.awt.Dimension(40, 40));
-        jButton5.setPreferredSize(new java.awt.Dimension(40, 40));
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        Help.setMaximumSize(new java.awt.Dimension(40, 40));
+        Help.setMinimumSize(new java.awt.Dimension(40, 40));
+        Help.setPreferredSize(new java.awt.Dimension(40, 40));
+        Help.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
             }
         });
 
-        jButton6.setText("jButton1");
-        jButton6.setMaximumSize(new java.awt.Dimension(240, 60));
-        jButton6.setMinimumSize(new java.awt.Dimension(240, 60));
-        jButton6.setPreferredSize(new java.awt.Dimension(240, 60));
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        LoadGame.setText("Carica Partita");
+        LoadGame.setMaximumSize(new java.awt.Dimension(240, 60));
+        LoadGame.setMinimumSize(new java.awt.Dimension(240, 60));
+        LoadGame.setPreferredSize(new java.awt.Dimension(240, 60));
+        LoadGame.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
             }
         });
 
-        jButton7.setText("jButton1");
-        jButton7.setMaximumSize(new java.awt.Dimension(240, 60));
-        jButton7.setMinimumSize(new java.awt.Dimension(240, 60));
-        jButton7.setPreferredSize(new java.awt.Dimension(240, 60));
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        Credits.setText("Riconoscimenti");
+        Credits.setMaximumSize(new java.awt.Dimension(240, 60));
+        Credits.setMinimumSize(new java.awt.Dimension(240, 60));
+        Credits.setPreferredSize(new java.awt.Dimension(240, 60));
+        Credits.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton7ActionPerformed(evt);
             }
         });
 
         javax.swing.GroupLayout BackGroundPanelLayout = new javax.swing.GroupLayout(BackGroundPanel);
-        BackGroundPanel.setLayout(BackGroundPanelLayout);
         BackGroundPanelLayout.setHorizontalGroup(
-                BackGroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(BackGroundPanelLayout.createSequentialGroup()
-                                .addGroup(BackGroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(BackGroundPanelLayout.createSequentialGroup()
-                                                .addGap(280, 280, 280)
-                                                .addGroup(BackGroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addGroup(BackGroundPanelLayout.createSequentialGroup()
-                                                .addGap(25, 25, 25)
-                                                .addGroup(BackGroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGap(280, 280, 280))
+        	BackGroundPanelLayout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(BackGroundPanelLayout.createSequentialGroup()
+        			.addGroup(BackGroundPanelLayout.createParallelGroup(Alignment.LEADING)
+        				.addGroup(BackGroundPanelLayout.createSequentialGroup()
+        					.addGap(270)
+        					.addGroup(BackGroundPanelLayout.createParallelGroup(Alignment.LEADING)
+        						.addComponent(NewGame, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        						.addComponent(LoadGame, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        						.addComponent(Credits, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+        				.addGroup(BackGroundPanelLayout.createSequentialGroup()
+        					.addGap(25)
+        					.addGroup(BackGroundPanelLayout.createParallelGroup(Alignment.TRAILING)
+        						.addComponent(Help, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        						.addComponent(Sound, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
+        			.addGap(280))
         );
         BackGroundPanelLayout.setVerticalGroup(
-                BackGroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BackGroundPanelLayout.createSequentialGroup()
-                                .addGap(25, 25, 25)
-                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(12, 12, 12)
-                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(32, 32, 32)
-                                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(32, 32, 32)
-                                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(90, 90, 90))
+        	BackGroundPanelLayout.createParallelGroup(Alignment.TRAILING)
+        		.addGroup(BackGroundPanelLayout.createSequentialGroup()
+        			.addGap(25)
+        			.addComponent(Sound, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+        			.addGap(12)
+        			.addComponent(Help, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+        			.addPreferredGap(ComponentPlacement.RELATED, 149, Short.MAX_VALUE)
+        			.addComponent(NewGame, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
+        			.addGap(32)
+        			.addComponent(LoadGame, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
+        			.addGap(32)
+        			.addComponent(Credits, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
+        			.addGap(90))
         );
+        BackGroundPanel.setLayout(BackGroundPanelLayout);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -189,10 +196,9 @@ public class MenuGUI extends javax.swing.JFrame{
 
     // Variables declaration - do not modify
     private javax.swing.JPanel BackGroundPanel;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    // End of variables declaration
+    private javax.swing.JButton NewGame;
+    private javax.swing.JButton Sound;
+    private javax.swing.JButton Help;
+    private javax.swing.JButton LoadGame;
+    private javax.swing.JButton Credits;
 }
