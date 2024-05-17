@@ -5,8 +5,15 @@ import javax.swing.GroupLayout;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SwingConstants;
 import java.awt.Component;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import javax.swing.ImageIcon;
+
 
 public class MenuGUI extends javax.swing.JFrame{
+
+
     /**
      * Creates new form MenuGUI
      */
@@ -23,10 +30,19 @@ public class MenuGUI extends javax.swing.JFrame{
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
 
-        BackGroundPanel = new javax.swing.JPanel();
+        BackGroundPanel = new javax.swing.JPanel()
+        {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                ImageIcon img = new ImageIcon("docs/img/placeholder_immagine sfondo.jpeg");
+                Image image = img.getImage();
+                g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
+            }
+        };
         NewGame = new javax.swing.JButton();
         NewGame.setAlignmentX(Component.CENTER_ALIGNMENT);
-        Sound = new javax.swing.JButton();
+        Sound = new javax.swing.JButton( );
         Help = new javax.swing.JButton();
         Help.setText("?");
         LoadGame = new javax.swing.JButton();
@@ -37,7 +53,6 @@ public class MenuGUI extends javax.swing.JFrame{
         setResizable(false);
         setSize(new java.awt.Dimension(800, 600));
 
-        BackGroundPanel.setBackground(new java.awt.Color(242, 242, 0));
         BackGroundPanel.setMinimumSize(new java.awt.Dimension(800, 600));
         BackGroundPanel.setPreferredSize(new java.awt.Dimension(800, 600));
         BackGroundPanel.setRequestFocusEnabled(false);
@@ -51,7 +66,7 @@ public class MenuGUI extends javax.swing.JFrame{
                 jButton2ActionPerformed(evt);
             }
         });
-
+        Sound.setText("\uD83D\uDD0A");
         Sound.setMaximumSize(new java.awt.Dimension(40, 40));
         Sound.setMinimumSize(new java.awt.Dimension(40, 40));
         Sound.setPreferredSize(new java.awt.Dimension(40, 40));
@@ -140,12 +155,8 @@ public class MenuGUI extends javax.swing.JFrame{
     }// </editor-fold>
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
     }
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-    }
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
