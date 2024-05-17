@@ -1,5 +1,4 @@
 package org.it.uniba.minima;
-import java.lang.Runnable;
 import java.io.File;
 import javax.sound.sampled.*;
 
@@ -27,7 +26,7 @@ public class myRunnable extends Thread {
             clip.start();
             clip.loop(Clip.LOOP_CONTINUOUSLY);
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
     }
     public static void startClip() {
