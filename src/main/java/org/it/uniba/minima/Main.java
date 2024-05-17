@@ -1,9 +1,5 @@
 package org.it.uniba.minima;
-
-
 import org.it.uniba.minima.GUI.GUIManager;
-import org.it.uniba.minima.GUI.MenuGUI;
-import org.it.uniba.minima.GUI.RiconoscimentiGUI;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
