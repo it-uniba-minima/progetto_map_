@@ -156,6 +156,8 @@ public class MenuGUI extends javax.swing.JPanel{
     }
 
     private void helpActionPerformed(java.awt.event.ActionEvent evt) {
+        HelpGUI helpGUI = HelpGUI.getInstance();
+        helpGUI.setVisible(true);
         // TODO add your handling code here:
     }
 
