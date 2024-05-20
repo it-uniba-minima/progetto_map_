@@ -56,6 +56,7 @@ public class MenuGUI extends javax.swing.JPanel{
             }
         });
         sound.setText("\uD83D\uDD0A");
+        sound.setMargin(new java.awt.Insets(0, 0, 0, 0));
         sound.setMaximumSize(new java.awt.Dimension(40, 40));
         sound.setMinimumSize(new java.awt.Dimension(40, 40));
         sound.setPreferredSize(new java.awt.Dimension(40, 40));
@@ -149,8 +150,10 @@ public class MenuGUI extends javax.swing.JPanel{
 
     private void soundActionPerformed(java.awt.event.ActionEvent evt) {
         if (Mixer.isRunning()) {
+            sound.setText("\uD83D\uDD08");
             Mixer.stopClip();
         } else {
+            sound.setText("\uD83D\uDD0A");
             Mixer.startClip();
         }
     }
