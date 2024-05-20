@@ -6,6 +6,7 @@ package org.it.uniba.minima.GUI;
 
 import org.it.uniba.minima.Mixer;
 
+import javax.swing.*;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
@@ -53,8 +54,8 @@ public class GameGUI extends javax.swing.JPanel {
 
         goBackButton.setText("Go Back");
         goBackButton.setFocusable(false);
-        goBackButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        goBackButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        goBackButton.setHorizontalTextPosition(SwingConstants.CENTER);
+        goBackButton.setVerticalTextPosition(SwingConstants.CENTER);
         goBackButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 goBackButtonActionPerformed(evt);
@@ -65,8 +66,8 @@ public class GameGUI extends javax.swing.JPanel {
         saveGameButton.setText("Salva partita");
         saveGameButton.setToolTipText("");
         saveGameButton.setFocusable(false);
-        saveGameButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        saveGameButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        saveGameButton.setHorizontalTextPosition(SwingConstants.CENTER);
+        saveGameButton.setVerticalTextPosition(SwingConstants.CENTER);
         saveGameButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 saveGameButtonActionPerformed(evt);
@@ -76,8 +77,8 @@ public class GameGUI extends javax.swing.JPanel {
 
         helpButton.setText("Help");
         helpButton.setFocusable(false);
-        helpButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        helpButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        helpButton.setHorizontalTextPosition(SwingConstants.CENTER);
+        helpButton.setVerticalTextPosition(SwingConstants.CENTER);
         helpButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 helpButtonActionPerformed(evt);
@@ -87,16 +88,14 @@ public class GameGUI extends javax.swing.JPanel {
 
         musicButton.setText("Musica");
         musicButton.setFocusable(false);
-        musicButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        musicButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        musicButton.setHorizontalTextPosition(SwingConstants.CENTER);
+        musicButton.setVerticalTextPosition(SwingConstants.CENTER);
         musicButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 musicButtonActionPerformed(evt);
             }
         });
         toolBar.add(musicButton);
-
-        userInputField.setText("userInputField");
 
         inventoryTextArea.setEditable(false);
         inventoryTextArea.setColumns(20);
@@ -106,6 +105,8 @@ public class GameGUI extends javax.swing.JPanel {
         inventoryTextArea.setFocusable(false);
         jScrollPane2.setViewportView(inventoryTextArea);
 
+        imagePanel.setPreferredSize(new Dimension(460, 400));
+        imagePanel.setMaximumSize(new Dimension(460, 400));
         imagePanel.setBackground(new java.awt.Color(100, 100, 100));
 
         javax.swing.GroupLayout imagePanelLayout = new javax.swing.GroupLayout(imagePanel);
@@ -119,50 +120,42 @@ public class GameGUI extends javax.swing.JPanel {
                         .addGap(0, 463, Short.MAX_VALUE)
         );
 
-        displayTextPane.setText("ciao");
+        displayTextPane.setEditable(false);
+        displayTextPane.setFocusable(false);
+        displayTextPane.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eu rutrum velit. Mauris ac sagittis nunc. Sed id lacinia elit. Vivamus vel tellus congue, scelerisque lectus id, bibendum lacus. Vivamus eget eros arcu. Aenean turpis orci, malesuada in interdum ut, euismod ut elit. Proin tincidunt dui id velit interdum tincidunt. Sed dui elit, sagittis at nulla id, venenatis consequat nibh. Donec dolor risus, mollis in augue sit amet, lacinia blandit risus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Cras rhoncus sollicitudin eros, sit amet blandit augue lacinia scelerisque. Curabitur placerat lorem efficitur mauris volutpat pulvinar.\n" +
+                "\n" +
+                "In varius, sapien vitae vestibulum molestie, leo urna auctor diam, a tincidunt purus lectus vitae dolor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sed leo non metus auctor bibendum vestibulum quis purus. Curabitur nec vehicula dolor, non pretium leo. Nam quis nisl condimentum sapien malesuada gravida. Phasellus finibus eget justo id egestas. Nam quis libero vel ligula sodales rutrum. In hac habitasse platea dictumst. Phasellus at libero risus. Nam in finibus neque. Pellentesque pretium, orci et sollicitudin scelerisque, nulla dui molestie enim, nec bibendum leo risus eu arcu.");
         jScrollPane1.setViewportView(displayTextPane);
-        displayTextPane.getAccessibleContext().setAccessibleName("");
-
-        StyledDocument doc=(StyledDocument)displayTextPane.getDocument();
-        try {
-            doc.insertString(1, "ngirowegwrhhgw", null);
-        } catch (BadLocationException e) {
-            throw new RuntimeException(e);
-        }
-        SimpleAttributeSet attrs = new SimpleAttributeSet();
-        StyleConstants.setLeftIndent(attrs, 50);
-        doc.setParagraphAttributes(0,doc.getLength(),attrs, false);
+        jScrollPane1.setPreferredSize(new Dimension(340, 550));
+        jScrollPane1.setMaximumSize(new Dimension(340, 550));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(toolBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(toolBar, 800, 800, 800)
                         .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addGroup(layout.createSequentialGroup()
                                                 .addContainerGap()
-                                                .addComponent(userInputField, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addComponent(userInputField, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addComponent(jScrollPane1))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 411, Short.MAX_VALUE)
+                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
                                         .addComponent(imagePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addContainerGap())
         );
         layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
-                                .addComponent(toolBar, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(toolBar, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(layout.createSequentialGroup()
                                                 .addComponent(imagePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGroup(layout.createSequentialGroup()
                                                 .addComponent(jScrollPane1)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(userInputField, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addContainerGap())
         );
