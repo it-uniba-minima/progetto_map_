@@ -1,5 +1,5 @@
 package org.it.uniba.minima.GUI;
-import org.it.uniba.minima.myRunnable;
+import org.it.uniba.minima.Mixer;
 
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.GroupLayout;
@@ -149,10 +149,10 @@ public class MenuGUI extends javax.swing.JPanel{
     }
 
     private void soundActionPerformed(java.awt.event.ActionEvent evt) {
-        if (myRunnable.isRunning()) {
-            myRunnable.stopClip();
+        if (Mixer.isRunning()) {
+            Mixer.stopClip();
         } else {
-            myRunnable.startClip();
+            Mixer.startClip();
         }
     }
 

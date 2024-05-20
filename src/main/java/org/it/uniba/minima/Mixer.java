@@ -2,14 +2,14 @@ package org.it.uniba.minima;
 import java.io.File;
 import javax.sound.sampled.*;
 
-public class myRunnable extends Thread {
+public class Mixer extends Thread {
     private static Clip clip;
     private static boolean running = false;
-    private static myRunnable instance;
+    private static Mixer instance;
 
-    public static myRunnable getInstance()  {
+    public static Mixer getInstance()  {
         if (instance == null) {
-            instance = new myRunnable();
+            instance = new Mixer();
         }
         return instance;
     }
@@ -19,7 +19,7 @@ public class myRunnable extends Thread {
         // TODO: Change the placeholder audio file with the actual audio file
         running = true;
         try {
-            File file = new File("docs/audio/Marco.wav");
+            File file = new File("docs/audio/Avventura-nella-piramide-egizia.wav");
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
             clip = AudioSystem.getClip();
             clip.open(audioStream);

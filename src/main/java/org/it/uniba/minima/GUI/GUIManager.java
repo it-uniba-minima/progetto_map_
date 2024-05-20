@@ -1,7 +1,7 @@
 package org.it.uniba.minima.GUI;
 import javax.swing.*;
 import java.awt.*;
-import org.it.uniba.minima.myRunnable;
+import org.it.uniba.minima.Mixer;
 
 public class GUIManager extends JFrame {
     public GUIManager() {
@@ -25,7 +25,7 @@ public class GUIManager extends JFrame {
         this.pack();
         this.setVisible(true);
 
-        myRunnable music = myRunnable.getInstance();
+        Mixer music = Mixer.getInstance();
         music.start();
     }
 }

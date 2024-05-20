@@ -6,7 +6,7 @@ package org.it.uniba.minima.GUI;
 
 /**
  *
- * @author marco
+ * @author Avventura-nella-piramide-egizia
  */
 public class HelpGUI extends javax.swing.JFrame {
     private static HelpGUI instance;
