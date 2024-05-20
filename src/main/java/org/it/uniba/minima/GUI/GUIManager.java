@@ -9,14 +9,17 @@ public class GUIManager extends JFrame {
         // to see how IntelliJ IDEA suggests fixing it.
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(800, 600));
+        setResizable(false);
 
         JPanel cards = new JPanel(new CardLayout());
 
         MenuGUI menu = new MenuGUI();
         RiconoscimentiGUI credits = new RiconoscimentiGUI();
+        GameGUI game = new GameGUI();
 
         cards.add(menu, "MenuGUI");
         cards.add(credits, "RiconoscimentiGUI");
+        cards.add(game, "GameGUI");
 
         this.add(cards);
         this.pack();

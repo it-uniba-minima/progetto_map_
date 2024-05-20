@@ -144,7 +144,8 @@ public class MenuGUI extends javax.swing.JPanel{
     }// </editor-fold>
 
     private void newGameActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+        CardLayout cl = (CardLayout) getParent().getLayout();
+        cl.show(getParent(), "GameGUI");
     }
 
     private void soundActionPerformed(java.awt.event.ActionEvent evt) {
