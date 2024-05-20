@@ -4,10 +4,13 @@
  */
 package org.it.uniba.minima.GUI;
 
+import org.it.uniba.minima.Mixer;
+
 import javax.swing.text.BadLocationException;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
+import java.awt.*;
 
 /**
  *
@@ -35,6 +38,7 @@ public class GameGUI extends javax.swing.JPanel {
         goBackButton = new javax.swing.JButton();
         saveGameButton = new javax.swing.JButton();
         helpButton = new javax.swing.JButton();
+        musicButton = new javax.swing.JButton();
         userInputField = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         inventoryTextArea = new javax.swing.JTextArea();
@@ -47,10 +51,15 @@ public class GameGUI extends javax.swing.JPanel {
         toolBar.setBorderPainted(false);
         toolBar.setFloatable(false);
 
-        goBackButton.setText("Help");
+        goBackButton.setText("Go Back");
         goBackButton.setFocusable(false);
         goBackButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         goBackButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        goBackButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                goBackButtonActionPerformed(evt);
+            }
+        });
         toolBar.add(goBackButton);
 
         saveGameButton.setText("Salva partita");
@@ -65,11 +74,27 @@ public class GameGUI extends javax.swing.JPanel {
         });
         toolBar.add(saveGameButton);
 
-        helpButton.setText("Torna al menù");
+        helpButton.setText("Help");
         helpButton.setFocusable(false);
         helpButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         helpButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        helpButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                helpButtonActionPerformed(evt);
+            }
+        });
         toolBar.add(helpButton);
+
+        musicButton.setText("Musica");
+        musicButton.setFocusable(false);
+        musicButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        musicButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        musicButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                musicButtonActionPerformed(evt);
+            }
+        });
+        toolBar.add(musicButton);
 
         userInputField.setText("userInputField");
 
@@ -107,7 +132,6 @@ public class GameGUI extends javax.swing.JPanel {
         SimpleAttributeSet attrs = new SimpleAttributeSet();
         StyleConstants.setLeftIndent(attrs, 50);
         doc.setParagraphAttributes(0,doc.getLength(),attrs, false);
-        System.out.println(doc.getLength());
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -145,7 +169,25 @@ public class GameGUI extends javax.swing.JPanel {
     }// </editor-fold>
 
     private void saveGameButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+
+    }
+
+    private void goBackButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        CardLayout cl = (CardLayout) getParent().getLayout();
+        cl.show(getParent(), "MenuGUI");
+    }
+
+    private void helpButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        HelpGUI helpGUI = HelpGUI.getInstance();
+        helpGUI.setVisible(true);
+    }
+
+    private void musicButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        if(Mixer.isRunning()) {
+            Mixer.stopClip();
+        } else {
+            Mixer.startClip();
+        }
     }
 
 
@@ -153,6 +195,7 @@ public class GameGUI extends javax.swing.JPanel {
     private javax.swing.JButton goBackButton;
     private javax.swing.JButton saveGameButton;
     private javax.swing.JButton helpButton;
+    private javax.swing.JButton musicButton;
     private javax.swing.JPanel imagePanel;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

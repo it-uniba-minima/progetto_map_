@@ -4,9 +4,7 @@ import org.it.uniba.minima.Mixer;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.GroupLayout;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import java.awt.Component;
-import java.awt.Graphics;
-import java.awt.Image;
+
 import java.awt.*;
 import javax.swing.ImageIcon;
 
@@ -67,6 +65,7 @@ public class MenuGUI extends javax.swing.JPanel{
             }
         });
 
+        help.setMargin(new java.awt.Insets(0, 0, 0, 0));
         help.setMaximumSize(new java.awt.Dimension(40, 40));
         help.setMinimumSize(new java.awt.Dimension(40, 40));
         help.setPreferredSize(new java.awt.Dimension(40, 40));
