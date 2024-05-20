@@ -4,17 +4,20 @@
  */
 package org.it.uniba.minima.GUI;
 
+import javax.swing.JFrame;
 /**
  *
- * @author marco
+ * @author Avventura-nella-piramide-egizia
  */
-public class HelpGUI extends javax.swing.JFrame {
+public class HelpGUI extends JFrame {
     private static HelpGUI instance;
     /**
      * Creates new form HelpGUI
      */
     private HelpGUI() {
         initComponents();
+
+        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
     }
 
     public static HelpGUI getInstance() {
