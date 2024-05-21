@@ -14,9 +14,12 @@ public class GUIManager extends JFrame {
 
         MenuGUI menu = new MenuGUI();
         RiconoscimentiGUI credits = new RiconoscimentiGUI();
+        ProgressBarGUI progressBar = new ProgressBarGUI();
+
 
         cards.add(menu, "MenuGUI");
         cards.add(credits, "RiconoscimentiGUI");
+        cards.add(progressBar, "ProgressBarGUI");
 
         this.add(cards);
         this.pack();
