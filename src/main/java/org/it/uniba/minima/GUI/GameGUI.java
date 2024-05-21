@@ -52,7 +52,7 @@ public class GameGUI extends javax.swing.JPanel {
         toolBar.setBorderPainted(false);
         toolBar.setFloatable(false);
 
-        goBackButton.setText("Go Back");
+        goBackButton.setText("Indietro");
         goBackButton.setFocusable(false);
         goBackButton.setHorizontalTextPosition(SwingConstants.CENTER);
         goBackButton.setVerticalTextPosition(SwingConstants.CENTER);
@@ -63,7 +63,7 @@ public class GameGUI extends javax.swing.JPanel {
         });
         toolBar.add(goBackButton);
 
-        saveGameButton.setText("Salva partita");
+        saveGameButton.setText("Salva");
         saveGameButton.setToolTipText("");
         saveGameButton.setFocusable(false);
         saveGameButton.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -75,7 +75,7 @@ public class GameGUI extends javax.swing.JPanel {
         });
         toolBar.add(saveGameButton);
 
-        helpButton.setText("Help");
+        helpButton.setText("?");
         helpButton.setFocusable(false);
         helpButton.setHorizontalTextPosition(SwingConstants.CENTER);
         helpButton.setVerticalTextPosition(SwingConstants.CENTER);
@@ -86,7 +86,7 @@ public class GameGUI extends javax.swing.JPanel {
         });
         toolBar.add(helpButton);
 
-        musicButton.setText("Musica");
+        musicButton.setText("🔊");
         musicButton.setFocusable(false);
         musicButton.setHorizontalTextPosition(SwingConstants.CENTER);
         musicButton.setVerticalTextPosition(SwingConstants.CENTER);
@@ -177,8 +177,10 @@ public class GameGUI extends javax.swing.JPanel {
 
     private void musicButtonActionPerformed(java.awt.event.ActionEvent evt) {
         if(Mixer.isRunning()) {
+            musicButton.setText("🔇");
             Mixer.stopClip();
         } else {
+            musicButton.setText("🔊");
             Mixer.startClip();
         }
     }
