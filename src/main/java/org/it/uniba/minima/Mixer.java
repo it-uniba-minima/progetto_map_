@@ -1,6 +1,8 @@
 package org.it.uniba.minima;
 import java.io.File;
 import javax.sound.sampled.*;
+import static org.it.uniba.minima.GUI.GameGUI.musicButtonSetTextGame;
+import static org.it.uniba.minima.GUI.MenuGUI.musicButtonSetTextMenu;
 
 public class Mixer extends Thread {
     private static Clip clip;
@@ -31,15 +33,27 @@ public class Mixer extends Thread {
     }
     public static void startClip() {
         running = true;
+        reverseIcones();
         clip.start();
     }
 
     public static void stopClip() {
         running = false;
+        reverseIcones();
         clip.stop();
     }
 
     public static boolean isRunning() {
         return running;
+    }
+
+    public static void reverseIcones() {
+        if (!running) {
+            musicButtonSetTextGame("🔇");
+            musicButtonSetTextMenu("🔇");
+        } else {
+            musicButtonSetTextGame("🔊");
+            musicButtonSetTextMenu("🔊");
+        }
     }
 }

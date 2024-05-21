@@ -12,6 +12,8 @@ import java.beans.PropertyChangeListener;
 import javax.swing.ImageIcon;
 
 
+
+
 public class MenuGUI extends javax.swing.JPanel{
 
 
@@ -158,7 +160,7 @@ public class MenuGUI extends javax.swing.JPanel{
             public void propertyChange(PropertyChangeEvent evt) {
                 if (evt.getPropertyName().equals("isFinished") && (boolean) evt.getNewValue()) {
                     cl.show(getParent(), "GameGUI");
-                    TimerManager.getInstance().start();
+                    TimerManager.getInstance().startTimer();
                 }
             }
         });
@@ -168,10 +170,8 @@ public class MenuGUI extends javax.swing.JPanel{
 
     private void soundActionPerformed(java.awt.event.ActionEvent evt) {
         if (Mixer.isRunning()) {
-            sound.setText("🔇");
             Mixer.stopClip();
         } else {
-            sound.setText("🔊");
             Mixer.startClip();
         }
     }
@@ -191,10 +191,13 @@ public class MenuGUI extends javax.swing.JPanel{
         CardLayout cl = (CardLayout) getParent().getLayout();
         cl.show(getParent(), "RiconoscimentiGUI");    }
 
+    public static void musicButtonSetTextMenu(String text) {
+        sound.setText(text);
+    }
     // Variables declaration - do not modify
     private javax.swing.JPanel backgroundPanel;
     private javax.swing.JButton newGame;
-    private javax.swing.JButton sound;
+    private static javax.swing.JButton sound;
     private javax.swing.JButton help;
     private javax.swing.JButton loadGame;
     private javax.swing.JButton credits;
