@@ -15,10 +15,12 @@ public class GUIManager extends JFrame {
 
         MenuGUI menu = new MenuGUI();
         RiconoscimentiGUI credits = new RiconoscimentiGUI();
+        ProgressBarGUI progressBar = new ProgressBarGUI();
         GameGUI game = new GameGUI();
 
         cards.add(menu, "MenuGUI");
         cards.add(credits, "RiconoscimentiGUI");
+        cards.add(progressBar, "ProgressBarGUI");
         cards.add(game, "GameGUI");
 
         this.add(cards);
