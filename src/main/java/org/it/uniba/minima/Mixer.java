@@ -19,7 +19,7 @@ public class Mixer extends Thread {
         // TODO: Change the placeholder audio file with the actual audio file
         running = true;
         try {
-            File file = new File("docs/audio/Avventura-nella-piramide-egizia.wav");
+            File file = new File("docs/audio/Desert_Menu-newSMB_DS.wav");
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
             clip = AudioSystem.getClip();
             clip.open(audioStream);
