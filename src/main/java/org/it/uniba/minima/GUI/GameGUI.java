@@ -5,13 +5,9 @@
 package org.it.uniba.minima.GUI;
 
 import org.it.uniba.minima.Mixer;
-import org.it.uniba.minima.Timer;
+import org.it.uniba.minima.myTimer;
 
 import javax.swing.*;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.SimpleAttributeSet;
-import javax.swing.text.StyleConstants;
-import javax.swing.text.StyledDocument;
 import java.awt.*;
 
 /**
@@ -177,10 +173,10 @@ public class GameGUI extends javax.swing.JPanel {
     }
 
     private void goBackButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        Timer timer = Timer.getInstance();
-        timer.stopTimer();
+        myTimer myTimer = myTimer.getInstance();
+        myTimer.stopTimer();
         //Get timer -> insert in File
-        timer.killTimer();
+        myTimer.killTimer();
         CardLayout cl = (CardLayout) getParent().getLayout();
         cl.show(getParent(), "MenuGUI");
     }

@@ -2,16 +2,16 @@ package org.it.uniba.minima;
 
 import static org.it.uniba.minima.GUI.GameGUI.timerLabelsetTime;
 
-public class Timer extends Thread{
-    public static Timer instance;
+public class myTimer extends Thread{
+    public static myTimer instance;
     public static boolean running = false;
     int seconds = 0;
     int minutes = 0;
     int hours = 0;
 
-    public static Timer getInstance() {
+    public static myTimer getInstance() {
         if (instance == null) {
-            instance = new Timer();
+            instance = new myTimer();
         }
         return instance;
     }
