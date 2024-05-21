@@ -6,6 +6,8 @@ import javax.swing.GroupLayout;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import java.awt.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import javax.swing.ImageIcon;
 
 
@@ -145,8 +147,21 @@ public class MenuGUI extends javax.swing.JPanel{
     }// </editor-fold>
 
     private void newGameActionPerformed(java.awt.event.ActionEvent evt) {
+        ProgressBarGUI progressBarGUI = new ProgressBarGUI();
+        progressBarGUI = (ProgressBarGUI) this.getParent().getComponent(2);
         CardLayout cl = (CardLayout) getParent().getLayout();
-        cl.show(getParent(), "GameGUI");
+        cl.show(getParent(), "ProgressBarGUI");
+
+        progressBarGUI.addPropertyChangeListener(new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                if (evt.getPropertyName().equals("isFinished") && (boolean) evt.getNewValue()) {
+                    cl.show(getParent(), "GameGUI");
+                }
+            }
+        });
+
+        progressBarGUI.startProgressBar();
     }
 
     private void soundActionPerformed(java.awt.event.ActionEvent evt) {
