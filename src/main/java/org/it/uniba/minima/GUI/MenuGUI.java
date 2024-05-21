@@ -1,5 +1,6 @@
 package org.it.uniba.minima.GUI;
 import org.it.uniba.minima.Mixer;
+import org.it.uniba.minima.Timer;
 
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.GroupLayout;
@@ -147,6 +148,8 @@ public class MenuGUI extends javax.swing.JPanel{
     private void newGameActionPerformed(java.awt.event.ActionEvent evt) {
         CardLayout cl = (CardLayout) getParent().getLayout();
         cl.show(getParent(), "GameGUI");
+        Timer timer = Timer.getInstance();
+        timer.start();
     }
 
     private void soundActionPerformed(java.awt.event.ActionEvent evt) {
@@ -167,6 +170,7 @@ public class MenuGUI extends javax.swing.JPanel{
 
     private void loadGameActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
+        // get timer from file -> Timer.start();
     }
 
     private void creditsActionPerformed(java.awt.event.ActionEvent evt) {
