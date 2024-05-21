@@ -3,7 +3,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import static org.it.uniba.minima.GUI.GameGUI.timerLabelSetTime;
 
-public class TimerManager extends Thread {
+public class TimerManager {
     public static TimerManager instance;
     public static boolean running = false;
     int seconds = 0;
@@ -11,15 +11,14 @@ public class TimerManager extends Thread {
     int hours = 0;
     Timer timer;
 
-    public static TimerManager getInstance() {
+    public static synchronized TimerManager getInstance() {
         if (instance == null && !running) {
             instance = new TimerManager();
         }
         return instance;
     }
 
-    @Override
-    public void run() {
+    public void startTimer() {
         running = true;
         timerLabelSetTime("00:00:00");
         timer = new Timer();
@@ -52,16 +51,11 @@ public class TimerManager extends Thread {
     }
 
     public void killTimer() {
-        if (instance != null) {
-            instance.interrupt();
-            try {
-                instance.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        if (timer != null) {
+            timer.cancel();
         }
         timerLabelSetTime("00:00:00");
-        stopTimer();
+        running = false;
         instance = null;
     }
 }
