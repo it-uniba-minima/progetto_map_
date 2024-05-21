@@ -5,7 +5,7 @@
 package org.it.uniba.minima.GUI;
 
 import org.it.uniba.minima.Mixer;
-import org.it.uniba.minima.myTimer;
+import org.it.uniba.minima.TimerManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -173,10 +173,9 @@ public class GameGUI extends javax.swing.JPanel {
     }
 
     private void goBackButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        myTimer myTimer = myTimer.getInstance();
-        myTimer.stopTimer();
+        TimerManager.getInstance().stopTimer();
         //Get timer -> insert in File
-        myTimer.killTimer();
+        TimerManager.getInstance().killTimer();
         CardLayout cl = (CardLayout) getParent().getLayout();
         cl.show(getParent(), "MenuGUI");
     }
@@ -196,7 +195,7 @@ public class GameGUI extends javax.swing.JPanel {
         }
     }
 
-    public static void timerLabelsetTime(String time) {
+    public static void timerLabelSetTime(String time) {
         timerLabel.setText(time);
     }
 
