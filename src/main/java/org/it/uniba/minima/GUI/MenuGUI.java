@@ -1,12 +1,10 @@
 package org.it.uniba.minima.GUI;
-import org.it.uniba.minima.myRunnable;
+import org.it.uniba.minima.Mixer;
 
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.GroupLayout;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import java.awt.Component;
-import java.awt.Graphics;
-import java.awt.Image;
+
 import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -59,7 +57,9 @@ public class MenuGUI extends javax.swing.JPanel{
                 newGameActionPerformed(evt);
             }
         });
-        sound.setText("\uD83D\uDD0A");
+
+        sound.setText("🔊");
+        sound.setMargin(new java.awt.Insets(0, 0, 0, 0));
         sound.setMaximumSize(new java.awt.Dimension(40, 40));
         sound.setMinimumSize(new java.awt.Dimension(40, 40));
         sound.setPreferredSize(new java.awt.Dimension(40, 40));
@@ -69,6 +69,7 @@ public class MenuGUI extends javax.swing.JPanel{
             }
         });
 
+        help.setMargin(new java.awt.Insets(0, 0, 0, 0));
         help.setMaximumSize(new java.awt.Dimension(40, 40));
         help.setMinimumSize(new java.awt.Dimension(40, 40));
         help.setPreferredSize(new java.awt.Dimension(40, 40));
@@ -155,7 +156,7 @@ public class MenuGUI extends javax.swing.JPanel{
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 if (evt.getPropertyName().equals("isFinished") && (boolean) evt.getNewValue()) {
-                    cl.show(getParent(), "RiconoscimentiGUI");
+                    cl.show(getParent(), "GameGUI");
                 }
             }
         });
@@ -164,14 +165,18 @@ public class MenuGUI extends javax.swing.JPanel{
     }
 
     private void soundActionPerformed(java.awt.event.ActionEvent evt) {
-        if (myRunnable.isRunning()) {
-            myRunnable.stopClip();
+        if (Mixer.isRunning()) {
+            sound.setText("🔇");
+            Mixer.stopClip();
         } else {
-            myRunnable.startClip();
+            sound.setText("🔊");
+            Mixer.startClip();
         }
     }
 
     private void helpActionPerformed(java.awt.event.ActionEvent evt) {
+        HelpGUI helpGUI = HelpGUI.getInstance();
+        helpGUI.setVisible(true);
         // TODO add your handling code here:
     }
 

@@ -1,7 +1,7 @@
 package org.it.uniba.minima.GUI;
 import javax.swing.*;
 import java.awt.*;
-import org.it.uniba.minima.myRunnable;
+import org.it.uniba.minima.Mixer;
 
 public class GUIManager extends JFrame {
     public GUIManager() {
@@ -9,23 +9,25 @@ public class GUIManager extends JFrame {
         // to see how IntelliJ IDEA suggests fixing it.
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(800, 600));
+        setResizable(false);
 
         JPanel cards = new JPanel(new CardLayout());
 
         MenuGUI menu = new MenuGUI();
         RiconoscimentiGUI credits = new RiconoscimentiGUI();
         ProgressBarGUI progressBar = new ProgressBarGUI();
-
+        GameGUI game = new GameGUI();
 
         cards.add(menu, "MenuGUI");
         cards.add(credits, "RiconoscimentiGUI");
         cards.add(progressBar, "ProgressBarGUI");
+        cards.add(game, "GameGUI");
 
         this.add(cards);
         this.pack();
         this.setVisible(true);
 
-        myRunnable music = myRunnable.getInstance();
+        Mixer music = Mixer.getInstance();
         music.start();
     }
 }
