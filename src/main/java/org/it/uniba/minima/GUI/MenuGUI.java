@@ -1,5 +1,6 @@
 package org.it.uniba.minima.GUI;
 import org.it.uniba.minima.Mixer;
+import org.it.uniba.minima.TimerManager;
 
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.GroupLayout;
@@ -157,6 +158,7 @@ public class MenuGUI extends javax.swing.JPanel{
             public void propertyChange(PropertyChangeEvent evt) {
                 if (evt.getPropertyName().equals("isFinished") && (boolean) evt.getNewValue()) {
                     cl.show(getParent(), "GameGUI");
+                    TimerManager.getInstance().start();
                 }
             }
         });
@@ -182,6 +184,7 @@ public class MenuGUI extends javax.swing.JPanel{
 
     private void loadGameActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
+        // get timer from file -> Timer.start();
     }
 
     private void creditsActionPerformed(java.awt.event.ActionEvent evt) {

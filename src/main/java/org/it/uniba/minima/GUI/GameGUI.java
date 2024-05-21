@@ -5,12 +5,9 @@
 package org.it.uniba.minima.GUI;
 
 import org.it.uniba.minima.Mixer;
+import org.it.uniba.minima.TimerManager;
 
 import javax.swing.*;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.SimpleAttributeSet;
-import javax.swing.text.StyleConstants;
-import javax.swing.text.StyledDocument;
 import java.awt.*;
 
 /**
@@ -40,6 +37,7 @@ public class GameGUI extends javax.swing.JPanel {
         saveGameButton = new javax.swing.JButton();
         helpButton = new javax.swing.JButton();
         musicButton = new javax.swing.JButton();
+        timerLabel = new javax.swing.JLabel();
         userInputField = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         inventoryTextArea = new javax.swing.JTextArea();
@@ -51,6 +49,8 @@ public class GameGUI extends javax.swing.JPanel {
 
         toolBar.setBorderPainted(false);
         toolBar.setFloatable(false);
+
+        toolBar.add(Box.createHorizontalStrut(5));
 
         goBackButton.setText("Indietro");
         goBackButton.setFocusable(false);
@@ -96,6 +96,13 @@ public class GameGUI extends javax.swing.JPanel {
             }
         });
         toolBar.add(musicButton);
+
+        toolBar.add(Box.createHorizontalStrut(580));
+
+        timerLabel.setFocusable(false);
+        timerLabel.setHorizontalTextPosition(SwingConstants.CENTER);
+        timerLabel.setVerticalTextPosition(SwingConstants.CENTER);
+        toolBar.add(timerLabel);
 
         inventoryTextArea.setEditable(false);
         inventoryTextArea.setColumns(20);
@@ -166,6 +173,9 @@ public class GameGUI extends javax.swing.JPanel {
     }
 
     private void goBackButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        TimerManager.getInstance().stopTimer();
+        //Get timer -> insert in File
+        TimerManager.getInstance().killTimer();
         CardLayout cl = (CardLayout) getParent().getLayout();
         cl.show(getParent(), "MenuGUI");
     }
@@ -185,6 +195,9 @@ public class GameGUI extends javax.swing.JPanel {
         }
     }
 
+    public static void timerLabelSetTime(String time) {
+        timerLabel.setText(time);
+    }
 
     // Variables declaration - do not modify
     private javax.swing.JButton goBackButton;
@@ -198,5 +211,6 @@ public class GameGUI extends javax.swing.JPanel {
     private javax.swing.JTextField userInputField;
     private javax.swing.JTextPane displayTextPane;
     private javax.swing.JToolBar toolBar;
+    private static javax.swing.JLabel timerLabel;
     // End of variables declaration
 }
