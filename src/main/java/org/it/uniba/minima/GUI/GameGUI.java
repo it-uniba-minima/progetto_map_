@@ -112,8 +112,12 @@ public class GameGUI extends javax.swing.JPanel {
         inventoryTextArea.setFocusable(false);
         jScrollPane2.setViewportView(inventoryTextArea);
 
-        imagePanel.setPreferredSize(new Dimension(460, 400));
-        imagePanel.setMaximumSize(new Dimension(460, 400));
+        jScrollPane2.setPreferredSize(new Dimension(440, 100));
+        jScrollPane2.setMaximumSize(new Dimension(440, 100));
+        jScrollPane2.setMinimumSize(new Dimension(440, 100));
+
+        imagePanel.setPreferredSize(new Dimension(440, 400));
+        imagePanel.setMaximumSize(new Dimension(440, 400));
         imagePanel.setBackground(new java.awt.Color(100, 100, 100));
 
         javax.swing.GroupLayout imagePanelLayout = new javax.swing.GroupLayout(imagePanel);
@@ -124,7 +128,7 @@ public class GameGUI extends javax.swing.JPanel {
         );
         imagePanelLayout.setVerticalGroup(
                 imagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 463, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
         );
 
         displayTextPane.setEditable(false);
@@ -133,8 +137,8 @@ public class GameGUI extends javax.swing.JPanel {
                 "\n" +
                 "In varius, sapien vitae vestibulum molestie, leo urna auctor diam, a tincidunt purus lectus vitae dolor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sed leo non metus auctor bibendum vestibulum quis purus. Curabitur nec vehicula dolor, non pretium leo. Nam quis nisl condimentum sapien malesuada gravida. Phasellus finibus eget justo id egestas. Nam quis libero vel ligula sodales rutrum. In hac habitasse platea dictumst. Phasellus at libero risus. Nam in finibus neque. Pellentesque pretium, orci et sollicitudin scelerisque, nulla dui molestie enim, nec bibendum leo risus eu arcu.");
         jScrollPane1.setViewportView(displayTextPane);
-        jScrollPane1.setPreferredSize(new Dimension(340, 550));
-        jScrollPane1.setMaximumSize(new Dimension(340, 550));
+        jScrollPane1.setPreferredSize(new Dimension(335, 550));
+        jScrollPane1.setMaximumSize(new Dimension(335, 550));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -142,16 +146,15 @@ public class GameGUI extends javax.swing.JPanel {
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(toolBar, 800, 800, 800)
                         .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
+                                .addGap(5, 5, 5)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addGroup(layout.createSequentialGroup()
-                                                .addContainerGap()
-                                                .addComponent(userInputField, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addComponent(userInputField, 335, 335, 335))
                                         .addComponent(jScrollPane1))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
-                                        .addComponent(imagePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addContainerGap())
+                                        .addComponent(jScrollPane2, 440, 440, 440)
+                                        .addComponent(imagePanel, 440, 440, 440))
+                                .addGap(5, 5, 5))
         );
         layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -164,7 +167,7 @@ public class GameGUI extends javax.swing.JPanel {
                                         .addGroup(layout.createSequentialGroup()
                                                 .addComponent(jScrollPane1)
                                                 .addComponent(userInputField, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addContainerGap())
+                                .addGap(5, 5, 5))
         );
     }// </editor-fold>
 
@@ -187,10 +190,8 @@ public class GameGUI extends javax.swing.JPanel {
 
     private void musicButtonActionPerformed(java.awt.event.ActionEvent evt) {
         if(Mixer.isRunning()) {
-            musicButton.setText("🔇");
             Mixer.stopClip();
         } else {
-            musicButton.setText("🔊");
             Mixer.startClip();
         }
     }
@@ -199,11 +200,14 @@ public class GameGUI extends javax.swing.JPanel {
         timerLabel.setText(time);
     }
 
+    public static void musicButtonSetTextGame(String text) {
+        musicButton.setText(text);
+    }
     // Variables declaration - do not modify
     private javax.swing.JButton goBackButton;
     private javax.swing.JButton saveGameButton;
     private javax.swing.JButton helpButton;
-    private javax.swing.JButton musicButton;
+    private static javax.swing.JButton musicButton;
     private javax.swing.JPanel imagePanel;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
