@@ -6,7 +6,7 @@ public class userInputManager {
     private static String currentInput = "";
 
     public static synchronized String getCurrentInput() {
-        return currentInput;
+        return resetCurrentInput();
     }
 
     public static synchronized void setCurrentInput(String currentInput) {
@@ -15,6 +15,12 @@ public class userInputManager {
 
     public static synchronized boolean isCurrentInputEmpty() {
         return currentInput.isEmpty();
+    }
+
+    public static String resetCurrentInput() {
+        String temp = currentInput;
+        currentInput = "";
+        return temp;
     }
 
     public static void startInputListener(javax.swing.JTextField userInputField) {
