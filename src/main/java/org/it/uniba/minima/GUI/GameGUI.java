@@ -4,6 +4,9 @@
  */
 package org.it.uniba.minima.GUI;
 
+
+import org.it.uniba.minima.Control.Serializer;
+import org.it.uniba.minima.Entity.Game;
 import org.it.uniba.minima.Mixer;
 import org.it.uniba.minima.TimerManager;
 
@@ -16,9 +19,14 @@ import java.awt.*;
  */
 public class GameGUI extends javax.swing.JPanel {
 
+    private static Game game;
     /**
      * Creates new form GameGUI
      */
+    public static void setGame(Game newGame) {
+        game = newGame;
+    }
+
     public GameGUI() {
         initComponents();
     }
@@ -172,7 +180,12 @@ public class GameGUI extends javax.swing.JPanel {
     }// </editor-fold>
 
     private void saveGameButtonActionPerformed(java.awt.event.ActionEvent evt) {
-
+        Serializer serializer = new Serializer();
+        try {
+            serializer.serialize(game);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void goBackButtonActionPerformed(java.awt.event.ActionEvent evt) {
