@@ -1,4 +1,6 @@
 package org.it.uniba.minima.GUI;
+import org.it.uniba.minima.Control.Serializer;
+import org.it.uniba.minima.Entity.Game;
 import org.it.uniba.minima.Mixer;
 import org.it.uniba.minima.TimerManager;
 
@@ -9,6 +11,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.IOException;
 import javax.swing.ImageIcon;
 
 
@@ -88,7 +91,13 @@ public class MenuGUI extends javax.swing.JPanel{
         loadGame.setPreferredSize(new java.awt.Dimension(240, 60));
         loadGame.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                loadGameActionPerformed(evt);
+                try {
+                    loadGameActionPerformed(evt);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                } catch (ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
 
@@ -154,7 +163,10 @@ public class MenuGUI extends javax.swing.JPanel{
         progressBarGUI = (ProgressBarGUI) this.getParent().getComponent(2);
         CardLayout cl = (CardLayout) getParent().getLayout();
         cl.show(getParent(), "ProgressBarGUI");
-
+        Game game = new Game();
+        game.setNickname("Player");
+        GameGUI.setGame(game);
+        GameGUI gameGUI = (GameGUI) this.getParent().getComponent(3);
         progressBarGUI.addPropertyChangeListener(new PropertyChangeListener() {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
@@ -182,8 +194,10 @@ public class MenuGUI extends javax.swing.JPanel{
         // TODO add your handling code here:
     }
 
-    private void loadGameActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+    private void loadGameActionPerformed(java.awt.event.ActionEvent evt) throws IOException, ClassNotFoundException {
+        Game game = Serializer.deserialize();
+        GameGUI.setGame(game);
+        CardLayout cl = (CardLayout) getParent().getLayout();
         // get timer from file -> Timer.start();
     }
 
@@ -193,6 +207,10 @@ public class MenuGUI extends javax.swing.JPanel{
 
     public static void musicButtonSetTextMenu(String text) {
         sound.setText(text);
+    }
+
+    public static void setGame(GameGUI game) {
+        // TODO add your handling code here:
     }
     // Variables declaration - do not modify
     private javax.swing.JPanel backgroundPanel;
