@@ -1,6 +1,8 @@
 package org.it.uniba.minima.Boundary;
 import org.it.uniba.minima.Control.userInputFlow;
 import org.it.uniba.minima.GUI.GameGUI;
+import org.it.uniba.minima.Control.Parser;
+import org.it.uniba.minima.Type.ParserOutput;
 
 public class userInputManager {
     private static String currentInput = "";
@@ -31,10 +33,14 @@ public class userInputManager {
                 if (!isCurrentInputEmpty()) {
                     String text = getCurrentInput();
                     userInputFlow.Wordleflow(text);
+                    outputDisplayManager.displayText(text);
+                    Parser parser = new Parser();
+                    ParserOutput parsedText = parser.parse(text);
+                    outputDisplayManager.displayText(parsedText.toString());
                     setCurrentInput("");
                 }
                 try {
-                    Thread.sleep(100); // Sleep for a short time to reduce CPU usage
+                    Thread.sleep(100); 
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
