@@ -5,6 +5,8 @@
 package org.it.uniba.minima.GUI;
 
 
+import com.mashape.unirest.http.exceptions.UnirestException;
+import org.it.uniba.minima.Boundary.WordleGame;
 import org.it.uniba.minima.Control.Serializer;
 import org.it.uniba.minima.Entity.Game;
 import org.it.uniba.minima.Mixer;
@@ -25,11 +27,16 @@ public class GameGUI extends javax.swing.JPanel {
     private static CardLayout cardLayout;
 
     private static Game game;
+    private static WordleGame wordleGame;
     /**
      * Creates new form GameGUI
      */
     public static void setGame(Game newGame) {
         game = newGame;
+    }
+
+    public static Wordle getWordle() {
+        return (Wordle) imagePanel.getComponent(0);
     }
 
     public GameGUI() {
@@ -38,7 +45,6 @@ public class GameGUI extends javax.swing.JPanel {
         initComponents();
         cardLayout = new CardLayout();
         imagePanel.setLayout(cardLayout);
-        //imagePanel.add(new JPanel(), "Empty");
         imagePanel.add(new Wordle(), "Wordle");
     }
 
