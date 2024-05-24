@@ -1,9 +1,10 @@
 package org.it.uniba.minima.Boundary;
-
+import org.it.uniba.minima.Control.userInputFlow;
 import org.it.uniba.minima.GUI.GameGUI;
 
 public class userInputManager {
     private static String currentInput = "";
+
 
     public static synchronized String getCurrentInput() {
         return resetCurrentInput();
@@ -23,12 +24,13 @@ public class userInputManager {
         return temp;
     }
 
+
     public static void startInputListener(javax.swing.JTextField userInputField) {
         new Thread(() -> {
             while (true) {
                 if (!isCurrentInputEmpty()) {
                     String text = getCurrentInput();
-                    outputDisplayManager.displayText(text);
+                    userInputFlow.Wordleflow(text);
                     setCurrentInput("");
                 }
                 try {
