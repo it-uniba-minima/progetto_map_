@@ -5,6 +5,8 @@
 package org.it.uniba.minima.GUI;
 
 
+import com.mashape.unirest.http.exceptions.UnirestException;
+import org.it.uniba.minima.Boundary.WordleGame;
 import org.it.uniba.minima.Control.Serializer;
 import org.it.uniba.minima.Entity.Game;
 import org.it.uniba.minima.Mixer;
@@ -15,13 +17,17 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static javax.swing.SwingUtilities.invokeLater;
+
 /**
  *
  * @author miche
  */
 public class GameGUI extends javax.swing.JPanel {
+    private static CardLayout cardLayout;
 
     private static Game game;
+    private static WordleGame wordleGame;
     /**
      * Creates new form GameGUI
      */
@@ -29,10 +35,17 @@ public class GameGUI extends javax.swing.JPanel {
         game = newGame;
     }
 
+    public static Wordle getWordle() {
+        return (Wordle) imagePanel.getComponent(0);
+    }
+
     public GameGUI() {
         UIManager.put("ScrollBar.width", 0); // Set the width to 20 pixels
         SwingUtilities.updateComponentTreeUI(this); // Update the UI of the current component and its children
         initComponents();
+        cardLayout = new CardLayout();
+        imagePanel.setLayout(cardLayout);
+        imagePanel.add(new Wordle(), "Wordle");
     }
 
     public static FontMetrics getTextPaneFontMetrics() {
@@ -248,6 +261,10 @@ public class GameGUI extends javax.swing.JPanel {
         } else {
             displayTextPane.setText(displayTextPane.getText() + "\n" + text);
         }
+    }
+
+    public static void setImagePanel(String panelName) {
+        cardLayout.show(imagePanel, panelName);
     }
 
     public static void musicButtonSetTextGame(String text) {
