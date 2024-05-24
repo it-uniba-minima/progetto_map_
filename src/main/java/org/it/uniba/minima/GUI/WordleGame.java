@@ -8,8 +8,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Arrays;
-import java.util.Scanner;
-
+import org.it.uniba.minima.Boundary.userInputManager;
 
 public class WordleGame {
     /*
@@ -33,8 +32,8 @@ public class WordleGame {
 
 
     public String UserInput() {
-        Scanner input = new Scanner(System.in);
-        String guess = input.nextLine().trim().toUpperCase();
+        String input = userInputManager.getCurrentInput();
+        String guess = input.trim().toUpperCase();
         if (guess.length() != MaxLetters) {
             System.out.println("Please enter a 5 letter word.");
             return UserInput();
