@@ -153,10 +153,8 @@ public class GameGUI extends javax.swing.JPanel {
 
         displayTextPane.setEditable(false);
         displayTextPane.setFocusable(false);
-        displayTextPane.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eu rutrum velit. Mauris ac sagittis nunc. Sed id lacinia elit. Vivamus vel tellus congue, scelerisque lectus id, bibendum lacus. Vivamus eget eros arcu. Aenean turpis orci, malesuada in interdum ut, euismod ut elit. Proin tincidunt dui id velit interdum tincidunt. Sed dui elit, sagittis at nulla id, venenatis consequat nibh. Donec dolor risus, mollis in augue sit amet, lacinia blandit risus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Cras rhoncus sollicitudin eros, sit amet blandit augue lacinia scelerisque. Curabitur placerat lorem efficitur mauris volutpat pulvinar.\n" +
-                "\n" +
-                "In varius, sapien vitae vestibulum molestie, leo urna auctor diam, a tincidunt purus lectus vitae dolor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sed leo non metus auctor bibendum vestibulum quis purus. Curabitur nec vehicula dolor, non pretium leo. Nam quis nisl condimentum sapien malesuada gravida. Phasellus finibus eget justo id egestas. Nam quis libero vel ligula sodales rutrum. In hac habitasse platea dictumst. Phasellus at libero risus. Nam in finibus neque. Pellentesque pretium, orci et sollicitudin scelerisque, nulla dui molestie enim, nec bibendum leo risus eu arcu.");
         displayTextPane.setAutoscrolls(false);
+        displayTextPane.setText("");
         jScrollPane1.setViewportView(displayTextPane);
         jScrollPane1.setPreferredSize(new Dimension(335, 550));
         jScrollPane1.setMaximumSize(new Dimension(335, 550));
@@ -245,18 +243,23 @@ public class GameGUI extends javax.swing.JPanel {
     }
 
     public static void displayTextPaneSetText(String text) {
-        displayTextPane.setText(displayTextPane.getText() + "\n" + text);
+        if (displayTextPane.getText().isEmpty()) {
+            displayTextPane.setText(text);
+        } else {
+            displayTextPane.setText(displayTextPane.getText() + "\n" + text);
+        }
     }
 
     public static void musicButtonSetTextGame(String text) {
         musicButton.setText(text);
     }
+
     // Variables declaration - do not modify
     private javax.swing.JButton goBackButton;
     private javax.swing.JButton saveGameButton;
     private javax.swing.JButton helpButton;
     private static javax.swing.JButton musicButton;
-    private javax.swing.JPanel imagePanel;
+    private static javax.swing.JPanel imagePanel;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea inventoryTextArea;
