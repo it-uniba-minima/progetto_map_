@@ -41,7 +41,7 @@ public class ProgressBarGUI extends javax.swing.JPanel {
         int panelWidth = runningGIFPanel.getWidth();
         counter = 0;
 
-        Timer timer = new Timer(100, e -> {
+        Timer timer = new Timer(1, e -> {
             if (counter < 100) {
                 counter++;
                 progressBar.setValue(counter);
