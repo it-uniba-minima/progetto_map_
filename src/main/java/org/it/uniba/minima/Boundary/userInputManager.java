@@ -1,6 +1,6 @@
 package org.it.uniba.minima.Boundary;
-
-import org.it.uniba.minima.GUI.GameGUI;
+import org.it.uniba.minima.Control.Parser;
+import org.it.uniba.minima.Type.ParserOutput;
 
 public class userInputManager {
     private static String currentInput = "";
@@ -23,6 +23,9 @@ public class userInputManager {
                 if (!isCurrentInputEmpty()) {
                     String text = getCurrentInput();
                     outputDisplayManager.displayText(text);
+                    Parser parser = new Parser();
+                    ParserOutput parsedText = parser.parse(text);
+                    outputDisplayManager.displayText(parsedText.toString());
                     setCurrentInput("");
                 }
                 try {

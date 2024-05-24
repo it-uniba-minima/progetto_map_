@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class Game implements Serializable {
     private String nickname;
-    private Object[] inventory;
+    private Item[] inventory;
     private String currentTime;
     private Room currentRoom;
     private Map<Integer, Boolean> graphMap;
