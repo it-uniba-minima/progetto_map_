@@ -18,17 +18,6 @@ public class BoxLetter {
         textField.setFont(new Font("Arial", Font.BOLD, 24));
         textField.setHorizontalAlignment(JTextField.CENTER);
         ((AbstractDocument) textField.getDocument()).setDocumentFilter(new SingleCharDocumentFilter());
-        textField.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                char keyChar = e.getKeyChar();
-                if (Character.isLetter(keyChar)) {
-                    parent.moveToNextBox(row, col);
-                } else if (keyChar == KeyEvent.VK_BACK_SPACE || keyChar == KeyEvent.VK_DELETE) {
-                    parent.moveToPreviousBox(row, col);
-                }
-            }
-        });
     }
     public JTextField getBox() {
         return textField;
