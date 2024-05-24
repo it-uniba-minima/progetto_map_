@@ -5,7 +5,9 @@
 package org.it.uniba.minima.GUI;
 
 
+import org.it.uniba.minima.Boundary.outputDisplayManager;
 import org.it.uniba.minima.Control.Serializer;
+import org.it.uniba.minima.DatabaseConnection;
 import org.it.uniba.minima.Entity.Game;
 import org.it.uniba.minima.Mixer;
 import org.it.uniba.minima.TimerManager;
@@ -151,11 +153,9 @@ public class GameGUI extends javax.swing.JPanel {
                         .addGap(0, 0, Short.MAX_VALUE)
         );
 
+
         displayTextPane.setEditable(false);
         displayTextPane.setFocusable(false);
-        displayTextPane.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eu rutrum velit. Mauris ac sagittis nunc. Sed id lacinia elit. Vivamus vel tellus congue, scelerisque lectus id, bibendum lacus. Vivamus eget eros arcu. Aenean turpis orci, malesuada in interdum ut, euismod ut elit. Proin tincidunt dui id velit interdum tincidunt. Sed dui elit, sagittis at nulla id, venenatis consequat nibh. Donec dolor risus, mollis in augue sit amet, lacinia blandit risus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Cras rhoncus sollicitudin eros, sit amet blandit augue lacinia scelerisque. Curabitur placerat lorem efficitur mauris volutpat pulvinar.\n" +
-                "\n" +
-                "In varius, sapien vitae vestibulum molestie, leo urna auctor diam, a tincidunt purus lectus vitae dolor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sed leo non metus auctor bibendum vestibulum quis purus. Curabitur nec vehicula dolor, non pretium leo. Nam quis nisl condimentum sapien malesuada gravida. Phasellus finibus eget justo id egestas. Nam quis libero vel ligula sodales rutrum. In hac habitasse platea dictumst. Phasellus at libero risus. Nam in finibus neque. Pellentesque pretium, orci et sollicitudin scelerisque, nulla dui molestie enim, nec bibendum leo risus eu arcu.");
         displayTextPane.setAutoscrolls(false);
         jScrollPane1.setViewportView(displayTextPane);
         jScrollPane1.setPreferredSize(new Dimension(335, 550));
@@ -203,6 +203,8 @@ public class GameGUI extends javax.swing.JPanel {
                                 .addGap(5, 5, 5))
         );
     }// </editor-fold>
+
+
 
     private void saveGameButtonActionPerformed(java.awt.event.ActionEvent evt) {
         Serializer serializer = new Serializer();
