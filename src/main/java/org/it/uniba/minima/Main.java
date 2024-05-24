@@ -1,10 +1,10 @@
 package org.it.uniba .minima;
+import org.it.uniba.minima.Database.DatabaseConnection;
 import org.it.uniba.minima.GUI.GUIManager;
 import org.it.uniba.minima.Boundary.outputDisplayManager;
 
+import javax.xml.crypto.Data;
 import java.sql.Connection;
-import static org.it.uniba.minima.DatabaseConnection.connect;
-import static org.it.uniba.minima.DatabaseConnection.getStringFromDatabase;
 
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
@@ -15,9 +15,11 @@ public class Main {
         // to see how IntelliJ IDEA suggests fixing it.
         new GUIManager();
 
-        String sql_query = "SELECT DESCRIZIONE FROM DESCRIZIONI";
+        String sql_query = DatabaseConnection.querySQL_forDESC("test", "0", "0" ,"0");
         Connection conn;
         conn = DatabaseConnection.connect();
         outputDisplayManager.displayText(DatabaseConnection.getStringFromDatabase(conn, sql_query));
+        //DatabaseConnection.setToDatabase(conn, "test", "00:00:00");
+        DatabaseConnection.close(conn);
     }
 }

@@ -1,7 +1,7 @@
 package org.it.uniba.minima.GUI;
 import org.it.uniba.minima.Boundary.outputDisplayManager;
 import org.it.uniba.minima.Control.Serializer;
-import org.it.uniba.minima.DatabaseConnection;
+import org.it.uniba.minima.Database.DatabaseConnection;
 import org.it.uniba.minima.Entity.Game;
 import org.it.uniba.minima.Mixer;
 import org.it.uniba.minima.TimerManager;
