@@ -4,60 +4,52 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Wordle extends JPanel {
-    private static final int WIDTH = 440;
-    private static final int HEIGHT = 400;
-    private final JPanel grid;
     private BoxLetter[][] boxes;
 
     public Wordle() {
-        setLayout(new BorderLayout());
-        setPreferredSize(new Dimension(WIDTH, HEIGHT));
-
-        JPanel titleContainer = new JPanel();
-        titleContainer.setBackground(GameTheme.BACKGROUND);
-        JLabel titleLabel = new JLabel("WORDLE", SwingConstants.CENTER);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 48));
-        titleLabel.setForeground(GameTheme.WHITE);
-        titleContainer.add(titleLabel);
-
-        JPanel gridContainer = new JPanel();
-        gridContainer.setBackground(GameTheme.BACKGROUND);
-        gridContainer.setLayout(new GridBagLayout());
-
-        JPanel optionsContainer = new JPanel();
-        optionsContainer.setBackground(GameTheme.BACKGROUND);
-        optionsContainer.setPreferredSize(new Dimension(25, 25));
-        grid = new JPanel();
-        grid.setLayout(new GridLayout(6, 5, 10, 10));
-        grid.setPreferredSize(new Dimension(400, 400));
-        grid.setBackground(GameTheme.BACKGROUND);
-        createBoxes();
-
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.weightx = 1;
-        gbc.weighty = 1;
-        gbc.fill = GridBagConstraints.BOTH;
-        gbc.anchor = GridBagConstraints.CENTER;
-
-        gridContainer.add(grid, gbc);
-
-        add(titleContainer, BorderLayout.NORTH);
-        add(gridContainer, BorderLayout.CENTER);
-        add(optionsContainer, BorderLayout.SOUTH);
+        initComponents();
     }
 
-    public void createBoxes() {
+    private void initComponents() {
+        JPanel background = new JPanel();
+        background.setBackground(Color.GRAY);
+        background.setLayout(new GridLayout(6, 5, 10, 10));
+
+        setPreferredSize(new Dimension(440, 400));
+        setMaximumSize(new Dimension(440, 400));
+        setMinimumSize(new Dimension(440, 400));
+
+        GroupLayout layout = new GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addComponent(background, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addComponent(background, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        createBoxes();
+        for (int r = 0; r < 6; r++) {
+            for (int c = 0; c < 5; c++) {
+                background.add(boxes[r][c].getBox());
+            }
+        }
+        background.setVisible(true);
+        add(background);
+        setVisible(true);
+    }
+
+    private void createBoxes() {
         boxes = new BoxLetter[6][5];
         for (int r = 0; r < 6; r++) {
             for (int c = 0; c < 5; c++) {
-                BoxLetter letters = new BoxLetter(r, c, this);
-                boxes[r][c] = letters;
-                letters.getBox().setPreferredSize(new Dimension(10, 10));
-                letters.getBox().setBackground(Color.BLACK);
-                letters.getBox().setForeground(Color.white);
-                grid.add(letters.getBox());
+                BoxLetter letterBox = new BoxLetter(r, c, this);
+                boxes[r][c] = letterBox;
+                letterBox.getBox().setPreferredSize(new Dimension(10, 10));
+                letterBox.getBox().setBackground(Color.GRAY);
+                letterBox.getBox().setForeground(Color.WHITE);
             }
         }
     }
@@ -82,7 +74,7 @@ public class Wordle extends JPanel {
         boxes[row][col].setBox(color);
     }
 
-    public class GameTheme {
+    public static class GameTheme {
         public static final Color BACKGROUND = Color.BLACK;
         public static final Color WHITE = Color.GRAY;
     }
