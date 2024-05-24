@@ -19,7 +19,6 @@ public class Parser {
         availableCommands.add( new Command("sud", List.of("s", "south", "indietro"), CommandType.SUD));
         availableCommands.add( new Command("est", List.of("e", "east", "destra"), CommandType.EST));
         availableCommands.add( new Command("ovest", List.of("o", "west", "sinstra"), CommandType.OVEST));
-        availableCommands.add( new Command("cammina", List.of("walk", "vai", "muoviti"), CommandType.WALK));
         availableCommands.add( new Command("inventario", List.of("i", "inventory", "borsa", "zaino"), CommandType.INVENTORY));
         availableCommands.add( new Command("guarda", List.of("l", "look", "vedi", "esamina"), CommandType.LOOK));
         availableCommands.add( new Command("prendi", List.of("t", "take", "raccogli"), CommandType.TAKE));

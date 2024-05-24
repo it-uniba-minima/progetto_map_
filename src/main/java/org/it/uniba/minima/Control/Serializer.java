@@ -1,5 +1,6 @@
 package org.it.uniba.minima.Control;
 import org.it.uniba.minima.Entity.Game;
+import org.it.uniba.minima.Entity.Room;
 
 import java.io.*;
 
@@ -23,4 +24,5 @@ public class Serializer  {
         System.out.println("You loaded the game!, Welcome back " + game.getNickname());
         return game;
     }
+
 }
