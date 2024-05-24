@@ -1,5 +1,6 @@
 package org.it.uniba.minima.GUI;
 
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -12,7 +13,7 @@ public class Wordle extends JPanel {
 
     private void initComponents() {
         JPanel background = new JPanel();
-        background.setBackground(Color.GRAY);
+        background.setBackground(Color.BLACK);
         background.setLayout(new GridLayout(6, 5, 10, 10));
 
         setPreferredSize(new Dimension(440, 400));
@@ -39,6 +40,8 @@ public class Wordle extends JPanel {
         background.setVisible(true);
         add(background);
         setVisible(true);
+
+
     }
 
     private void createBoxes() {
@@ -50,32 +53,18 @@ public class Wordle extends JPanel {
                 letterBox.getBox().setPreferredSize(new Dimension(10, 10));
                 letterBox.getBox().setBackground(Color.GRAY);
                 letterBox.getBox().setForeground(Color.WHITE);
+                letterBox.getBox().setFocusable(false);
+                letterBox.getBox().setEditable(false);
             }
         }
     }
 
-    public void moveToNextBox(int row, int col) {
-        if (col < 4) {
-            boxes[row][col + 1].getBox().requestFocus();
-        } else if (row < 5 && col == 4) {
-            boxes[row + 1][0].getBox().requestFocus();
-        }
-    }
-
-    public void moveToPreviousBox(int row, int col) {
-        if (col > 0) {
-            boxes[row][col - 1].getBox().requestFocus();
-        } else if (row > 0 && col == 0) {
-            boxes[row - 1][4].getBox().requestFocus();
-        }
-    }
 
     public void setBoxColor(int row, int col, Color color) {
         boxes[row][col].setBox(color);
     }
-
-    public static class GameTheme {
-        public static final Color BACKGROUND = Color.BLACK;
-        public static final Color WHITE = Color.GRAY;
+    public void setBoxText(int row, int col, String text) {
+        boxes[row][col].getBox().setText(text);
     }
+
 }
