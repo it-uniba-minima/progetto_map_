@@ -1,4 +1,5 @@
 package org.it.uniba.minima.GUI;
+import org.it.uniba.minima.Boundary.outputDisplayManager;
 import org.it.uniba.minima.Control.Serializer;
 import org.it.uniba.minima.Entity.Game;
 import org.it.uniba.minima.Mixer;
@@ -164,9 +165,12 @@ public class MenuGUI extends javax.swing.JPanel{
         CardLayout cl = (CardLayout) getParent().getLayout();
         cl.show(getParent(), "ProgressBarGUI");
         Game game = new Game();
+
         game.setNickname("Player");
         GameGUI.setGame(game);
+
         GameGUI gameGUI = (GameGUI) this.getParent().getComponent(3);
+
         progressBarGUI.addPropertyChangeListener(new PropertyChangeListener() {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {

@@ -139,5 +139,4 @@ public class Main {
         ParserOutput output = parser.parse(command);
         commandExecutor.execute(output);
     }
-
 }

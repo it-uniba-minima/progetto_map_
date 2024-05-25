@@ -4,7 +4,9 @@
  */
 package org.it.uniba.minima.GUI;
 
-import javax.swing.JFrame;
+import javax.swing.*;
+import java.awt.*;
+
 /**
  *
  * @author Avventura-nella-piramide-egizia
@@ -16,7 +18,6 @@ public class HelpGUI extends JFrame {
      */
     private HelpGUI() {
         initComponents();
-
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
     }
 
@@ -44,10 +45,29 @@ public class HelpGUI extends JFrame {
         setPreferredSize(new java.awt.Dimension(480, 320));
         setResizable(false);
 
+        Font font = new Font("Courier", Font.BOLD, 15);
         listaComandi.setColumns(20);
         listaComandi.setRows(5);
         listaComandi.setEditable(false);
+        listaComandi.setBackground(Color.BLACK);
+        listaComandi.setForeground(Color.WHITE);
+        listaComandi.setFont(font);
+        listaComandi.setText("Ecco la lista dei comandi: \n" +
+                "- (help/aiuto/h/comandi): mostra questa lista\n" +
+                "- (nord/north/n/avanti): vai a nord\n" +
+                "- (sud/south/s/indietro): vai a sud\n" +
+                "- (est/east/e/destra): vai a est\n" +
+                "- (ovest/west/o/sinistra): vai a ovest\n" +
+                "- (inventario/i/inventory/borsa/zaino): mostra inventario\n" +
+                "- (guarda/look/l/vedi/esamina): esamina stanza\n" +
+                "- (prendi/take/t/raccogli): raccogli oggetto\n" +
+                "- (usa/use/u/utilizza): usa oggetto\n" +
+                "- (parla/talk/p/dialoga): dialoga con personaggio\n");
         jScrollPane1.setViewportView(listaComandi);
+        jScrollPane1.setPreferredSize(new Dimension(480, 320));
+        jScrollPane1.setMaximumSize(new Dimension(480, 320));
+        jScrollPane1.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane1.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -78,9 +98,10 @@ public class HelpGUI extends JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea listaComandi;
+    private static javax.swing.JTextArea listaComandi;
     // End of variables declaration//GEN-END:variables
 }
