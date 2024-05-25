@@ -24,14 +24,35 @@ public class Parser {
         availableCommands.add( new Command("prendi", List.of("t", "take", "raccogli"), CommandType.TAKE));
         availableCommands.add( new Command("usa", List.of("u", "use", "utilizza"), CommandType.USE));
         availableCommands.add( new Command("parla", List.of("talk", "p", "dialoga"), CommandType.TALK));
+        availableCommands.add( new Command("dai", List.of("give", "d", "passa"), CommandType.GIVE));
+        availableCommands.add( new Command("lascia", List.of("drop", "l", "abbandona"), CommandType.DROP));
+        availableCommands.add( new Command("fonde", List.of("fuse", "f", "componi"), CommandType.FUSE));
 
-        availableAgents.add( new Character("guardia", "Un uomo con una spada", List.of("soldato", "uomo")));
-        availableAgents.add( new Character("principessa", "Una donna con un vestito elegante", List.of("donna", "ragazza")));
-        availableAgents.add( new Character("strega", "Una donna con un cappello a punta", List.of("vecchia", "donna")));
-        availableAgents.add( new Item("spada", "Un'arma affilata", List.of("arma", "oggetto")));
-        availableAgents.add( new Item("chiave", "Un oggetto di metallo", List.of("oggetto", "oggettino")));
-        availableAgents.add( new Item("anello", "Un oggetto di metallo", List.of("oggetto", "oggettino")));
 
+        Character character1 = new Character();
+        character1.setName("character1");
+        character1.setDescription("This is character1");
+        character1.setAlias(List.of("c1", "ch1"));
+
+        Character character2 = new Character();
+        character2.setName("character2");
+        character2.setDescription("This is character2");
+        character2.setAlias(List.of("c2", "ch2"));
+
+        Item item2 = new Item();
+        item2.setName("item2");
+        item2.setDescription("This is item2");
+        item2.setAlias(List.of("a1", "ag1"));
+
+        Item item1 = new Item();
+        item1.setName("item1");
+        item1.setDescription("This is item1");
+        item1.setAlias(List.of("i1", "it1"));
+
+        availableAgents.add(item2);
+        availableAgents.add(item1);
+        availableAgents.add(character1);
+        availableAgents.add(character2);
     }
 
     public ParserOutput parse(String input) {
