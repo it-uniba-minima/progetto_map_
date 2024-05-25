@@ -10,3 +10,10 @@ public class Room {
     private String state;
     private List<Agent> agents;
 }
+
+
+/*
+id = 1
+name = "room1"
+
+ */

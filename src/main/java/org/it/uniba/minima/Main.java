@@ -10,16 +10,18 @@ import java.sql.Connection;
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
+    public static Connection conn;
     public static void main(String[] args) {
         //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
         // to see how IntelliJ IDEA suggests fixing it.
         new GUIManager();
+        conn = DatabaseConnection.connect();
 
-        String sql_query = DatabaseConnection.querySQL_forDESC("test", "0", "0" ,"0");
+        /**String sql_query = DatabaseConnection.querySQL_forDESC("Osserva", "Deserto", "Start", "0", "0", "0");
         Connection conn;
         conn = DatabaseConnection.connect();
         outputDisplayManager.displayText(DatabaseConnection.getStringFromDatabase(conn, sql_query));
         //DatabaseConnection.setToDatabase(conn, "test", "00:00:00");
-        DatabaseConnection.close(conn);
+        DatabaseConnection.close(conn);**/
     }
 }

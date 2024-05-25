@@ -14,9 +14,10 @@ import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
+import java.sql.Connection;
 import javax.swing.ImageIcon;
 
-
+import static org.it.uniba.minima.Main.conn;
 
 
 public class MenuGUI extends javax.swing.JPanel{
@@ -169,6 +170,10 @@ public class MenuGUI extends javax.swing.JPanel{
         game.setNickname("Player");
         GameGUI.setGame(game);
         GameGUI gameGUI = (GameGUI) this.getParent().getComponent(3);
+
+        String sql_query = DatabaseConnection.querySQL_forDESC("Osserva", "Deserto", "Start", "0", "0", "0");
+        outputDisplayManager.displayText(DatabaseConnection.getStringFromDatabase(conn, sql_query));
+
         progressBarGUI.addPropertyChangeListener(new PropertyChangeListener() {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {

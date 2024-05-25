@@ -162,7 +162,6 @@ public class GameGUI extends javax.swing.JPanel {
         jScrollPane1.setMaximumSize(new Dimension(335, 550));
         jScrollPane1.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane1.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        System.out.println(UIManager.getLookAndFeel().getName());
 
         userInputField.addActionListener(new ActionListener() {
             @Override

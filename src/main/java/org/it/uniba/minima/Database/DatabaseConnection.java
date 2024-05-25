@@ -46,8 +46,8 @@ public class DatabaseConnection {
         }
     }
 
-    public static String querySQL_forDESC(String idStanza, String idOggetto, String idPersonaggio, String idStato) {
-        return "SELECT DESCRIZIONE FROM DESCRIZIONI WHERE IDSTANZA = '" + idStanza + "' AND IDOGGETTO = '" + idOggetto + "' AND IDPERSONAGGIO = '" + idPersonaggio + "' AND IDSTATO = '" + idStato + "'";
+    public static String querySQL_forDESC(String idComando, String idStanza, String idStato, String idPersonaggio, String idOggetto1, String idOggetto2) {
+        return "SELECT DESCRIZIONE FROM DESCRIZIONI WHERE ID_COMANDO = '" + idComando + "' AND ID_STANZA = '" + idStanza + "' AND ID_STATO = '" + idStato + "' AND ID_PERSONAGGIO = '" + idPersonaggio + "' AND ID_OGGETTO1 = '" + idOggetto1 + "' AND ID_OGGETTO2 = '" + idOggetto2 + "'";
     }
 
     public static String getStringFromDatabase(Connection conn, String sql_query) {
