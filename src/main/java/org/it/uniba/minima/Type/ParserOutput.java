@@ -8,9 +8,6 @@ public class ParserOutput {
     private int args;
 
     public ParserOutput() {
-        command = null;
-        agent1 = null;
-        agent2 = null;
         args = 0;
     }
 
@@ -44,10 +41,5 @@ public class ParserOutput {
 
     public void setArgs(int args) {
         this.args = args;
-    }
-
-    @Override
-    public String toString() {
-        return "Command: " + command + ", Args: " + args + ", Agent1: " + (agent1 != null ? agent1.getName() : "null") + ", Agent2: " + (agent2 != null ? agent2.getName() : "null");
     }
 }
