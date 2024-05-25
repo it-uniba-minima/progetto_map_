@@ -7,7 +7,7 @@ import java.sql.*;
 public class DatabaseConnection {
 
     static final String JDBC_DRIVER = "org.h2.Driver";
-    static final String DB_URL = "jdbc:h2:~/map_server";
+    static final String DB_URL = "jdbc:h2:~/resources/map_server";
     static final String USER = "sa";
     static final String PASS = "";
 
