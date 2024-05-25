@@ -1,6 +1,7 @@
 package org.it.uniba.minima.GUI;
 import org.it.uniba.minima.Boundary.outputDisplayManager;
 import org.it.uniba.minima.Control.Serializer;
+import org.it.uniba.minima.Database.DatabaseConnection;
 import org.it.uniba.minima.Entity.Game;
 import org.it.uniba.minima.Mixer;
 import org.it.uniba.minima.TimerManager;
@@ -13,9 +14,10 @@ import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
+import java.sql.Connection;
 import javax.swing.ImageIcon;
 
-
+import static org.it.uniba.minima.Main.conn;
 
 
 public class MenuGUI extends javax.swing.JPanel{

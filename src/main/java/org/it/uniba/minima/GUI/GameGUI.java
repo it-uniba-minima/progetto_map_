@@ -5,9 +5,11 @@
 package org.it.uniba.minima.GUI;
 
 
+
 import com.mashape.unirest.http.exceptions.UnirestException;
 import org.it.uniba.minima.Boundary.WordleGame;
 import org.it.uniba.minima.Control.Serializer;
+import org.it.uniba.minima.Database.DatabaseConnection;
 import org.it.uniba.minima.Entity.Game;
 import org.it.uniba.minima.Mixer;
 import org.it.uniba.minima.TimerManager;
@@ -164,6 +166,7 @@ public class GameGUI extends javax.swing.JPanel {
                         .addGap(0, 0, Short.MAX_VALUE)
         );
 
+
         displayTextPane.setEditable(false);
         displayTextPane.setFocusable(false);
         displayTextPane.setAutoscrolls(false);
@@ -213,6 +216,8 @@ public class GameGUI extends javax.swing.JPanel {
                                 .addGap(5, 5, 5))
         );
     }// </editor-fold>
+
+
 
     private void saveGameButtonActionPerformed(java.awt.event.ActionEvent evt) {
         Serializer serializer = new Serializer();

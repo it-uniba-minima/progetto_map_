@@ -38,3 +38,10 @@ public class Room {
         agents.add(agent);
     }
 }
+
+
+/*
+id = 1
+name = "room1"
+
+ */
