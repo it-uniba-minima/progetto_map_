@@ -170,7 +170,7 @@ public class GameGUI extends javax.swing.JPanel {
         displayTextPane.setEditable(false);
         displayTextPane.setFocusable(false);
         displayTextPane.setAutoscrolls(false);
-        displayTextPane.setContentType("text/html");
+        //displayTextPane.setContentType("text/html");
         jScrollPane1.setViewportView(displayTextPane);
         jScrollPane1.setPreferredSize(new Dimension(335, 550));
         jScrollPane1.setMaximumSize(new Dimension(335, 550));
