@@ -17,7 +17,7 @@ public class Main {
         new GUIManager();
         conn = DatabaseConnection.connect();
 
-        String sql_query = DatabaseConnection.querySQL_forDESC("Osserva", "Deserto1", "Start", "0", "0", "0");
+        String sql_query = DatabaseConnection.querySQL_forDESC("0", "Deserto1", "Start", "0", "0", "0");
         Connection conn;
         conn = DatabaseConnection.connect();
         outputDisplayManager.displayText(DatabaseConnection.getStringFromDatabase(conn, sql_query));
