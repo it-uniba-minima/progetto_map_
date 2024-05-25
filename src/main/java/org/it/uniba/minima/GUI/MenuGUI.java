@@ -167,8 +167,10 @@ public class MenuGUI extends javax.swing.JPanel{
         CardLayout cl = (CardLayout) getParent().getLayout();
         cl.show(getParent(), "ProgressBarGUI");
         Game game = new Game();
+
         game.setNickname("Player");
         GameGUI.setGame(game);
+
         GameGUI gameGUI = (GameGUI) this.getParent().getComponent(3);
 
         progressBarGUI.addPropertyChangeListener(new PropertyChangeListener() {

@@ -5,7 +5,9 @@
 package org.it.uniba.minima.GUI;
 
 
-import org.it.uniba.minima.Boundary.outputDisplayManager;
+
+import com.mashape.unirest.http.exceptions.UnirestException;
+import org.it.uniba.minima.Boundary.WordleGame;
 import org.it.uniba.minima.Control.Serializer;
 import org.it.uniba.minima.Database.DatabaseConnection;
 import org.it.uniba.minima.Entity.Game;
@@ -17,13 +19,17 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static javax.swing.SwingUtilities.invokeLater;
+
 /**
  *
  * @author miche
  */
 public class GameGUI extends javax.swing.JPanel {
+    private static CardLayout cardLayout;
 
     private static Game game;
+    private static WordleGame wordleGame;
     /**
      * Creates new form GameGUI
      */
@@ -31,10 +37,17 @@ public class GameGUI extends javax.swing.JPanel {
         game = newGame;
     }
 
+    public static Wordle getWordle() {
+        return (Wordle) imagePanel.getComponent(0);
+    }
+
     public GameGUI() {
         UIManager.put("ScrollBar.width", 0); // Set the width to 20 pixels
         SwingUtilities.updateComponentTreeUI(this); // Update the UI of the current component and its children
         initComponents();
+        cardLayout = new CardLayout();
+        imagePanel.setLayout(cardLayout);
+        imagePanel.add(new Wordle(), "Wordle");
     }
 
     public static FontMetrics getTextPaneFontMetrics() {
@@ -157,6 +170,7 @@ public class GameGUI extends javax.swing.JPanel {
         displayTextPane.setEditable(false);
         displayTextPane.setFocusable(false);
         displayTextPane.setAutoscrolls(false);
+        displayTextPane.setContentType("text/html");
         jScrollPane1.setViewportView(displayTextPane);
         jScrollPane1.setPreferredSize(new Dimension(335, 550));
         jScrollPane1.setMaximumSize(new Dimension(335, 550));
@@ -246,18 +260,27 @@ public class GameGUI extends javax.swing.JPanel {
     }
 
     public static void displayTextPaneSetText(String text) {
-        displayTextPane.setText(displayTextPane.getText() + "\n" + text);
+        if (displayTextPane.getText().isEmpty()) {
+            displayTextPane.setText(text);
+        } else {
+            displayTextPane.setText(displayTextPane.getText() + "\n" + text);
+        }
+    }
+
+    public static void setImagePanel(String panelName) {
+        cardLayout.show(imagePanel, panelName);
     }
 
     public static void musicButtonSetTextGame(String text) {
         musicButton.setText(text);
     }
+
     // Variables declaration - do not modify
     private javax.swing.JButton goBackButton;
     private javax.swing.JButton saveGameButton;
     private javax.swing.JButton helpButton;
     private static javax.swing.JButton musicButton;
-    private javax.swing.JPanel imagePanel;
+    private static javax.swing.JPanel imagePanel;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea inventoryTextArea;

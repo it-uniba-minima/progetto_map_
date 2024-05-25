@@ -15,6 +15,7 @@ public class Main {
         //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
         // to see how IntelliJ IDEA suggests fixing it.
         new GUIManager();
+
         conn = DatabaseConnection.connect();
 
         String sql_query = DatabaseConnection.querySQL_forDESC("0", "Deserto1", "Start", "0", "0", "0");
