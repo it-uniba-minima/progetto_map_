@@ -8,11 +8,14 @@ public enum CommandType {
     EST, // Comando per direzione Est
     OVEST, // Comando per direzione Ovest
 
-    WALK, // Comando per muoversi in una direzione
     INVENTORY, // Comando per accedere all'inventario
 
+    GIVE, // Comando per dare oggetti
+    DROP, // Comando per lasciare oggetti
     LOOK, // Comando per osservare oggetti, stanze, personaggi
     TAKE, //Comando per prendere oggetti
-    USE, // Comando per usare oggetti
+    USE, // Comando per usare oggetti e usare oggetti su altri oggetti
     TALK, // Comando per parlare con personaggi
+
+    FUSE, // Comando per fondere oggetti
 }
