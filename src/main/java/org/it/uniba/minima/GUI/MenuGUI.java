@@ -171,9 +171,6 @@ public class MenuGUI extends javax.swing.JPanel{
         GameGUI.setGame(game);
         GameGUI gameGUI = (GameGUI) this.getParent().getComponent(3);
 
-        String sql_query = DatabaseConnection.querySQL_forDESC("Osserva", "Deserto", "Start", "0", "0", "0");
-        outputDisplayManager.displayText(DatabaseConnection.getStringFromDatabase(conn, sql_query));
-
         progressBarGUI.addPropertyChangeListener(new PropertyChangeListener() {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
