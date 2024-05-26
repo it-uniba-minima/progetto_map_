@@ -20,6 +20,9 @@ public class Game implements Serializable {
         this.inventory = new ArrayList<>();
     }
 
+    public void setInventory(List<Item> inventory) {
+        this.inventory = inventory;
+    }
     public static Game getInstance(Game game) {
         return game;
     }
@@ -110,4 +113,21 @@ public class Game implements Serializable {
 
         return new ArrayList<>(List.of(character1, character2));
     }
+
+    public void setCurrentTime(String currentTime) {
+        this.currentTime = currentTime;
+    }
+
+    public String getCurrentTime() {
+        return currentTime;
+    }
+
+    public void setStatesMap(Map<Integer, String> statesMap) {
+        this.statesMap = statesMap;
+    }
+
+    public Map<Integer, String> getStatesMap() {
+        return statesMap;
+    }
+
 }
