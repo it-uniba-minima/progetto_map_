@@ -1,6 +1,7 @@
 package org.it.uniba.minima.GUI;
 import org.it.uniba.minima.Boundary.outputDisplayManager;
-import org.it.uniba.minima.Control.Serializer;
+import org.it.uniba.minima.Control.Converter;
+import org.it.uniba.minima.Control.GameManager;
 import org.it.uniba.minima.Database.DatabaseConnection;
 import org.it.uniba.minima.Entity.Game;
 import org.it.uniba.minima.Mixer;
@@ -13,6 +14,8 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import javax.swing.ImageIcon;
@@ -166,11 +169,8 @@ public class MenuGUI extends javax.swing.JPanel{
         progressBarGUI = (ProgressBarGUI) this.getParent().getComponent(2);
         CardLayout cl = (CardLayout) getParent().getLayout();
         cl.show(getParent(), "ProgressBarGUI");
-        Game game = new Game();
-
-        game.setNickname("Player");
-        GameGUI.setGame(game);
-
+        GameManager gameManager = new GameManager();
+        gameManager.createGame();
         GameGUI gameGUI = (GameGUI) this.getParent().getComponent(3);
 
         progressBarGUI.addPropertyChangeListener(new PropertyChangeListener() {
@@ -201,8 +201,17 @@ public class MenuGUI extends javax.swing.JPanel{
     }
 
     private void loadGameActionPerformed(java.awt.event.ActionEvent evt) throws IOException, ClassNotFoundException {
-        Game game = Serializer.deserialize();
-        GameGUI.setGame(game);
+        BufferedReader br = new BufferedReader(new FileReader("src/main/resources/LoadedGame.json"));
+        if (br.readLine() == null) {
+            loadGame.setEnabled(false);
+        }
+        else {
+            loadGame.setEnabled(true);
+            GameManager gameManager = new GameManager();
+            Game game = gameManager.loadGame();
+            GameGUI.setGame(game);
+            GameGUI gameGUI = (GameGUI) this.getParent().getComponent(3);
+        }
         CardLayout cl = (CardLayout) getParent().getLayout();
         // get timer from file -> Timer.start();
     }
