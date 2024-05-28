@@ -4,6 +4,7 @@ package org.it.uniba.minima.Control;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
+import org.it.uniba.minima.Entity.Agent;
 import org.it.uniba.minima.Entity.Game;
 import org.it.uniba.minima.Entity.Room;
 
@@ -17,11 +18,15 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Converter {
-    public void convertJsonToJavaClass() {
+    public Map<String, Agent> convertJsonToJavaClass() {
         Gson gson = new Gson();
+        Map<String, Agent> allAgents = new HashMap<>();
+
         try {
             URL url = getClass().getResource("/static/Rooms.json");
             File file = new File(url.toURI());
@@ -30,11 +35,27 @@ public class Converter {
             List<Room> roomList = gson.fromJson(reader, roomListType);
             for (Room room : roomList) {
                 System.out.println(room.getName());
-                room.getAgents().forEach(agent -> System.out.println("Agent Name: " + agent.getName()));
+                room.getAgents().forEach(agent ->
+                {
+                    System.out.println("Agent Name: " + agent.getName());
+                    allAgents.put(agent.getName(), agent);
+                });
             }
         } catch (FileNotFoundException | URISyntaxException e) {
             e.printStackTrace();
         }
+
+        try {
+            URL url = getClass().getResource("/static/Agents.json");
+            File file = new File(url.toURI());
+            JsonReader reader = new JsonReader(new FileReader(file));
+            Type agentListType = new TypeToken<ArrayList<Agent>>(){}.getType();
+            List<Agent> agentList = gson.fromJson(reader, agentListType);
+            agentList.forEach(agent -> allAgents.put(agent.getName(), agent));
+        } catch (FileNotFoundException | URISyntaxException e) {
+            e.printStackTrace();
+        }
+
         //
         // chiedere se fare una funzione a parte o no per il caricamento di Game.json
 
@@ -45,6 +66,7 @@ public class Converter {
             Game game = gson.fromJson(reader, Game.class);
         } catch (FileNotFoundException | URISyntaxException e) {
     }
+        return allAgents;
     }
         /*
         Path dir = Paths.get("src/main/resources/static");
