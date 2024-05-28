@@ -34,4 +34,12 @@ public class Corridor {
     public Room getArrivingRoom() {
         return room2;
     }
+
+    public void setStartingRoom(Room room) {
+        this.room1 = room;
+    }
+
+    public void setArrivingRoom(Room room) {
+        this.room2 = room;
+    }
 }
