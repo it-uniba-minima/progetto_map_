@@ -4,9 +4,9 @@ import org.it.uniba.minima.Entity.Agent;
 import org.it.uniba.minima.Type.CommandType;
 
 public class CommandExecutorKey {
-    private final CommandType command;
-    private final Agent agent1;
-    private final Agent agent2;
+    private CommandType command;
+    private Agent agent1;
+    private Agent agent2;
 
     public CommandExecutorKey(CommandType c, Agent a1, Agent a2) {
         this.command = c;
@@ -14,12 +14,30 @@ public class CommandExecutorKey {
         this.agent2 = a2;
     }
 
+    public CommandExecutorKey() {
+        this.command = null;
+        this.agent1 = null;
+        this.agent2 = null;
+    }
+
+    public void setCommand(CommandType command) {
+        this.command = command;
+    }
+
     public CommandType getCommand() {
         return command;
     }
 
+    public void setAgent1(Agent agent1) {
+        this.agent1 = agent1;
+    }
+
     public Agent getAgent1() {
         return agent1;
+    }
+
+    public void setAgent2(Agent agent2) {
+        this.agent2 = agent2;
     }
 
     public Agent getAgent2() {

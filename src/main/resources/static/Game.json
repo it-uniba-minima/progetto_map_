@@ -1,0 +1,865 @@
+{
+  "nickname": "Player",
+  "inventory": [],
+  "currentTime": "00:00:00",
+  "corridorsMap": [
+    {
+      "room1": {
+        "name": "Desert",
+        "currentState": "Start",
+        "agents": [
+          {
+            "name": "Sfinge",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          },
+          {
+            "name": "Pippo",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          },
+          {
+            "name": "Pala",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          }
+        ]
+      },
+      "direction": "NORD",
+      "locked": true,
+      "room2": {
+        "name": "Stanza1",
+        "currentState": "Buio",
+        "agents": [
+          {
+            "name": "Colonne",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "room1": {
+        "name": "Stanza1",
+        "currentState": "Buio",
+        "agents": [
+          {
+            "name": "Colonne",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          }
+        ]
+      },
+      "direction": "SUD",
+      "locked": false,
+      "room2": {
+        "name": "Desert",
+        "currentState": "Start",
+        "agents": [
+          {
+            "name": "Sfinge",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          },
+          {
+            "name": "Pippo",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          },
+          {
+            "name": "Pala",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "room1": {
+        "name": "Stanza1",
+        "currentState": "Buio",
+        "agents": [
+          {
+            "name": "Colonne",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          }
+        ]
+      },
+      "direction": "EST",
+      "locked": false,
+      "room2": {
+        "name": "Stanza3",
+        "currentState": "AcquaOn",
+        "agents": [
+          {
+            "name": "Leva",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          },
+          {
+            "name": "Coltello",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          },
+          {
+            "name": "Torcia",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          },
+          {
+            "name": "Brace",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "room1": {
+        "name": "Stanza3",
+        "currentState": "AcquaOn",
+        "agents": [
+          {
+            "name": "Leva",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          },
+          {
+            "name": "Coltello",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          },
+          {
+            "name": "Torcia",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          },
+          {
+            "name": "Brace",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          }
+        ]
+      },
+      "direction": "OVEST",
+      "locked": false,
+      "room2": {
+        "name": "Stanza1",
+        "currentState": "Buio",
+        "agents": [
+          {
+            "name": "Colonne",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "room1": {
+        "name": "Stanza1",
+        "currentState": "Buio",
+        "agents": [
+          {
+            "name": "Colonne",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          }
+        ]
+      },
+      "direction": "OVEST",
+      "locked": false,
+      "room2": {
+        "name": "Stanza2",
+        "currentState": "SerpentiOn",
+        "agents": [
+          {
+            "name": "Corda",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          },
+          {
+            "name": "Bastone",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          },
+          {
+            "name": "Torcia",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "room1": {
+        "name": "Stanza2",
+        "currentState": "SerpentiOn",
+        "agents": [
+          {
+            "name": "Corda",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          },
+          {
+            "name": "Bastone",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          },
+          {
+            "name": "Torcia",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          }
+        ]
+      },
+      "direction": "EST",
+      "locked": false,
+      "room2": {
+        "name": "Stanza1",
+        "currentState": "Buio",
+        "agents": [
+          {
+            "name": "Colonne",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "room1": {
+        "name": "Stanza1",
+        "currentState": "Buio",
+        "agents": [
+          {
+            "name": "Colonne",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          }
+        ]
+      },
+      "direction": "NORD",
+      "locked": true,
+      "room2": {
+        "name": "Stanza4",
+        "currentState": "Start",
+        "agents": [
+          {
+            "name": "Piuma",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "room1": {
+        "name": "Stanza4",
+        "currentState": "Start",
+        "agents": [
+          {
+            "name": "Piuma",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          }
+        ]
+      },
+      "direction": "SUD",
+      "locked": false,
+      "room2": {
+        "name": "Stanza1",
+        "currentState": "Buio",
+        "agents": [
+          {
+            "name": "Colonne",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "room1": {
+        "name": "Stanza4",
+        "currentState": "Start",
+        "agents": [
+          {
+            "name": "Piuma",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          }
+        ]
+      },
+      "direction": "NORD",
+      "locked": true,
+      "room2": {
+        "name": "Stanza5",
+        "currentState": "OcchioIntero",
+        "agents": []
+      }
+    },
+    {
+      "room1": {
+        "name": "Stanza5",
+        "currentState": "OcchioIntero",
+        "agents": []
+      },
+      "direction": "SUD",
+      "locked": false,
+      "room2": {
+        "name": "Stanza4",
+        "currentState": "Start",
+        "agents": [
+          {
+            "name": "Piuma",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "room1": {
+        "name": "Stanza5",
+        "currentState": "OcchioIntero",
+        "agents": []
+      },
+      "direction": "NORD",
+      "locked": true,
+      "room2": {
+        "name": "Stanza6",
+        "currentState": "",
+        "agents": []
+      }
+    },
+    {
+      "room1": {
+        "name": "Stanza6",
+        "currentState": "",
+        "agents": []
+      },
+      "direction": "SUD",
+      "locked": false,
+      "room2": {
+        "name": "Stanza5",
+        "currentState": "OcchioIntero",
+        "agents": []
+      }
+    },
+    {
+      "room1": {
+        "name": "Stanza6",
+        "currentState": "",
+        "agents": []
+      },
+      "direction": "NORD",
+      "locked": true,
+      "room2": {
+        "name": "Stanza10",
+        "currentState": "SarcofagoChiuso",
+        "agents": [
+          {
+            "name": "Osiride",
+            "description": "",
+            "alias": [
+              ""
+            ],
+            "isTalkable": true
+          },
+          {
+            "name": "Sarcofago",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "room1": {
+        "name": "Stanza10",
+        "currentState": "SarcofagoChiuso",
+        "agents": [
+          {
+            "name": "Osiride",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          },
+          {
+            "name": "Sarcofago",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          }
+        ]
+      },
+      "direction": "SUD",
+      "locked": false,
+      "room2": {
+        "name": "Stanza6",
+        "currentState": "",
+        "agents": []
+      }
+    },
+    {
+      "room1": {
+        "name": "Stanza10",
+        "currentState": "SarcofagoChiuso",
+        "agents": [
+          {
+            "name": "Osiride",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          },
+          {
+            "name": "Sarcofago",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          }
+        ]
+      },
+      "direction": "NORD",
+      "locked": false,
+      "room2": {
+        "name": "Stanza9",
+        "currentState": "Spento",
+        "agents": [
+          {
+            "name": "Acqua",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          },
+          {
+            "name": "Olio",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          },
+          {
+            "name": "Lente",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          },
+          {
+            "name": "Buca",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          },
+          {
+            "name": "Hekat",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "room1": {
+        "name": "Stanza9",
+        "currentState": "Spento",
+        "agents": [
+          {
+            "name": "Acqua",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          },
+          {
+            "name": "Olio",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          },
+          {
+            "name": "Lente",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          },
+          {
+            "name": "Buca",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          },
+          {
+            "name": "Hekat",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          }
+        ]
+      },
+      "direction": "SUD",
+      "locked": false,
+      "room2": {
+        "name": "Stanza10",
+        "currentState": "SarcofagoChiuso",
+        "agents": [
+          {
+            "name": "Osiride",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          },
+          {
+            "name": "Sarcofago",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "room1": {
+        "name": "Stanza10",
+        "currentState": "SarcofagoChiuso",
+        "agents": [
+          {
+            "name": "Osiride",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          },
+          {
+            "name": "Sarcofago",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          }
+        ]
+      },
+      "direction": "OVEST",
+      "locked": false,
+      "room2": {
+        "name": "Stanza8",
+        "currentState": "TortaOff",
+        "agents": [
+          {
+            "name": "Grano",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          },
+          {
+            "name": "Pietra",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          },
+          {
+            "name": "Canna da zucchero",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          },
+          {
+            "name": "Uova",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          },
+          {
+            "name": "Latte Vecchio",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          },
+          {
+            "name": "Fuoco",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          },
+          {
+            "name": "Piedistallo",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          },
+          {
+            "name": "Ankh",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "room1": {
+        "name": "Stanza8",
+        "currentState": "TortaOff",
+        "agents": [
+          {
+            "name": "Grano",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          },
+          {
+            "name": "Pietra",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          },
+          {
+            "name": "Canna da zucchero",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          },
+          {
+            "name": "Uova",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          },
+          {
+            "name": "Latte Vecchio",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          },
+          {
+            "name": "Fuoco",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          },
+          {
+            "name": "Piedistallo",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          },
+          {
+            "name": "Ankh",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          }
+        ]
+      },
+      "direction": "EST",
+      "locked": false,
+      "room2": {
+        "name": "Stanza10",
+        "currentState": "SarcofagoChiuso",
+        "agents": [
+          {
+            "name": "Osiride",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          },
+          {
+            "name": "Sarcofago",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "room1": {
+        "name": "Stanza10",
+        "currentState": "SarcofagoChiuso",
+        "agents": [
+          {
+            "name": "Osiride",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          },
+          {
+            "name": "Sarcofago",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          }
+        ]
+      },
+      "direction": "EST",
+      "locked": false,
+      "room2": {
+        "name": "Stanza7",
+        "currentState": "Start",
+        "agents": [
+          {
+            "name": "Nekhekh",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "room1": {
+        "name": "Stanza7",
+        "currentState": "Start",
+        "agents": [
+          {
+            "name": "Nekhekh",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          }
+        ]
+      },
+      "direction": "OVEST",
+      "locked": false,
+      "room2": {
+        "name": "Stanza10",
+        "currentState": "SarcofagoChiuso",
+        "agents": [
+          {
+            "name": "Osiride",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          },
+          {
+            "name": "Sarcofago",
+            "description": "",
+            "alias": [
+              ""
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "statesMap": {
+    "Stanza7": "Start",
+    "Stanza8": "TortaOff",
+    "Stanza5": "OcchioIntero",
+    "Stanza6": "",
+    "Stanza10": "SarcofagoChiuso",
+    "Stanza9": "Spento",
+    "Desert": "Start",
+    "Stanza3": "AcquaOn",
+    "Stanza4": "Start",
+    "Stanza1": "Buio",
+    "Stanza2": "SerpentiOn"
+  }
+}

@@ -1,15 +1,13 @@
 package org.it.uniba.minima.Boundary;
 import org.it.uniba.minima.Control.userInputFlow;
-import org.it.uniba.minima.GUI.GameGUI;
-import org.it.uniba.minima.Control.Parser;
-import org.it.uniba.minima.Type.ParserOutput;
 
 public class userInputManager {
     private static String currentInput = "";
 
-
     public static synchronized String getCurrentInput() {
-        return resetCurrentInput();
+        String temp = currentInput;
+        currentInput = "";
+        return temp;
     }
 
     public static synchronized void setCurrentInput(String currentInput) {
@@ -20,24 +18,17 @@ public class userInputManager {
         return currentInput.isEmpty();
     }
 
-    public static String resetCurrentInput() {
-        String temp = currentInput;
+    /*
+    public static void resetCurrentInput() {
         currentInput = "";
-        return temp;
     }
-
+    */
 
     public static void startInputListener(javax.swing.JTextField userInputField) {
         new Thread(() -> {
             while (true) {
                 if (!isCurrentInputEmpty()) {
-                    String text = getCurrentInput();
-                    userInputFlow.Wordleflow(text);
-                    outputDisplayManager.displayText(text);
-                    Parser parser = new Parser();
-                    ParserOutput parsedText = parser.parse(text);
-                    outputDisplayManager.displayText(parsedText.toString());
-                    setCurrentInput("");
+                    userInputFlow.GameFlow(getCurrentInput());
                 }
                 try {
                     Thread.sleep(100); 

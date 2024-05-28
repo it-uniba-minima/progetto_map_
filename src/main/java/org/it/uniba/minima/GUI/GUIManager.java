@@ -23,9 +23,10 @@ public class GUIManager extends JFrame {
         cards.add(progressBar, "ProgressBarGUI");
         cards.add(game, "GameGUI");
 
-        this.add(cards);
-        this.pack();
-        this.setVisible(true);
+        add(cards);
+        pack();
+        setLocationRelativeTo(null);
+        setVisible(true);
 
         Mixer music = Mixer.getInstance();
         music.start();

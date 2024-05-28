@@ -1,5 +1,6 @@
 package org.it.uniba.minima.GUI;
 import org.it.uniba.minima.Boundary.outputDisplayManager;
+import org.it.uniba.minima.Control.GameManager;
 import org.it.uniba.minima.Control.Serializer;
 import org.it.uniba.minima.Database.DatabaseConnection;
 import org.it.uniba.minima.Entity.Game;
@@ -17,7 +18,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import javax.swing.ImageIcon;
 
-import static org.it.uniba.minima.Main.conn;
+
 
 
 public class MenuGUI extends javax.swing.JPanel{
@@ -166,10 +167,7 @@ public class MenuGUI extends javax.swing.JPanel{
         progressBarGUI = (ProgressBarGUI) this.getParent().getComponent(2);
         CardLayout cl = (CardLayout) getParent().getLayout();
         cl.show(getParent(), "ProgressBarGUI");
-        Game game = new Game();
-
-        game.setNickname("Player");
-        GameGUI.setGame(game);
+        GameManager.createGame();
 
         GameGUI gameGUI = (GameGUI) this.getParent().getComponent(3);
 
@@ -202,7 +200,7 @@ public class MenuGUI extends javax.swing.JPanel{
 
     private void loadGameActionPerformed(java.awt.event.ActionEvent evt) throws IOException, ClassNotFoundException {
         Game game = Serializer.deserialize();
-        GameGUI.setGame(game);
+        //GameGUI.setGame(game);
         CardLayout cl = (CardLayout) getParent().getLayout();
         // get timer from file -> Timer.start();
     }
