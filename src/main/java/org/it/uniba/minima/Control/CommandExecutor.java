@@ -1,5 +1,6 @@
 package org.it.uniba.minima.Control;
 
+import org.it.uniba.minima.Boundary.outputDisplayManager;
 import org.it.uniba.minima.Entity.Agent;
 import org.it.uniba.minima.Entity.Personage;
 import org.it.uniba.minima.Entity.Game;
@@ -8,7 +9,6 @@ import org.it.uniba.minima.Type.CommandType;
 import org.it.uniba.minima.Type.Corridor;
 import org.it.uniba.minima.Type.ParserOutput;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Set;
 
 public class CommandExecutor {
@@ -25,11 +25,11 @@ public class CommandExecutor {
 
             if (corridor != null && !corridor.isLocked()) {
                 game.setCurrentRoom(corridor.getArrivingRoom());
-                System.out.println("You moved to the " + direction);
+                outputDisplayManager.displayText("You moved to the " + direction);
             } else if (corridor != null && corridor.isLocked()) {
-                System.out.println("The corridor is locked");
+                outputDisplayManager.displayText("The corridor is locked");
             } else {
-                System.out.println("There is no corridor to the " + direction);
+                outputDisplayManager.displayText("There is no corridor to the " + direction);
             }
         };
     }
@@ -52,10 +52,10 @@ public class CommandExecutor {
                 createDirectionCommandBehavior(CommandType.OVEST));
 
         commandMap.put(new CommandExecutorKey(CommandType.LOOK, null, null),
-                p -> System.out.println(game.getCurrentRoom().getDescription()));
+                p -> outputDisplayManager.displayText(game.getCurrentRoom().getDescription()));
 
         commandMap.put(new CommandExecutorKey(CommandType.HELP, null, null),
-                p -> System.out.println("List of commands"));
+                p -> outputDisplayManager.displayText("List of commands"));
 
         commandMap.put(new CommandExecutorKey(CommandType.INVENTORY, null, null),
                 p -> game.printInventory());
@@ -67,9 +67,9 @@ public class CommandExecutor {
                             if (game.getCurrentRoom().getAgents().contains(p.getAgent1())
                             //|| game.getInventory().contains((Item) p.getAgent1())
                             ) {
-                                System.out.println(p.getAgent1().getDescription());
+                                outputDisplayManager.displayText(p.getAgent1().getDescription());
                             } else {
-                                System.out.println("The agent is not in the room");
+                                outputDisplayManager.displayText("The agent is not in the room");
                             }
                         })
         );
@@ -82,14 +82,14 @@ public class CommandExecutor {
                                 if (((Item) p.getAgent1()).isPickable()) {
                                     game.getInventory().add((Item) p.getAgent1());
                                     game.getCurrentRoom().getAgents().remove(p.getAgent1());
-                                    System.out.println("Taken");
+                                    outputDisplayManager.displayText("Taken");
                                     // TODO: Add custom text when picking up the item !!use an external function
                                 } else {
-                                    System.out.println("The item is not pickable");
+                                    outputDisplayManager.displayText("The item is not pickable");
                                     // TODO: Add custom text when the item is not pickable !!use an external function
                                 }
                             } else {
-                                System.out.println("The item is not in the room");
+                                outputDisplayManager.displayText("The item is not in the room");
                             }
                         })
         );
@@ -102,12 +102,12 @@ public class CommandExecutor {
                                 if (((Item) p.getAgent1()).isDroppable()) {
                                     game.getCurrentRoom().getAgents().add((Item) p.getAgent1());
                                     game.getInventory().remove(p.getAgent1());
-                                    System.out.println("Dropped");
+                                    outputDisplayManager.displayText("Dropped");
                                 } else {
-                                    System.out.println("The item is not droppable");
+                                    outputDisplayManager.displayText("The item is not droppable");
                                 }
                             } else {
-                                System.out.println("The item is not in the inventory");
+                                outputDisplayManager.displayText("The item is not in the inventory");
                             }
                         })
         );
@@ -117,10 +117,10 @@ public class CommandExecutor {
                 commandMap.put(new CommandExecutorKey(CommandType.TALK, personage, null),
                         p -> {
                             if (game.getCurrentRoom().getAgents().contains(p.getAgent1())) {
-                                    System.out.println("Talking to " + p.getAgent1().getName());
+                                    outputDisplayManager.displayText("Talking to " + p.getAgent1().getName());
                                     // TODO: Add custom text when talking to the personage !!use an external function
                             } else {
-                                System.out.println("The personage is not in the room");
+                                outputDisplayManager.displayText("The personage is not in the room");
                             }
                         })
         );
@@ -134,13 +134,13 @@ public class CommandExecutor {
                         p -> {
                             if (game.getInventory().contains(p.getAgent1())) {
                                 if (gameLogic.executeUseSingleItem((Item) p.getAgent1())) {
-                                    System.out.println("Used");
+                                    outputDisplayManager.displayText("Used");
                                     //call function for custom behavior
                                 } else {
-                                    System.out.println("The item is not usable");
+                                    outputDisplayManager.displayText("The item is not usable");
                                 }
                             } else {
-                                System.out.println("The item is not in the inventory");
+                                outputDisplayManager.displayText("The item is not in the inventory");
                                 //call database for custom message
                             }
                         })
@@ -155,23 +155,23 @@ public class CommandExecutor {
                                     if (game.getInventory().contains(p.getAgent1())) {
                                         if (game.getCurrentRoom().getAgents().contains(p.getAgent2())) {
                                             if (gameLogic.executeUseCombinationInRoom((Item) p.getAgent1(), (Item) p.getAgent2())) { // Replace this with the actual method to check if the combination is valid
-                                                System.out.println(p.getAgent1().getName() + " used on " + p.getAgent2().getName());
+                                                outputDisplayManager.displayText(p.getAgent1().getName() + " used on " + p.getAgent2().getName());
                                                 //call function for custom behavior
                                             } else {
-                                                System.out.println("The combination is not valid");
+                                                outputDisplayManager.displayText("The combination is not valid");
                                             }
                                         } else if (game.getInventory().contains(p.getAgent2())) {
                                             if (gameLogic.executeUseCombinationInInventory((Item) p.getAgent1(), (Item) p.getAgent2())) { // Replace this with the actual method to check if the combination is valid
-                                                System.out.println(p.getAgent1().getName() + " used on " + p.getAgent2().getName());
+                                                outputDisplayManager.displayText(p.getAgent1().getName() + " used on " + p.getAgent2().getName());
                                                 //call function for custom behavior
                                             } else {
-                                                System.out.println("The combination is not valid");
+                                                outputDisplayManager.displayText("The combination is not valid");
                                             }
                                         } else {
-                                            System.out.println("The second agent is not in the room or in the inventory");
+                                            outputDisplayManager.displayText("The second agent is not in the room or in the inventory");
                                         }
                                     } else {
-                                        System.out.println("The first agent is not in the inventory");
+                                        outputDisplayManager.displayText("The first agent is not in the inventory");
                                     }
                                 })
                 )
@@ -185,15 +185,15 @@ public class CommandExecutor {
                                 p -> {
                                     if (game.getInventory().contains(p.getAgent1()) && game.getInventory().contains(p.getAgent2())) {
                                         if (item1 == item2) {
-                                            System.out.println("You can't fuse an item with itself");
+                                            outputDisplayManager.displayText("You can't fuse an item with itself");
                                         } else if (gameLogic.executeFuseCombination((Item) p.getAgent1(), (Item) p.getAgent2())) { // Replace this with the actual method to check if the combination is valid
-                                            System.out.println(p.getAgent1().getName() + " fused with " + p.getAgent2().getName());
+                                            outputDisplayManager.displayText(p.getAgent1().getName() + " fused with " + p.getAgent2().getName());
                                             //call function for custom behavior
                                         } else {
-                                            System.out.println("The combination is not valid");
+                                            outputDisplayManager.displayText("The combination is not valid");
                                         }
                                     } else {
-                                        System.out.println("You're missing one or both of the items in the inventory");
+                                        outputDisplayManager.displayText("You're missing one or both of the items in the inventory");
                                     }
                                 })
         ));
@@ -207,16 +207,16 @@ public class CommandExecutor {
                                     if (game.getInventory().contains(p.getAgent1())) {
                                         if (game.getCurrentRoom().getAgents().contains(p.getAgent2())) {
                                             if (gameLogic.executeGiveCombination((Item) p.getAgent1(), (Personage) p.getAgent2())) { // Replace this with the actual method to check if the combination is valid
-                                                System.out.println(p.getAgent1().getName() + " given to " + p.getAgent2().getName());
+                                                outputDisplayManager.displayText(p.getAgent1().getName() + " given to " + p.getAgent2().getName());
                                                 //call function for custom behavior
                                             } else {
-                                                System.out.println("The combination is not valid");
+                                                outputDisplayManager.displayText("The combination is not valid");
                                             }
                                         } else {
-                                            System.out.println("The personage is not in the room");
+                                            outputDisplayManager.displayText("The personage is not in the room");
                                         }
                                     } else {
-                                        System.out.println("The item is not in the inventory");
+                                        outputDisplayManager.displayText("The item is not in the inventory");
                                     }
                                 })
                 )
@@ -229,7 +229,7 @@ public class CommandExecutor {
         if (behavior != null) {
             behavior.execute(p);
         } else {
-            System.out.println("No behavior found for the given key");
+            outputDisplayManager.displayText("No behavior found for the given key");
         }
     }
 }
