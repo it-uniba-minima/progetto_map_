@@ -27,9 +27,6 @@ import static javax.swing.SwingUtilities.invokeLater;
  */
 public class GameGUI extends javax.swing.JPanel {
     private static CardLayout cardLayout;
-
-    private static Game game;
-    private static WordleGame wordleGame;
     /**
      * Creates new form GameGUI
      */
@@ -44,6 +41,7 @@ public class GameGUI extends javax.swing.JPanel {
         initComponents();
         cardLayout = new CardLayout();
         imagePanel.setLayout(cardLayout);
+        imagePanel.add(new MattonelleGUI(), "Mattonelle");
         imagePanel.add(new Wordle(), "Wordle");
     }
 
@@ -53,6 +51,10 @@ public class GameGUI extends javax.swing.JPanel {
 
     public static int getTextPaneWidth() {
         return displayTextPane.getWidth();
+    }
+
+    public static MattonelleGUI getMattonelleGUI() {
+        return (MattonelleGUI) imagePanel.getComponent(0);
     }
 
     /**
@@ -217,12 +219,14 @@ public class GameGUI extends javax.swing.JPanel {
 
 
     private void saveGameButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        /*
         Serializer serializer = new Serializer();
         try {
             serializer.serialize(game);
         } catch (Exception e) {
             e.printStackTrace();
         }
+         */
     }
 
     private void goBackButtonActionPerformed(java.awt.event.ActionEvent evt) {
