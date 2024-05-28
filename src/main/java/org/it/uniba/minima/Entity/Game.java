@@ -14,10 +14,22 @@ public class Game implements Serializable {
     private String currentTime;
     private Room currentRoom;
     private List<Corridor> corridorsMap;
-    private Map<Integer, String> statesMap;
+    private Map<String, String> statesMap;
 
     public Game() {
         this.inventory = new ArrayList<>();
+    }
+
+    public void addInventory(Item item) {
+        inventory.add(item);
+    }
+
+    public void removeInventory(Item item) {
+        inventory.remove(item);
+    }
+
+    public void setInventory(List<Item> inventory) {
+        this.inventory = inventory;
     }
 
     public static Game getInstance(Game game) {
@@ -59,55 +71,32 @@ public class Game implements Serializable {
         this.corridorsMap = corridors;
     }
 
-    public List<Agent> getAllAgents() {
-        Item item2 = new Item();
-        item2.setName("item2");
-        item2.setDescription("This is item2");
-        item2.setAlias(List.of("a1", "ag1"));
-
-        Item item1 = new Item();
-        item1.setName("item1");
-        item1.setDescription("This is item1");
-        item1.setAlias(List.of("i1", "it1"));
-
-        Character character1 = new Character();
-        character1.setName("character1");
-        character1.setDescription("This is character1");
-        character1.setAlias(List.of("c1", "ch1"));
-
-        Character character2 = new Character();
-        character2.setName("character2");
-        character2.setDescription("This is character2");
-        character2.setAlias(List.of("c2", "ch2"));
-
-        return new ArrayList<>(List.of(item2, item1, character1, character2));
+    public void unlockCorridor(String r1, String r2) {
+        for (Corridor corridor : corridorsMap) {
+            if (corridor.getStartingRoom().getName().equals(r1) && corridor.getArrivingRoom().getName().equals(r2)) {
+                corridor.setLocked(false);
+            }
+        }
     }
 
-    public List<Item> getAllItems() {
-        Item item2 = new Item();
-        item2.setName("item2");
-        item2.setDescription("This is item2");
-        item2.setAlias(List.of("a1", "ag1"));
-
-        Item item1 = new Item();
-        item1.setName("item1");
-        item1.setDescription("This is item1");
-        item1.setAlias(List.of("i1", "it1"));
-
-        return new ArrayList<>(List.of(item1, item2));
+    public void setCurrentTime(String currentTime) {
+        this.currentTime = currentTime;
     }
 
-    public List<Character> getAllCharacters() {
-        Character character1 = new org.it.uniba.minima.Entity.Character();
-        character1.setName("character1");
-        character1.setDescription("This is character1");
-        character1.setAlias(List.of("c1", "ch1"));
-
-        Character character2 = new Character();
-        character2.setName("character2");
-        character2.setDescription("This is character2");
-        character2.setAlias(List.of("c2", "ch2"));
-
-        return new ArrayList<>(List.of(character1, character2));
+    public String getCurrentTime() {
+        return currentTime;
     }
+
+    public void setStatesMap(Map<String, String> statesMap) {
+        this.statesMap = statesMap;
+    }
+
+    public void setRoomState(String room, String state) {
+        statesMap.put(room, state);
+    }
+
+    public Map<String, String> getStatesMap() {
+        return statesMap;
+    }
+
 }
