@@ -2,35 +2,6 @@
   "nickname": "Player",
   "inventory": [],
   "currentTime": "00:00:00",
-  "currentRoom": {
-    "name": "Desert",
-    "currentState": "Start",
-    "agents": [
-      {
-        "name": "Sfinge",
-        "description": "",
-        "alias": [
-          ""
-        ],
-        "isTalkable": true
-      },
-      {
-        "name": "Pippo",
-        "description": "",
-        "alias": [
-          ""
-        ],
-        "isTalkable": true
-      },
-      {
-        "name": "Pala",
-        "description": "",
-        "alias": [
-          ""
-        ]
-      }
-    ]
-  },
   "corridorsMap": [
     {
       "room1": {
