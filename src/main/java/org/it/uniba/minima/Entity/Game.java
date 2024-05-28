@@ -17,6 +17,7 @@ public class Game {
 
     public static void setUpGame(Game game) {
         Game.game = game;
+        Game.game.setCurrentRoom(game.getCorridorsMap().get(0).getStartingRoom());
     }
 
     public static Game getInstance() {
@@ -43,8 +44,20 @@ public class Game {
         return currentRoom;
     }
 
-    public void setCurrentRoom(Room currentRoom) {
-        this.currentRoom = currentRoom;
+    public void setCurrentRoom(Room room) {
+        // Retrieve the Room instance from the corridorsMap
+        for (Corridor corridor : corridorsMap) {
+            if (corridor.getStartingRoom().equals(room)) {
+                this.currentRoom = corridor.getStartingRoom();
+                return;
+            }
+            if (corridor.getArrivingRoom().equals(room)) {
+                this.currentRoom = corridor.getArrivingRoom();
+                return;
+            }
+        }
+        // If the room is not found in the corridorsMap, set the currentRoom to the provided room
+        this.currentRoom = room;
     }
 
     public List<Item> getInventory() {
