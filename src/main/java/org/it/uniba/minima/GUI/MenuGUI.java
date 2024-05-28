@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import javax.swing.ImageIcon;
 
-import static org.it.uniba.minima.Main.conn;
+
 
 
 public class MenuGUI extends javax.swing.JPanel{
