@@ -1,7 +1,7 @@
 package org.it.uniba.minima.Control;
 
 import org.it.uniba.minima.Entity.Agent;
-import org.it.uniba.minima.Entity.Character;
+import org.it.uniba.minima.Entity.Personage;
 import org.it.uniba.minima.Entity.Game;
 import org.it.uniba.minima.Entity.Item;
 import org.it.uniba.minima.Type.CommandType;
@@ -9,35 +9,12 @@ import org.it.uniba.minima.Type.Corridor;
 import org.it.uniba.minima.Type.ParserOutput;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 public class CommandExecutor {
     private Game game;
     private HashMap<CommandExecutorKey, CommandBehavior> commandMap;
-
-    private boolean isUseCombinationValidInInventory(Item i1, Item i2) {
-        List<Item> allItems = game.getAllItems();
-
-        return i1.equals(allItems.get(1)) && i2.equals(allItems.get(0));
-    }
-
-    private boolean isUseCombinationValidInRoom(Item i1, Item i2) {
-        List<Item> allItems = game.getAllItems();
-
-        return i1.equals(allItems.get(0)) && i2.equals(allItems.get(1));
-    }
-
-    private boolean isFuseCombinationValid(Item i1, Item i2) {
-        List<Item> allItems = game.getAllItems();
-
-        return i2.equals(allItems.get(0)) && i1.equals(allItems.get(1));
-    }
-
-    private boolean isGiveCombinationValid(Item i, Character c) {
-        List<Item> allItems = game.getAllItems();
-        List<Character> allCharacters = game.getAllCharacters();
-
-        return i.equals(allItems.get(1)) && c.equals(allCharacters.get(1));
-    }
+    private GameLogic gameLogic;
 
     private CommandBehavior createDirectionCommandBehavior(CommandType direction) {
         return p -> {
@@ -59,11 +36,8 @@ public class CommandExecutor {
 
     public CommandExecutor(Game game) {
         this.game = game;
+        this.gameLogic = new GameLogic(game);
         commandMap = new HashMap<>();
-        Agent agent1 = new Agent();
-        agent1.setName("agent1");
-        agent1.setDescription("This is agent1");
-        agent1.setAlias(List.of("a1", "ag1"));
 
         commandMap.put(new CommandExecutorKey(CommandType.NORD, null, null),
                 createDirectionCommandBehavior(CommandType.NORD));
@@ -86,11 +60,13 @@ public class CommandExecutor {
         commandMap.put(new CommandExecutorKey(CommandType.INVENTORY, null, null),
                 p -> game.printInventory());
 
-        List<Agent> allAgents = game.getAllAgents(); // Replace this with the actual method to get all agents
+        Set<Agent> allAgents = GameManager.getAllAgents(); // Replace this with the actual method to get all agents
         allAgents.forEach(agent ->
                 commandMap.put(new CommandExecutorKey(CommandType.LOOK, agent, null),
                         p -> {
-                            if (game.getCurrentRoom().getAgents().contains(p.getAgent1())) {
+                            if (game.getCurrentRoom().getAgents().contains(p.getAgent1())
+                            //|| game.getInventory().contains((Item) p.getAgent1())
+                            ) {
                                 System.out.println(p.getAgent1().getDescription());
                             } else {
                                 System.out.println("The agent is not in the room");
@@ -98,7 +74,7 @@ public class CommandExecutor {
                         })
         );
 
-        List<Item> allItems = game.getAllItems(); // Replace this with the actual method to get all agents
+        Set<Item> allItems = GameManager.getAllItems(); // Replace this with the actual method to get all agents
         allItems.forEach(item ->
                 commandMap.put(new CommandExecutorKey(CommandType.TAKE, item, null),
                         p -> {
@@ -136,19 +112,19 @@ public class CommandExecutor {
                         })
         );
 
-        List<Character> allCharacters = game.getAllCharacters(); // Replace this with the actual method to get all agents
-        allCharacters.forEach(character ->
-                commandMap.put(new CommandExecutorKey(CommandType.TALK, character, null),
+        Set<Personage> allPersonages = GameManager.getAllPersonages(); // Replace this with the actual method to get all agents
+        allPersonages.forEach(personage ->
+                commandMap.put(new CommandExecutorKey(CommandType.TALK, personage, null),
                         p -> {
                             if (game.getCurrentRoom().getAgents().contains(p.getAgent1())) {
                                     System.out.println("Talking to " + p.getAgent1().getName());
-                                    // TODO: Add custom text when talking to the character !!use an external function
+                                    // TODO: Add custom text when talking to the personage !!use an external function
                             } else {
-                                System.out.println("The character is not in the room");
+                                System.out.println("The personage is not in the room");
                             }
                         })
         );
-        //test if it works, then add custom behavior when trying to pick up the different characters
+        //test if it works, then add custom behavior when trying to pick up the different personages
 
         // The use command should be different for every item
         // if you can't use the item at that moment we need to call the db to print a message
@@ -157,7 +133,7 @@ public class CommandExecutor {
                 commandMap.put(new CommandExecutorKey(CommandType.USE, item, null),
                         p -> {
                             if (game.getInventory().contains(p.getAgent1())) {
-                                if (((Item) p.getAgent1()).isUsable()) {
+                                if (gameLogic.executeUseSingleItem((Item) p.getAgent1())) {
                                     System.out.println("Used");
                                     //call function for custom behavior
                                 } else {
@@ -165,6 +141,7 @@ public class CommandExecutor {
                                 }
                             } else {
                                 System.out.println("The item is not in the inventory");
+                                //call database for custom message
                             }
                         })
         );
@@ -177,14 +154,14 @@ public class CommandExecutor {
                                 p -> {
                                     if (game.getInventory().contains(p.getAgent1())) {
                                         if (game.getCurrentRoom().getAgents().contains(p.getAgent2())) {
-                                            if (isUseCombinationValidInRoom((Item) p.getAgent1(), (Item) p.getAgent2())) { // Replace this with the actual method to check if the combination is valid
+                                            if (gameLogic.executeUseCombinationInRoom((Item) p.getAgent1(), (Item) p.getAgent2())) { // Replace this with the actual method to check if the combination is valid
                                                 System.out.println(p.getAgent1().getName() + " used on " + p.getAgent2().getName());
                                                 //call function for custom behavior
                                             } else {
                                                 System.out.println("The combination is not valid");
                                             }
                                         } else if (game.getInventory().contains(p.getAgent2())) {
-                                            if (isUseCombinationValidInInventory((Item) p.getAgent1(), (Item) p.getAgent2())) { // Replace this with the actual method to check if the combination is valid
+                                            if (gameLogic.executeUseCombinationInInventory((Item) p.getAgent1(), (Item) p.getAgent2())) { // Replace this with the actual method to check if the combination is valid
                                                 System.out.println(p.getAgent1().getName() + " used on " + p.getAgent2().getName());
                                                 //call function for custom behavior
                                             } else {
@@ -209,7 +186,7 @@ public class CommandExecutor {
                                     if (game.getInventory().contains(p.getAgent1()) && game.getInventory().contains(p.getAgent2())) {
                                         if (item1 == item2) {
                                             System.out.println("You can't fuse an item with itself");
-                                        } else if (isFuseCombinationValid((Item) p.getAgent1(), (Item) p.getAgent2())) { // Replace this with the actual method to check if the combination is valid
+                                        } else if (gameLogic.executeFuseCombination((Item) p.getAgent1(), (Item) p.getAgent2())) { // Replace this with the actual method to check if the combination is valid
                                             System.out.println(p.getAgent1().getName() + " fused with " + p.getAgent2().getName());
                                             //call function for custom behavior
                                         } else {
@@ -224,19 +201,19 @@ public class CommandExecutor {
         // The give command should be different for every combination of items and agents
         // in case the combination isn't valid, we need call the db to print a message
         allItems.forEach(item ->
-                allCharacters.forEach(character ->
-                        commandMap.put(new CommandExecutorKey(CommandType.GIVE, item, character),
+                allPersonages.forEach(personage ->
+                        commandMap.put(new CommandExecutorKey(CommandType.GIVE, item, personage),
                                 p -> {
                                     if (game.getInventory().contains(p.getAgent1())) {
                                         if (game.getCurrentRoom().getAgents().contains(p.getAgent2())) {
-                                            if (isGiveCombinationValid((Item) p.getAgent1(), (Character) p.getAgent2())) { // Replace this with the actual method to check if the combination is valid
+                                            if (gameLogic.executeGiveCombination((Item) p.getAgent1(), (Personage) p.getAgent2())) { // Replace this with the actual method to check if the combination is valid
                                                 System.out.println(p.getAgent1().getName() + " given to " + p.getAgent2().getName());
                                                 //call function for custom behavior
                                             } else {
                                                 System.out.println("The combination is not valid");
                                             }
                                         } else {
-                                            System.out.println("The character is not in the room");
+                                            System.out.println("The personage is not in the room");
                                         }
                                     } else {
                                         System.out.println("The item is not in the inventory");
