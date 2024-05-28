@@ -4,24 +4,20 @@ import org.it.uniba.minima.Entity.*;
 import org.it.uniba.minima.GUI.GameGUI;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class GameManager {
     private static Map<String, Agent> allAgents;
 
-    public void createGame() {
-        Game game = new Game();
-        GameGUI.setGame(game);
+    public static void createGame() {
         Converter converter = new Converter();
         allAgents = converter.convertJsonToJavaClass();
     }
 
-    public void saveGame(Game game) throws IOException, ClassNotFoundException {
+    public void saveGame() throws IOException, ClassNotFoundException {
         Converter converter = new Converter();
-        converter.ConvertGametoJson(game);
+        converter.ConvertGametoJson();//(Game.getInstance());
 
     }
 
@@ -35,7 +31,7 @@ public class GameManager {
     }
 
     public static Set<Agent> getAllAgents() {
-        return (Set<Agent>) allAgents.values();
+        return new HashSet<>(allAgents.values());
     }
 
     public static Set<Item> getAllItems() {
