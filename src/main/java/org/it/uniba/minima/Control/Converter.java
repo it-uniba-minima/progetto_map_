@@ -8,6 +8,8 @@ import com.google.gson.stream.JsonReader;
 import org.it.uniba.minima.Entity.Agent;
 import org.it.uniba.minima.Entity.Game;
 import org.it.uniba.minima.Entity.Room;
+import org.it.uniba.minima.Type.Corridor;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -17,20 +19,46 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Converter {
-    List<Room> allRooms = new ArrayList<>();
-
     public Map<String, Agent> convertJsonToJavaClass() {
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(Agent.class, new AgentDeserializer())
                 .create();
         Map<String, Agent> allAgents = new HashMap<>();
+        Map<String, Room> allRooms = new HashMap<>();
 
+        try {
+            URL url = getClass().getResource("/static/Game.json");
+            File file = new File(url.toURI());
+            JsonReader reader = new JsonReader(new FileReader(file));
+            Game game = gson.fromJson(reader, Game.class);
+
+            game.getCorridorsMap().forEach(corridor -> {
+                Room room = corridor.getStartingRoom();
+                if (!allRooms.containsKey(room.getName())) {
+                    allRooms.put(room.getName(), room);
+                    room.getAgents().forEach(agent -> allAgents.put(agent.getName(), agent));
+                } else {
+                    Room existingRoom = allRooms.get(room.getName());
+                    corridor.setStartingRoom(existingRoom);
+                }
+                room = corridor.getArrivingRoom();
+                if (!allRooms.containsKey(room.getName())) {
+                    allRooms.put(room.getName(), room);
+                    room.getAgents().forEach(agent -> allAgents.put(agent.getName(), agent));
+                } else {
+                    Room existingRoom = allRooms.get(room.getName());
+                    corridor.setArrivingRoom(existingRoom);
+                }
+            });
+            Game.setUpGame(game);
+        } catch (FileNotFoundException | URISyntaxException e) {
+            e.printStackTrace();
+        }
+
+        /*
         try {
             URL url = getClass().getResource("/static/Rooms.json");
             File file = new File(url.toURI());
@@ -44,7 +72,7 @@ public class Converter {
         } catch (FileNotFoundException | URISyntaxException e) {
             e.printStackTrace();
         }
-
+        */
         try {
             URL url = getClass().getResource("/static/Agents.json");
             File file = new File(url.toURI());
@@ -58,15 +86,6 @@ public class Converter {
 
         //
         // chiedere se fare una funzione a parte o no per il caricamento di Game.json
-
-        try {
-            URL url = getClass().getResource("/static/Game.json");
-            File file = new File(url.toURI());
-            JsonReader reader = new JsonReader(new FileReader(file));
-            Game.setUpGame(gson.fromJson(reader, Game.class));
-        } catch (FileNotFoundException | URISyntaxException e) {
-            e.printStackTrace();
-        }
         return allAgents;
     }
         /*
