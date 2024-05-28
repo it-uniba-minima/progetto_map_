@@ -1,38 +1,25 @@
 package org.it.uniba.minima.Entity;
 
 
+import org.it.uniba.minima.Boundary.outputDisplayManager;
 import org.it.uniba.minima.Type.Corridor;
-
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class Game implements Serializable {
+public class Game {
     private String nickname;
     private List<Item> inventory;
     private String currentTime;
     private Room currentRoom;
     private List<Corridor> corridorsMap;
     private Map<String, String> statesMap;
+    public static Game game = new Game();
 
-    public Game() {
-        this.inventory = new ArrayList<>();
+    public static void setUpGame(Game game) {
+        Game.game = game;
     }
 
-    public void addInventory(Item item) {
-        inventory.add(item);
-    }
-
-    public void removeInventory(Item item) {
-        inventory.remove(item);
-    }
-
-    public void setInventory(List<Item> inventory) {
-        this.inventory = inventory;
-    }
-
-    public static Game getInstance(Game game) {
+    public static Game getInstance() {
         return game;
     }
 
@@ -44,12 +31,16 @@ public class Game implements Serializable {
         this.nickname = nickname;
     }
 
-    public Room getCurrentRoom() {
-        return currentRoom;
+    public void addInventory(Item item) {
+        inventory.add(item);
     }
 
-    public List<Corridor> getCorridorsMap() {
-        return corridorsMap;
+    public void removeInventory(Item item) {
+        inventory.remove(item);
+    }
+
+    public Room getCurrentRoom() {
+        return currentRoom;
     }
 
     public void setCurrentRoom(Room currentRoom) {
@@ -61,14 +52,14 @@ public class Game implements Serializable {
     }
 
     public void printInventory() {
-        System.out.println("Inventory: \n");
+        outputDisplayManager.displayText("Inventory: \n");
         for (Item item : inventory) {
-            System.out.println(item.getName());
+            outputDisplayManager.displayText(item.getName());
         }
     }
 
-    public void setCorridorsMap(List<Corridor> corridors) {
-        this.corridorsMap = corridors;
+    public List<Corridor> getCorridorsMap() {
+        return corridorsMap;
     }
 
     public void unlockCorridor(String r1, String r2) {
@@ -87,16 +78,8 @@ public class Game implements Serializable {
         return currentTime;
     }
 
-    public void setStatesMap(Map<String, String> statesMap) {
-        this.statesMap = statesMap;
-    }
-
     public void setRoomState(String room, String state) {
         statesMap.put(room, state);
+        currentRoom.setState(state);
     }
-
-    public Map<String, String> getStatesMap() {
-        return statesMap;
-    }
-
 }
