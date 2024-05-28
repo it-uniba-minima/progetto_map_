@@ -1,5 +1,6 @@
 package org.it.uniba.minima.Control;
 
+import com.mashape.unirest.http.exceptions.UnirestException;
 import org.it.uniba.minima.Boundary.WordleGame;
 import org.it.uniba.minima.Boundary.outputDisplayManager;
 import org.it.uniba.minima.Entity.Game;
@@ -7,8 +8,9 @@ import org.it.uniba.minima.Type.ParserOutput;
 
 public class userInputFlow {
     public static int Event = 0;
-    static Parser parser = new Parser();
+    private static Parser parser = new Parser();
     private static CommandExecutor commandExecutor = new CommandExecutor(Game.getInstance());
+    private static WordleGame wordleGame = new WordleGame();
 
     //WordleGame wordleGame = new WordleGame();
 
@@ -44,6 +46,6 @@ public class userInputFlow {
     }
 
     public static void wordleFlow(String text) {
-        WordleGame.printSplittedText(text.trim().toUpperCase());
+        wordleGame.printSplittedText(text.trim().toUpperCase());
     }
 }
