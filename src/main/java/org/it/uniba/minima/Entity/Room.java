@@ -20,6 +20,10 @@ public class Room {
          currentState = state;
     }
 
+    public String getState() {
+        return currentState;
+    }
+
     public void setName (String name) {
         this.name = name;
     }
@@ -46,18 +50,11 @@ public class Room {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null || getClass() != obj.getClass()) {
-            return false;
-        }
-        Room room = (Room) obj;
-        return name.equals(room.name) && currentState.equals(room.currentState) && agents.equals(room.agents);
+        return this == obj;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, currentState, agents);
+        return System.identityHashCode(this);
     }
 }
