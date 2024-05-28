@@ -3,23 +3,21 @@ package org.it.uniba.minima.Entity;
 import java.util.*;
 
 public class Room {
-    private int id;
     private String name;
-    private Map<String, String> description;
-    private String state;
+    private String currentState;
     private List<Agent> agents;
 
     public Room() {
-        this.description = new HashMap<>();
         this.agents = new ArrayList<>();
     }
 
     public String getDescription() {
-        return description.get(state);
+        //call database with currentState
+        return "Substitute this with the description of the room";
     }
 
-    public void setDescription(String thisIsRoom1) {
-        this.description.put(state, thisIsRoom1);
+    public void setState(String state) {
+         currentState = state;
     }
 
     public void setName (String name) {
@@ -45,11 +43,21 @@ public class Room {
     public boolean hasAgent(Agent agent) {
         return agents.contains(agent);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Room room = (Room) obj;
+        return name.equals(room.name) && currentState.equals(room.currentState) && agents.equals(room.agents);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, currentState, agents);
+    }
 }
-
-
-/*
-id = 1
-name = "room1"
-
- */
