@@ -37,6 +37,14 @@ public class Room {
     public void addAgent(Agent agent) {
         agents.add(agent);
     }
+
+    public void removeAgent(Agent agent) {
+        agents.remove(agent);
+    }
+
+    public boolean hasAgent(Agent agent) {
+        return agents.contains(agent);
+    }
 }
 
 
