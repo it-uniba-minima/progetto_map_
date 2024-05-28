@@ -6,12 +6,14 @@ import org.it.uniba.minima.Type.ParserOutput;
 import org.it.uniba.minima.Type.CommandType;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
+import java.net.URL;
 import java.util.*;
 
 public class Parser {
     public static List<Command> availableCommands = new ArrayList<>(); //MainController.getAvailableCommands();
-    public static List<Agent> availableAgents = new ArrayList<>();     //MainController.getAvailableAgents();
+    public static Set<Agent> availableAgents = GameManager.getAllAgents();     //MainController.getAvailableAgents();
     private static Set<String> stopWords = new HashSet<>();
 
     public Parser() {
@@ -28,32 +30,6 @@ public class Parser {
         availableCommands.add( new Command("dai", List.of("give", "d", "passa"), CommandType.GIVE));
         availableCommands.add( new Command("lascia", List.of("drop", "l", "abbandona"), CommandType.DROP));
         availableCommands.add( new Command("fonde", List.of("fuse", "f", "componi"), CommandType.FUSE));
-
-
-        Personage personage1 = new Personage();
-        personage1.setName("personage1");
-        personage1.setDescription("This is personage1");
-        personage1.setAlias(List.of("c1", "ch1"));
-
-        Personage personage2 = new Personage();
-        personage2.setName("personage2");
-        personage2.setDescription("This is personage2");
-        personage2.setAlias(List.of("c2", "ch2"));
-
-        Item item2 = new Item();
-        item2.setName("item2");
-        item2.setDescription("This is item2");
-        item2.setAlias(List.of("a1", "ag1"));
-
-        Item item1 = new Item();
-        item1.setName("item1");
-        item1.setDescription("This is item1");
-        item1.setAlias(List.of("i1", "it1"));
-
-        availableAgents.add(item2);
-        availableAgents.add(item1);
-        availableAgents.add(personage1);
-        availableAgents.add(personage2);
     }
 
     public ParserOutput parse(String input) {
@@ -65,6 +41,8 @@ public class Parser {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+        //words = input.split(" ");
+
         words = Arrays.stream(input.split(" "))
                 .map(String::toLowerCase)
                 .filter(w -> !stopWords.contains(w))
@@ -95,15 +73,15 @@ public class Parser {
 
             if (words.length > 1) {
                 Agent agent;
-                i = 0;
-                while (output.getAgent1() == null && i < availableAgents.size()) {
-                    agent = availableAgents.get(i);
-                    if (agent.getName().equals(words[1])) {
+                Iterator<Agent> it = availableAgents.iterator();
+                while (output.getAgent1() == null && it.hasNext()) {
+                    agent = it.next();
+                    // TODO: make sure all agent names and aliases are lowercase, then remove toLowerCase() from here
+                    if (agent.getName().toLowerCase().equals(words[1])) {
                         output.setAgent1(agent);
                     } else if (agent.getAlias().contains(words[1])) {
                         output.setAgent1(agent);
                     }
-                    i++;
                 }
 
                 if (output.getAgent1() == null) {
@@ -116,15 +94,15 @@ public class Parser {
 
             if (words.length > 2) {
                 Agent agent;
-                i = 0;
-                while (output.getAgent2() == null && i < availableAgents.size()) {
-                    agent = availableAgents.get(i);
-                    if (agent.getName().equals(words[2])) {
+                Iterator<Agent> it = availableAgents.iterator();
+                while (output.getAgent2() == null && it.hasNext()) {
+                    agent = it.next();
+                    // TODO: make sure all agent names and aliases are lowercase, then remove toLowerCase() from here
+                    if (agent.getName().toLowerCase().equals(words[2])) {
                         output.setAgent2(agent);
                     } else if (agent.getAlias().contains(words[2])) {
                         output.setAgent2(agent);
                     }
-                    i++;
                 }
 
                 if (output.getAgent2() == null) {
@@ -139,7 +117,9 @@ public class Parser {
     }
 
     private void setupUselessWords() throws Exception {
-        BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/stopwords.txt"));
+        URL url = getClass().getResource("/static/stopWords.txt");
+        File file = new File(url.toURI());
+        BufferedReader reader = new BufferedReader(new FileReader(file));
         while (reader.ready()) {
             stopWords.add(reader.readLine().trim().toLowerCase());
         }
