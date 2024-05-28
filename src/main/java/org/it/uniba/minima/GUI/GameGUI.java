@@ -33,9 +33,6 @@ public class GameGUI extends javax.swing.JPanel {
     /**
      * Creates new form GameGUI
      */
-    public static void setGame(Game newGame) {
-        game = newGame;
-    }
 
     public static Wordle getWordle() {
         return (Wordle) imagePanel.getComponent(0);
