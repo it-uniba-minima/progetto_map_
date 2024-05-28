@@ -1,7 +1,10 @@
 package org.it.uniba.minima.Control;
+import org.apache.tomcat.util.net.jsse.JSSEUtil;
+import org.it.uniba.minima.Boundary.outputDisplayManager;
 import org.it.uniba.minima.Entity.Personage;
 import org.it.uniba.minima.Entity.Game;
 import org.it.uniba.minima.Entity.Item;
+import org.it.uniba.minima.Type.CommandType;
 
 public class GameLogic {
     Game game;
@@ -242,6 +245,14 @@ public class GameLogic {
                 //start final event
             }
             return true;
+        }
+        return false;
+    }
+
+    public boolean launchSpecialEvent(CommandType c, Personage p) {
+        if (c == CommandType.TALK && p.hasName("Sfinge") && game.getCurrentRoom().getState().equals("Start")) {
+            userInputFlow.Event = 1;
+            outputDisplayManager.displayText("Hai iniziato il Wordle!");
         }
         return false;
     }
