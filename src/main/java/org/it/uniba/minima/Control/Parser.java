@@ -1,17 +1,18 @@
 package org.it.uniba.minima.Control;
 import org.it.uniba.minima.Entity.Agent;
-import org.it.uniba.minima.Entity.Character;
+import org.it.uniba.minima.Entity.Personage;
 import org.it.uniba.minima.Entity.Item;
 import org.it.uniba.minima.Type.ParserOutput;
 import org.it.uniba.minima.Type.CommandType;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.*;
 
 public class Parser {
     public static List<Command> availableCommands = new ArrayList<>(); //MainController.getAvailableCommands();
     public static List<Agent> availableAgents = new ArrayList<>();     //MainController.getAvailableAgents();
+    private static Set<String> stopWords = new HashSet<>();
 
     public Parser() {
         availableCommands.add(new Command("help", List.of("h", "aiuto", "comandi"), CommandType.HELP));
@@ -29,15 +30,15 @@ public class Parser {
         availableCommands.add( new Command("fonde", List.of("fuse", "f", "componi"), CommandType.FUSE));
 
 
-        Character character1 = new Character();
-        character1.setName("character1");
-        character1.setDescription("This is character1");
-        character1.setAlias(List.of("c1", "ch1"));
+        Personage personage1 = new Personage();
+        personage1.setName("personage1");
+        personage1.setDescription("This is personage1");
+        personage1.setAlias(List.of("c1", "ch1"));
 
-        Character character2 = new Character();
-        character2.setName("character2");
-        character2.setDescription("This is character2");
-        character2.setAlias(List.of("c2", "ch2"));
+        Personage personage2 = new Personage();
+        personage2.setName("personage2");
+        personage2.setDescription("This is personage2");
+        personage2.setAlias(List.of("c2", "ch2"));
 
         Item item2 = new Item();
         item2.setName("item2");
@@ -51,18 +52,23 @@ public class Parser {
 
         availableAgents.add(item2);
         availableAgents.add(item1);
-        availableAgents.add(character1);
-        availableAgents.add(character2);
+        availableAgents.add(personage1);
+        availableAgents.add(personage2);
     }
 
     public ParserOutput parse(String input) {
         ParserOutput output = new ParserOutput();
         String[] words;
 
+        try {
+            setupUselessWords();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         words = Arrays.stream(input.split(" "))
                 .map(String::toLowerCase)
+                .filter(w -> !stopWords.contains(w))
                 .toArray(String[]::new);
-        removeUselessWords(words);
 
         if (words.length == 0) {
             return output;
@@ -132,5 +138,11 @@ public class Parser {
         return output;
     }
 
-    private static void removeUselessWords(String[] text) {}
+    private void setupUselessWords() throws Exception {
+        BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/stopwords.txt"));
+        while (reader.ready()) {
+            stopWords.add(reader.readLine().trim().toLowerCase());
+        }
+        reader.close();
+    }
 }
