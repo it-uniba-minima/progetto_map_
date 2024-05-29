@@ -1,6 +1,6 @@
 package org.it.uniba.minima.Control;
-import org.apache.tomcat.util.net.jsse.JSSEUtil;
 import org.it.uniba.minima.Boundary.outputDisplayManager;
+import org.it.uniba.minima.Entity.Agent;
 import org.it.uniba.minima.Entity.Personage;
 import org.it.uniba.minima.Entity.Game;
 import org.it.uniba.minima.Entity.Item;
@@ -249,10 +249,14 @@ public class GameLogic {
         return false;
     }
 
-    public boolean launchSpecialEvent(CommandType c, Personage p) {
-        if (c == CommandType.TALK && p.hasName("Sfinge") && game.getCurrentRoom().getState().equals("Start")) {
+    public boolean launchSpecialEvent(CommandType c, Agent a) {
+        if (c == CommandType.TALK && a.hasName("Sfinge") && game.getCurrentRoom().getState().equals("Start")) {
             userInputFlow.Event = 1;
             outputDisplayManager.displayText("Hai iniziato il Wordle!");
+        }
+        if (c == CommandType.LOOK && a.hasName("Mattonelle") && game.getCurrentRoom().getState().equals("Start")) {
+            userInputFlow.Event = 3;
+            outputDisplayManager.displayText("Hai iniziato il puzzle delle mattonelle!");
         }
         return false;
     }

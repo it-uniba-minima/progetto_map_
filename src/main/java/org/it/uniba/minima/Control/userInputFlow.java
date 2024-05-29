@@ -18,8 +18,7 @@ public class userInputFlow {
         outputDisplayManager.displayText(text);
         switch(Event) {
             case 0:
-                mattonelleFlow();
-                //parserFlow(text);
+                parserFlow(text);
                 break;
             case 1:
                 wordleFlow(text);
@@ -28,7 +27,7 @@ public class userInputFlow {
                 //call ParolaCriptata
                 break;
             case 3:
-                //call mattonelle
+                mattonelleFlow();
                 break;
             default:
                 parserFlow(text);
@@ -47,10 +46,12 @@ public class userInputFlow {
     }
 
     public static void wordleFlow(String text) {
+        //modify the imagePanel in gameGUI to display the puzzle
         wordleGame.printSplittedText(text.trim().toUpperCase());
     }
 
     public static void mattonelleFlow() {
+        //modify the imagePanel in gameGUI to display the puzzle
         outputDisplayManager.displayText("Risolvi il puzzle delle mattonelle per proseguire!");
     }
 }

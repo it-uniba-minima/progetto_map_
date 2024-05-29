@@ -67,6 +67,7 @@ public class CommandExecutor {
                             if (game.getCurrentRoom().getAgents().contains(p.getAgent1())
                             //|| game.getInventory().contains((Item) p.getAgent1())
                             ) {
+                                gameLogic.launchSpecialEvent(p.getCommand(), p.getAgent1());
                                 outputDisplayManager.displayText(p.getAgent1().getDescription());
                             } else {
                                 outputDisplayManager.displayText("The agent is not in the room");
@@ -118,7 +119,7 @@ public class CommandExecutor {
                         p -> {
                             if (game.getCurrentRoom().getAgents().contains(p.getAgent1())) {
                                     outputDisplayManager.displayText("Talking to " + p.getAgent1().getName());
-                                    gameLogic.launchSpecialEvent(p.getCommand(), (Personage) p.getAgent1());
+                                    gameLogic.launchSpecialEvent(p.getCommand(), p.getAgent1());
                                     // TODO: Add custom text when talking to the personage !!use an external function
                             } else {
                                 outputDisplayManager.displayText("The personage is not in the room");
