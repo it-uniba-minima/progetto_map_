@@ -59,6 +59,8 @@ public class WordleGame {
             Game game = Game.getInstance();
             game.getCurrentRoom().setState("Solved");
             game.unlockCorridor("Desert", "Stanza1");
+            GameGUI.setImagePanel("Desert");
+            return;
         }
 
         if (currentTry == MaxAttempts) {
