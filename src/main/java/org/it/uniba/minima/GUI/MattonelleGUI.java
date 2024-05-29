@@ -67,6 +67,7 @@ public class MattonelleGUI extends javax.swing.JPanel {
                 C1ActionPerformed(evt);
             }
         });
+        C1.setEnabled(false);
         
         B1.setMaximumSize(new java.awt.Dimension(100, 50));
         B1.setMinimumSize(new java.awt.Dimension(100, 50));
@@ -76,6 +77,7 @@ public class MattonelleGUI extends javax.swing.JPanel {
                 B1ActionPerformed(evt);
             }
         });
+        B1.setEnabled(false);
         
         B3.setMaximumSize(new java.awt.Dimension(100, 50));
         B3.setMinimumSize(new java.awt.Dimension(100, 50));
@@ -85,6 +87,7 @@ public class MattonelleGUI extends javax.swing.JPanel {
                 B3ActionPerformed(evt);
             }
         });
+        B3.setEnabled(false);
         
         B2.setMaximumSize(new java.awt.Dimension(100, 50));
         B2.setMinimumSize(new java.awt.Dimension(100, 50));
@@ -94,6 +97,7 @@ public class MattonelleGUI extends javax.swing.JPanel {
                 B2ActionPerformed(evt);
             }
         });
+        B2.setEnabled(false);
         
         C3.setMaximumSize(new java.awt.Dimension(100, 50));
         C3.setMinimumSize(new java.awt.Dimension(100, 50));
@@ -103,6 +107,7 @@ public class MattonelleGUI extends javax.swing.JPanel {
                 C3ActionPerformed(evt);
             }
         });
+        C3.setEnabled(false);
         
         D1.setMaximumSize(new java.awt.Dimension(100, 50));
         D1.setMinimumSize(new java.awt.Dimension(100, 50));
@@ -112,6 +117,7 @@ public class MattonelleGUI extends javax.swing.JPanel {
                 D1ActionPerformed(evt);
             }
         });
+        D1.setEnabled(false);
         
         D2.setMaximumSize(new java.awt.Dimension(100, 50));
         D2.setMinimumSize(new java.awt.Dimension(100, 50));
@@ -121,6 +127,7 @@ public class MattonelleGUI extends javax.swing.JPanel {
                 D2ActionPerformed(evt);
             }
         });
+        D2.setEnabled(false);
         
         D3.setMaximumSize(new java.awt.Dimension(100, 50));
         D3.setMinimumSize(new java.awt.Dimension(100, 50));
@@ -130,6 +137,7 @@ public class MattonelleGUI extends javax.swing.JPanel {
                 D3ActionPerformed(evt);
             }
         });
+        D3.setEnabled(false);
         
         C2.setMaximumSize(new java.awt.Dimension(100, 50));
         C2.setMinimumSize(new java.awt.Dimension(100, 50));
@@ -139,6 +147,7 @@ public class MattonelleGUI extends javax.swing.JPanel {
                 C2ActionPerformed(evt);
             }
         });
+        C2.setEnabled(false);
         
         G1.setMaximumSize(new java.awt.Dimension(100, 50));
         G1.setMinimumSize(new java.awt.Dimension(100, 50));
@@ -148,6 +157,7 @@ public class MattonelleGUI extends javax.swing.JPanel {
                 G1ActionPerformed(evt);
             }
         });
+        G1.setEnabled(false);
         
         G2.setMaximumSize(new java.awt.Dimension(100, 50));
         G2.setMinimumSize(new java.awt.Dimension(100, 50));
@@ -157,6 +167,7 @@ public class MattonelleGUI extends javax.swing.JPanel {
                 G2ActionPerformed(evt);
             }
         });
+        G2.setEnabled(false);
         
         G3.setMaximumSize(new java.awt.Dimension(100, 50));
         G3.setMinimumSize(new java.awt.Dimension(100, 50));
@@ -166,6 +177,7 @@ public class MattonelleGUI extends javax.swing.JPanel {
                 G3ActionPerformed(evt);
             }
         });
+        G3.setEnabled(false);
         
         F2.setMaximumSize(new java.awt.Dimension(100, 50));
         F2.setMinimumSize(new java.awt.Dimension(100, 50));
@@ -175,6 +187,7 @@ public class MattonelleGUI extends javax.swing.JPanel {
                 F2ActionPerformed(evt);
             }
         });
+        F2.setEnabled(false);
         
         F1.setMaximumSize(new java.awt.Dimension(100, 50));
         F1.setMinimumSize(new java.awt.Dimension(100, 50));
@@ -184,6 +197,7 @@ public class MattonelleGUI extends javax.swing.JPanel {
                 F1ActionPerformed(evt);
             }
         });
+        F1.setEnabled(false);
         
         E1.setMaximumSize(new java.awt.Dimension(100, 50));
         E1.setMinimumSize(new java.awt.Dimension(100, 50));
@@ -193,6 +207,7 @@ public class MattonelleGUI extends javax.swing.JPanel {
                 E1ActionPerformed(evt);
             }
         });
+        E1.setEnabled(false);
         
         E3.setMaximumSize(new java.awt.Dimension(100, 50));
         E3.setMinimumSize(new java.awt.Dimension(100, 50));
@@ -202,6 +217,7 @@ public class MattonelleGUI extends javax.swing.JPanel {
                 E3ActionPerformed(evt);
             }
         });
+        E3.setEnabled(false);
         
         E2.setMaximumSize(new java.awt.Dimension(100, 50));
         E2.setMinimumSize(new java.awt.Dimension(100, 50));
@@ -211,6 +227,7 @@ public class MattonelleGUI extends javax.swing.JPanel {
                 E2ActionPerformed(evt);
             }
         });
+        E2.setEnabled(false);
         
         F3.setMaximumSize(new java.awt.Dimension(100, 50));
         F3.setMinimumSize(new java.awt.Dimension(100, 50));
@@ -220,6 +237,7 @@ public class MattonelleGUI extends javax.swing.JPanel {
                 F3ActionPerformed(evt);
             }
         });
+        F3.setEnabled(false);
         
         A1.setMaximumSize(new java.awt.Dimension(100, 50));
         A1.setMinimumSize(new java.awt.Dimension(100, 50));
@@ -436,33 +454,51 @@ public class MattonelleGUI extends javax.swing.JPanel {
         switch(chara) {
             case 'A':
                 A1.setText("⬆");
+                B1.setEnabled(true);
                 A2.setText("⬉");
+                B2.setEnabled(true);
                 A3.setText("⬅");
+                B3.setEnabled(true);
                 break;
             case 'B':
                 B1.setText("⮕");
+                C1.setEnabled(true);
                 B2.setText("⬈");
+                C2.setEnabled(true);
                 B3.setText("⬆");
+                C3.setEnabled(true);
                 break;
             case 'C':
                 C1.setText("⬆");
+                D1.setEnabled(true);
                 C2.setText("⬈");
+                D2.setEnabled(true);
                 C3.setText("⬆");
+                D3.setEnabled(true);
                 break;
             case 'D':
                 D1.setText("⬆");
+                E1.setEnabled(true);
                 D2.setText("⬅");
+                E2.setEnabled(true);
                 D3.setText("⬅");
+                E3.setEnabled(true);
                 break;
             case 'E':
                 E1.setText("⬆");
+                F1.setEnabled(true);
                 E2.setText("⮕");
+                F2.setEnabled(true);
                 E3.setText("⬆");
+                F3.setEnabled(true);
                 break;
             case 'F':
                 F1.setText("⬊");
+                G1.setEnabled(true);
                 F2.setText("⬆");
+                G2.setEnabled(true);
                 F3.setText("⬆");
+                G3.setEnabled(true);
                 break;
             case 'G':
                 G1.setText("⮕");
@@ -477,23 +513,41 @@ public class MattonelleGUI extends javax.swing.JPanel {
         A2.setText("");
         A3.setText("");
         B1.setText("");
+        B1.setEnabled(false);
         B2.setText("");
+        B2.setEnabled(false);
         B3.setText("");
+        B3.setEnabled(false);
         C1.setText("");
+        C1.setEnabled(false);
         C2.setText("");
+        C2.setEnabled(false);
         C3.setText("");
+        C3.setEnabled(false);
         D1.setText("");
+        D1.setEnabled(false);
         D2.setText("");
+        D2.setEnabled(false);
         D3.setText("");
+        D3.setEnabled(false);
         E1.setText("");
+        E1.setEnabled(false);
         E2.setText("");
+        E2.setEnabled(false);
         E3.setText("");
+        E3.setEnabled(false);
         F1.setText("");
+        F1.setEnabled(false);
         F2.setText("");
+        F2.setEnabled(false);
         F3.setText("");
+        F3.setEnabled(false);
         G1.setText("");
+        G1.setEnabled(false);
         G2.setText("");
+        G2.setEnabled(false);
         G3.setText("");
+        G3.setEnabled(false);
     }
 
     // Variables declaration - do not modify
