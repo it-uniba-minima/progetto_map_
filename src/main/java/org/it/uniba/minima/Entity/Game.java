@@ -2,6 +2,7 @@ package org.it.uniba.minima.Entity;
 
 
 import org.it.uniba.minima.Boundary.outputDisplayManager;
+import org.it.uniba.minima.GUI.GameGUI;
 import org.it.uniba.minima.Type.Corridor;
 import java.util.List;
 import java.util.Map;
@@ -49,15 +50,18 @@ public class Game {
         for (Corridor corridor : corridorsMap) {
             if (corridor.getStartingRoom().equals(room)) {
                 this.currentRoom = corridor.getStartingRoom();
+                GameGUI.setImagePanel(currentRoom.getName());
                 return;
             }
             if (corridor.getArrivingRoom().equals(room)) {
                 this.currentRoom = corridor.getArrivingRoom();
+                GameGUI.setImagePanel(currentRoom.getName());
                 return;
             }
         }
         // If the room is not found in the corridorsMap, set the currentRoom to the provided room
         this.currentRoom = room;
+        GameGUI.setImagePanel(currentRoom.getName());
     }
 
     public List<Item> getInventory() {
