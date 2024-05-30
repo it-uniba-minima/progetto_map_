@@ -4,6 +4,7 @@ import org.it.uniba.minima.Entity.Agent;
 import org.it.uniba.minima.Entity.Personage;
 import org.it.uniba.minima.Entity.Game;
 import org.it.uniba.minima.Entity.Item;
+import org.it.uniba.minima.GUI.GameGUI;
 import org.it.uniba.minima.Type.CommandType;
 
 public class GameLogic {
@@ -252,6 +253,7 @@ public class GameLogic {
     public boolean launchSpecialEvent(CommandType c, Agent a) {
         if (c == CommandType.TALK && a.hasName("Sfinge") && game.getCurrentRoom().getState().equals("Start")) {
             userInputFlow.Event = 1;
+            GameGUI.setImagePanel("Wordle");
             outputDisplayManager.displayText("Hai iniziato il Wordle!");
         }
         if (c == CommandType.LOOK && a.hasName("Mattonelle") && game.getCurrentRoom().getState().equals("Start")) {
