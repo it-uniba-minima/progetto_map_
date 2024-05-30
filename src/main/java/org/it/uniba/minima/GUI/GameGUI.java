@@ -28,9 +28,6 @@ import static javax.swing.SwingUtilities.invokeLater;
  */
 public class GameGUI extends javax.swing.JPanel {
     private static CardLayout cardLayout;
-
-    private static Game game;
-    private static WordleGame wordleGame;
     /**
      * Creates new form GameGUI
      */
@@ -54,6 +51,7 @@ public class GameGUI extends javax.swing.JPanel {
         //so that you can retrieve them by index in, for example, the getWordle method
         imagePanel.add(new JLabel("No image available (Desert)"), "Desert");
         imagePanel.add(new Wordle(), "Wordle");
+        imagePanel.add(new MattonelleGUI(), "Mattonelle");
         imagePanel.add(new JLabel("No image available (Stanza1)"), "Stanza1");
         imagePanel.add(new JLabel("No image available (Stanza2)"), "Stanza2");
         imagePanel.add(new JLabel("No image available (Stanza3)"), "Stanza3");
@@ -72,6 +70,10 @@ public class GameGUI extends javax.swing.JPanel {
 
     public static int getTextPaneWidth() {
         return displayTextPane.getWidth();
+    }
+
+    public static MattonelleGUI getMattonelleGUI() {
+        return (MattonelleGUI) imagePanel.getComponent(0);
     }
 
     /**
@@ -302,12 +304,14 @@ public class GameGUI extends javax.swing.JPanel {
     }// </editor-fold>
 
     private void saveGameButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        /*
         Serializer serializer = new Serializer();
         try {
             serializer.serialize(game);
         } catch (Exception e) {
             e.printStackTrace();
         }
+         */
     }
 
     private void goBackButtonActionPerformed(java.awt.event.ActionEvent evt) {

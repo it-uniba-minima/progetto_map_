@@ -28,7 +28,7 @@ public class userInputFlow {
                 triviaFlow(text);
                 break;
             case 3:
-                //call Mattonelle
+                mattonelleFlow();
                 break;
             default:
                 parserFlow(text);
@@ -57,5 +57,9 @@ public class userInputFlow {
 
     public static void wordleFlow(String text) {
         wordleGame.printSplittedText(text.trim().toUpperCase());
+    }
+
+    public static void mattonelleFlow() {
+        outputDisplayManager.displayText("Risolvi il puzzle delle mattonelle per proseguire!");
     }
 }
