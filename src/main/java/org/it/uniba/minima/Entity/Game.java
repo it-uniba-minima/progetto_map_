@@ -21,6 +21,11 @@ public class Game {
         Game.game.setCurrentRoom(game.getCorridorsMap().get(0).getStartingRoom());
     }
 
+    public void setInventory(List<Item> inventory) {
+        this.inventory = inventory;
+    }
+    public static Game getInstance(Game game) {
+
     public static Game getInstance() {
         return game;
     }
@@ -99,4 +104,21 @@ public class Game {
         statesMap.put(room, state);
         currentRoom.setState(state);
     }
+
+    public void setCurrentTime(String currentTime) {
+        this.currentTime = currentTime;
+    }
+
+    public String getCurrentTime() {
+        return currentTime;
+    }
+
+    public void setStatesMap(Map<Integer, String> statesMap) {
+        this.statesMap = statesMap;
+    }
+
+    public Map<Integer, String> getStatesMap() {
+        return statesMap;
+    }
+
 }
