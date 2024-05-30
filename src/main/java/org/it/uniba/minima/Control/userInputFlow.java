@@ -1,6 +1,7 @@
 package org.it.uniba.minima.Control;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
+import org.it.uniba.minima.Boundary.TriviaGame;
 import org.it.uniba.minima.Boundary.WordleGame;
 import org.it.uniba.minima.Boundary.outputDisplayManager;
 import org.it.uniba.minima.Entity.Game;
@@ -24,7 +25,7 @@ public class userInputFlow {
                 wordleFlow(text);
                 break;
             case 2:
-                //call ParolaCriptata
+                triviaFlow(text);
                 break;
             case 3:
                 //call Mattonelle
@@ -32,6 +33,15 @@ public class userInputFlow {
             default:
                 parserFlow(text);
                 break;
+        }
+    }
+
+    public static void triviaFlow(String text) {
+        try {
+            TriviaGame.checkGuess(text);
+            if (Event == 2) TriviaGame.getQAndA();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
