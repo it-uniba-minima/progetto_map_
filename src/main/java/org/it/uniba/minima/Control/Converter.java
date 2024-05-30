@@ -2,12 +2,13 @@
 package org.it.uniba.minima.Control;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import org.it.uniba.minima.Entity.Agent;
 import org.it.uniba.minima.Entity.Game;
 import org.it.uniba.minima.Entity.Room;
-
+import org.it.uniba.minima.Type.Corridor;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -21,30 +22,49 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import java.util.*;
 public class Converter {
     public Map<String, Agent> convertJsonToJavaClass() {
         Gson gson = new Gson();
         Map<String, Agent> allAgents = new HashMap<>();
 
+
+public class Converter {
+    public Map<String, Agent> convertJsonToJavaClass() {
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(Agent.class, new AgentDeserializer())
+                .create();
+        Map<String, Agent> allAgents = new HashMap<>();
+        Map<String, Room> allRooms = new HashMap<>();
+
         try {
-            URL url = getClass().getResource("/static/Rooms.json");
+            URL url = getClass().getResource("/static/Game.json");
             File file = new File(url.toURI());
             JsonReader reader = new JsonReader(new FileReader(file));
-            Type roomListType = new TypeToken<ArrayList<Room>>(){}.getType();
-            List<Room> roomList = gson.fromJson(reader, roomListType);
-            for (Room room : roomList) {
-                System.out.println(room.getName());
-                room.getAgents().forEach(agent ->
-                {
-                    System.out.println("Agent Name: " + agent.getName());
-                    allAgents.put(agent.getName(), agent);
-                });
-            }
+            Game game = gson.fromJson(reader, Game.class);
+
+            game.getCorridorsMap().forEach(corridor -> {
+                Room room = corridor.getStartingRoom();
+                if (!allRooms.containsKey(room.getName())) {
+                    allRooms.put(room.getName(), room);
+                    room.getAgents().forEach(agent -> allAgents.put(agent.getName(), agent));
+                } else {
+                    Room existingRoom = allRooms.get(room.getName());
+                    corridor.setStartingRoom(existingRoom);
+                }
+                room = corridor.getArrivingRoom();
+                if (!allRooms.containsKey(room.getName())) {
+                    allRooms.put(room.getName(), room);
+                    room.getAgents().forEach(agent -> allAgents.put(agent.getName(), agent));
+                } else {
+                    Room existingRoom = allRooms.get(room.getName());
+                    corridor.setArrivingRoom(existingRoom);
+                }
+            });
+            Game.setUpGame(game);
         } catch (FileNotFoundException | URISyntaxException e) {
             e.printStackTrace();
         }
-
         try {
             URL url = getClass().getResource("/static/Agents.json");
             File file = new File(url.toURI());
@@ -55,10 +75,6 @@ public class Converter {
         } catch (FileNotFoundException | URISyntaxException e) {
             e.printStackTrace();
         }
-
-        //
-        // chiedere se fare una funzione a parte o no per il caricamento di Game.json
-
         try {
             URL url = getClass().getResource("/static/Game.json");
             File file = new File(url.toURI());
@@ -68,32 +84,15 @@ public class Converter {
     }
         return allAgents;
     }
-        /*
-        Path dir = Paths.get("src/main/resources/static");
-        try (Stream<Path> paths = Files.walk(dir)) {
-            paths.filter(Files::isRegularFile)
-                    .filter(p -> p.toString().endsWith(".json"))
-                    .forEach(p -> {
-                        try {
-                            FileReader reader = new FileReader(p.toFile());
-                            if (p.toString().contains("Game")) {
-                                Game game = gson.fromJson(reader, Game.class);
-                                System.out.println(game.getCurrentTime());
-                            } else if (p.toString().contains("Room")) {
-                                Room room = gson.fromJson(reader, Room.class);
-                                System.out.println(room.getName());
-                                room.getAgents().forEach(agent -> System.out.println("Agent Name: " + agent.getName()));
-                            }
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    });
-        } catch (IOException e) {
-            e.printStackTrace();
-        } */
-
+      
         public void ConvertGametoJson(Game game) throws IOException, ClassNotFoundException{
         Gson gson = new Gson();
+        String json = gson.toJson(game);
+        Files.write(Paths.get("src/main/resources/LoadedGame.json"), json.getBytes());
+    }
+    public void ConvertGametoJson() throws IOException, ClassNotFoundException{
+        Gson gson = new Gson();
+        Game game = Game.getInstance();
         String json = gson.toJson(game);
         Files.write(Paths.get("src/main/resources/LoadedGame.json"), json.getBytes());
     }

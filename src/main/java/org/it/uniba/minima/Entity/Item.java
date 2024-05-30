@@ -20,4 +20,8 @@ public class Item extends Agent{
     public boolean isUsable() {
         return isUsable;
     }
+
+    public void setPickable(boolean b) {
+        isPickable = b;
+    }
 }

@@ -15,7 +15,7 @@ public class BoxLetter {
         this.row = row;
         this.col = col;
         textField = new JTextField(1); // Single character input
-        textField.setFont(new Font("Arial", Font.BOLD, 24));
+        textField.setFont(new Font("Papyrus", Font.BOLD, 30));
         textField.setHorizontalAlignment(JTextField.CENTER);
         ((AbstractDocument) textField.getDocument()).setDocumentFilter(new SingleCharDocumentFilter());
     }
