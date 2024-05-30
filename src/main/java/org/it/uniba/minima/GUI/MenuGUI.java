@@ -7,18 +7,16 @@ import org.it.uniba.minima.Entity.Game;
 import org.it.uniba.minima.Mixer;
 import org.it.uniba.minima.TimerManager;
 
+import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.GroupLayout;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.plaf.metal.MetalButtonUI;
 
 import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.sql.Connection;
-import javax.swing.ImageIcon;
-
-
 
 
 public class MenuGUI extends javax.swing.JPanel{
@@ -58,6 +56,18 @@ public class MenuGUI extends javax.swing.JPanel{
         backgroundPanel.setPreferredSize(new java.awt.Dimension(800, 600));
         backgroundPanel.setRequestFocusEnabled(false);
 
+        newGame.setUI(new MetalButtonUI() {
+            protected Color getSelectColor () {
+                return new Color(133, 106, 5, 50);
+
+            }
+        });
+        newGame.setFocusPainted(false);
+        newGame.setBackground(new Color(204, 173, 27));
+        newGame.setForeground(new Color(255, 255, 255));
+        newGame.setFont(new Font("Papyrus", 1, 24));
+        newGame.setBorderPainted(true);
+        newGame.setBorder(BorderFactory.createLineBorder(new Color(107, 90, 13), 5));
         newGame.setText("Nuova Partita");
         newGame.setMaximumSize(new java.awt.Dimension(240, 60));
         newGame.setMinimumSize(new java.awt.Dimension(240, 60));
@@ -68,6 +78,18 @@ public class MenuGUI extends javax.swing.JPanel{
             }
         });
 
+        sound.setUI(new MetalButtonUI() {
+            protected Color getSelectColor () {
+                return new Color(133, 106, 5, 50);
+
+            }
+        });
+        sound.setFocusPainted(false);
+        sound.setBackground(new Color(204, 173, 27));
+        sound.setForeground(new Color(255, 255, 255));
+        sound.setFont(sound.getFont().deriveFont(24f));
+        sound.setBorderPainted(true);
+        sound.setBorder(BorderFactory.createLineBorder(new Color(107, 90, 13), 5));
         sound.setText("🔊");
         sound.setMargin(new java.awt.Insets(0, 0, 0, 0));
         sound.setMaximumSize(new java.awt.Dimension(40, 40));
@@ -79,6 +101,18 @@ public class MenuGUI extends javax.swing.JPanel{
             }
         });
 
+        help.setUI(new MetalButtonUI() {
+            protected Color getSelectColor () {
+                return new Color(133, 106, 5, 50);
+
+            }
+        });
+        help.setFocusPainted(false);
+        help.setBackground(new Color(204, 173, 27));
+        help.setForeground(new Color(255, 255, 255));
+        help.setFont(new Font("Papyrus", 1, 24));
+        help.setBorderPainted(true);
+        help.setBorder(BorderFactory.createLineBorder(new Color(107, 90, 13), 5));
         help.setMargin(new java.awt.Insets(0, 0, 0, 0));
         help.setMaximumSize(new java.awt.Dimension(40, 40));
         help.setMinimumSize(new java.awt.Dimension(40, 40));
@@ -89,6 +123,18 @@ public class MenuGUI extends javax.swing.JPanel{
             }
         });
 
+        loadGame.setUI(new MetalButtonUI() {
+            protected Color getSelectColor () {
+                return new Color(133, 106, 5, 50);
+
+            }
+        });
+        loadGame.setFocusPainted(false);
+        loadGame.setBackground(new Color(204, 173, 27));
+        loadGame.setForeground(new Color(255, 255, 255));
+        loadGame.setFont(new Font("Papyrus", 1, 24));
+        loadGame.setBorderPainted(true);
+        loadGame.setBorder(BorderFactory.createLineBorder(new Color(107, 90, 13), 5));
         loadGame.setText("Carica Partita");
         loadGame.setMaximumSize(new java.awt.Dimension(240, 60));
         loadGame.setMinimumSize(new java.awt.Dimension(240, 60));
@@ -105,6 +151,18 @@ public class MenuGUI extends javax.swing.JPanel{
             }
         });
 
+        credits.setUI(new MetalButtonUI() {
+            protected Color getSelectColor () {
+                return new Color(133, 106, 5, 50);
+
+            }
+        });
+        credits.setFocusPainted(false);
+        credits.setBackground(new Color(204, 173, 27));
+        credits.setForeground(new Color(255, 255, 255));
+        credits.setFont(new Font("Papyrus", 1, 24));
+        credits.setBorderPainted(true);
+        credits.setBorder(BorderFactory.createLineBorder(new Color(107, 90, 13), 5));
         credits.setText("Riconoscimenti");
         credits.setMaximumSize(new java.awt.Dimension(240, 60));
         credits.setMinimumSize(new java.awt.Dimension(240, 60));
