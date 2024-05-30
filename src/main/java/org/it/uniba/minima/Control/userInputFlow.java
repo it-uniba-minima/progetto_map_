@@ -46,12 +46,10 @@ public class userInputFlow {
     }
 
     public static void wordleFlow(String text) {
-        //modify the imagePanel in gameGUI to display the puzzle
         wordleGame.printSplittedText(text.trim().toUpperCase());
     }
 
     public static void mattonelleFlow() {
-        //modify the imagePanel in gameGUI to display the puzzle
         outputDisplayManager.displayText("Risolvi il puzzle delle mattonelle per proseguire!");
     }
 }

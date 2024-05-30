@@ -2,7 +2,11 @@ package org.it.uniba.minima.GUI;
 
 import org.it.uniba.minima.Boundary.outputDisplayManager;
 import org.it.uniba.minima.Control.userInputFlow;
+import org.it.uniba.minima.Entity.Game;
 
+import javax.swing.*;
+import javax.swing.plaf.metal.MetalButtonUI;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 
 /**
@@ -25,6 +29,14 @@ public class MattonelleGUI extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        ImageIcon img = new ImageIcon("docs/img/stoneBackground.png");
+        Image image = img.getImage();
+        g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
+    }
+
     private void initComponents() {
         A1 = new javax.swing.JButton();
         A2 = new javax.swing.JButton();
@@ -57,8 +69,29 @@ public class MattonelleGUI extends javax.swing.JPanel {
         setMaximumSize(new java.awt.Dimension(440, 400));
         setMinimumSize(new java.awt.Dimension(440, 400));
         setPreferredSize(new java.awt.Dimension(440, 400));
-        setBackground(new java.awt.Color(0, 255, 255));
 
+        C1.setEnabled(false);
+        C1.setUI(new MetalButtonUI() {
+            @Override
+            protected Color getSelectColor() {
+                return new Color(133, 106, 5, 50);
+            }
+
+            @Override
+            public void paint(Graphics g, JComponent c) {
+                AbstractButton b = (AbstractButton) c;
+                if (!b.isEnabled()) {
+                    g.setColor(new Color(119, 95, 43)); // Change this to the color you want when the button is disabled
+                    g.fillRect(0, 0, c.getWidth(), c.getHeight());
+                } else {
+                    super.paint(g, c);
+                }
+            }
+        });
+        C1.setFocusPainted(false);
+        C1.setBackground(new Color(201, 164, 71));
+        C1.setForeground(new java.awt.Color(255, 255, 255));
+        C1.setBorder(BorderFactory.createLineBorder(new Color(119, 95, 43), 3));
         C1.setMaximumSize(new java.awt.Dimension(100, 50));
         C1.setMinimumSize(new java.awt.Dimension(100, 50));
         C1.setPreferredSize(new java.awt.Dimension(100, 50));
@@ -67,8 +100,29 @@ public class MattonelleGUI extends javax.swing.JPanel {
                 C1ActionPerformed(evt);
             }
         });
-        C1.setEnabled(false);
-        
+
+        B1.setEnabled(false);
+        B1.setUI(new MetalButtonUI() {
+            @Override
+            protected Color getSelectColor() {
+                return new Color(133, 106, 5, 50);
+            }
+
+            @Override
+            public void paint(Graphics g, JComponent c) {
+                AbstractButton b = (AbstractButton) c;
+                if (!b.isEnabled()) {
+                    g.setColor(new Color(119, 95, 43)); // Change this to the color you want when the button is disabled
+                    g.fillRect(0, 0, c.getWidth(), c.getHeight());
+                } else {
+                    super.paint(g, c);
+                }
+            }
+        });
+        B1.setFocusPainted(false);
+        B1.setBackground(new Color(201, 164, 71));
+        B1.setForeground(new java.awt.Color(255, 255, 255));
+        B1.setBorder(BorderFactory.createLineBorder(new Color(119, 95, 43), 3));
         B1.setMaximumSize(new java.awt.Dimension(100, 50));
         B1.setMinimumSize(new java.awt.Dimension(100, 50));
         B1.setPreferredSize(new java.awt.Dimension(100, 50));
@@ -77,8 +131,30 @@ public class MattonelleGUI extends javax.swing.JPanel {
                 B1ActionPerformed(evt);
             }
         });
-        B1.setEnabled(false);
-        
+
+
+        B3.setEnabled(false);
+        B3.setUI(new MetalButtonUI() {
+            @Override
+            protected Color getSelectColor() {
+                return new Color(133, 106, 5, 50);
+            }
+
+            @Override
+            public void paint(Graphics g, JComponent c) {
+                AbstractButton b = (AbstractButton) c;
+                if (!b.isEnabled()) {
+                    g.setColor(new Color(119, 95, 43)); // Change this to the color you want when the button is disabled
+                    g.fillRect(0, 0, c.getWidth(), c.getHeight());
+                } else {
+                    super.paint(g, c);
+                }
+            }
+        });
+        B3.setFocusPainted(false);
+        B3.setBackground(new Color(201, 164, 71));
+        B3.setForeground(new java.awt.Color(255, 255, 255));
+        B3.setBorder(BorderFactory.createLineBorder(new Color(119, 95, 43), 3));
         B3.setMaximumSize(new java.awt.Dimension(100, 50));
         B3.setMinimumSize(new java.awt.Dimension(100, 50));
         B3.setPreferredSize(new java.awt.Dimension(100, 50));
@@ -87,8 +163,30 @@ public class MattonelleGUI extends javax.swing.JPanel {
                 B3ActionPerformed(evt);
             }
         });
-        B3.setEnabled(false);
-        
+
+
+        B2.setEnabled(false);
+        B2.setUI(new MetalButtonUI() {
+            @Override
+            protected Color getSelectColor() {
+                return new Color(133, 106, 5, 50);
+            }
+
+            @Override
+            public void paint(Graphics g, JComponent c) {
+                AbstractButton b = (AbstractButton) c;
+                if (!b.isEnabled()) {
+                    g.setColor(new Color(119, 95, 43)); // Change this to the color you want when the button is disabled
+                    g.fillRect(0, 0, c.getWidth(), c.getHeight());
+                } else {
+                    super.paint(g, c);
+                }
+            }
+        });
+        B2.setFocusPainted(false);
+        B2.setBackground(new Color(201, 164, 71));
+        B2.setForeground(new java.awt.Color(255, 255, 255));
+        B2.setBorder(BorderFactory.createLineBorder(new Color(119, 95, 43), 3));
         B2.setMaximumSize(new java.awt.Dimension(100, 50));
         B2.setMinimumSize(new java.awt.Dimension(100, 50));
         B2.setPreferredSize(new java.awt.Dimension(100, 50));
@@ -97,8 +195,30 @@ public class MattonelleGUI extends javax.swing.JPanel {
                 B2ActionPerformed(evt);
             }
         });
-        B2.setEnabled(false);
-        
+
+
+        C3.setEnabled(false);
+        C3.setUI(new MetalButtonUI() {
+            @Override
+            protected Color getSelectColor() {
+                return new Color(133, 106, 5, 50);
+            }
+
+            @Override
+            public void paint(Graphics g, JComponent c) {
+                AbstractButton b = (AbstractButton) c;
+                if (!b.isEnabled()) {
+                    g.setColor(new Color(119, 95, 43)); // Change this to the color you want when the button is disabled
+                    g.fillRect(0, 0, c.getWidth(), c.getHeight());
+                } else {
+                    super.paint(g, c);
+                }
+            }
+        });
+        C3.setFocusPainted(false);
+        C3.setBackground(new Color(201, 164, 71));
+        C3.setForeground(new java.awt.Color(255, 255, 255));
+        C3.setBorder(BorderFactory.createLineBorder(new Color(119, 95, 43), 3));
         C3.setMaximumSize(new java.awt.Dimension(100, 50));
         C3.setMinimumSize(new java.awt.Dimension(100, 50));
         C3.setPreferredSize(new java.awt.Dimension(100, 50));
@@ -107,8 +227,30 @@ public class MattonelleGUI extends javax.swing.JPanel {
                 C3ActionPerformed(evt);
             }
         });
-        C3.setEnabled(false);
-        
+
+
+        D1.setEnabled(false);
+        D1.setUI(new MetalButtonUI() {
+            @Override
+            protected Color getSelectColor() {
+                return new Color(133, 106, 5, 50);
+            }
+
+            @Override
+            public void paint(Graphics g, JComponent c) {
+                AbstractButton b = (AbstractButton) c;
+                if (!b.isEnabled()) {
+                    g.setColor(new Color(119, 95, 43)); // Change this to the color you want when the button is disabled
+                    g.fillRect(0, 0, c.getWidth(), c.getHeight());
+                } else {
+                    super.paint(g, c);
+                }
+            }
+        });
+        D1.setFocusPainted(false);
+        D1.setBackground(new Color(201, 164, 71));
+        D1.setForeground(new java.awt.Color(255, 255, 255));
+        D1.setBorder(BorderFactory.createLineBorder(new Color(119, 95, 43), 3));
         D1.setMaximumSize(new java.awt.Dimension(100, 50));
         D1.setMinimumSize(new java.awt.Dimension(100, 50));
         D1.setPreferredSize(new java.awt.Dimension(100, 50));
@@ -117,8 +259,30 @@ public class MattonelleGUI extends javax.swing.JPanel {
                 D1ActionPerformed(evt);
             }
         });
-        D1.setEnabled(false);
-        
+
+
+        D2.setEnabled(false);
+        D2.setUI(new MetalButtonUI() {
+            @Override
+            protected Color getSelectColor() {
+                return new Color(133, 106, 5, 50);
+            }
+
+            @Override
+            public void paint(Graphics g, JComponent c) {
+                AbstractButton b = (AbstractButton) c;
+                if (!b.isEnabled()) {
+                    g.setColor(new Color(119, 95, 43)); // Change this to the color you want when the button is disabled
+                    g.fillRect(0, 0, c.getWidth(), c.getHeight());
+                } else {
+                    super.paint(g, c);
+                }
+            }
+        });
+        D2.setFocusPainted(false);
+        D2.setBackground(new Color(201, 164, 71));
+        D2.setForeground(new java.awt.Color(255, 255, 255));
+        D2.setBorder(BorderFactory.createLineBorder(new Color(119, 95, 43), 3));
         D2.setMaximumSize(new java.awt.Dimension(100, 50));
         D2.setMinimumSize(new java.awt.Dimension(100, 50));
         D2.setPreferredSize(new java.awt.Dimension(100, 50));
@@ -127,8 +291,30 @@ public class MattonelleGUI extends javax.swing.JPanel {
                 D2ActionPerformed(evt);
             }
         });
-        D2.setEnabled(false);
-        
+
+
+        D3.setEnabled(false);
+        D3.setUI(new MetalButtonUI() {
+            @Override
+            protected Color getSelectColor() {
+                return new Color(133, 106, 5, 50);
+            }
+
+            @Override
+            public void paint(Graphics g, JComponent c) {
+                AbstractButton b = (AbstractButton) c;
+                if (!b.isEnabled()) {
+                    g.setColor(new Color(119, 95, 43)); // Change this to the color you want when the button is disabled
+                    g.fillRect(0, 0, c.getWidth(), c.getHeight());
+                } else {
+                    super.paint(g, c);
+                }
+            }
+        });
+        D3.setFocusPainted(false);
+        D3.setBackground(new Color(201, 164, 71));
+        D3.setForeground(new java.awt.Color(255, 255, 255));
+        D3.setBorder(BorderFactory.createLineBorder(new Color(119, 95, 43), 3));
         D3.setMaximumSize(new java.awt.Dimension(100, 50));
         D3.setMinimumSize(new java.awt.Dimension(100, 50));
         D3.setPreferredSize(new java.awt.Dimension(100, 50));
@@ -137,8 +323,30 @@ public class MattonelleGUI extends javax.swing.JPanel {
                 D3ActionPerformed(evt);
             }
         });
-        D3.setEnabled(false);
-        
+
+
+        C2.setEnabled(false);
+        C2.setUI(new MetalButtonUI() {
+            @Override
+            protected Color getSelectColor() {
+                return new Color(133, 106, 5, 50);
+            }
+
+            @Override
+            public void paint(Graphics g, JComponent c) {
+                AbstractButton b = (AbstractButton) c;
+                if (!b.isEnabled()) {
+                    g.setColor(new Color(119, 95, 43)); // Change this to the color you want when the button is disabled
+                    g.fillRect(0, 0, c.getWidth(), c.getHeight());
+                } else {
+                    super.paint(g, c);
+                }
+            }
+        });
+        C2.setFocusPainted(false);
+        C2.setBackground(new Color(201, 164, 71));
+        C2.setForeground(new java.awt.Color(255, 255, 255));
+        C2.setBorder(BorderFactory.createLineBorder(new Color(119, 95, 43), 3));
         C2.setMaximumSize(new java.awt.Dimension(100, 50));
         C2.setMinimumSize(new java.awt.Dimension(100, 50));
         C2.setPreferredSize(new java.awt.Dimension(100, 50));
@@ -147,8 +355,30 @@ public class MattonelleGUI extends javax.swing.JPanel {
                 C2ActionPerformed(evt);
             }
         });
-        C2.setEnabled(false);
-        
+
+
+        G1.setEnabled(false);
+        G1.setUI(new MetalButtonUI() {
+            @Override
+            protected Color getSelectColor() {
+                return new Color(133, 106, 5, 50);
+            }
+
+            @Override
+            public void paint(Graphics g, JComponent c) {
+                AbstractButton b = (AbstractButton) c;
+                if (!b.isEnabled()) {
+                    g.setColor(new Color(119, 95, 43)); // Change this to the color you want when the button is disabled
+                    g.fillRect(0, 0, c.getWidth(), c.getHeight());
+                } else {
+                    super.paint(g, c);
+                }
+            }
+        });
+        G1.setFocusPainted(false);
+        G1.setBackground(new Color(201, 164, 71));
+        G1.setForeground(new java.awt.Color(255, 255, 255));
+        G1.setBorder(BorderFactory.createLineBorder(new Color(119, 95, 43), 3));
         G1.setMaximumSize(new java.awt.Dimension(100, 50));
         G1.setMinimumSize(new java.awt.Dimension(100, 50));
         G1.setPreferredSize(new java.awt.Dimension(100, 50));
@@ -157,8 +387,30 @@ public class MattonelleGUI extends javax.swing.JPanel {
                 G1ActionPerformed(evt);
             }
         });
-        G1.setEnabled(false);
-        
+
+
+        G2.setEnabled(false);
+        G2.setUI(new MetalButtonUI() {
+            @Override
+            protected Color getSelectColor() {
+                return new Color(133, 106, 5, 50);
+            }
+
+            @Override
+            public void paint(Graphics g, JComponent c) {
+                AbstractButton b = (AbstractButton) c;
+                if (!b.isEnabled()) {
+                    g.setColor(new Color(119, 95, 43)); // Change this to the color you want when the button is disabled
+                    g.fillRect(0, 0, c.getWidth(), c.getHeight());
+                } else {
+                    super.paint(g, c);
+                }
+            }
+        });
+        G2.setFocusPainted(false);
+        G2.setBackground(new Color(201, 164, 71));
+        G2.setForeground(new java.awt.Color(255, 255, 255));
+        G2.setBorder(BorderFactory.createLineBorder(new Color(119, 95, 43), 3));
         G2.setMaximumSize(new java.awt.Dimension(100, 50));
         G2.setMinimumSize(new java.awt.Dimension(100, 50));
         G2.setPreferredSize(new java.awt.Dimension(100, 50));
@@ -167,8 +419,30 @@ public class MattonelleGUI extends javax.swing.JPanel {
                 G2ActionPerformed(evt);
             }
         });
-        G2.setEnabled(false);
-        
+
+
+        G3.setEnabled(false);
+        G3.setUI(new MetalButtonUI() {
+            @Override
+            protected Color getSelectColor() {
+                return new Color(133, 106, 5, 50);
+            }
+
+            @Override
+            public void paint(Graphics g, JComponent c) {
+                AbstractButton b = (AbstractButton) c;
+                if (!b.isEnabled()) {
+                    g.setColor(new Color(119, 95, 43)); // Change this to the color you want when the button is disabled
+                    g.fillRect(0, 0, c.getWidth(), c.getHeight());
+                } else {
+                    super.paint(g, c);
+                }
+            }
+        });
+        G3.setFocusPainted(false);
+        G3.setBackground(new Color(201, 164, 71));
+        G3.setForeground(new java.awt.Color(255, 255, 255));
+        G3.setBorder(BorderFactory.createLineBorder(new Color(119, 95, 43), 3));
         G3.setMaximumSize(new java.awt.Dimension(100, 50));
         G3.setMinimumSize(new java.awt.Dimension(100, 50));
         G3.setPreferredSize(new java.awt.Dimension(100, 50));
@@ -177,8 +451,30 @@ public class MattonelleGUI extends javax.swing.JPanel {
                 G3ActionPerformed(evt);
             }
         });
-        G3.setEnabled(false);
-        
+
+
+        F2.setEnabled(false);
+        F2.setUI(new MetalButtonUI() {
+            @Override
+            protected Color getSelectColor() {
+                return new Color(133, 106, 5, 50);
+            }
+
+            @Override
+            public void paint(Graphics g, JComponent c) {
+                AbstractButton b = (AbstractButton) c;
+                if (!b.isEnabled()) {
+                    g.setColor(new Color(119, 95, 43)); // Change this to the color you want when the button is disabled
+                    g.fillRect(0, 0, c.getWidth(), c.getHeight());
+                } else {
+                    super.paint(g, c);
+                }
+            }
+        });
+        F2.setFocusPainted(false);
+        F2.setBackground(new Color(201, 164, 71));
+        F2.setForeground(new java.awt.Color(255, 255, 255));
+        F2.setBorder(BorderFactory.createLineBorder(new Color(119, 95, 43), 3));
         F2.setMaximumSize(new java.awt.Dimension(100, 50));
         F2.setMinimumSize(new java.awt.Dimension(100, 50));
         F2.setPreferredSize(new java.awt.Dimension(100, 50));
@@ -187,8 +483,30 @@ public class MattonelleGUI extends javax.swing.JPanel {
                 F2ActionPerformed(evt);
             }
         });
-        F2.setEnabled(false);
-        
+
+
+        F1.setEnabled(false);
+        F1.setUI(new MetalButtonUI() {
+            @Override
+            protected Color getSelectColor() {
+                return new Color(133, 106, 5, 50);
+            }
+
+            @Override
+            public void paint(Graphics g, JComponent c) {
+                AbstractButton b = (AbstractButton) c;
+                if (!b.isEnabled()) {
+                    g.setColor(new Color(119, 95, 43)); // Change this to the color you want when the button is disabled
+                    g.fillRect(0, 0, c.getWidth(), c.getHeight());
+                } else {
+                    super.paint(g, c);
+                }
+            }
+        });
+        F1.setFocusPainted(false);
+        F1.setBackground(new Color(201, 164, 71));
+        F1.setForeground(new java.awt.Color(255, 255, 255));
+        F1.setBorder(BorderFactory.createLineBorder(new Color(119, 95, 43), 3));
         F1.setMaximumSize(new java.awt.Dimension(100, 50));
         F1.setMinimumSize(new java.awt.Dimension(100, 50));
         F1.setPreferredSize(new java.awt.Dimension(100, 50));
@@ -197,8 +515,30 @@ public class MattonelleGUI extends javax.swing.JPanel {
                 F1ActionPerformed(evt);
             }
         });
-        F1.setEnabled(false);
-        
+
+
+        E1.setEnabled(false);
+        E1.setUI(new MetalButtonUI() {
+            @Override
+            protected Color getSelectColor() {
+                return new Color(133, 106, 5, 50);
+            }
+
+            @Override
+            public void paint(Graphics g, JComponent c) {
+                AbstractButton b = (AbstractButton) c;
+                if (!b.isEnabled()) {
+                    g.setColor(new Color(119, 95, 43)); // Change this to the color you want when the button is disabled
+                    g.fillRect(0, 0, c.getWidth(), c.getHeight());
+                } else {
+                    super.paint(g, c);
+                }
+            }
+        });
+        E1.setFocusPainted(false);
+        E1.setBackground(new Color(201, 164, 71));
+        E1.setForeground(new java.awt.Color(255, 255, 255));
+        E1.setBorder(BorderFactory.createLineBorder(new Color(119, 95, 43), 3));
         E1.setMaximumSize(new java.awt.Dimension(100, 50));
         E1.setMinimumSize(new java.awt.Dimension(100, 50));
         E1.setPreferredSize(new java.awt.Dimension(100, 50));
@@ -207,8 +547,30 @@ public class MattonelleGUI extends javax.swing.JPanel {
                 E1ActionPerformed(evt);
             }
         });
-        E1.setEnabled(false);
-        
+
+
+        E3.setEnabled(false);
+        E3.setUI(new MetalButtonUI() {
+            @Override
+            protected Color getSelectColor() {
+                return new Color(133, 106, 5, 50);
+            }
+
+            @Override
+            public void paint(Graphics g, JComponent c) {
+                AbstractButton b = (AbstractButton) c;
+                if (!b.isEnabled()) {
+                    g.setColor(new Color(119, 95, 43)); // Change this to the color you want when the button is disabled
+                    g.fillRect(0, 0, c.getWidth(), c.getHeight());
+                } else {
+                    super.paint(g, c);
+                }
+            }
+        });
+        E3.setFocusPainted(false);
+        E3.setBackground(new Color(201, 164, 71));
+        E3.setForeground(new java.awt.Color(255, 255, 255));
+        E3.setBorder(BorderFactory.createLineBorder(new Color(119, 95, 43), 3));
         E3.setMaximumSize(new java.awt.Dimension(100, 50));
         E3.setMinimumSize(new java.awt.Dimension(100, 50));
         E3.setPreferredSize(new java.awt.Dimension(100, 50));
@@ -217,8 +579,30 @@ public class MattonelleGUI extends javax.swing.JPanel {
                 E3ActionPerformed(evt);
             }
         });
-        E3.setEnabled(false);
-        
+
+
+        E2.setEnabled(false);
+        E2.setUI(new MetalButtonUI() {
+            @Override
+            protected Color getSelectColor() {
+                return new Color(133, 106, 5, 50);
+            }
+
+            @Override
+            public void paint(Graphics g, JComponent c) {
+                AbstractButton b = (AbstractButton) c;
+                if (!b.isEnabled()) {
+                    g.setColor(new Color(119, 95, 43)); // Change this to the color you want when the button is disabled
+                    g.fillRect(0, 0, c.getWidth(), c.getHeight());
+                } else {
+                    super.paint(g, c);
+                }
+            }
+        });
+        E2.setFocusPainted(false);
+        E2.setBackground(new Color(201, 164, 71));
+        E2.setForeground(new java.awt.Color(255, 255, 255));
+        E2.setBorder(BorderFactory.createLineBorder(new Color(119, 95, 43), 3));
         E2.setMaximumSize(new java.awt.Dimension(100, 50));
         E2.setMinimumSize(new java.awt.Dimension(100, 50));
         E2.setPreferredSize(new java.awt.Dimension(100, 50));
@@ -227,8 +611,30 @@ public class MattonelleGUI extends javax.swing.JPanel {
                 E2ActionPerformed(evt);
             }
         });
-        E2.setEnabled(false);
-        
+
+
+        F3.setEnabled(false);
+        F3.setUI(new MetalButtonUI() {
+            @Override
+            protected Color getSelectColor() {
+                return new Color(133, 106, 5, 50);
+            }
+
+            @Override
+            public void paint(Graphics g, JComponent c) {
+                AbstractButton b = (AbstractButton) c;
+                if (!b.isEnabled()) {
+                    g.setColor(new Color(119, 95, 43)); // Change this to the color you want when the button is disabled
+                    g.fillRect(0, 0, c.getWidth(), c.getHeight());
+                } else {
+                    super.paint(g, c);
+                }
+            }
+        });
+        F3.setFocusPainted(false);
+        F3.setBackground(new Color(201, 164, 71));
+        F3.setForeground(new java.awt.Color(255, 255, 255));
+        F3.setBorder(BorderFactory.createLineBorder(new Color(119, 95, 43), 3));
         F3.setMaximumSize(new java.awt.Dimension(100, 50));
         F3.setMinimumSize(new java.awt.Dimension(100, 50));
         F3.setPreferredSize(new java.awt.Dimension(100, 50));
@@ -237,8 +643,30 @@ public class MattonelleGUI extends javax.swing.JPanel {
                 F3ActionPerformed(evt);
             }
         });
-        F3.setEnabled(false);
-        
+
+
+
+        A1.setUI(new MetalButtonUI() {
+            @Override
+            protected Color getSelectColor() {
+                return new Color(133, 106, 5, 50);
+            }
+
+            @Override
+            public void paint(Graphics g, JComponent c) {
+                AbstractButton b = (AbstractButton) c;
+                if (!b.isEnabled()) {
+                    g.setColor(new Color(119, 95, 43)); // Change this to the color you want when the button is disabled
+                    g.fillRect(0, 0, c.getWidth(), c.getHeight());
+                } else {
+                    super.paint(g, c);
+                }
+            }
+        });
+        A1.setFocusPainted(false);
+        A1.setBackground(new Color(201, 164, 71));
+        A1.setForeground(new java.awt.Color(255, 255, 255));
+        A1.setBorder(BorderFactory.createLineBorder(new Color(119, 95, 43), 3));
         A1.setMaximumSize(new java.awt.Dimension(100, 50));
         A1.setMinimumSize(new java.awt.Dimension(100, 50));
         A1.setPreferredSize(new java.awt.Dimension(100, 50));
@@ -247,7 +675,29 @@ public class MattonelleGUI extends javax.swing.JPanel {
                 A1ActionPerformed(evt);
             }
         });
-        
+
+
+        A3.setUI(new MetalButtonUI() {
+            @Override
+            protected Color getSelectColor() {
+                return new Color(133, 106, 5, 50);
+            }
+
+            @Override
+            public void paint(Graphics g, JComponent c) {
+                AbstractButton b = (AbstractButton) c;
+                if (!b.isEnabled()) {
+                    g.setColor(new Color(119, 95, 43)); // Change this to the color you want when the button is disabled
+                    g.fillRect(0, 0, c.getWidth(), c.getHeight());
+                } else {
+                    super.paint(g, c);
+                }
+            }
+        });
+        A3.setFocusPainted(false);
+        A3.setBackground(new Color(201, 164, 71));
+        A3.setForeground(new java.awt.Color(255, 255, 255));
+        A3.setBorder(BorderFactory.createLineBorder(new Color(119, 95, 43), 3));
         A3.setMaximumSize(new java.awt.Dimension(100, 50));
         A3.setMinimumSize(new java.awt.Dimension(100, 50));
         A3.setPreferredSize(new java.awt.Dimension(100, 50));
@@ -257,7 +707,28 @@ public class MattonelleGUI extends javax.swing.JPanel {
             }
         });
 
-        
+
+        A2.setUI(new MetalButtonUI() {
+            @Override
+            protected Color getSelectColor() {
+                return new Color(133, 106, 5, 50);
+            }
+
+            @Override
+            public void paint(Graphics g, JComponent c) {
+                AbstractButton b = (AbstractButton) c;
+                if (!b.isEnabled()) {
+                    g.setColor(new Color(119, 95, 43)); // Change this to the color you want when the button is disabled
+                    g.fillRect(0, 0, c.getWidth(), c.getHeight());
+                } else {
+                    super.paint(g, c);
+                }
+            }
+        });
+        A2.setFocusPainted(false);
+        A2.setBackground(new Color(201, 164, 71));
+        A2.setForeground(new java.awt.Color(255, 255, 255));
+        A2.setBorder(BorderFactory.createLineBorder(new Color(119, 95, 43), 3));
         A2.setMaximumSize(new java.awt.Dimension(100, 50));
         A2.setMinimumSize(new java.awt.Dimension(100, 50));
         A2.setPreferredSize(new java.awt.Dimension(100, 50));
@@ -363,6 +834,7 @@ public class MattonelleGUI extends javax.swing.JPanel {
         );
     }// </editor-fold>
 
+
     private void A1ActionPerformed(ActionEvent evt) {
         resetAllMattonelle();
     }
@@ -444,6 +916,8 @@ public class MattonelleGUI extends javax.swing.JPanel {
         makeVisible('G');
         outputDisplayManager.displayText("Hai vinto!");
         userInputFlow.Event = 0;
+        Game game = Game.getInstance();
+        GameGUI.setImagePanel(game.getCurrentRoom().getName());
     }
 
     private void G3ActionPerformed(java.awt.event.ActionEvent evt) {
