@@ -91,12 +91,12 @@ public class WordleGame {
     public void checkGuess(String guess) {
         for (int i = 0; i < 5; i++) {
             if (guess.charAt(i) == GuessingWord.charAt(i)) {
-                changeBoxColor(currentTry, i, Color.GREEN);
+                changeBoxColor(currentTry, i, new Color(24, 159, 10));
             } else if (GuessingWord.contains(String.valueOf(guess.charAt(i)))) {
-                changeBoxColor(currentTry, i, Color.YELLOW);
+                changeBoxColor(currentTry, i, new Color(213, 173, 0));
             }
             else {
-                changeBoxColor(currentTry, i, Color.GRAY);
+                changeBoxColor(currentTry, i, new Color(52, 59, 66));
             }
         }
     }
