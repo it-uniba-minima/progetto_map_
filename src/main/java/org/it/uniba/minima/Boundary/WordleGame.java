@@ -57,7 +57,7 @@ public class WordleGame {
             outputDisplayManager.displayText("Hai indovinato la parola!");
             userInputFlow.Event = 0;
             Game game = Game.getInstance();
-            game.getCurrentRoom().setState("Solved");
+            game.getCurrentRoom().setState("Giusto");
             game.unlockCorridor("Desert", "Stanza1");
             GameGUI.setImagePanel(game.getCurrentRoom().getName());
             return;
@@ -67,7 +67,7 @@ public class WordleGame {
             outputDisplayManager.displayText("Hai esaurito i tentativi, la parola era " + GuessingWord);
             userInputFlow.Event = 0;
             Game game = Game.getInstance();
-            game.getCurrentRoom().setState("Failed");
+            game.getCurrentRoom().setState("Sbagliato");
             GameGUI.setImagePanel(game.getCurrentRoom().getName());
         }
     }
