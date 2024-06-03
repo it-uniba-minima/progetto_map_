@@ -113,6 +113,13 @@ public class ProgressBarGUI extends javax.swing.JPanel {
                         .addGap(0, 161, Short.MAX_VALUE)
         );
 
+        progressBar.setFont(new java.awt.Font("Papyrus", 1, 24));
+        progressBar.setForeground(new java.awt.Color(204, 173, 27));
+        progressBar.setBackground(new Color(204, 173, 27));
+        progressBar.setBorder(BorderFactory.createLineBorder(new Color(107, 90, 13), 5));
+        progressBar.setMaximumSize(new java.awt.Dimension(482, 48));
+        progressBar.setMinimumSize(new java.awt.Dimension(482, 48));
+        progressBar.setPreferredSize(new java.awt.Dimension(482, 48));
         progressBar.setStringPainted(true);
 
         javax.swing.GroupLayout backgroundPanelLayout = new javax.swing.GroupLayout(backgroundPanel);

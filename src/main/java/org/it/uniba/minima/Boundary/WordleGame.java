@@ -59,7 +59,7 @@ public class WordleGame {
             Game game = Game.getInstance();
             game.getCurrentRoom().setState("Solved");
             game.unlockCorridor("Desert", "Stanza1");
-            GameGUI.setImagePanel("Desert");
+            GameGUI.setImagePanel(game.getCurrentRoom().getName());
             return;
         }
 
@@ -68,6 +68,7 @@ public class WordleGame {
             userInputFlow.Event = 0;
             Game game = Game.getInstance();
             game.getCurrentRoom().setState("Failed");
+            GameGUI.setImagePanel(game.getCurrentRoom().getName());
         }
     }
 
