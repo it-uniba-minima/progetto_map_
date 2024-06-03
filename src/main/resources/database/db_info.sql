@@ -9,7 +9,7 @@ VALUES
     (3, 'Parla', 'Desert', 'Start', 'Sfinge', '0', '0', '> "Salve viandante, ti pongo una sfida, se la superi entrerai in un luogo dove ogni tuo desiderio verrà realizzato. La sfida che io ti pongo è indovinare la parola a cui sto pensando"'),
     (4, '0', 'Desert', 'Giusto', 'Sfinge', '0', '0', '> "È esattamente la parola che stavo pensando!"'),
     (5, '0', 'Desert', 'Sbagliato', 'Sfinge', '0', '0', '> "La tua mente è debole per questo posto, torna indietro da dove sei venuto"'),
-    (6, 'Parla', 'Desert', 'Giusto', 'Sfinge', '0', '0', '> "Come premio per questa sfida, ti affido la chiave per aprire questo luogo"'),
+    (6, 'Parla', 'Desert', 'Giusto', 'Sfinge', '0', '0', '> "Come premio per questa sfida, le porte della piramide si apriranno per te"'),
     (7, 'Parla', 'Desert', 'Sbagliato', 'Sfinge', '0', '0', '> "Il tuo insuccesso, ci ha ammaliati e un mio amico vorrebbe farti i complementi per tale impresa" '),
     (8, 'Osserva', 'Desert', 'Giusto', '0', '0', '0', '> Noti una seconda Sfinge simile a un cane a protezione della piramide, accanto è presente anche una pala.'),
     (9, 'Osserva', 'Desert', 'Giusto', 'Pippo', '0', '0', '> Non sembra interessata alla tua presenza, ti avvicini ed è come se la sentissi russare.'),
@@ -195,6 +195,9 @@ VALUES
     (189, 'Osserva', 'Stanza6', 'Corretto', '0', '0', '0', '> Oltre alla mummia non noti molto altro in questa stanza.'),
     (190, 'Osserva', 'Stanza6', 'Sbagliato', '0', '0', '0', '> Oltre alla mummia non noti molto altro in questa stanza.'),
     (191, 'Osserva', 'Desert', 'Sbagliato', '0', '0', '0', '> Noti una seconda Sfinge simile a un cane a protezione della piramide, accanto è presente anche una pala.'),
+    (192, 'Osserva', 'Desert', 'Start', 'Sfinge', '0', '0', '> Una gigantesca Sfinge, sembra che vuole evitare alla tua presenza.'),
+    (193, 'Osserva', 'Desert', 'Start', 'Pippo', '0', '0', '> Noti una seconda Sfinge simile a un cane a protezione della piramide, accanto è presente anche una pala.'),
+    (194, 'Parla', 'Desert', 'Start', 'Pippo', '0', '0', '> Cerchi di parlare con la sfinge ma ti ignora.');
 
 
 
