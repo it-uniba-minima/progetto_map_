@@ -8,6 +8,7 @@ import com.google.gson.stream.JsonReader;
 import org.it.uniba.minima.Entity.Agent;
 import org.it.uniba.minima.Entity.Game;
 import org.it.uniba.minima.Entity.Room;
+import org.it.uniba.minima.Type.CommandType;
 import org.it.uniba.minima.Type.Corridor;
 
 import java.io.File;
@@ -84,9 +85,11 @@ public class Converter {
             e.printStackTrace();
         }
 
+        //ConvertGametoJson();
         //
         // chiedere se fare una funzione a parte o no per il caricamento di Game.json
         return allAgents;
+
     }
         /*
         Path dir = Paths.get("src/main/resources/static");
@@ -112,17 +115,34 @@ public class Converter {
             e.printStackTrace();
         } */
 
-    public void ConvertGametoJson() throws IOException, ClassNotFoundException{
+    public void ConvertGametoJson() {
         Gson gson = new Gson();
-        Game game = Game.getInstance();
         /*
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(Room.class, new RoomDeserializer())
+                .create();
+        */
+        Game game = Game.getInstance(); //new Game();
+
+
+        /*
+        List<Room> allRooms = new ArrayList<>();
+        try {
+            URL url = getClass().getResource("/static/Rooms.json");
+            File file = new File(url.toURI());
+            JsonReader reader = new JsonReader(new FileReader(file));
+            Type roomListType = new TypeToken<ArrayList<Room>>(){}.getType();
+            allRooms = gson.fromJson(reader, roomListType);
+        } catch (FileNotFoundException | URISyntaxException e) {
+            e.printStackTrace();
+        }
+
         game.setNickname("Player");
 
-        game.setInventory(new ArrayList<>());
+        //game.setInventory(new ArrayList<>());
 
         game.setCurrentTime("00:00:00");
 
-        game.setCurrentRoom(allRooms.get(0));
 
         List<Corridor> corridorsMap = new ArrayList<>();
         corridorsMap.add(new Corridor(allRooms.get(0), CommandType.NORD, true, allRooms.get(1)));
@@ -164,17 +184,31 @@ public class Converter {
         roomStates.put(allRooms.get(2).getName(), "SerpentiOn");
         roomStates.put(allRooms.get(3).getName(), "AcquaOn");
         roomStates.put(allRooms.get(4).getName(), "Start");
-        roomStates.put(allRooms.get(5).getName(), "OcchioIntero");
-        roomStates.put(allRooms.get(6).getName(), "");
+        roomStates.put(allRooms.get(5).getName(), "Start");
+        roomStates.put(allRooms.get(6).getName(), "Start");
         roomStates.put(allRooms.get(7).getName(), "Start");
-        roomStates.put(allRooms.get(8).getName(), "TortaOff");
-        roomStates.put(allRooms.get(9).getName(), "Spento");
+        roomStates.put(allRooms.get(8).getName(), "Start");
+        roomStates.put(allRooms.get(9).getName(), "Start");
         roomStates.put(allRooms.get(10).getName(), "SarcofagoChiuso");
 
         game.setStatesMap(roomStates);
-        */
+
+        game.setCurrentRoom(allRooms.get(0));
+
+
         String json = gson.toJson(game);
-        Files.write(Paths.get("src/main/resources/LoadedGame.json"), json.getBytes());
+        try {
+            Files.write(Paths.get("src/main/resources/static/Game.json"), json.getBytes());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+         */
+        String json = gson.toJson(game);
+        try {
+            Files.write(Paths.get("src/main/resources/LoadedGame.json"), json.getBytes());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void ConvertRoomstoJson(List<Room> rooms) throws IOException {
