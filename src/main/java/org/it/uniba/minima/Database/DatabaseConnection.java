@@ -1,6 +1,7 @@
 package org.it.uniba.minima.Database;
 
 import org.h2.tools.RunScript;
+import org.it.uniba.minima.Boundary.outputDisplayManager;
 
 import java.sql.*;
 
@@ -80,8 +81,12 @@ public class DatabaseConnection {
         }
     }
 
-    public static String querySQL_forDESC(String idComando, String idStanza, String idStato, String idPersonaggio, String idOggetto1, String idOggetto2) {
-        return "SELECT DESCRIZIONE FROM DESCRIZIONI WHERE COMANDO = '" + idComando + "' AND STANZA = '" + idStanza + "' AND STATO = '" + idStato + "' AND PERSONAGGIO = '" + idPersonaggio + "' AND OGGETTO1 = '" + idOggetto1 + "' AND OGGETTO2 = '" + idOggetto2 + "'";
+    public static void printFromDB(String idComando, String idStanza, String idStato, String idPersonaggio, String idOggetto1, String idOggetto2) {
+        Connection conn;
+        conn = DatabaseConnection.connect();
+        String sql_query = "SELECT DESCRIZIONE FROM DESCRIZIONI WHERE COMANDO = '" + idComando + "' AND STANZA = '" + idStanza + "' AND STATO = '" + idStato + "' AND PERSONAGGIO = '" + idPersonaggio + "' AND OGGETTO1 = '" + idOggetto1 + "' AND OGGETTO2 = '" + idOggetto2 + "'";
+        outputDisplayManager.displayText(DatabaseConnection.getDescriptionFromDatabase(conn, sql_query));
+        DatabaseConnection.close(conn);
     }
 
     public static String querySQL_forCLASSIFICA() {
