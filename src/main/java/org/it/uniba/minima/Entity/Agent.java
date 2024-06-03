@@ -5,7 +5,6 @@ import java.util.Objects;
 
 public class Agent {
     private String name;
-    private String description;
     private List<String> alias;
 
     public Agent() {
@@ -16,7 +15,8 @@ public class Agent {
     }
 
     public String getDescription() {
-        return description;
+        // substitute with call to database
+        return "This is an agent";
     }
 
     public List<String> getAlias() {
@@ -25,10 +25,6 @@ public class Agent {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public void setAlias(List<String> alias) {
@@ -45,13 +41,12 @@ public class Agent {
         if (!(o instanceof Agent)) return false;
         Agent agent = (Agent) o;
         return Objects.equals(name, agent.name) &&
-                Objects.equals(description, agent.description) &&
                 Objects.equals(alias, agent.alias);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, description, alias);
+        return Objects.hash(name, alias);
     }
 }
 
