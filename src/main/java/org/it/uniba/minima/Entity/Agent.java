@@ -1,5 +1,7 @@
 package org.it.uniba.minima.Entity;
 
+import org.it.uniba.minima.Database.DatabaseConnection;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -12,11 +14,6 @@ public class Agent {
 
     public String getName() {
         return name;
-    }
-
-    public String getDescription() {
-        // substitute with call to database
-        return "This is an agent";
     }
 
     public List<String> getAlias() {
@@ -47,6 +44,10 @@ public class Agent {
     @Override
     public int hashCode() {
         return Objects.hash(name, alias);
+    }
+
+    public void getDescription(Room room) {
+
     }
 }
 
