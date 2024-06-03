@@ -40,7 +40,7 @@ public class GUIManager extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
 
-        Mixer music = Mixer.getInstance();
-        music.start();
+        //Mixer music = Mixer.getInstance();
+        //music.start();
     }
 }
