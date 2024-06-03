@@ -1,13 +1,68 @@
 [
-{ "name":"Desert","currentState":"Start", "agents":[{"name":"Sfinge","description":"","alias":[""]}, {"name":"Pippo","description":"","alias":[""]}, {"isPickable":true,"isDroppable":true,"isUsable":true,"name":"Pala","description":"","alias":[""]}]},
-{"name":"Stanza1","currentState":"Buio","agents":[{"isPickable":true,"isDroppable":true,"isUsable":true,"name":"Colonne","description":"","alias":[""]}]} ,
-{"name":"Stanza2","currentState":"SerpentiOn","agents":[{"isPickable":true,"isDroppable":true,"isUsable":true,"name":"Corda","description":"","alias":[""]},{"isPickable":true,"isDroppable":true,"isUsable":true,"name":"Bastone","description":"","alias":[""]},{"isPickable":true,"isDroppable":true,"isUsable":true,"name":"Torcia","description":"","alias":[""]}]},
-{"name":"Stanza3","currentState":"AcquaOn","agents":[{"isPickable":true,"isDroppable":true,"isUsable":true,"name":"Leva","description":"","alias":[""]},{"isPickable":true,"isDroppable":true,"isUsable":true,"name":"Coltello","description":"","alias":[""]},{"isPickable":true,"isDroppable":true,"isUsable":true,"name":"Torcia","description":"","alias":[""]},{"isPickable":true,"isDroppable":true,"isUsable":true,"name":"Brace","description":"","alias":[""]}]},
-{"name":"Stanza4","currentState":"Start","agents":[{"isPickable":true,"isDroppable":true,"isUsable":true,"name":"Piuma","description":"","alias":[""]}]},
-{"name":"Stanza5","currentState":"OcchioIntero","agents":[]},
-{"name":"Stanza6","currentState":"","agents":[]},
-{"name":"Stanza7","currentState":"Start","agents":[{"isPickable":true,"isDroppable":true,"isUsable":true,"name":"Nekhekh","description":"","alias":[""]}]},
-{"name":"Stanza8","currentState":"TortaOff","agents":[{"isPickable":true,"isDroppable":true,"isUsable":true,"name":"Grano","description":"","alias":[""]},{"isPickable":true,"isDroppable":true,"isUsable":true,"name":"Pietra","description":"","alias":[""]},{"isPickable":true,"isDroppable":true,"isUsable":true,"name":"Canna da zucchero","description":"","alias":[""]},{"isPickable":true,"isDroppable":true,"isUsable":true,"name":"Uova","description":"","alias":[""]},{"isPickable":true,"isDroppable":true,"isUsable":true,"name":"Latte Vecchio","description":"","alias":[""]},{"isPickable":true,"isDroppable":true,"isUsable":true,"name":"Fuoco","description":"","alias":[""]},{"isPickable":true,"isDroppable":true,"isUsable":true,"name":"Piedistallo","description":"","alias":[""]},{"isPickable":true,"isDroppable":true,"isUsable":true,"name":"Ankh","description":"","alias":[""]}]},
-{"name":"Stanza9","currentState":"Spento","agents":[{"isPickable":true,"isDroppable":true,"isUsable":true,"name":"Acqua","description":"","alias":[""]},{"isPickable":true,"isDroppable":true,"isUsable":true,"name":"Olio","description":"","alias":[""]},{"isPickable":true,"isDroppable":true,"isUsable":true,"name":"Lente","description":"","alias":[""]},{"isPickable":true,"isDroppable":true,"isUsable":true,"name":"Buca","description":"","alias":[""]},{"isPickable":true,"isDroppable":true,"isUsable":true,"name":"Hekat","description":"","alias":[""]}]},
-{"name":"Stanza10","currentState":"SarcofagoChiuso","agents":[{"name":"Osiride","description":"","alias":[""]},{"isPickable":true,"isDroppable":true,"isUsable":true,"name":"Sarcofago","description":"","alias":[""]}]}
+{"name":"Desert","currentState":"Start",
+  "agents":[
+    {"name":"Sfinge","alias":["Gatto", "SfingeGatto"]},
+    {"name":"Pippo","alias":["SfingeCane", "Cane"]},
+    {"isPickable":true,"isDroppable":true,"name":"Pala","alias":["Paletta", "Badile"]},
+    {"isPickable":false,"isDroppable": false,"name":"Porta","alias":["Entrata", "Ingresso", "Piramide", "Portone", "Porte"]}]},
+
+{"name":"Stanza1","currentState":"Buio",
+  "agents":[
+    {"isPickable":false,"isDroppable":false,"name":"Statua","alias":["Inserto", "Poggiatorcia"]}]},
+
+{"name":"Stanza2","currentState":"SerpentiOn",
+  "agents":[
+    {"isPickable":true,"isDroppable":true,"name":"Corda","alias":["Stringa", "Cordicella", "Laccio", "Spago", "Frusta"]},
+    {"isPickable":true,"isDroppable":true,"name":"Bastone","alias":["Ramo", "PezzoDiLegno", "Ramoscello", "Bastoncino", "Asta", "Legno"]},
+    {"isPickable":false,"isDroppable":false,"name":"Serpenti","alias":["Serpente", "Cobra", "Serpi", "Serpe", "Vipere", "Vipera"]},
+    {"isPickable":false,"isDroppable":true,"name":"Torcia1","alias":["TorciaSerpenti", "TorciaSinistra", "TorciaSx"]}]},
+
+{"name":"Stanza3","currentState":"AcquaOn",
+  "agents":[
+    {"isPickable":false,"isDroppable":false,"name":"Leva","alias":["Gancio", "Gancetto", "Uncino"]},
+    {"isPickable":true,"isDroppable":true,"name":"Coltello","alias":["Lama", "Coltellino", "ArmaDaTaglio"]},
+    {"isPickable":false,"isDroppable":true,"name":"Torcia2","alias":["TorciaCascata", "TorciaDestra", "TorciaDx"]},
+    {"isPickable":false,"isDroppable":false,"name":"Brace","alias":["Accendino", "Carboni"]}]},
+
+{"name":"Stanza4","currentState":"Start",
+  "agents":[
+    {"isPickable":true,"isDroppable":true,"name":"Piuma","alias":["Penna", "Pennino"]},
+    {"isPickable":false,"isDroppable":false,"name":"Pergamena","alias": ["Foglio", "Tavola", "Carta", "Papiro", "Papyrus"]}]},
+
+{"name":"Stanza5","currentState":"Start",
+  "agents":[
+    {"isPickable":true,"isDroppable":true,"name":"ArcoRotto","alias": ["ArcoSenzaCorda", "ArcoVuoto", "ArcoSenzaSpago"]},
+    {"isPickable":true,"isDroppable":true,"name":"FrecciaSmussata","alias": ["FrecciaSpuntata", "FrecciaRotta", "FrecciaBrutta", "FrecciaInutile"]},
+    {"isPickable":false,"isDroppable":true,"name":"Target","alias": ["Occhio", "OcchioDiVetro", "Covino"]}
+  ]},
+
+{"name":"Stanza6","currentState":"Start",
+  "agents":[
+    {"name":"Mummia", "alias": ["Nonno", "Nonnino", "Anziano", "Sacerdote", "AmmassoDiBende", "Vecchio"]}]},
+
+{"name":"Stanza7","currentState":"Start",
+  "agents":[
+    {"isPickable":true,"isDroppable":true,"name":"Nekhekh","alias":["Nekek", "Nek", "Flagello"]}]},
+
+{"name":"Stanza8","currentState":"Start",
+  "agents":[
+    {"isPickable":true,"isDroppable":true,"name":"Grano","alias":["Frumento", "Spiga", "Spighe"]},
+    {"isPickable":true,"isDroppable":true,"name":"Pietra","alias":["Sasso", "Roccia", "Masso", "Ciottolo"]},
+    {"isPickable":true,"isDroppable":true,"name":"CannaZucchero","alias":["CannaDaZucchero", "Canna"]},
+    {"isPickable":true,"isDroppable":true,"name":"Uova","alias":["Uovo","UovoDiCuccò", "UovaDiCuccò"]},
+    {"isPickable":true,"isDroppable":true,"name":"LatteVecchio","alias":["Panna", "Latte", "LatteLonLon"]},
+    {"isPickable":true,"isDroppable":true,"name":"Fuoco","alias":["Forno", "Fiamma", "Fiammetta", "Calcifer"]},
+    {"isPickable":false,"isDroppable":false,"name":"Piedistallo","alias":["Espositore", "Colonna", "Vassoio", "Tavolo"]}]},
+
+{"name":"Stanza9","currentState":"Start",
+  "agents":[
+    {"isPickable":true,"isDroppable":true,"name":"Acqua","alias":["BocciaDAcqua", "CoppaDAcqua", "BicchiereDAcqua", "BocciaDiAcqua", "CoppaDiAcqua", "BicchiereDiAcqua"]},
+    {"isPickable":true,"isDroppable":true,"name":"Olio","alias":["CoppaDOlio", "CoppaDiOlio", "BocciaDOlio", "BocciaDiOlio", "BicchiereDOlio", "BicchiereDiOlio"]},
+    {"isPickable":true,"isDroppable":true,"name":"Vetro","alias":["Lente", "Vetrino", "Occhiale"]},
+    {"isPickable":false,"isDroppable":false,"name":"Buca","alias":["Buco", "Fossa", "Piatto", "Pozzo"]}]},
+
+{"name":"Stanza10","currentState":"SarcofagoChiuso",
+  "agents":[
+    {"name":"Osiride","alias":["Dio", "Farone", "Basile", "Re", "PippoKill", "Divinità"]},
+    {"isPickable":false,"isDroppable":false,"name":"Sarcofago","alias":[""]}]}
 ]
