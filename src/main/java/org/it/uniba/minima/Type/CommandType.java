@@ -10,12 +10,12 @@ public enum CommandType {
 
     INVENTORY, // Comando per accedere all'inventario
 
-    GIVE, // Comando per dare oggetti
+    DAI, // Comando per dare oggetti
     DROP, // Comando per lasciare oggetti
-    LOOK, // Comando per osservare oggetti, stanze, personaggi
+    OSSERVA, // Comando per osservare oggetti, stanze, personaggi
     TAKE, //Comando per prendere oggetti
-    USE, // Comando per usare oggetti e usare oggetti su altri oggetti
-    TALK, // Comando per parlare con personaggi
+    USA, // Comando per usare oggetti e usare oggetti su altri oggetti
+    PARLA, // Comando per parlare con personaggi
 
-    FUSE, // Comando per fondere oggetti
+    UNISCI, // Comando per fondere oggetti
 }

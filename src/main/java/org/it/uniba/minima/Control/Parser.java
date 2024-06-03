@@ -1,7 +1,5 @@
 package org.it.uniba.minima.Control;
 import org.it.uniba.minima.Entity.Agent;
-import org.it.uniba.minima.Entity.Personage;
-import org.it.uniba.minima.Entity.Item;
 import org.it.uniba.minima.Type.ParserOutput;
 import org.it.uniba.minima.Type.CommandType;
 
@@ -17,19 +15,7 @@ public class Parser {
     private static Set<String> stopWords = new HashSet<>();
 
     public Parser() {
-        availableCommands.add(new Command("help", List.of("h", "aiuto", "comandi"), CommandType.HELP));
-        availableCommands.add( new Command("nord", List.of("n", "north", "avanti"), CommandType.NORD));
-        availableCommands.add( new Command("sud", List.of("s", "south", "indietro"), CommandType.SUD));
-        availableCommands.add( new Command("est", List.of("e", "east", "destra"), CommandType.EST));
-        availableCommands.add( new Command("ovest", List.of("o", "west", "sinstra"), CommandType.OVEST));
-        availableCommands.add( new Command("inventario", List.of("i", "inventory", "borsa", "zaino"), CommandType.INVENTORY));
-        availableCommands.add( new Command("guarda", List.of("l", "look", "vedi", "esamina"), CommandType.LOOK));
-        availableCommands.add( new Command("prendi", List.of("t", "take", "raccogli"), CommandType.TAKE));
-        availableCommands.add( new Command("usa", List.of("u", "use", "utilizza"), CommandType.USE));
-        availableCommands.add( new Command("parla", List.of("talk", "p", "dialoga"), CommandType.TALK));
-        availableCommands.add( new Command("dai", List.of("give", "d", "passa"), CommandType.GIVE));
-        availableCommands.add( new Command("lascia", List.of("drop", "l", "abbandona"), CommandType.DROP));
-        availableCommands.add( new Command("fonde", List.of("fuse", "f", "componi"), CommandType.FUSE));
+        setAvailableCommands();
     }
 
     public ParserOutput parse(String input) {
@@ -41,7 +27,6 @@ public class Parser {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        //words = input.split(" ");
 
         words = Arrays.stream(input.split(" "))
                 .map(String::toLowerCase)
@@ -76,11 +61,14 @@ public class Parser {
                 Iterator<Agent> it = availableAgents.iterator();
                 while (output.getAgent1() == null && it.hasNext()) {
                     agent = it.next();
-                    // TODO: make sure all agent names and aliases are lowercase, then remove toLowerCase() from here
-                    if (agent.getName().toLowerCase().equals(words[1])) {
+                    if (agent.getName().equalsIgnoreCase(words[1])) {
                         output.setAgent1(agent);
-                    } else if (agent.getAlias().contains(words[1])) {
-                        output.setAgent1(agent);
+                    } else {
+                        String theAlias = agent.getAlias().stream()
+                                .filter(alias -> alias.equalsIgnoreCase(words[1]))
+                                .findFirst()
+                                .orElse(null);
+                        if (theAlias != null) output.setAgent1(agent);
                     }
                 }
 
@@ -97,11 +85,14 @@ public class Parser {
                 Iterator<Agent> it = availableAgents.iterator();
                 while (output.getAgent2() == null && it.hasNext()) {
                     agent = it.next();
-                    // TODO: make sure all agent names and aliases are lowercase, then remove toLowerCase() from here
-                    if (agent.getName().toLowerCase().equals(words[2])) {
+                    if (agent.getName().equalsIgnoreCase(words[2])) {
                         output.setAgent2(agent);
-                    } else if (agent.getAlias().contains(words[2])) {
-                        output.setAgent2(agent);
+                    } else {
+                        String theAlias = agent.getAlias().stream()
+                                .filter(alias -> alias.equalsIgnoreCase(words[2]))
+                                .findFirst()
+                                .orElse(null);
+                        if (theAlias != null) output.setAgent2(agent);
                     }
                 }
 
@@ -124,5 +115,21 @@ public class Parser {
             stopWords.add(reader.readLine().trim().toLowerCase());
         }
         reader.close();
+    }
+
+    private void setAvailableCommands() {
+        availableCommands.add(new Command("help", List.of("h", "aiuto", "comandi"), CommandType.HELP));
+        availableCommands.add( new Command("nord", List.of("n", "north", "avanti"), CommandType.NORD));
+        availableCommands.add( new Command("sud", List.of("s", "south", "indietro"), CommandType.SUD));
+        availableCommands.add( new Command("est", List.of("e", "east", "destra"), CommandType.EST));
+        availableCommands.add( new Command("ovest", List.of("o", "west", "sinstra"), CommandType.OVEST));
+        availableCommands.add( new Command("inventario", List.of("i", "inventory", "borsa", "zaino"), CommandType.INVENTORY));
+        availableCommands.add( new Command("guarda", List.of("l", "look", "vedi", "esamina"), CommandType.OSSERVA));
+        availableCommands.add( new Command("prendi", List.of("t", "take", "raccogli"), CommandType.TAKE));
+        availableCommands.add( new Command("usa", List.of("u", "use", "utilizza"), CommandType.USA));
+        availableCommands.add( new Command("parla", List.of("talk", "p", "dialoga"), CommandType.PARLA));
+        availableCommands.add( new Command("dai", List.of("give", "d", "passa"), CommandType.DAI));
+        availableCommands.add( new Command("lascia", List.of("drop", "l", "abbandona"), CommandType.DROP));
+        availableCommands.add( new Command("fonde", List.of("fuse", "f", "componi"), CommandType.UNISCI));
     }
 }

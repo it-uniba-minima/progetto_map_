@@ -5,7 +5,6 @@ import java.util.List;
 public class Item extends Agent{
     boolean isPickable = true;
     boolean isDroppable = true;
-    boolean isUsable = true;
 
     public Item() {}
 
@@ -15,10 +14,6 @@ public class Item extends Agent{
 
     public boolean isDroppable() {
         return isDroppable;
-    }
-
-    public boolean isUsable() {
-        return isUsable;
     }
 
     public void setPickable(boolean b) {

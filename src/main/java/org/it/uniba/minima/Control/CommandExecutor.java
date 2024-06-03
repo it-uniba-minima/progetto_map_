@@ -51,7 +51,7 @@ public class CommandExecutor {
         commandMap.put(new CommandExecutorKey(CommandType.OVEST, null, null),
                 createDirectionCommandBehavior(CommandType.OVEST));
 
-        commandMap.put(new CommandExecutorKey(CommandType.LOOK, null, null),
+        commandMap.put(new CommandExecutorKey(CommandType.OSSERVA, null, null),
                 p -> outputDisplayManager.displayText(game.getCurrentRoom().getDescription()));
 
         commandMap.put(new CommandExecutorKey(CommandType.HELP, null, null),
@@ -62,7 +62,7 @@ public class CommandExecutor {
 
         Set<Agent> allAgents = GameManager.getAllAgents(); // Replace this with the actual method to get all agents
         allAgents.forEach(agent ->
-                commandMap.put(new CommandExecutorKey(CommandType.LOOK, agent, null),
+                commandMap.put(new CommandExecutorKey(CommandType.OSSERVA, agent, null),
                         p -> {
                             if (game.getCurrentRoom().getAgents().contains(p.getAgent1())
                             //|| game.getInventory().contains((Item) p.getAgent1())
@@ -75,7 +75,7 @@ public class CommandExecutor {
                         })
         );
 
-        Set<Item> allItems = GameManager.getAllItems(); // Replace this with the actual method to get all agents
+        Set<Item> allItems = GameManager.getAllItems();
         allItems.forEach(item ->
                 commandMap.put(new CommandExecutorKey(CommandType.TAKE, item, null),
                         p -> {
@@ -83,6 +83,9 @@ public class CommandExecutor {
                                 if (((Item) p.getAgent1()).isPickable()) {
                                     game.getInventory().add((Item) p.getAgent1());
                                     game.getCurrentRoom().getAgents().remove(p.getAgent1());
+                                    if (gameLogic.executeTake((Item) p.getAgent1())) {
+                                        outputDisplayManager.displayText("Taken and custom behavior");
+                                    }
                                     outputDisplayManager.displayText("Taken");
                                     // TODO: Add custom text when picking up the item !!use an external function
                                 } else {
@@ -115,7 +118,7 @@ public class CommandExecutor {
 
         Set<Personage> allPersonages = GameManager.getAllPersonages(); // Replace this with the actual method to get all agents
         allPersonages.forEach(personage ->
-                commandMap.put(new CommandExecutorKey(CommandType.TALK, personage, null),
+                commandMap.put(new CommandExecutorKey(CommandType.PARLA, personage, null),
                         p -> {
                             if (game.getCurrentRoom().getAgents().contains(p.getAgent1())) {
                                     outputDisplayManager.displayText("Talking to " + p.getAgent1().getName());
@@ -132,7 +135,7 @@ public class CommandExecutor {
         // if you can't use the item at that moment we need to call the db to print a message
         //uses allItems
         allItems.forEach(item ->
-                commandMap.put(new CommandExecutorKey(CommandType.USE, item, null),
+                commandMap.put(new CommandExecutorKey(CommandType.USA, item, null),
                         p -> {
                             if (game.getInventory().contains(p.getAgent1())) {
                                 if (gameLogic.executeUseSingleItem((Item) p.getAgent1())) {
@@ -152,7 +155,7 @@ public class CommandExecutor {
         // of agents, in case the combination isn't valid, we need call the db to print a message
         allItems.forEach(item1 ->
                 allItems.forEach(item2 ->
-                        commandMap.put(new CommandExecutorKey(CommandType.USE, item1, item2),
+                        commandMap.put(new CommandExecutorKey(CommandType.USA, item1, item2),
                                 p -> {
                                     if (game.getInventory().contains(p.getAgent1())) {
                                         if (game.getCurrentRoom().getAgents().contains(p.getAgent2())) {
@@ -160,14 +163,14 @@ public class CommandExecutor {
                                                 outputDisplayManager.displayText(p.getAgent1().getName() + " used on " + p.getAgent2().getName());
                                                 //call function for custom behavior
                                             } else {
-                                                outputDisplayManager.displayText("The combination is not valid");
+                                                outputDisplayManager.displayText("Puppa");
                                             }
                                         } else if (game.getInventory().contains(p.getAgent2())) {
                                             if (gameLogic.executeUseCombinationInInventory((Item) p.getAgent1(), (Item) p.getAgent2())) { // Replace this with the actual method to check if the combination is valid
                                                 outputDisplayManager.displayText(p.getAgent1().getName() + " used on " + p.getAgent2().getName());
                                                 //call function for custom behavior
                                             } else {
-                                                outputDisplayManager.displayText("The combination is not valid");
+                                                outputDisplayManager.displayText("Puppa2");
                                             }
                                         } else {
                                             outputDisplayManager.displayText("The second agent is not in the room or in the inventory");
@@ -183,7 +186,7 @@ public class CommandExecutor {
         // in case the combination isn't valid, we need call the db to print a message
         allItems.forEach(item1 ->
                 allItems.forEach(item2 ->
-                        commandMap.put(new CommandExecutorKey(CommandType.FUSE, item1, item2),
+                        commandMap.put(new CommandExecutorKey(CommandType.UNISCI, item1, item2),
                                 p -> {
                                     if (game.getInventory().contains(p.getAgent1()) && game.getInventory().contains(p.getAgent2())) {
                                         if (item1 == item2) {
@@ -204,7 +207,7 @@ public class CommandExecutor {
         // in case the combination isn't valid, we need call the db to print a message
         allItems.forEach(item ->
                 allPersonages.forEach(personage ->
-                        commandMap.put(new CommandExecutorKey(CommandType.GIVE, item, personage),
+                        commandMap.put(new CommandExecutorKey(CommandType.DAI, item, personage),
                                 p -> {
                                     if (game.getInventory().contains(p.getAgent1())) {
                                         if (game.getCurrentRoom().getAgents().contains(p.getAgent2())) {
