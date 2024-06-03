@@ -357,8 +357,90 @@ Per quanto riguarda la risposta, la struttura del JSON restituito è la seguente
         <h2>7) Utilizzo delle Espressioni Lambda λ</h2>
         <details open>
             <summary>Visualizza dettagli</summary>
-            Le espressioni lambda sono state utilizzate per semplificare il codice, specialmente nella gestione degli eventi e nella manipolazione delle collezioni. Questo ha reso il nostro codice più leggibile e conciso.
-        </details>
+            <h3><b>Cosa sono le Lambda expressions?</b></h3>
+Le <b>lambda expressions</b> sono una caratteristica introdotta in Java 8 che permette di scrivere codice più conciso e leggibile, migliorando la leggibilità del codice.
+
+Le espressioni lambda sono esempi di programmazione funzionale:
+- il flusso di esecuzione del programma assume la forma di una serie di
+  valutazioni di funzioni
+- mancanza di side-effect
+- la programmazione funzionale pone il focus sulla definizione di funzioni, infatti un tale programma è immutabile poichè i valori non vengono calcolati cambiando
+  lo stato del programma, ma costruendo nuovi stati a partire dai precedenti
+- la programmazione funzionale ha le sue radici nel lambda calcolo , basato sulle funzioni composto da un linguaggio formale utilizzato per
+  esprimere le funzioni e un sistema di riscrittura per stabilire come i termini
+  possano essere ridotti e semplificati
+
+Il loro utilizzo è particolarmente utile quando si deve passare una o più funzioni come parametro ad un metodo, come ad esempio nei metodi di ordinamento o di filtraggio di una collezione, evitando scrittura di codici "poco eleganti" poichè fortemente connesse alle caratteristiche di classe e non alla logica, evitando riscritture di codice in caso di cambiamenti.
+
+Un’espressione lambda è composta:
+- da una lista di parametri separati da virgole racchiusi tra parentesi tonde (E' possibile omettere le parentesi tonde se il metodo ha un solo parametro o il tipo dei parametri).
+- dal token -> che separa i parametri dal corpo della lambda.
+- da un corpo che contiene una singola espressione o un blocco di istruzioni. Il
+  blocco di istruzioni è racchiuso nelle parentesi graffe {}. Se il blocco di
+  istruzioni contiene un’invocazione ad un metodo che non restituisce nessun
+  valore (void) si possono omettere le parentesi
+
+<h3><b>Come abbiamo utilizzato le Lambda expressions nel nostro progetto?</b></h3>
+L'utilizzo migliore delle lambda expressions in un gioco testuale è stato per la gestione delle azioni possibili all'interno di una stanza, come ad esempio la possibilità di spostarsi in una direzione, di raccogliere un oggetto o di interagire con un personaggio.
+
+Andiamo a vedere tutti gli utilizzi delle lambda expressions all'interno del nostro progetto:
+
+- <b>ProgressBar:</b> per la gestione della barra di progresso del gioco, che indica il tempo rimanente per completare una determinata azione.
+```java
+// Codice per la gestione della ProgressBar
+public void startProgressBar() {
+  int imgWidth = 161;
+  int panelWidth = runningGIFPanel.getWidth();
+  counter = 0;
+
+  Timer timer = new Timer(1000, e -> {
+    if (counter < 100) {
+      counter++;
+      progressBar.setValue(counter);
+      progressBar.setString("Loading... " + counter + "%");
+      x = (int) ((double) counter / 100 * (panelWidth + imgWidth)) - imgWidth;
+      runningGIFPanel.repaint();
+    } else {
+      ((Timer) e.getSource()).stop();
+      progressBar.setString("Get Ready to Play!");
+
+      Timer delayTimer = new Timer(1000, e1 -> {
+        ((Timer) e1.getSource()).stop();
+        setFinished(true);
+      });
+      delayTimer.start();
+    }
+  });
+  timer.start();
+
+}
+``` 
+Questo metodo <b>startProgressBar</b> è stato utilizzato per far partire la barra di progresso nella schermata di caricamento del gioco, in modo che l'utente possa capire quanto manca al completamento dell'azione.
+
+Il metodo qui descritto, nonstante possa sembrare complesso a causa della presenza di due Timer, è in realtà molto semplice e leggibile grazie all'utilizzo delle lambda expressions, che permettono di scrivere codice più conciso e leggibile.
+
+Infatti, nella prima lambda viene contiunamente aggiornato il valore della barra di progresso e la posizione dell'immagine, mentre nella seconda lambda, che viene eseguita al completamento della barra di progresso, viene settato il valore del booleano <b>finished</b> a <b>true</b>, in modo che il gioco possa iniziare.
+
+- <b>InputUtente</b>: dopo il caricamento della progressBar, dunque nel momento in cui l'effettivo gioco inizia, l'utente dovrà poter inserire i comandi per interagire con il gioco.
+```java
+// Codice per la gestione dell'input utente
+public static void startInputListener(javax.swing.JTextField userInputField) {
+        new Thread(() -> {
+            while (true) {
+                if (!isCurrentInputEmpty()) {
+                    userInputFlow.GameFlow(getCurrentInput());
+                }
+                try {
+                    Thread.sleep(100); 
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+```
+Questo metodo <b>startInputListener</b> è stato utilizzato per far partire un thread che ascolta costantemente l'input dell'utente, in modo che l'utente possa inserire i comandi per interagire con il gioco.
+</details>
     </li>
 </ul>
 
