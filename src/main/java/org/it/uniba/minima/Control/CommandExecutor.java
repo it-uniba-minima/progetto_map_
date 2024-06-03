@@ -67,13 +67,13 @@ public class CommandExecutor {
         allAgents.forEach(agent ->
                 commandMap.put(new CommandExecutorKey(CommandType.OSSERVA, agent, null),
                         p -> {
-                            if (game.getCurrentRoom().getAgents().contains(p.getAgent1())
-                            //|| game.getInventory().contains((Item) p.getAgent1())
-                            ) {
+                            if (game.getCurrentRoom().getAgents().contains(p.getAgent1())) {
                                 gameLogic.launchSpecialEvent(p.getCommand(), p.getAgent1());
                                 p.getAgent1().getDescription(game.getCurrentRoom());
+                            } else if (game.getInventory().contains(p.getAgent1())) {
+                                outputDisplayManager.displayText("La tua borsa non è trasperente!");
                             } else {
-                                outputDisplayManager.displayText("The agent is not in the room");
+                                outputDisplayManager.displayText(p.getAgent1().getName() + " non è nella stanza!");
                             }
                         })
         );
@@ -82,21 +82,19 @@ public class CommandExecutor {
         allItems.forEach(item ->
                 commandMap.put(new CommandExecutorKey(CommandType.TAKE, item, null),
                         p -> {
-                            if (game.getCurrentRoom().getAgents().contains(p.getAgent1())) {
+                            if (game.getInventory().contains(p.getAgent1())) {
+                                outputDisplayManager.displayText("Hai già " + p.getAgent1().getName() + " nell'inventario!");
+                            } else if (game.getCurrentRoom().getAgents().contains(p.getAgent1())) {
                                 if (((Item) p.getAgent1()).isPickable()) {
                                     game.getInventory().add((Item) p.getAgent1());
                                     game.getCurrentRoom().getAgents().remove(p.getAgent1());
-                                    if (gameLogic.executeTake((Item) p.getAgent1())) {
-                                        outputDisplayManager.displayText("Taken and custom behavior");
-                                    }
-                                    outputDisplayManager.displayText("Taken");
-                                    // TODO: Add custom text when picking up the item !!use an external function
+                                    gameLogic.executeTake((Item) p.getAgent1());
+                                    outputDisplayManager.displayText("> Hai raccolto: " + p.getAgent1().getName() + "!");
                                 } else {
-                                    outputDisplayManager.displayText("The item is not pickable");
-                                    // TODO: Add custom text when the item is not pickable !!use an external function
+                                    outputDisplayManager.displayText("> Non puoi raccogliere " + p.getAgent1().getName() + "!");
                                 }
                             } else {
-                                outputDisplayManager.displayText("The item is not in the room");
+                                outputDisplayManager.displayText("> Non c'è " + p.getAgent1().getName() + " nella stanza!");
                             }
                         })
         );
@@ -106,15 +104,13 @@ public class CommandExecutor {
                 commandMap.put(new CommandExecutorKey(CommandType.DROP, item, null),
                         p -> {
                             if (game.getInventory().contains(p.getAgent1())) {
-                                if (((Item) p.getAgent1()).isMovable()) {
-                                    game.getCurrentRoom().getAgents().add((Item) p.getAgent1());
-                                    game.getInventory().remove(p.getAgent1());
-                                    outputDisplayManager.displayText("Dropped");
-                                } else {
-                                    outputDisplayManager.displayText("The item is not droppable");
-                                }
+                                outputDisplayManager.displayText("Hai lasciato cadere: " + p.getAgent1().getName() + "!");
+                                game.getInventory().remove(p.getAgent1());
+                                game.getCurrentRoom().getAgents().add(p.getAgent1());
+                            } else if (game.getCurrentRoom().getAgents().contains(p.getAgent1())) {
+                                outputDisplayManager.displayText(p.getAgent1().getName() + " è già per terra nella stanza!");
                             } else {
-                                outputDisplayManager.displayText("The item is not in the inventory");
+                                outputDisplayManager.displayText(p.getAgent1().getName() + " non è nell'inventario!");
                             }
                         })
         );

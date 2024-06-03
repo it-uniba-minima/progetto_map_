@@ -58,12 +58,13 @@ public class GameLogic {
     }
 
     public boolean executeTake(Item i) {
-        if (i.hasName("Torcia2") && game.getCurrentRoom().getState().equals("AcquaOn")) {
+        if (i.hasName("TorciaAccesa2") && game.getCurrentRoom().getState().equals("AcquaOn")) {
             game.removeInventory(i);
             game.getCurrentRoom().addAgent(GameManager.getAgentFromName("TorciaSpenta2"));
+            // TODO: lancia messagio da db da fare
             return true;
         }
-        if (i.hasName("Torcia1") || i.hasName("Torcia2")) {
+        if (i.hasName("TorciaAccesa1") || i.hasName("TorciaAccesa2")) {
             game.setRoomState("Stanza1", "Luce");
             return true;
         }
@@ -78,22 +79,22 @@ public class GameLogic {
         }
         if (i1.hasName("Piffero") && i2.hasName("Serpenti")) {
             game.setRoomState("Stanza2", "SerpentiOff");
-            Item torcia1 = (Item) GameManager.getAgentFromName("Torcia1");
+            Item torcia1 = (Item) GameManager.getAgentFromName("TorciaAccesa1");
             torcia1.setPickable(true);
             return true;
         }
         if (i1.hasName("Corda") && i2.hasName("Leva")) {
             game.setRoomState("Stanza3", "AcquaOff");
-            Item torcia2 = (Item) GameManager.getAgentFromName("Torcia2");
+            Item torcia2 = (Item) GameManager.getAgentFromName("TorciaAccesa2");
             torcia2.setPickable(true);
             return true;
         }
         if (i1.hasName("TorciaSpenta2") && i2.hasName("Brace")) {
             game.removeInventory(i1);
-            game.getCurrentRoom().addAgent(GameManager.getAgentFromName("Torcia2"));
+            game.getCurrentRoom().addAgent(GameManager.getAgentFromName("TorciaAccesa2"));
             return true;
         }
-        if ((i1.hasName("Torcia1") || i1.hasName("Torcia2")) && (i2.hasName("Statua"))) {
+        if ((i1.hasName("TorciaAccesa1") || i1.hasName("TorciaAccesa2")) && (i2.hasName("Statua"))) {
             game.removeInventory(i1);
             if (game.getCurrentRoom().getState().equals("Luce")) {
                 game.setRoomState("Stanza1", "Torcia1");

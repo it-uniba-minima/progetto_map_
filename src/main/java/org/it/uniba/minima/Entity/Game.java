@@ -91,8 +91,10 @@ public class Game {
     }
 
     public void setRoomState(String room, String state) {
-        statesMap.put(room, state);
-        currentRoom.setState(state);
+        statesMap.replace(room, state);
+        corridorsMap.stream()
+                .filter(corridor -> corridor.getStartingRoom().getName().equals(room))
+                .forEach(corridor -> corridor.getStartingRoom().setState(state));
     }
 
     public void setCorridorsMap(List<Corridor> corridorsMap) {
