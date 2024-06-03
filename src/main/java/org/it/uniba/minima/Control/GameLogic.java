@@ -73,6 +73,7 @@ public class GameLogic {
     public boolean executeUseCombinationInRoom(Item i1, Item i2) {
         if (i1.hasName("Chiave") && i2.hasName("Porta")) {
             game.unlockCorridor("Desert", "Stanza1");
+            game.setRoomState("Desert", "Giusto");
             return true;
         }
         if (i1.hasName("Piffero") && i2.hasName("Serpenti")) {
