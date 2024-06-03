@@ -53,11 +53,6 @@ public class Game {
                 GameGUI.setImagePanel(currentRoom.getName());
                 return;
             }
-            if (corridor.getArrivingRoom().equals(room)) {
-                this.currentRoom = corridor.getArrivingRoom();
-                GameGUI.setImagePanel(currentRoom.getName());
-                return;
-            }
         }
         // If the room is not found in the corridorsMap, set the currentRoom to the provided room
         this.currentRoom = room;
@@ -98,5 +93,13 @@ public class Game {
     public void setRoomState(String room, String state) {
         statesMap.put(room, state);
         currentRoom.setState(state);
+    }
+
+    public void setCorridorsMap(List<Corridor> corridorsMap) {
+        this.corridorsMap = corridorsMap;
+    }
+
+    public void setStatesMap(Map<String, String> roomStates) {
+        this.statesMap = roomStates;
     }
 }
