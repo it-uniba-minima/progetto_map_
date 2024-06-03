@@ -1,6 +1,7 @@
 package org.it.uniba.minima.Control;
 
 import org.it.uniba.minima.Boundary.outputDisplayManager;
+import org.it.uniba.minima.Database.DatabaseConnection;
 import org.it.uniba.minima.Entity.Agent;
 import org.it.uniba.minima.Entity.Personage;
 import org.it.uniba.minima.Entity.Game;
@@ -25,10 +26,12 @@ public class CommandExecutor {
 
             if (corridor != null && !corridor.isLocked()) {
                 game.setCurrentRoom(corridor.getArrivingRoom());
-                outputDisplayManager.displayText("You moved to the " + direction);
+                DatabaseConnection.printFromDB("0", game.getCurrentRoom().getName(), game.getCurrentRoom().getState(), "0", "0", "0");
             } else if (corridor != null && corridor.isLocked()) {
+                // TODO: Add custom text when the corridor is locked
                 outputDisplayManager.displayText("The corridor is locked");
             } else {
+                // TODO: Add custom text when there is no corridor in the given direction
                 outputDisplayManager.displayText("There is no corridor to the " + direction);
             }
         };
@@ -52,7 +55,7 @@ public class CommandExecutor {
                 createDirectionCommandBehavior(CommandType.OVEST));
 
         commandMap.put(new CommandExecutorKey(CommandType.OSSERVA, null, null),
-                p -> outputDisplayManager.displayText(game.getCurrentRoom().getDescription()));
+                p -> game.getCurrentRoom().printDescription());
 
         commandMap.put(new CommandExecutorKey(CommandType.HELP, null, null),
                 p -> outputDisplayManager.displayText("List of commands"));
@@ -68,7 +71,7 @@ public class CommandExecutor {
                             //|| game.getInventory().contains((Item) p.getAgent1())
                             ) {
                                 gameLogic.launchSpecialEvent(p.getCommand(), p.getAgent1());
-                                outputDisplayManager.displayText(p.getAgent1().getDescription());
+                                p.getAgent1().getDescription(game.getCurrentRoom());
                             } else {
                                 outputDisplayManager.displayText("The agent is not in the room");
                             }
@@ -103,7 +106,7 @@ public class CommandExecutor {
                 commandMap.put(new CommandExecutorKey(CommandType.DROP, item, null),
                         p -> {
                             if (game.getInventory().contains(p.getAgent1())) {
-                                if (((Item) p.getAgent1()).isDroppable()) {
+                                if (((Item) p.getAgent1()).isMovable()) {
                                     game.getCurrentRoom().getAgents().add((Item) p.getAgent1());
                                     game.getInventory().remove(p.getAgent1());
                                     outputDisplayManager.displayText("Dropped");
