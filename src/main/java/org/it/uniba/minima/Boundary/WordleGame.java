@@ -1,5 +1,8 @@
 package org.it.uniba.minima.Boundary;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
@@ -10,6 +13,12 @@ import org.it.uniba.minima.GUI.GameGUI;
 import org.it.uniba.minima.GUI.Wordle;
 
 import java.awt.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.ProtocolException;
+import java.net.URL;
 
 
 public class WordleGame {
@@ -19,19 +28,26 @@ public class WordleGame {
     protected String GuessingWord;
     private WordleGame instance;
 
-    public WordleGame() {
-        /*
+    public WordleGame() throws IOException {
+        StringBuilder result = new StringBuilder();
         try {
-            HttpResponse<String> response = Unirest.get("https://random-words5.p.rapidapi.com/getRandom?wordLength=5")
-                    .header("X-RapidAPI-Key", "5339375a8fmshfa0b0925e33764fp13145cjsn20bc586a6e62")
-                    .header("X-RapidAPI-Host", "random-words5.p.rapidapi.com")
-                    .asString();
-            GuessingWord = response.getBody().toUpperCase();
-        } catch (UnirestException e) {
+            URL url = new URL("https://api.wordnik.com/v4/words.json/randomWord?hasDictionaryDef=true&includePartOfSpeech=noun%2Cadjective%2Cverb&maxCorpusCount=-1&minDictionaryCount=1&maxDictionaryCount=-1&minLength=5&maxLength=5&api_key=xf9xa1hhzcl71v2q8c6di3dxyix9ou5oarrrksr6h5906harw");
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
+                for (String line; (line = reader.readLine()) != null; ) {
+                    result.append(line);
+                }
+            }
+
+            String json = result.toString();
+            JsonObject jsonObject = JsonParser.parseString(json).getAsJsonObject();
+            String guessingWord = jsonObject.get("word").getAsString();
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
-         */
-        GuessingWord = "HELLO";
     }
 
 
