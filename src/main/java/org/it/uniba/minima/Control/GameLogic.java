@@ -1,4 +1,5 @@
 package org.it.uniba.minima.Control;
+import org.it.uniba.minima.Boundary.HangmanGame;
 import org.it.uniba.minima.Boundary.TriviaGame;
 import org.it.uniba.minima.Boundary.outputDisplayManager;
 import org.it.uniba.minima.Entity.Agent;
@@ -298,6 +299,11 @@ public class GameLogic {
             userInputFlow.Event = 3;
             outputDisplayManager.displayText("Hai iniziato il puzzle delle mattonelle!");
         }
+        if (c == CommandType.PARLA && a.hasName("Sacerdote") && game.getCurrentRoom().getState().equals("Start")) {
+            userInputFlow.Event = 4;
+            outputDisplayManager.displayText("Hai iniziato l'impiccato!");
+        }
+
         return false;
     }
 }
