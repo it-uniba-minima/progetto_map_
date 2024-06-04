@@ -115,13 +115,13 @@ public class CommandExecutor {
                         })
         );
 
-        Set<Personage> allPersonages = GameManager.getAllPersonages(); // Replace this with the actual method to get all agents
+        Set<Personage> allPersonages = GameManager.getAllPersonages();
         allPersonages.forEach(personage ->
                 commandMap.put(new CommandExecutorKey(CommandType.PARLA, personage, null),
                         p -> {
                             if (game.getCurrentRoom().getAgents().contains(p.getAgent1())) {
                                     DatabaseConnection.printFromDB("Parla", game.getCurrentRoom().getName(), game.getCurrentRoom().getState(), p.getAgent1().getName(), "0", "0");
-                                    gameLogic.launchSpecialEvent(p.getCommand(), p.getAgent1());
+                                    gameLogic.talkToPersonage((Personage) p.getAgent1());
                             } else {
                                 outputDisplayManager.displayText("> " + p.getAgent1().getName() + " non è nella stanza!");
                             }
@@ -136,8 +136,9 @@ public class CommandExecutor {
                 commandMap.put(new CommandExecutorKey(CommandType.USA, item, null),
                         p -> {
                             if (game.getInventory().contains(p.getAgent1())) {
+                                String statusBeforeAction = game.getCurrentRoom().getState();
                                 if (gameLogic.executeUseSingleItem((Item) p.getAgent1())) {
-                                    DatabaseConnection.printFromDB("Usa", game.getCurrentRoom().getName(), game.getCurrentRoom().getState(), "0", p.getAgent1().getName(), "0");
+                                    DatabaseConnection.printFromDB("Usa", game.getCurrentRoom().getName(), statusBeforeAction, "0", p.getAgent1().getName(), "0");
                                 } else {
                                     outputDisplayManager.displayText("> Non puoi usare " + p.getAgent1().getName() + " da solo!");
                                     //TODO: call db to print a message
@@ -156,21 +157,24 @@ public class CommandExecutor {
                                 p -> {
                                     if (game.getInventory().contains(p.getAgent1())) {
                                         if (game.getCurrentRoom().getAgents().contains(p.getAgent2())) {
-                                            if (gameLogic.executeUseCombinationInRoom((Item) p.getAgent1(), (Item) p.getAgent2())) { // Replace this with the actual method to check if the combination is valid
-                                                DatabaseConnection.printFromDB("Usa", game.getCurrentRoom().getName(), game.getCurrentRoom().getState(), "0", p.getAgent1().getName(), p.getAgent2().getName());
+                                            String statusBeforeAction = game.getCurrentRoom().getState();
+                                            if (gameLogic.executeUseCombinationInRoom((Item) p.getAgent1(), (Item) p.getAgent2())) {
+                                                System.out.println("Usa " + p.getAgent1().getName() + " su " + p.getAgent2().getName());
+                                                DatabaseConnection.printFromDB("Usa", game.getCurrentRoom().getName(), statusBeforeAction, "0", p.getAgent1().getName(), p.getAgent2().getName());
+                                            } else {
+                                                outputDisplayManager.displayText("> Non puoi usare " + p.getAgent1().getName() + " su " + p.getAgent2().getName() + "!");
                                             }
                                         } else if (game.getInventory().contains(p.getAgent2())) {
-                                            if (gameLogic.executeUseCombinationInInventory((Item) p.getAgent1(), (Item) p.getAgent2())) { // Replace this with the actual method to check if the combination is valid
-                                                outputDisplayManager.displayText(p.getAgent1().getName() + " used on " + p.getAgent2().getName());
-                                                //call function for custom behavior
+                                            if (gameLogic.executeUseCombinationInInventory((Item) p.getAgent1(), (Item) p.getAgent2())) {
+                                                DatabaseConnection.printFromDB("Usa", "0", "0", "0", p.getAgent1().getName(), p.getAgent2().getName());
                                             } else {
-                                                outputDisplayManager.displayText("Non puoi usare " + p.getAgent1().getName() + " su " + p.getAgent2().getName());
+                                                outputDisplayManager.displayText("> Non puoi usare " + p.getAgent1().getName() + " su " + p.getAgent2().getName() + "!");
                                             }
                                         } else {
-                                            outputDisplayManager.displayText("The second agent is not in the room or in the inventory");
+                                            outputDisplayManager.displayText("> " + p.getAgent2().getName() + " non è qui con noi!");
                                         }
                                     } else {
-                                        outputDisplayManager.displayText("The first agent is not in the inventory");
+                                        outputDisplayManager.displayText("> " + p.getAgent1().getName() + " non è nell'inventario!");
                                     }
                                 })
                 )
