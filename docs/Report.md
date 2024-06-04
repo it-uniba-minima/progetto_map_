@@ -3,22 +3,22 @@
 # Report
 ## Indice
 - ### [**1 - Introduzione**](#1---introduzione)
-  -  [**1.1 - Sviluppatori**](#partecipanti-al-progetto)
-  -  [**1.2 - Descrizione Progetto**](#descrizione-progetto)
+    -  [**1.1 - Sviluppatori**](#partecipanti-al-progetto)
+    -  [**1.2 - Descrizione Progetto**](#descrizione-progetto)
 - ### [**2 - Modello di Dominio**](#2---modello-di-dominio)
-  - [**2.1 - Chiarimenti scelte progettuali**](#chiarimenti-scelte-progettuali)
+    - [**2.1 - Chiarimenti scelte progettuali**](#chiarimenti-scelte-progettuali)
 - ### [**3 - Progettazione**](#3---progettazione)
-  - [**3.1 - Diagramma delle Classi**](#diagramma-delle-classi)
+    - [**3.1 - Diagramma delle Classi**](#diagramma-delle-classi)
 - ### [**4 - Requisiti Specifici**](#4---requisiti-specifici)
-  -  [**4.1 - Requisiti Funzionali**](#requisiti-funzionali)
-  - [**4.2 - Requisiti Non Funzionali**](#requisiti-non-funzionali)
+    -  [**4.1 - Requisiti Funzionali**](#requisiti-funzionali)
+    - [**4.2 - Requisiti Non Funzionali**](#requisiti-non-funzionali)
 - ### [**5 - Specifiche Algebriche**](#5---specifiche-algebriche)
 - ### [**6 - Applicazione Argomenti del Corso**](#6---applicazione-argomenti-del-corso)
 - ### [**7 - Manuale Utente**](#7---manuale-utente)
-  - [**7.1 - Procedura Preliminare**](#procedura-preliminare)
+    - [**7.1 - Procedura Preliminare**](#procedura-preliminare)
 - ### [**8 - Analisi Retrospettiva**](#8---analisi-retrospettiva)
-  - [**8.1 - Mad-Sad-Glad**](#mad-sad-glad)
-  - [**8.2 - Miglioramenti Proposti**](#miglioramenti-proposti)
+    - [**8.1 - Mad-Sad-Glad**](#mad-sad-glad)
+    - [**8.2 - Miglioramenti Proposti**](#miglioramenti-proposti)
 - ### [**9 - Conclusioni e Opinioni Finali**](#9---conclusioni-e-opinioni-finali)
 
 ## 1 - Introduzione
@@ -59,7 +59,7 @@ Il progetto è stato sviluppato in linguaggio di programmazione Java, utilizzand
 <hr>
 La relazione tra il <b>Parser</b> e la <b>Partita</b> è stata progettata in modo tale che il **Parser** possa ricevere i comandi dall'utente e trasmetterli alla **Partita** per l'esecuzione. Inoltre, il **Parser** può ricevere informazioni sulla situazione di gioco dalla **Partita** e presentarle all'utente.
 - Relazioni **Parser**  ⇄ **Comandi:**
-<hr>
+<hr> 
 
 - Relazioni **Parser**  ⇄ **Agente:**
 <hr>
@@ -78,19 +78,19 @@ La relazione tra il <b>Parser</b> e la <b>Partita</b> è stata progettata in mod
 
 ## 3 - Progettazione
 - Il nostro principale obiettivo di progettazione è stato:
-  - Creare un'architettura modulare e scalabile che permetta di aggiungere nuove funzionalità in modo semplice e flessibile.
+    - Creare un'architettura modulare e scalabile che permetta di aggiungere nuove funzionalità in modo semplice e flessibile.
 
 Questo obiettivo è stato pienamente rispettato dal modello di progettazione adottato, ossia il **Modello Entity-Controller-Boundary (ECB)**.
 <h3> Che cos'è il Modello Entity-Controller-Boundary?</h3>
 - Il **Modello ECB** è un modello architetturale che permette di separare le entità (Entity) dal controllo (Controller) e dalla presentazione (Boundary) all'interno di un sistema software.
-  - **Entity:** rappresenta i dati e le regole di business del sistema.
-  - **Controller:** gestisce le interazioni tra le entità e le boundary, implementando la logica di controllo del sistema.
-  - **Boundary:** fornisce l'interfaccia utente per interagire con il sistema, presentando i dati e ricevendo input dall'utente.
+    - **Entity:** rappresenta i dati e le regole di business del sistema.
+    - **Controller:** gestisce le interazioni tra le entità e le boundary, implementando la logica di controllo del sistema.
+    - **Boundary:** fornisce l'interfaccia utente per interagire con il sistema, presentando i dati e ricevendo input dall'utente.
 - Questo modello permette di ottenere una maggiore modularità e flessibilità del sistema, facilitando la manutenzione e l'estensione del codice.
 
 Esempio Pratico:
 <table>
-<tr>
+<tr> 
 <th> Entity </th>
 <th> Control </th>
 <th> Boundary </th>
@@ -205,7 +205,7 @@ In Java, i file sono gestiti attraverso la classe File, che rappresenta un file 
 - Alcuni flussi semplicemente trasmettono dati; altri manipolano e trasformano i dati.
 - Indipendentemente dal modo in cui funzionano internamente, tutti i flussi presentano lo stesso modello: una sequenza di dati.
 
-<h3><b>Come abbiamo utilizzato i file nel nostro progetto?</b></h3> 
+<h3><b>Come abbiamo utilizzato i file nel nostro progetto?</b></h3>
 All'interno del nostro progetto i file sono stati utilizzati sia per l'inizializzazione del gioco, delle stanze e per il salvataggio di quest'ultime. La gestione dei file ci ha permesso di memorizzare e recuperare i dati del gioco in modo persistente, garantendo la continuità dell'esperienza di gioco per gli utenti.
 Come appreso durante il corso, inoltre, abbiamo utilizzato i file in formato JSON per memorizzare i dati in modo strutturato e leggibile, facilitando la gestione e la manipolazione dei dati all'interno del gioco.
 - **Inizializzazione del gioco**:
@@ -293,7 +293,7 @@ Il metodo <b>convertJsonToJavaClass</b> legge i dati dal file JSON e li converte
 In particolare, il metodo legge i dati relativi agli agenti e alle stanze del gioco e li converte in oggetti Java, che vengono restituiti come una mappa di agenti.
 
 - **Salvataggio delle stanze**:
-Nel medesimo modo, abbiamo utilizzato la classe <b>Converter</b> per salvare le stanze del gioco in un file JSON, utilizzando i metodi <b>convertGametoJson</b> e <b>convertRoomstoJson</b>:
+  Nel medesimo modo, abbiamo utilizzato la classe <b>Converter</b> per salvare le stanze del gioco in un file JSON, utilizzando i metodi <b>convertGametoJson</b> e <b>convertRoomstoJson</b>:
 ```java
 public void ConvertGametoJson() {
     Gson gson = new Gson();
@@ -310,7 +310,7 @@ public void ConvertGametoJson() {
 All'interno della classe <b>Converter</b>, il metodo <b>ConvertGametoJson</b> converte l'oggetto Game in formato JSON e il metodo <b>ConvertRoomstoJson</b> converte la lista delle stanze in formato JSON e le scrive su un file.
 
 - **Caricamento del gioco**:
-Per il caricamento del gioco, abbiamo utilizzato la classe <b>Converter</b> per leggere i dati dal file JSON e convertirli in oggetti Java, come mostrato di seguito:
+  Per il caricamento del gioco, abbiamo utilizzato la classe <b>Converter</b> per leggere i dati dal file JSON e convertirli in oggetti Java, come mostrato di seguito:
 ```java
  public Game loadGame () {
             Gson gson = new Gson();
@@ -343,19 +343,19 @@ Per il caricamento del gioco, abbiamo utilizzato la classe <b>Converter</b> per 
 I metodi <b>loadGame</b> e <b>loadRooms</b> leggono i dati dal file JSON e li convertono in oggetti Java, utilizzando la libreria Gson per la deserializzazione dei dati e permettono la realizzazione della funzionalità di caricamento del gioco.
 
 L'utilizzo dei file ci ha permesso di memorizzare e recuperare i dati del gioco in modo persistente, garantendo la continuità dell'esperienza di gioco per gli utenti e facilitando la gestione e la manipolazione dei dati all'interno del gioco.
-        </details>
-    </li>
-    <li>
-        <h2>2) Utilizzo del Database</h2>
-        <details open>
-            <summary>Visualizza dettagli</summary>
-            <h3><b>Cosa è un Database?</b></h3>
+</details>
+</li>
+<li>
+<h2>2) Utilizzo del Database</h2>
+<details open>
+<summary>Visualizza dettagli</summary>
+<h3><b>Cosa è un Database?</b></h3>
 Uno dei motivi di successo di Java è dovuto alla possibilità di sviluppare applicazioni client/server indipendenti dalla piattaforma:
 - L’indipendenza dalla piattaforma deve essere garantita
-anche per applicazioni che lavorano su basi di dati: per questo è nato lo standard Java Data Base Connectivity (JDBC)
+  anche per applicazioni che lavorano su basi di dati: per questo è nato lo standard Java Data Base Connectivity (JDBC)
 
 <h4><b>Come funziona JDBC?</b></h4>
-JDBC è progettato per essere platform-independent. 
+JDBC è progettato per essere platform-independent.
 
 Per permettere ciò JDBC fornisce un driver manager che gestisce dinamicamente tutti gli oggetti driver di cui hanno bisogno le interrogazioni a database, quindi:
 - Pertanto se si hanno tre diversi DBMS allora necessiteranno tre diversi tipi di oggetti driver.
@@ -364,18 +364,192 @@ Per permettere ciò JDBC fornisce un driver manager che gestisce dinamicamente t
 
 <h3><b>Come abbiamo utilizzato il Database nel nostro progetto?</b></h3>
 Come suggerito dal professore, il database utlizzato è stato un database in memoria, in particolare abbiamo utilizzato il database H2.
-H2 è un database SQL open-source scritto in Java. È molto veloce e leggero, e supporta la modalità server e la modalità embedded. 
+H2 è un database SQL open-source scritto in Java. È molto veloce e leggero, e supporta la modalità server e la modalità embedded.
 
-H2 è molto popolare in ambito di sviluppo di applicazioni Java, in quanto è facile da usare e da configurare.
-        </details>
-    </li>
-    <li>
-        <h2>3) Utilizzo dei Thread</h2>
-        <details open>
-            <summary>Visualizza dettagli</summary>
-              <h3><b>Cosa sono i Thread?</b></h3>
-            Un <b>Thread</b> è un flusso di esecuzione di un programma, ossia un processo che può essere eseguito in modo indipendente dagli altri processi. In Java, i Thread sono utilizzati per eseguire operazioni in modo concorrente, permettendo di sfruttare al massimo le risorse del sistema e di migliorare le prestazioni delle applicazioni.
-            
+H2 è molto popolare in ambito di sviluppo di applicazioni Java, in quanto è facile da usare e da configurare, dunque perfetto per il nostro progetto.
+L'utilizzo del database ci ha permesso di memorizzare i dati relativi a tutti i dialoghi del gioco, i punteggi dei giocatori e le informazioni sui tempi di gioco, garantendo la persistenza dei dati e la possibilità di recuperarli in qualsiasi momento.
+Un ulteriore vantaggio di H2 è il fatto di avere una console web che permette di visualizzare i dati del database in modo semplice e intuitivo, facilitando il debug e il controllo dei dati memorizzati, come mostrato di seguito:
+
+![img_H2](img/database1.png)
+
+A seguito dell'inserimento dei dati nel database, è possibile visualizzare i dati memorizzati all'interno del database, come mostrato di seguito:
+
+![img_H2](img/database3.png)
+
+Oltre alla tabella principale contenente i dati relativi ai dialoghi del gioco, abbiamo creato una tabella per memorizzare i punteggi dei giocatori , come mostrato di seguito:
+
+![img_H2](img/database2.png)
+
+Il database, come appreso durante il corso, ha bisogno di una connessione per poter essere utilizzato. Per questo motivo, abbiamo implementato la classe <b>DatabaseConnection</b> per gestire la connessione al database e le operazioni di lettura e scrittura dei dati, come mostrato di seguito:
+```java
+package org.it.uniba.minima.Database;
+
+import org.h2.tools.RunScript;
+import org.it.uniba.minima.Boundary.outputDisplayManager;
+
+import java.sql.*;
+
+public class DatabaseConnection {
+
+    static final String JDBC_DRIVER = "org.h2.Driver";
+    static final String DB_URL = "jdbc:h2:./src/main/resources/database/db_map";
+    static final String USER = "sa";
+    static final String PASS = "";
+}
+```
+La classe <b>DatabaseConnection</b> definisce le costanti per il driver JDBC, l'URL del database, l'utente e la password per la connessione al database.
+
+All'interno della classe <b>DatabaseConnection</b> sono stati implementati i metodi per la connessione al database, la creazione delle tabelle, l'inserimento dei dati e la lettura dei dati, come mostrato di seguito:
+```java
+    public static Connection connect() {
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        String start = "RUNSCRIPT FROM 'src/main/resources/database/db_start.sql'";
+        String fill = "RUNSCRIPT FROM 'src/main/resources/database/db_info.sql'";
+        boolean emptyClassifica = true;
+        boolean emptyDescr = true;
+        try {
+            Class.forName(JDBC_DRIVER);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+             Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+             stmt = conn.prepareStatement(start);
+             stmt.execute();
+             stmt.close();
+
+             String sql = "SELECT * FROM CLASSIFICA";
+             stmt = conn.prepareStatement(sql);
+             rs = stmt.executeQuery();
+             while (rs.next()) {
+                 emptyClassifica = false;
+             }
+             rs.close();
+             String sql2 = "SELECT * FROM DESCRIZIONI";
+             stmt = conn.prepareStatement(sql2);
+             rs = stmt.executeQuery();
+             while (rs.next()) {
+                 emptyDescr = false;
+             }
+             rs.close();
+
+             if (emptyClassifica && emptyDescr) {
+                 stmt = conn.prepareStatement(fill);
+                 stmt.execute();
+                 stmt.close();
+             }
+
+             return conn;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+```
+Il metodo <b>connect</b> si occupa di connettersi al database, creare le tabelle, controllare se le tabelle sono vuote e popolarle con i dati di default, se necessario, restituendo la connessione al database.
+
+Altri metodi fondamentali sono <b>close</b>, <b>setToDatabase</b> , <b>printFromDB</b> , <b>getClassificafromDatabase</b> e <b>getDescriptionFromDatabase</b> che permettono di chiudere la connessione al database, inserire i dati nel database, stampare i dati dal database, ottenere la classifica dei giocatori e ottenere le descrizioni delle stanze dal database, rispettivamente.
+Andiamo a vederli nello specifico:
+```java
+public static void close(Connection conn) {
+        if (conn != null) {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+```
+Il metodo <b>close</b> si occupa di chiudere la connessione al database, se è aperta.
+
+```java
+
+public static void setToDatabase(Connection conn, String nome, String time, char end) {
+    try {
+        String sql = "INSERT INTO CLASSIFICA (USERNAME, TEMPO, FINALE) VALUES (?, ?, ?)";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setString(1, nome);
+        stmt.setTime(2, Time.valueOf(time));
+        stmt.setString(3, String.valueOf(end));
+        stmt.executeUpdate();
+        stmt.close();
+    } catch (SQLException e) {
+        throw new RuntimeException(e);
+    }
+}
+
+```
+Il metodo <b>setToDatabase</b> si occupa di inserire i dati relativi al nome del giocatore, al tempo di gioco e al risultato finale nel database.
+
+```java
+
+public static void printFromDB(String idComando, String idStanza, String idStato, String idPersonaggio, String idOggetto1, String idOggetto2) {
+    Connection conn;
+    conn = DatabaseConnection.connect();
+    String sql_query = "SELECT DESCRIZIONE FROM DESCRIZIONI WHERE COMANDO = '" + idComando + "' AND STANZA = '" + idStanza + "' AND STATO = '" + idStato + "' AND PERSONAGGIO = '" + idPersonaggio + "' AND OGGETTO1 = '" + idOggetto1 + "' AND OGGETTO2 = '" + idOggetto2 + "'";
+    outputDisplayManager.displayText(DatabaseConnection.getDescriptionFromDatabase(conn, sql_query));
+    DatabaseConnection.close(conn);
+}
+
+public static String querySQL_forCLASSIFICA() {
+    return "SELECT * FROM CLASSIFICA ORDER BY TEMPO";
+}
+
+}
+```
+Il metodo <b>printFromDB</b> si occupa di stampare la descrizione della stanza corrente, in base ai parametri passati, ottenuti dal database.
+
+Il metodo <b>querySQL_forCLASSIFICA</b> restituisce la query SQL per ottenere la classifica dei giocatori dal database.
+
+```java
+public static String getClassificaFromDatabase(Connection conn, String sql_query) {
+        try {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql_query);
+            StringBuilder sb = new StringBuilder();
+            while (rs.next()) { sb.append(rs.getString("USERNAME")).append(" ").append(rs.getTime("TEMPO")).append(" ").append(rs.getString("FINALE")).append("\n"); }
+            rs.close();
+            stmt.close();
+            return sb.toString();
+        }
+        catch (SQLException e) {
+        throw new RuntimeException(e);
+        }
+}
+```
+Il metodo <b>getClassificaFromDatabase</b> si occupa di ottenere la classifica dei giocatori dal database, in base alla query SQL passata come parametro.
+
+```java
+  public static String getDescriptionFromDatabase(Connection conn, String sql_query) {
+    try {
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery(sql_query);
+        if (rs.next()) {
+            return rs.getString("DESCRIZIONE");
+        }
+        rs.close();
+        stmt.close();
+    } catch (SQLException e) {
+        throw new RuntimeException(e);
+    }
+    return "No String Found";
+
+}
+```
+Il metodo <b>getDescriptionFromDatabase</b> si occupa di ottenere la descrizione della stanza corrente dal database, in base alla query SQL passata come parametro.
+
+
+In conclusione l'utilizzo del database ci ha permesso di memorizzare i dati in modo persistente, garantendo la continuità dell'esperienza di gioco per gli utenti e facilitando la gestione e la manipolazione dei dati all'interno del gioco.
+</details>
+</li>
+<li>
+<h2>3) Utilizzo dei Thread</h2>
+<details open>
+<summary>Visualizza dettagli</summary>
+<h3><b>Cosa sono i Thread?</b></h3>
+Un <b>Thread</b> è un flusso di esecuzione di un programma, ossia un processo che può essere eseguito in modo indipendente dagli altri processi. In Java, i Thread sono utilizzati per eseguire operazioni in modo concorrente, permettendo di sfruttare al massimo le risorse del sistema e di migliorare le prestazioni delle applicazioni.
+
 La classe Thread di Java implementa tutte le funzionalità di un singolo thread e può essere creata in due modi:
 - Estendendo la classe Thread, che prevede l'implementazione del metodo run() che contiene il codice da eseguire nel thread.
 - Implementando l'interfaccia Runnable, che prevende il metodo run() che contiene il codice da eseguire nel thread.
@@ -387,7 +561,7 @@ Il thread può essere interrotto chiamando il metodo interrupt(), che invia un s
 Esiste anche il metodo join(), che permette di attendere che il thread termini la sua esecuzione.
 
 <h3><b>Come abbiamo utilizzato i Thread nel nostro progetto?</b></h3>
-Nel nostro progetto abbiamo utilizzato i Thread per gestire operazioni quali la riproduzione della musica di sottofondo,la gestione dell'input da parte dell'utente e il timer di gioco. 
+Nel nostro progetto abbiamo utilizzato i Thread per gestire operazioni quali la riproduzione della musica di sottofondo,la gestione dell'input da parte dell'utente e il timer di gioco.
 
 - **Musica di sottofondo**:
 
@@ -459,7 +633,7 @@ Questo codice Java definisce una classe chiamata Mixer che gestisce la riproduzi
 
 La classe Mixer è progettata come un singleton, assicurando che esista solo un'istanza della classe ed utilizza la libreria <b>javax.sound.sampled</b> per gestire l'audio.
 
-Il metodo <b>run()</b> viene sovrascritto per avviare il thread e riprodurre la musica di sottofondo in modo continuo, mentre i metodi <b>startClip()</b> e <b>stopClip()</b> vengono utilizzati per avviare e fermare la riproduzione della musica. 
+Il metodo <b>run()</b> viene sovrascritto per avviare il thread e riprodurre la musica di sottofondo in modo continuo, mentre i metodi <b>startClip()</b> e <b>stopClip()</b> vengono utilizzati per avviare e fermare la riproduzione della musica.
 
 Il metodo <b>isRunning()</b> restituisce lo stato del thread, mentre il metodo <b>reverseIcones()</b> viene utilizzato per invertire l'icona del pulsante della musica tra il simbolo del volume con la musica in riproduzione e il simbolo del volume disattivato.
 
@@ -650,7 +824,7 @@ Il sito web contiene le seguenti informazioni:
 Ovviamente ciascuna sezione contiene, al suo termine, un link che permette di tornare all'indice del sito web.
 
 <h4><b>Come è stato implementato il socket?</b></h4>
-All'interno del nostro codice, in particolare nel package "Database", sono presenti le classi che hanno permesso l'implementazione del socket. 
+All'interno del nostro codice, in particolare nel package "Database", sono presenti le classi che hanno permesso l'implementazione del socket.
 
 Andiamo ad osservare il codice nel dettaglio:
 ```java
@@ -695,14 +869,14 @@ public class RESTServer {
         Java Swing è stato introdotto per la prima volta con Java 1.2 e ha sostituito il vecchio toolkit AWT (Abstract Window Toolkit) ed è il framework che permette la realizzazione di interfacce grafiche (GUI).
 
 Essendo una libreria grafica, Java Swing permette di creare interfacce grafiche per applicazioni desktop, offrendo una vasta gamma di componenti grafici tra cui:
-        
+
 - Finestre, Form, Dialog
 - Menu, Pulsanti, Check-box, Combo-box
 - Alberi, Tabelle
 - Layout, Look&Feel
 
 <h3><b>Come abbiamo utilizzato Java Swing nel nostro progetto?</b></h3>
-Il nostro progetto è stato sviluppato utilizzando interamente Java Swing per la realizzazione dell'interfaccia grafica del gioco, dal momento che volevamo creare un'esperienza di gioco coinvolgente e interattiva per l'utente. 
+Il nostro progetto è stato sviluppato utilizzando interamente Java Swing per la realizzazione dell'interfaccia grafica del gioco, dal momento che volevamo creare un'esperienza di gioco coinvolgente e interattiva per l'utente.
 
 Esso vanta lo sviluppo di una GUI molto ricca e complessa utilizzando un unico JFrame, che contiene tutti i componenti grafici necessari per l'interazione con l'utente attraverso l'utilizzo di JPanel e CardLayout.
 
@@ -849,7 +1023,7 @@ La classe MenuGUI rappresenta il pannello principale del gioco e contiene convar
 
 - backgroundPanel: un pannello che disegna un'immagine di sfondo.
 - Pulsanti: newGame, sound, help, loadGame, credits.
-Nel costruttore, viene chiamato initComponents() per configurare i componenti della GUI.
+  Nel costruttore, viene chiamato initComponents() per configurare i componenti della GUI.
 
 Il metodo initComponents imposta il Jpanel dello sfondo e configura i vari pulsanti con testo e dimensioni specificate, aggiungendo un ActionListener a ciascun tasto per gestire i click.
 
@@ -1130,7 +1304,31 @@ Andiamo a vedere tutti gli utilizzi delle lambda expressions all'interno del nos
 
 - <b>ProgressBar:</b> per la gestione della barra di progresso del gioco, che indica il tempo rimanente per completare una determinata azione.
 ```java
+public void startProgressBar() {
+    int imgWidth = 161;
+    int panelWidth = runningGIFPanel.getWidth();
+    counter = 0;
 
+    Timer timer = new Timer(1, e -> {
+        if (counter < 100) {
+            counter++;
+            progressBar.setValue(counter);
+            progressBar.setString("Loading... " + counter + "%");
+            x = (int) ((double) counter / 100 * (panelWidth + imgWidth)) - imgWidth;
+            runningGIFPanel.repaint();
+        } else {
+            ((Timer) e.getSource()).stop();
+            progressBar.setString("Get Ready to Play!");
+
+            Timer delayTimer = new Timer(1000, e1 -> {
+                ((Timer) e1.getSource()).stop();
+                setFinished(true);
+            });
+            delayTimer.start();
+        }
+    });
+    timer.start();
+}
 ``` 
 Questo metodo <b>startProgressBar</b> è stato utilizzato per far partire la barra di progresso nella schermata di caricamento del gioco, in modo che l'utente possa capire quanto manca al completamento dell'azione.
 
@@ -1156,7 +1354,141 @@ public static void startInputListener(javax.swing.JTextField userInputField) {
   }).start();
 }
 ```
-Questo metodo <b>startInputListener</b> è stato utilizzato per far partire un thread che ascolta costantemente l'input dell'utente, in modo che l'utente possa inserire i comandi per interagire con il gioco.
+Il codice Java presentato definisce un metodo startInputListener che avvia un listener per un campo di input (JTextField).
+
+Questo listener, eseguito in un thread separato, monitora continuamente il campo di input per verificare se ci sono nuovi input da processare.
+
+Sebbene si tratti di un Thread, esso è inizializzato con una lambda expression al cui interno è presente un ciclo while che controlla continuamente se il campo di input è vuoto o meno.
+Durante l'esecuzione, precisamente ogni 100 millisecondi, il thread verifica se c'è nuovo input nel campo di testo (JTextField). Se il campo di input non è vuoto, chiama il metodo GameFlow della classe userInputFlow con il testo attuale del campo di input come parametro.
+
+- **Mappa dei comandi**:
+  Per la gestione dei comandi all'interno del gioco, abbiamo utilizzato una mappa di comandi, in cui ad ogni comando è associata una lambda expression che definisce il comportamento da eseguire, come ad esempio:
+```java
+public void InitializeCommandMap() {
+        commandMap = new HashMap<>();
+
+        commandMap.put(
+    new CommandExecutorKey(CommandType.LOOK, null, null),
+commandMap.put(
+    new CommandExecutorKey(CommandType.LOOK, null, null),
+p -> outputDisplayManager.displayText(game.getCurrentRoom().getDescription())
+        );
+
+        commandMap.put(
+    new CommandExecutorKey(CommandType.HELP, null, null),
+p -> outputDisplayManager.displayText("List of commands")
+);
+
+        commandMap.put(
+    new CommandExecutorKey(CommandType.INVENTORY, null, null),
+p -> game.printInventory()
+);
+}
+```
+Analizziamo i comandi presenti nel codice:
+
+<ul>
+  <li>
+    <p> <strong>Comando LOOK:</strong> permette all'utente di visualizzare la descrizione della stanza corrente. La lambda expression associata a questo comando visualizza la descrizione della stanza corrente.</p>
+  </li>
+  <li>
+    <p><strong>Comando HELP:</strong> permette all'utente di visualizzare la lista dei comandi disponibili. La lambda expression associata a questo comando visualizza la lista dei comandi disponibili.</p>
+  </li>
+  <li>
+    <p><strong>Comando INVENTORY:</strong> permette all'utente di visualizzare l'inventario del personaggio. La lambda expression associata a questo comando visualizza l'inventario del personaggio.</p>
+  </li>
+</ul>
+
+
+- **Esecuzione dei comandi**:
+  Dopo aver inserito i comandi, l'utente dovrà poter eseguire le azioni richieste all'interno del gioco, come ad esempio spostarsi in una direzione, raccogliere un oggetto o interagire con un personaggio.
+Proprio per questo motivo, abbiamo utilizzato le lambda expressions per la gestione dei comandi all'interno del gioco, in modo da rendere il codice più leggibile e manutenibile, ecco un esempio di codice:
+```java
+package org.it.uniba.minima.Control;
+
+import org.it.uniba.minima.Boundary.outputDisplayManager;
+import org.it.uniba.minima.Entity.Agent;
+import org.it.uniba.minima.Entity.Personage;
+import org.it.uniba.minima.Entity.Game;
+import org.it.uniba.minima.Entity.Item;
+import org.it.uniba.minima.Type.CommandType;
+import org.it.uniba.minima.Type.Corridor;
+import org.it.uniba.minima.Type.ParserOutput;
+import java.util.HashMap;
+import java.util.Set;
+
+public class CommandExecutor {
+    private Game game;
+    private HashMap<CommandExecutorKey, CommandBehavior> commandMap;
+    private GameLogic gameLogic;
+
+    private CommandBehavior createDirectionCommandBehavior(CommandType direction) {
+        return p -> {
+            Corridor corridor = game.getCorridorsMap().stream()
+                    .filter(c -> c.getStartingRoom().equals(game.getCurrentRoom()) && c.getDirection() == direction)
+                    .findFirst()
+                    .orElse(null);
+
+            if (corridor != null && !corridor.isLocked()) {
+                game.setCurrentRoom(corridor.getArrivingRoom());
+                outputDisplayManager.displayText("You moved to the " + direction);
+            } else if (corridor != null && corridor.isLocked()) {
+                outputDisplayManager.displayText("The corridor is locked");
+            } else {
+                outputDisplayManager.displayText("There is no corridor to the " + direction);
+            }
+        };
+    }
+}
+```
+Il codice presentato fa parte della chiamata <b>CommandExecutor</b>, responsabile dell'esecuzione dei comandi del gioco.
+
+Questa classe utilizza una mappa di comandi (commandMap) per associare chiavi di comando (CommandExecutorKey) a comportamenti specifici (CommandBehavior).
+
+Un comportamento particolare, createDirectionCommandBehavior, è definito per gestire i comandi di direzione all'interno del gioco:
+
+La lambda expression inizia filtrando la lista dei corridoi (game.getCorridorsMap()) per trovare il corridoio che parte dalla stanza corrente (game.getCurrentRoom()) e che va nella direzione specificata (direction).
+
+Azioni Condizionali:
+
+- Se il corridoio esiste e non è bloccato, aggiorna la stanza corrente del gioco e visualizza un messaggio che indica il movimento.
+- Se il corridoio esiste ma è bloccato, visualizza un messaggio che indica che il corridoio è bloccato.
+- Se non esiste un corridoio nella direzione specificata, visualizza un messaggio che indica che non c'è un corridoio in quella direzione.
+
+
+
+Tra gli altri comandi presenti nel codice, possiamo trovare:
+
+```java
+
+allItems.forEach(item ->
+                commandMap.put(new CommandExecutorKey(CommandType.DROP, item, null),
+                        p -> {
+                            if (game.getInventory().contains(p.getAgent1())) {
+                                if (((Item) p.getAgent1()).isDroppable()) {
+                                    game.getCurrentRoom().getAgents().add((Item) p.getAgent1());
+                                    game.getInventory().remove(p.getAgent1());
+                                    outputDisplayManager.displayText("Dropped");
+                                } else {
+                                    outputDisplayManager.displayText("The item is not droppable");
+                                }
+                            } else {
+                                outputDisplayManager.displayText("The item is not in the inventory");
+                            }
+                        })
+        );
+
+``` 
+Il codice presentato fa parte della chiamata <b>CommandExecutor</b>, responsabile dell'esecuzione dei comandi del gioco e mostra come vengono gestiti i comandi di "DROP" all'interno del gioco, in particolare:
+
+- Se l'oggetto è presente nell'inventario, viene rimosso dall'inventario e aggiunto alla stanza corrente.
+- Se l'oggetto non è presente nell'inventario, viene visualizzato un messaggio che indica che l'oggetto non è presente nell'inventario.
+- Se l'oggetto non è droppable, viene visualizzato un messaggio che indica che l'oggetto non è droppable.
+
+
+
+In conclusione, l'utilizzo delle lambda expressions ci ha permesso di scrivere codice più conciso e leggibile, migliorando la leggibilità del codice e rendendo il nostro gioco più facile da mantenere e da estendere.
+
 </details>
     </li>
 </ul>
