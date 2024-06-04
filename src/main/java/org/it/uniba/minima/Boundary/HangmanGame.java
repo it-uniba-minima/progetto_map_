@@ -4,7 +4,7 @@ import org.it.uniba.minima.GUI.ImpiccatoGUI;
 
 public class HangmanGame {
     private static String guessingPhrase = "TI TROVI NELLA PIRAMIDE DI OSIRIDE";
-
+    private static ImpiccatoGUI impiccatoGUI = ImpiccatoGUI.getInstance();
 
     public static void HangmanFlow(String text) {
         String newText = text.toUpperCase();
@@ -20,7 +20,7 @@ public class HangmanGame {
     public static void checkGuess(String text) {
         if (text.equals(guessingPhrase)) {
             outputDisplayManager.displayText("Hai indovinato la frase! Complimenti!");
-            ImpiccatoGUI.setPhrase(guessingPhrase);
+            impiccatoGUI.setPhrase(guessingPhrase);
         } else {
             outputDisplayManager.displayText("Hai sbagliato la frase! Riprova!");
         }
@@ -31,7 +31,7 @@ public class HangmanGame {
             outputDisplayManager.displayText("Hai indovinato una lettera!");
             for (int i = 0; i < guessingPhrase.length(); i++) {
                 if (guessingPhrase.charAt(i) == text.charAt(0)) {
-                    ImpiccatoGUI.setLetter(i, text.charAt(0), guessingPhrase);
+                    impiccatoGUI.setLetter(i, text.charAt(0), guessingPhrase);
                 }
             }
         } else {
