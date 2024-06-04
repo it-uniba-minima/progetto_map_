@@ -159,7 +159,6 @@ public class CommandExecutor {
                                         if (game.getCurrentRoom().getAgents().contains(p.getAgent2())) {
                                             String statusBeforeAction = game.getCurrentRoom().getState();
                                             if (gameLogic.executeUseCombinationInRoom((Item) p.getAgent1(), (Item) p.getAgent2())) {
-                                                System.out.println("Usa " + p.getAgent1().getName() + " su " + p.getAgent2().getName());
                                                 DatabaseConnection.printFromDB("Usa", game.getCurrentRoom().getName(), statusBeforeAction, "0", p.getAgent1().getName(), p.getAgent2().getName());
                                             } else {
                                                 outputDisplayManager.displayText("> Non puoi usare " + p.getAgent1().getName() + " su " + p.getAgent2().getName() + "!");
@@ -188,15 +187,14 @@ public class CommandExecutor {
                                 p -> {
                                     if (game.getInventory().contains(p.getAgent1()) && game.getInventory().contains(p.getAgent2())) {
                                         if (item1 == item2) {
-                                            outputDisplayManager.displayText("You can't fuse an item with itself");
-                                        } else if (gameLogic.executeFuseCombination((Item) p.getAgent1(), (Item) p.getAgent2())) { // Replace this with the actual method to check if the combination is valid
-                                            outputDisplayManager.displayText(p.getAgent1().getName() + " fused with " + p.getAgent2().getName());
-                                            //call function for custom behavior
+                                            outputDisplayManager.displayText("> Ti rivelerò un segreto: " + p.getAgent1().getName() + " non può fondersi con se stesso!");
+                                        } else if (gameLogic.executeFuseCombination((Item) p.getAgent1(), (Item) p.getAgent2())) {
+                                            DatabaseConnection.printFromDB("Unisci", "0", "0", "0", p.getAgent1().getName(), p.getAgent2().getName());
                                         } else {
-                                            outputDisplayManager.displayText("The combination is not valid");
+                                            outputDisplayManager.displayText("> Non puoi unire " + p.getAgent1().getName() + " con " + p.getAgent2().getName() + "!");
                                         }
                                     } else {
-                                        outputDisplayManager.displayText("You're missing one or both of the items in the inventory");
+                                        outputDisplayManager.displayText("> La tua borsa non è quella di Mary Poppins!" + p.getAgent1().getName() + " o " + p.getAgent2().getName() + " non sono nell'inventario!");
                                     }
                                 })
         ));
@@ -209,17 +207,17 @@ public class CommandExecutor {
                                 p -> {
                                     if (game.getInventory().contains(p.getAgent1())) {
                                         if (game.getCurrentRoom().getAgents().contains(p.getAgent2())) {
+                                            String statusBeforeAction = game.getCurrentRoom().getState();
                                             if (gameLogic.executeGiveCombination((Item) p.getAgent1(), (Personage) p.getAgent2())) { // Replace this with the actual method to check if the combination is valid
-                                                outputDisplayManager.displayText(p.getAgent1().getName() + " given to " + p.getAgent2().getName());
-                                                //call function for custom behavior
+                                                DatabaseConnection.printFromDB("Dai", game.getCurrentRoom().getName(), statusBeforeAction, p.getAgent2().getName(), p.getAgent1().getName(), "0");
                                             } else {
-                                                outputDisplayManager.displayText("The combination is not valid");
+                                                outputDisplayManager.displayText("> Non puoi dare " + p.getAgent1().getName() + " a " + p.getAgent2().getName() + "!");
                                             }
                                         } else {
-                                            outputDisplayManager.displayText("The personage is not in the room");
+                                            outputDisplayManager.displayText("> Se non è invisibile, allora " + p.getAgent2().getName() + " non è qui con noi!");
                                         }
                                     } else {
-                                        outputDisplayManager.displayText("The item is not in the inventory");
+                                        outputDisplayManager.displayText("> Non puoi dare qualcosa che non possiedi!");
                                     }
                                 })
                 )

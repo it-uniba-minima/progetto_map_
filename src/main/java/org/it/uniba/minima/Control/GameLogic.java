@@ -30,7 +30,6 @@ public class GameLogic {
         if (c.hasName("Sfinge") && game.getCurrentRoom().getState().equals("Start")) {
             userInputFlow.Event = 1;
             GameGUI.setImagePanel("Wordle");
-            outputDisplayManager.displayText("Hai iniziato il Wordle!");
             return true;
         }
         if (c.hasName("Mummia") && game.getCurrentRoom().getState().equals("Start") || game.getCurrentRoom().getState().equals("Sbagliato")) {
@@ -38,7 +37,8 @@ public class GameLogic {
             TriviaGame.getQAndA();
             return true;
         }
-        if (c.hasName("Osiride") && game.getCurrentRoom().getState().equals("OsirideStart")) {
+        if (c.hasName("Osiride") && game.getCurrentRoom().getState().equals("SarcofagoAperto")) {
+            game.setRoomState("Stanza10", "OsirideStart");
             game.unlockCorridor("Stanza10", "Stanza7");
             game.unlockCorridor("Stanza10", "Stanza8");
             game.unlockCorridor("Stanza10", "Stanza9");
@@ -48,7 +48,6 @@ public class GameLogic {
     }
 
     public boolean executeUseCombinationInInventory(Item i1, Item i2) {
-        System.out.println(i1.getName() + " " + i2.getName());
         if (i1.hasName("Coltello") && i2.hasName("Bastone")) {
             game.removeInventory(i2);
             game.addInventory((Item) GameManager.getAgentFromName("Piffero"));
@@ -316,7 +315,6 @@ public class GameLogic {
         if (c == CommandType.OSSERVA && a.hasName("Mattonella") && game.getCurrentRoom().getState().equals("Start")) {
             userInputFlow.Event = 3;
             GameGUI.setImagePanel("Mattonelle");
-            outputDisplayManager.displayText("Hai iniziato il puzzle delle mattonelle!");
             return true;
         }
         return false;

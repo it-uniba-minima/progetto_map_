@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.it.uniba.minima.Control.userInputFlow;
+import org.it.uniba.minima.Database.DatabaseConnection;
 import org.it.uniba.minima.Entity.Game;
 
 import java.io.*;
@@ -58,19 +59,19 @@ public class TriviaGame {
         guess = (guessType == 1) ? "True" : "False";
 
         if (guess.equalsIgnoreCase(correctAnswer)) {
-            outputDisplayManager.displayText("> Hai indovinato la risposta!");
+            outputDisplayManager.displayText("> \"Bravo nipotina, è corretto! Ancora " + correctAnswer + ".\"");
             correctAnswers++;
             if (correctAnswers == 3) {
-                outputDisplayManager.displayText("> Hai risposto correttamente a 3 domande, hai vinto!");
                 Game game = Game.getInstance();
+                DatabaseConnection.printFromDB("0", "Stanza6", "Corretto", "Mummia", "0", "0");
                 game.setRoomState("Stanza6", "Corretto");
                 game.unlockCorridor("Stanza6", "Stanza10");
                 userInputFlow.Event = 0;
             }
         } else {
-            outputDisplayManager.displayText("> Risposta sbagliata. Riparla con la mummia per riprovare.");
             correctAnswers = 0;
             Game game = Game.getInstance();
+            DatabaseConnection.printFromDB("0", "Stanza6", "Sbagliato", "Mummia", "0", "0");
             game.setRoomState("Stanza6", "Sbagliato");
             userInputFlow.Event = 0;
         }
