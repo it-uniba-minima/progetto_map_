@@ -29,7 +29,6 @@ public class GameLogic {
     public boolean executeUseCombinationInInventory(Item i1, Item i2) {
         System.out.println(i1.getName() + " " + i2.getName());
         if (i1.hasName("Coltello") && i2.hasName("Bastone")) {
-            System.out.println("Puppa3");
             game.removeInventory(i2);
             game.addInventory((Item) GameManager.getAgentFromName("Piffero"));
             return true;
@@ -119,6 +118,8 @@ public class GameLogic {
         }
         if (i1.hasName("Piuma") && i2.hasName("Pergamena")) {
             // TODO: aggiungi start del gioco del crittogramma
+            game.setRoomState("Stanza4", "Giusto");
+            game.unlockCorridor("Stanza4", "Stanza5");
         }
 
         if (i1.hasName("ArcoFreccia") && i2.hasName("Target")) {

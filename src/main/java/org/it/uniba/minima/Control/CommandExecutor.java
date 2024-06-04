@@ -161,15 +161,13 @@ public class CommandExecutor {
                                             if (gameLogic.executeUseCombinationInRoom((Item) p.getAgent1(), (Item) p.getAgent2())) { // Replace this with the actual method to check if the combination is valid
                                                 outputDisplayManager.displayText(p.getAgent1().getName() + " used on " + p.getAgent2().getName());
                                                 //call function for custom behavior
-                                            } else {
-                                                outputDisplayManager.displayText("Puppa");
                                             }
                                         } else if (game.getInventory().contains(p.getAgent2())) {
                                             if (gameLogic.executeUseCombinationInInventory((Item) p.getAgent1(), (Item) p.getAgent2())) { // Replace this with the actual method to check if the combination is valid
                                                 outputDisplayManager.displayText(p.getAgent1().getName() + " used on " + p.getAgent2().getName());
                                                 //call function for custom behavior
                                             } else {
-                                                outputDisplayManager.displayText("Puppa2");
+                                                outputDisplayManager.displayText("Non puoi usare " + p.getAgent1().getName() + " su " + p.getAgent2().getName());
                                             }
                                         } else {
                                             outputDisplayManager.displayText("The second agent is not in the room or in the inventory");
