@@ -1,20 +1,30 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package org.it.uniba.minima.GUI;
 
+import javax.swing.*;
+import java.awt.*;
+
 /**
+ * Impiccato GUI Panel
  *
  * @author miche
  */
 public class ImpiccatoGUI extends javax.swing.JPanel {
+    private JLabel jLabel1;
+    private final Image backgroundImage;
+    private static ImpiccatoGUI impiccatoGUI;
 
     /**
      * Creates new form cryptedTextGUI
      */
     public ImpiccatoGUI() {
+        // Load the background image
+        backgroundImage = new ImageIcon("docs/img/hangman.png").getImage();
         initComponents();
+        impiccatoGUI = this;
+    }
+
+    public static ImpiccatoGUI getInstance() {
+        return impiccatoGUI;
     }
 
     /**
@@ -25,61 +35,68 @@ public class ImpiccatoGUI extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
-
-        jLabel1 = new javax.swing.JLabel();
-
+        jLabel1 = new JLabel();
         setMaximumSize(new java.awt.Dimension(440, 400));
         setMinimumSize(new java.awt.Dimension(440, 400));
         setPreferredSize(new java.awt.Dimension(440, 400));
 
-        jLabel1.setFont(new java.awt.Font("Papyrus", 1, 36)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Papyrus", Font.BOLD, 36)); // NOI18N
         jLabel1.setFocusable(false);
         jLabel1.setText("<html><center>__ _____ _____ ________ __ _______</center></html>");
+
         jLabel1.setIconTextGap(1);
         jLabel1.setMaximumSize(new java.awt.Dimension(250, 301));
         jLabel1.setMinimumSize(new java.awt.Dimension(250, 301));
         jLabel1.setPreferredSize(new java.awt.Dimension(250, 301));
         jLabel1.setVerifyInputWhenFocusTarget(false);
 
+        // Create a panel for the background image
+        JPanel backgroundPanel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+            }
+        };
+        backgroundPanel.setLayout(new BorderLayout());
+
+        // Add a panel to center the label with padding
+        JPanel labelPanel = new JPanel(new BorderLayout());
+        labelPanel.setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50)); // Set the padding here
+        labelPanel.setOpaque(false); // Make sure the label panel is transparent
+        labelPanel.add(jLabel1, BorderLayout.CENTER);
+
+        backgroundPanel.add(labelPanel, BorderLayout.CENTER);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addContainerGap(95, Short.MAX_VALUE)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(95, 95, 95))
+                        .addComponent(backgroundPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 440, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addContainerGap(51, Short.MAX_VALUE)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(48, 48, 48))
+                        .addComponent(backgroundPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
         );
     }// </editor-fold>
 
     // Variables declaration - do not modify
-    private static javax.swing.JLabel jLabel1;
     // End of variables declaration
 
-    public void setLabelText(String text) {
-        jLabel1.setText("<html><center>" + text + "</center></html>");
+    public void setLetter(int i, char c, String phrase) {
+        SwingUtilities.invokeLater(() -> {
+            String currentText = jLabel1.getText().replaceAll("<[^>]*>", "");
+            StringBuilder newText = new StringBuilder(currentText);
+            if (phrase.charAt(i) == ' ') {
+                newText.setCharAt(i, ' ');
+            } else {
+                newText.setCharAt(i, c);
+            }
+            jLabel1.setText("<html><center>" + newText.toString() + "</center></html>");
+        });
     }
 
-    public static void setLetter(int i, char c, String phrase) {
-        String currentText = jLabel1.getText().replaceAll("<[^>]*>", "");
-        StringBuilder newText = new StringBuilder(currentText);
-        if (phrase.charAt(i) == ' ') {
-            newText.setCharAt(i, ' ');
-        } else {
-            newText.setCharAt(i, c);
-        }
-
-        jLabel1.setText("<html><center>" + newText.toString() + "</center></html>");
-    }
-
-    public static void setPhrase(String phrase) {
-        jLabel1.setText("<html><center>" + phrase + "</center></html>");
+    public void setPhrase(String phrase) {
+        SwingUtilities.invokeLater(() -> jLabel1.setText("<html><center>" + phrase + "</center></html>"));
     }
 }
