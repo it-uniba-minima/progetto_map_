@@ -5,7 +5,7 @@ VALUES
 INSERT INTO DESCRIZIONI (ID, COMANDO, STANZA, STATO, PERSONAGGIO, OGGETTO1, OGGETTO2, DESCRIZIONE) VALUES
     (1, '0', 'Desert', 'Start', '0', '0', '0', '> Apri gli occhi e ti ritrovi in un disteso letto di sabbia... "Dove sono??"'),
     (2, 'Osserva', 'Desert', 'Start', '0', '0', '0', '> Di fronte a te si pone una grande Sfinge egizia, dietro di lei è presente un imponente piramide che sembra quasi risplendere sotto la luce lunare.'),
-    (3, 'Parla', 'Desert', 'Start', 'Sfinge', '0', '0', '> "Salve viandante, ti pongo una sfida, se la superi entrerai in un luogo dove ogni tuo desiderio verrà realizzato. La sfida che io ti pongo è indovinare la parola a cui sto pensando"'),
+    (3, 'Parla', 'Desert', 'Start', 'Sfinge', '0', '0', '> "Salve viandante, ti pongo una sfida, se la superi entrerai in un luogo dove ogni tuo desiderio verrà realizzato. La sfida che io ti pongo è indovinare la parola a cui sto pensando (Hint: la parole è in inglese)"'),
     (4, '0', 'Desert', 'Giusto', 'Sfinge', '0', '0', '> "È esattamente la parola che stavo pensando!"'),
     (5, '0', 'Desert', 'Sbagliato', 'Sfinge', '0', '0', '> "La tua mente è debole per questo posto, torna indietro da dove sei venuto"'),
     (6, 'Parla', 'Desert', 'Giusto', 'Sfinge', '0', '0', '> "Come premio per questa sfida, le porte della piramide si apriranno per te"'),
@@ -164,7 +164,7 @@ INSERT INTO DESCRIZIONI (ID, COMANDO, STANZA, STATO, PERSONAGGIO, OGGETTO1, OGGE
     (159, 'Osserva', '0', '0', '0', 'Hekat', '0', '> Hekat, simbolo e fonte del potere di chi regna, con esso Osiride amministra l''oltretomba e le anime che vi risiedono.'),
     (160, '0', 'Stanza6', 'Start', '0', '0', '0', '> Entrando nella stanza noti una mummia seduta su una sedia al centro della stanza.'),
     (161, 'Osserva', 'Stanza6', 'Start', 'Mummia', '0', '0', '> La mummia sembra molto anziana ma ti fissa con faccia felice, quasi ti riscalda il cuore a vederla.'),
-    (162, 'Parla', 'Stanza6', 'Start', 'Mummia', '0', '0', '> "Aah... Benvenuto! non ho avuto molta compagnia in questo periodo, è bello vedere nuove persone, se vuoi andare avanti però dovrai rispondere a 3 miei quesiti, sei pronto?"'),
+    (162, 'Parla', 'Stanza6', 'Start', 'Mummia', '0', '0', '> "Aah... Benvenuto! non ho avuto molta compagnia in questo periodo, è bello vedere nuove persone, se vuoi andare avanti però dovrai rispondere a 3 miei quesiti, sei pronto? (Hint: le domande sono in inglese)"'),
     (163, 'Parla', 'Stanza6', 'Corretto', 'Mummia', '0', '0', '> "Tutte corrette! che genio che sei nipotino!! Credo tu sia pronto per la sfida finale, potrai attraversare queste porte ed arrivare alla stanza del nostro amato Faraone"'),
     (164, 'Parla', 'Stanza6', 'Sbagliato', 'Mummia', '0', '0', '> "Oh...hai sbagliato ma non preoccuparti ti farò riprovare quante volte vuoi nipotino"'),
     (165, 'Osserva', 'Stanza6', 'Start', '0', '0', '0', '> Oltre alla mummia non noti molto altro in questa stanza.'),
@@ -218,6 +218,8 @@ INSERT INTO DESCRIZIONI (ID, COMANDO, STANZA, STATO, PERSONAGGIO, OGGETTO1, OGGE
     (211, 'Osserva', 'Stanza9', 'Start', '0', 'Buca', '0', '> Ti avvici al buco, sembra molto profondo.'),
     (212, 'Osserva', 'Stanza9', 'Olio', '0', '0', '0', '> Usando l''olio rimangono solo l''acqua e il vetro da dover inserire nel buco'),
     (213, 'Osserva', 'Stanza9', 'Vetro', '0', '0', '0', '> Usando il vetro rimane solo l''acqua da inserire nel buco'),
-    (215, '0', 'Stanza9', 'Olio', '0', '0', '0', '> Entrando nella stanza, noti ancora l''indovinello che non hai risolto'),
+    (214, '0', 'Stanza9', 'Olio', '0', '0', '0', '> Entrando nella stanza, noti ancora l''indovinello che non hai risolto'),
     (215, '0', 'Stanza9', 'Vetro', '0', '0', '0', '> Entrando nella stanza, noti ancora l''indovinello che non hai risolto'''),
-    (215, '0', 'Stanza9', 'Acqua', '0', '0', '0', '> La stanza rifletta ancora la luce grazie al indovinello che hai risolto');
+    (216, '0', 'Stanza9', 'Acqua', '0', '0', '0', '> La stanza rifletta ancora la luce grazie al indovinello che hai risolto'),
+    (217, '0', 'Stanza1', 'Torcia1', '0', '0', '0', '> La stanza è illuminata dalla torcia posizionata sulla statua.'),
+    (218, '0', 'Stanza1', 'Torcia2', '0', '0', '0', '> La stanza ora è completamente illuminata e ha rivelato il passaggio successivo.');
