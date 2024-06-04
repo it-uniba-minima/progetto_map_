@@ -33,8 +33,8 @@ public class ImpiccatoGUI extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(440, 400));
 
         jLabel1.setFont(new java.awt.Font("Papyrus", 1, 36)); // NOI18N
-        jLabel1.setText("<html><center>Aprendo questo passaggio, proseguirai il tuo viaggio!</center></html>");
         jLabel1.setFocusable(false);
+        jLabel1.setText("<html><center>__ _____ _____ ________ __ _______</center></html>");
         jLabel1.setIconTextGap(1);
         jLabel1.setMaximumSize(new java.awt.Dimension(250, 301));
         jLabel1.setMinimumSize(new java.awt.Dimension(250, 301));
@@ -59,12 +59,27 @@ public class ImpiccatoGUI extends javax.swing.JPanel {
         );
     }// </editor-fold>
 
-
     // Variables declaration - do not modify
-    private javax.swing.JLabel jLabel1;
+    private static javax.swing.JLabel jLabel1;
     // End of variables declaration
 
     public void setLabelText(String text) {
         jLabel1.setText("<html><center>" + text + "</center></html>");
+    }
+
+    public static void setLetter(int i, char c, String phrase) {
+        String currentText = jLabel1.getText().replaceAll("<[^>]*>", "");
+        StringBuilder newText = new StringBuilder(currentText);
+        if (phrase.charAt(i) == ' ') {
+            newText.setCharAt(i, ' ');
+        } else {
+            newText.setCharAt(i, c);
+        }
+
+        jLabel1.setText("<html><center>" + newText.toString() + "</center></html>");
+    }
+
+    public static void setPhrase(String phrase) {
+        jLabel1.setText("<html><center>" + phrase + "</center></html>");
     }
 }
