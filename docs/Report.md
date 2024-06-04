@@ -196,30 +196,421 @@ intolo
         <details open>
             <summary>Visualizza dettagli</summary>
             <h3><b>Cosa sono i file?</b></h3>
-            All'interno del nostro progetto i file sono stati utilizzati sia per l'inizializzazione del gioco, delle stanze e per il salvataggio di quest'ultime. La gestione dei file ci ha permesso di memorizzare e recuperare i dati del gioco in modo persistente, garantendo la continuità dell'esperienza di gioco per gli utenti.
+Un file non è altro che un flusso di I/O che può essere utilizzato sia come sorgente che come destinazione di dati.
+
+In Java, i file sono gestiti attraverso la classe File, che rappresenta un file o una directory nel sistema di file. La classe File fornisce metodi per creare, eliminare, leggere, scrivere e gestire i file e le directory.
+
+- Un flusso può rappresentare molti tipi diversi: file su disco, dispositivi, altri programmi e array in memoria.
+- Gli stream supportano molti tipi diversi di dati, inclusi byte semplici, tipi di dati primitivi, caratteri e oggetti.
+- Alcuni flussi semplicemente trasmettono dati; altri manipolano e trasformano i dati.
+- Indipendentemente dal modo in cui funzionano internamente, tutti i flussi presentano lo stesso modello: una sequenza di dati.
+
+<h3><b>Come abbiamo utilizzato i file nel nostro progetto?</b></h3> 
+All'interno del nostro progetto i file sono stati utilizzati sia per l'inizializzazione del gioco, delle stanze e per il salvataggio di quest'ultime. La gestione dei file ci ha permesso di memorizzare e recuperare i dati del gioco in modo persistente, garantendo la continuità dell'esperienza di gioco per gli utenti.
+Come appreso durante il corso, inoltre, abbiamo utilizzato i file in formato JSON per memorizzare i dati in modo strutturato e leggibile, facilitando la gestione e la manipolazione dei dati all'interno del gioco.
+- **Inizializzazione del gioco**:
+
+Per l'inizializzazione del gioco, abbiamo utilizzato la classe <b>Converter</b> per leggere i dati dal file JSON e convertirli in oggetti Java, o viceversa.
+
+Concentriamoci sul metodo <b>convertJsonToJavaClass</b> della classe <b>Converter</b>:
+```java
+
+package org.it.uniba.minima.Control;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
+import org.it.uniba.minima.Entity.Agent;
+import org.it.uniba.minima.Entity.Game;
+import org.it.uniba.minima.Entity.Room;
+import org.it.uniba.minima.Type.CommandType;
+import org.it.uniba.minima.Type.Corridor;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.lang.reflect.Type;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.*;
+
+public class Converter {
+    public Map<String, Agent> convertJsonToJavaClass() {
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(Agent.class, new AgentDeserializer())
+                .create();
+        Map<String, Agent> allAgents = new HashMap<>();
+        Map<String, Room> allRooms = new HashMap<>();
+        try {
+            URL url = getClass().getResource("/static/Game.json");
+            File file = new File(url.toURI());
+            JsonReader reader = new JsonReader(new FileReader(file));
+            Game game = gson.fromJson(reader, Game.class);
+
+            game.getCorridorsMap().forEach(corridor -> {
+                Room room = corridor.getStartingRoom();
+                if (!allRooms.containsKey(room.getName())) {
+                    allRooms.put(room.getName(), room);
+                    room.getAgents().forEach(agent -> allAgents.put(agent.getName(), agent));
+                } else {
+                    Room existingRoom = allRooms.get(room.getName());
+                    corridor.setStartingRoom(existingRoom);
+                }
+                room = corridor.getArrivingRoom();
+                if (!allRooms.containsKey(room.getName())) {
+                    allRooms.put(room.getName(), room);
+                    room.getAgents().forEach(agent -> allAgents.put(agent.getName(), agent));
+                } else {
+                    Room existingRoom = allRooms.get(room.getName());
+                    corridor.setArrivingRoom(existingRoom);
+                }
+            });
+            Game.setUpGame(game);
+        } catch (FileNotFoundException | URISyntaxException e) {
+            e.printStackTrace();
+        }
+        try {
+            URL url = getClass().getResource("/static/Agents.json");
+            File file = new File(url.toURI());
+            JsonReader reader = new JsonReader(new FileReader(file));
+            Type agentListType = new TypeToken<ArrayList<Agent>>() {
+            }.getType();
+            List<Agent> agentList = gson.fromJson(reader, agentListType);
+            agentList.forEach(agent -> allAgents.put(agent.getName(), agent));
+        } catch (FileNotFoundException | URISyntaxException e) {
+            e.printStackTrace();
+        }
+        return allAgents;
+    }
+}
+```
+Il metodo <b>convertJsonToJavaClass</b> legge i dati dal file JSON e li converte in oggetti Java, utilizzando la libreria Gson per la deserializzazione dei dati.
+
+In particolare, il metodo legge i dati relativi agli agenti e alle stanze del gioco e li converte in oggetti Java, che vengono restituiti come una mappa di agenti.
+
+- **Salvataggio delle stanze**:
+Nel medesimo modo, abbiamo utilizzato la classe <b>Converter</b> per salvare le stanze del gioco in un file JSON, utilizzando i metodi <b>convertGametoJson</b> e <b>convertRoomstoJson</b>:
+```java
+public void ConvertGametoJson() {
+    Gson gson = new Gson();
+    Game game = Game.getInstance();
+}
+
+        public void ConvertRoomstoJson (List < Room > rooms) throws IOException {
+            Gson gson = new Gson();
+            String json = gson.toJson(rooms);
+            Files.write(Paths.get("src/main/resources/LoadedRooms.json"), json.getBytes());
+        }
+    
+```
+All'interno della classe <b>Converter</b>, il metodo <b>ConvertGametoJson</b> converte l'oggetto Game in formato JSON e il metodo <b>ConvertRoomstoJson</b> converte la lista delle stanze in formato JSON e le scrive su un file.
+
+- **Caricamento del gioco**:
+Per il caricamento del gioco, abbiamo utilizzato la classe <b>Converter</b> per leggere i dati dal file JSON e convertirli in oggetti Java, come mostrato di seguito:
+```java
+ public Game loadGame () {
+            Gson gson = new Gson();
+            try {
+                URL url = getClass().getResource("/resources/LoadedGame.json");
+                File file = new File(url.toURI());
+                JsonReader reader = new JsonReader(new FileReader(file));
+                return gson.fromJson(reader, Game.class);
+            } catch (FileNotFoundException | URISyntaxException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        public List<Room> loadRooms () {
+            Gson gson = new Gson();
+            try {
+                URL url = getClass().getResource("/resources/LoadedRooms.json");
+                File file = new File(url.toURI());
+                JsonReader reader = new JsonReader(new FileReader(file));
+                Type roomListType = new TypeToken<ArrayList<Room>>() {
+                }.getType();
+                return gson.fromJson(reader, roomListType);
+            } catch (FileNotFoundException | URISyntaxException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+```
+I metodi <b>loadGame</b> e <b>loadRooms</b> leggono i dati dal file JSON e li convertono in oggetti Java, utilizzando la libreria Gson per la deserializzazione dei dati e permettono la realizzazione della funzionalità di caricamento del gioco.
+
+L'utilizzo dei file ci ha permesso di memorizzare e recuperare i dati del gioco in modo persistente, garantendo la continuità dell'esperienza di gioco per gli utenti e facilitando la gestione e la manipolazione dei dati all'interno del gioco.
         </details>
     </li>
     <li>
         <h2>2) Utilizzo del Database</h2>
         <details open>
             <summary>Visualizza dettagli</summary>
-            Per il nostro progetto, abbiamo utilizzato un database per memorizzare in modo efficiente e strutturato le informazioni relative agli utenti, ai punteggi e alle statistiche di gioco. L'uso del database ci ha permesso di gestire grandi quantità di dati e di eseguire query complesse in modo rapido e sicuro.
+            <h3><b>Cosa è un Database?</b></h3>
+Uno dei motivi di successo di Java è dovuto alla possibilità di sviluppare applicazioni client/server indipendenti dalla piattaforma:
+- L’indipendenza dalla piattaforma deve essere garantita
+anche per applicazioni che lavorano su basi di dati: per questo è nato lo standard Java Data Base Connectivity (JDBC)
+
+<h4><b>Come funziona JDBC?</b></h4>
+JDBC è progettato per essere platform-independent. 
+
+Per permettere ciò JDBC fornisce un driver manager che gestisce dinamicamente tutti gli oggetti driver di cui hanno bisogno le interrogazioni a database, quindi:
+- Pertanto se si hanno tre diversi DBMS allora necessiteranno tre diversi tipi di oggetti driver.
+- Gli oggetti driver si registrano presso il driver manager al momento del caricamento.
+- Come tutte le API Java anche JDBC è stato progettato in modo da semplificare tutte le normali operazioni di interfacciamento con un database: connessione, creazione di tabelle, interrogazione e visualizzazione dei risultati.
+
+<h3><b>Come abbiamo utilizzato il Database nel nostro progetto?</b></h3>
+Come suggerito dal professore, il database utlizzato è stato un database in memoria, in particolare abbiamo utilizzato il database H2.
+H2 è un database SQL open-source scritto in Java. È molto veloce e leggero, e supporta la modalità server e la modalità embedded. 
+
+H2 è molto popolare in ambito di sviluppo di applicazioni Java, in quanto è facile da usare e da configurare.
         </details>
     </li>
     <li>
         <h2>3) Utilizzo dei Thread</h2>
         <details open>
             <summary>Visualizza dettagli</summary>
-            I thread sono stati utilizzati nel progetto per gestire operazioni simultanee, come il caricamento dei dati in background e la gestione delle connessioni di rete. Questo ha migliorato la reattività e le prestazioni complessive dell'applicazione.
-        </details>
-    </li>
-    <li>
-        <h2>4) Utilizzo dei Socket</h2>
-        <details open>
-            <summary>Visualizza dettagli</summary>
-            <h3><b>Cosa sono i socket ?</b></h3>
-            In Java si usa un socket per creare la connessione ad un’altra macchina attraverso la rete. In particolare, per stabilire una connessione fra due computer occorrerà disporre di un socket su ogni macchina.Quest'ultimo non è che una astrazione software usata per
-            rappresentare i terminali di una connessione tra due macchine.
+              <h3><b>Cosa sono i Thread?</b></h3>
+            Un <b>Thread</b> è un flusso di esecuzione di un programma, ossia un processo che può essere eseguito in modo indipendente dagli altri processi. In Java, i Thread sono utilizzati per eseguire operazioni in modo concorrente, permettendo di sfruttare al massimo le risorse del sistema e di migliorare le prestazioni delle applicazioni.
+            
+La classe Thread di Java implementa tutte le funzionalità di un singolo thread e può essere creata in due modi:
+- Estendendo la classe Thread, che prevede l'implementazione del metodo run() che contiene il codice da eseguire nel thread.
+- Implementando l'interfaccia Runnable, che prevende il metodo run() che contiene il codice da eseguire nel thread.
+
+A prescindere dal metodo utilizzato, il thread deve essere avviato chiamando il metodo start(), che avvia l'esecuzione del thread e chiama il metodo run().
+
+Il thread può essere interrotto chiamando il metodo interrupt(), che invia un segnale di interruzione al thread, che può essere catturato e gestito nel metodo run().
+
+Esiste anche il metodo join(), che permette di attendere che il thread termini la sua esecuzione.
+
+<h3><b>Come abbiamo utilizzato i Thread nel nostro progetto?</b></h3>
+Nel nostro progetto abbiamo utilizzato i Thread per gestire operazioni quali la riproduzione della musica di sottofondo,la gestione dell'input da parte dell'utente e il timer di gioco. 
+
+- **Musica di sottofondo**:
+
+La musica di sottofondo è stata implementata utilizzando un thread separato, in modo che la musica possa essere riprodotta in modo indipendente dal resto del gioco e possa essere interrotta o riprodotta nuovamente in qualsiasi momento, sia dal Menu principale che dalla schermata di gioco, con due traccie audio diverse.
+
+La classe che gestisce la musica di sottofondo è la classe <b>Mixer</b>, che estende la classe Thread e si occupa di caricare e riprodurre la musica di sottofondo, come mostrato di seguito:
+```java
+package org.it.uniba.minima;
+import java.io.File;
+import javax.sound.sampled.*;
+import static org.it.uniba.minima.GUI.GameGUI.musicButtonSetTextGame;
+import static org.it.uniba.minima.GUI.MenuGUI.musicButtonSetTextMenu;
+
+public class Mixer extends Thread {
+    private static Clip clip;
+    private static boolean running = false;
+    private static Mixer instance;
+
+    public static Mixer getInstance()  {
+        if (instance == null) {
+            instance = new Mixer();
+        }
+        return instance;
+    }
+
+    @Override
+    public void run() {
+        running = true;
+        try {
+            File file = new File("docs/audio/Desert_Menu-newSMB_DS.wav");
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
+            clip = AudioSystem.getClip();
+            clip.open(audioStream);
+            clip.start();
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    public static void startClip() {
+        running = true;
+        reverseIcones();
+        clip.start();
+    }
+
+    public static void stopClip() {
+        running = false;
+        reverseIcones();
+        clip.stop();
+    }
+
+    public static boolean isRunning() {
+        return running;
+    }
+
+    public static void reverseIcones() {
+        if (!running) {
+            musicButtonSetTextGame("🔇");
+            musicButtonSetTextMenu("🔇");
+        } else {
+            musicButtonSetTextGame("🔊");
+            musicButtonSetTextMenu("🔊");
+        }
+    }
+}
+
+```
+Questo codice Java definisce una classe chiamata Mixer che gestisce la riproduzione di un file audio in un'applicazione.
+
+La classe Mixer è progettata come un singleton, assicurando che esista solo un'istanza della classe ed utilizza la libreria <b>javax.sound.sampled</b> per gestire l'audio.
+
+Il metodo <b>run()</b> viene sovrascritto per avviare il thread e riprodurre la musica di sottofondo in modo continuo, mentre i metodi <b>startClip()</b> e <b>stopClip()</b> vengono utilizzati per avviare e fermare la riproduzione della musica. 
+
+Il metodo <b>isRunning()</b> restituisce lo stato del thread, mentre il metodo <b>reverseIcones()</b> viene utilizzato per invertire l'icona del pulsante della musica tra il simbolo del volume con la musica in riproduzione e il simbolo del volume disattivato.
+
+All'interno di <b>MenuGUI</b> e <b>GameGUI</b> è stato implementato un bottone per avviare e fermare la musica di sottofondo, che chiama i metodi <b>startClip()</b> e <b>stopClip()</b> per avviare e fermare la riproduzione della musica, in questo modo:
+```java
+private void soundActionPerformed(java.awt.event.ActionEvent evt) {
+  if (Mixer.isRunning()) {
+    Mixer.stopClip();
+  } else {
+    Mixer.startClip();
+  }
+}
+```
+- **Timer di gioco**:
+
+Il timer di gioco e la ProgressBar sono stati implementati utilizzando un thread separato, in modo che il gioco possa essere gestito in modo indipendente dal resto del gioco e possa essere interrotto o ripreso in qualsiasi momento.
+
+La classe che gestisce il timer di gioco è la classe <b>TimerManager</b>, che estende la classe Thread e si occupa di avviare e fermare il timer di gioco, come mostrato di seguito:
+```java
+package org.it.uniba.minima;
+import java.util.Timer;
+import java.util.TimerTask;
+import static org.it.uniba.minima.GUI.GameGUI.timerLabelSetTime;
+
+public class TimerManager {
+    public static TimerManager instance;
+    public static boolean running = false;
+    static int seconds = 0;
+    static int minutes = 0;
+    static int hours = 0;
+    static Timer timer;
+
+    public static synchronized TimerManager getInstance() {
+        if (instance == null && !running) {
+            instance = new TimerManager();
+            timer = new Timer();
+            timer.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    seconds++;
+                    if (seconds == 60) {
+                        seconds = 0;
+                        minutes++;
+                    }
+                    if (minutes == 60) {
+                        minutes = 0;
+                        hours++;
+                    }
+                    timerLabelSetTime(getTime());
+                }
+            }, 1000, 1000);
+        }
+        return instance;
+    }
+
+    public void startTimer() {
+        running = true;
+        timerLabelSetTime("00:00:00");
+    }
+
+    public static String getTime() {
+        return String.format("%02d:%02d:%02d", hours, minutes, seconds);
+    }
+
+    public void stopTimer() {
+        if (timer != null) {
+            timer.cancel();
+        }
+        running = false;
+    }
+
+    public void killTimer() {
+        if (timer != null) {
+            timer.cancel();
+        }
+        timerLabelSetTime("00:00:00");
+        seconds = 0;
+        minutes = 0;
+        hours = 0;
+        running = false;
+        instance = null;
+    }
+}
+``` 
+La classe è progettata come un singleton, assicurando che esista solo un'istanza della classe ed utilizza la classe <b>Timer</b> di Java per gestire il conteggio del tempo.
+
+Dopo l'inizializzazione delle variabili, il metodo <b>getInstance()</b> avvia il timer e incrementa i secondi, i minuti e le ore ogni secondo, aggiornando l'etichetta del timer con il tempo trascorso.
+Il metodo getInstance() garantisce che il timer venga avviato una e una sola volta e vanta un'incredibile efficienza grazie all'utilizzo del metodo <b>scheduleAtFixedRate()</b> che permette di eseguire il task a intervalli regolari.
+
+Il metodo <b>startTimer()</b> avvia il timer, il metodo <b>getTime()</b> restituisce il tempo trascorso nel formato HH:MM:SS, il metodo <b>stopTimer()</b> ferma il timer e il metodo <b>killTimer()</b> ferma il timer e azzera il tempo trascorso.
+
+- **Input da parte dell'utente**:
+
+L'input da parte dell'utente è stato gestito utilizzando un thread separato, in modo che l'utente possa inserire i comandi in modo indipendente dal resto del gioco e possa interagire con il gioco in modo fluido e intuitivo.
+
+La classe che gestisce l'input da parte dell'utente è la classe <b>InputManager</b>, che estende la classe Thread e si occupa di ricevere i comandi dall'utente e trasmetterli al Parser per l'esecuzione, come mostrato di seguito:
+```java
+public static void startInputListener(javax.swing.JTextField userInputField) {
+        new Thread(() -> {
+            while (true) {
+                if (!isCurrentInputEmpty()) {
+                    userInputFlow.GameFlow(getCurrentInput());
+                }
+                try {
+                    Thread.sleep(100); 
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+public static void GameFlow(String text) {
+  outputDisplayManager.displayText(text);
+  switch(Event) {
+    case 0:
+      parserFlow(text);
+      break;
+    case 1:
+      wordleFlow(text);
+      break;
+    case 2:
+      triviaFlow(text);
+      break;
+    case 3:
+      mattonelleFlow();
+      break;
+    default:
+      parserFlow(text);
+      break;
+  }
+}
+```
+Questo codice gestisce l'ascolto degli input dell'utente e dirige il flusso del gioco in base agli input ricevuti. La funzione startInputListener avvia un thread che monitora continuamente il campo di input dell'utente (userInputField). La funzione GameFlow processa l'input dell'utente e avvia diversi flussi di gioco a seconda del valore di Event.
+
+Il metodo <b>startInputListener()</b> avvia un nuovo thread che esegue un ciclo infinito per controllare se c'è un nuovo input da parte dell'utente.
+
+Il metodo <b>GameFlow()</b>, presente nella classe <b>userInputFlow</b> gestisce il flusso del gioco in base all'input dell'utente, visualizzando il testo in output e avviando il flusso corretto in base al valore di Event.
+
+Implementando i Thread all'interno del gioco siamo riusciti a garantire un'esperienza di gioco fluida e reattiva, permettendo all'utente di interagire con il gioco in modo intuitivo e coinvolgente, non accorgendosi della presenza di operazioni in background.
+
+
+  </details>
+  </li>
+  <li>
+    <h2>4) Utilizzo dei Socket</h2>
+    <details open>
+        <summary>Visualizza dettagli</summary>
+        <h3><b>Cosa sono i socket ?</b></h3>
+        In Java si usa un socket per creare la connessione ad un’altra macchina attraverso la rete. In particolare, per stabilire una connessione fra due computer occorrerà disporre di un socket su ogni macchina.Quest'ultimo non è che una astrazione software usata per
+        rappresentare i terminali di una connessione tra due macchine.
 
 In particolare, Java utilizza, per la comunicazione in rete, il <b>modello a stream</b>.
 
@@ -456,21 +847,12 @@ public class MenuGUI extends javax.swing.JPanel{
 ```
 La classe MenuGUI rappresenta il pannello principale del gioco e contiene convari pulsanti per azioni diverse. I componenti principali includono:
 
-backgroundPanel: un pannello che disegna un'immagine di sfondo.
-Pulsanti: newGame, sound, help, loadGame, credits.
+- backgroundPanel: un pannello che disegna un'immagine di sfondo.
+- Pulsanti: newGame, sound, help, loadGame, credits.
 Nel costruttore, viene chiamato initComponents() per configurare i componenti della GUI.
 
-Il metodo initComponents imposta backgroundPanel per disegnare un'immagine di sfondo e configura il pulsante newGame con testo e dimensioni specificate, aggiungendo un ActionListener per gestire i click.
+Il metodo initComponents imposta il Jpanel dello sfondo e configura i vari pulsanti con testo e dimensioni specificate, aggiungendo un ActionListener a ciascun tasto per gestire i click.
 
-Il metodo newGameActionPerformed viene chiamato quando il pulsante "Nuova Partita" viene cliccato. Questo metodo:
-
-Passa al pannello ProgressBarGUI usando un CardLayout.
-Crea un nuovo oggetto Game, imposta il nickname e lo assegna al GameGUI.
-Aggiunge un PropertyChangeListener a ProgressBarGUI per rilevare il completamento della barra di progresso.
-Passa al pannello GameGUI e avvia un timer quando la barra di progresso è completata.
-In sintesi, MenuGUI gestisce il menu iniziale del gioco, inclusa la transizione a una nuova partita con una barra di progresso e l'avvio del gioco vero e proprio.
-
-A questo punto, l'utente ha molteplici opzioni per interagire con il gioco, come ad esempio:
 - **Iniziare una Nuova Partita**:
 
 Dopo aver cliccato il pulsante "Nuova Partita", viene cambiata la card del CardLayout e viene mostrata la schermata di caricamento, che contiene una ProgressBar  utilizzata principalmente per rendere l'utente conscio del fatto che il gioco sta caricando e che è pronto per essere giocato.
@@ -479,10 +861,76 @@ La ProgressBar è stata implementata aggiungendo anche un'animazione GIF, che re
 
 ![img_ProgressBar](img/immagine_ProgressBar.gif)
 
+La ProgressBar è stata implementata utilizzando la classe <b>ProgressBarGUI</b>, che estende la classe JPanel e contiene tutti i componenti grafici della ProgressBar, come mostrato di seguito:
+```java
+public void startProgressBar() {
+        int imgWidth = 161;
+        int panelWidth = runningGIFPanel.getWidth();
+        counter = 0;
+
+        Timer timer = new Timer(1, e -> {
+            if (counter < 100) {
+                counter++;
+                progressBar.setValue(counter);
+                progressBar.setString("Loading... " + counter + "%");
+                x = (int) ((double) counter / 100 * (panelWidth + imgWidth)) - imgWidth;
+                runningGIFPanel.repaint();
+            } else {
+                ((Timer) e.getSource()).stop();
+                progressBar.setString("Get Ready to Play!");
+
+                Timer delayTimer = new Timer(1000, e1 -> {
+                    ((Timer) e1.getSource()).stop();
+                    setFinished(true);
+                });
+                delayTimer.start();
+            }
+        });
+        timer.start();
+
+    }
+```
+Questo metodo <b>startProgressBar</b> è stato utilizzato per far partire la barra di progresso nella schermata di caricamento del gioco, in modo che l'utente possa capire quanto manca al completamento dell'azione.
+
+Il metodo qui descritto, nonstante possa sembrare complesso a causa della presenza di due Timer, è in realtà molto semplice e leggibile grazie all'utilizzo delle lambda expressions, che permettono di scrivere codice più conciso e leggibile.
+
+Infatti, nella prima lambda viene contiunamente aggiornato il valore della barra di progresso e la posizione dell'immagine, mentre nella seconda lambda, che viene eseguita al completamento della barra di progresso, viene settato il valore del booleano <b>finished</b> a <b>true</b>, in modo che il gioco possa iniziare.
+
 A seguito del completamento della ProgressBar, la schermata di caricamento viene chiusa e l'utente viene portato alla schermata di gioco, dove il gioco può finalmente iniziare.
 
 ![img_GameGUI](img/immagine_nuova_partita.png)
 
+La schermata di gioco è stata implementata utilizzando la classe <b>GameGUI</b>, che estende la classe JPanel e contiene tutti i componenti grafici del gioco, come mostrato di seguito:
+```java
+package org.it.uniba.minima.GUI;
+
+import javax.swing.*;
+
+public class GameGUI extends JPanel {
+  private JToolBar toolBar = new JToolBar();
+  private JButton goBackButton = new JButton();
+  private JButton saveGameButton = new JButton();
+  private JButton helpButton = new JButton();
+  //other buttons
+  private JLabel timerLabel = new JLabel();
+  private JTextField userInputField = new JTextField();
+  private JScrollPane jScrollPane2 = new JScrollPane();
+  private JTextArea inventoryTextArea = new JTextArea();
+  private JPanel imagePanel = new JPanel();
+
+  public GameGUI() {
+    UIManager.put("ScrollBar.width", 0);
+    SwingUtilities.updateComponentTreeUI(this);
+    initComponents();
+  }
+
+  private void initComponents() {
+    // Initialize your components here
+  }
+}
+    
+```    
+Allo stesso modo di <b>MenuGUI</b>, la classe <b>GameGUI</b rappresenta il pannello principale del gioco e contiene vari pulsanti per azioni diverse, ciascuno con i propri ActionListener per gestire i click.
 
 
 
@@ -490,8 +938,36 @@ A seguito del completamento della ProgressBar, la schermata di caricamento viene
 
 Dopo aver cliccato il pulsante "Carica Partita", l'effetto è simile a quello della "Nuova Partita", ma in questo caso il gioco carica una partita salvata in precedenza, permettendo all'utente di continuare da dove aveva lasciato.
 
--
+- **Riconoscimenti**
 
+Dopo aver cliccato il pulsante "Riconoscimenti", viene mostrata una schermata con i nomi dei membri del team di sviluppo e il link al repository GitHub del progetto.
+La classe che gestisce i Riconoscimenti è la classe <b>RiconoscimentiGUI</b>, che estende la classe JPanel e contiene tutti i componenti grafici dei Riconoscimenti, che sono implementati allo stesso modo delle altre Card del gioco, apparendo come mostrato di seguito:
+
+![img_Credits](img/immagine_riconoscimenti.png)
+
+- **Musica di sottofondo**
+
+Il gioco include anche una musica di sottofondo che viene riprodotta all'avvio del gioco e può essere attivata o disattivata tramite il pulsante "Sound" presente nel Menu principale. La classe che gestisce la musica di sottofondo è la classe <b>Mixer</b>.
+
+- **Help**
+
+Il pulsante "Help" apre una finestra ulteriore oltre a quella principale del Menu e del Gioco che mostra le istruzioni del gioco e le regole principali.
+
+La finestra di dialogo è stata implementata utilizzando la classe <b>HelpGUI</b>, che estende la classe Jframe ed è stata progettata per essere semplice e intuitiva per l'utente.
+L'implementazione della finestra di dialogo è molto semplice , in cui all'interno del metodo <b>initComponents</b> viene inizializzato un Jpanel con un JTextArea contenente le istruzioni del gioco e un bottone per chiudere la finestra, apparendo come mostrato di seguito:
+
+![img_Help](img/immagine_help.png)
+
+- **Bottone del Browser**
+
+Il bottone del browser è stato implementato utilizzando i socket sulla porta 8080, in particolare il metodo <b>openWebpage</b> che apre una connessione con il browser predefinito del sistema e carica la pagina web contenente le informazioni principali del gioco e la classifica dei migliori tempi di gioco degli utenti.
+
+Il bottone del browser è stato implementato all'interno della classe <b>MenuGUI</b>, in particolare all'interno del metodo <b>initComponents</b>, come mostrato di seguito:
+```java
+
+```
+
+In conclusione, l'utilizzo di Java Swing ci ha permesso di creare un'interfaccia grafica coinvolgente e interattiva per il nostro gioco, rendendo l'esperienza di gioco più piacevole e stimolante per l'utente.
   </details>
 </li>
 <li>
@@ -654,33 +1130,7 @@ Andiamo a vedere tutti gli utilizzi delle lambda expressions all'interno del nos
 
 - <b>ProgressBar:</b> per la gestione della barra di progresso del gioco, che indica il tempo rimanente per completare una determinata azione.
 ```java
-// Codice per la gestione della ProgressBar
-public void startProgressBar() {
-  int imgWidth = 161;
-  int panelWidth = runningGIFPanel.getWidth();
-  counter = 0;
 
-  Timer timer = new Timer(1000, e -> {
-    if (counter < 100) {
-      counter++;
-      progressBar.setValue(counter);
-      progressBar.setString("Loading... " + counter + "%");
-      x = (int) ((double) counter / 100 * (panelWidth + imgWidth)) - imgWidth;
-      runningGIFPanel.repaint();
-    } else {
-      ((Timer) e.getSource()).stop();
-      progressBar.setString("Get Ready to Play!");
-
-      Timer delayTimer = new Timer(1000, e1 -> {
-        ((Timer) e1.getSource()).stop();
-        setFinished(true);
-      });
-      delayTimer.start();
-    }
-  });
-  timer.start();
-
-}
 ``` 
 Questo metodo <b>startProgressBar</b> è stato utilizzato per far partire la barra di progresso nella schermata di caricamento del gioco, in modo che l'utente possa capire quanto manca al completamento dell'azione.
 
