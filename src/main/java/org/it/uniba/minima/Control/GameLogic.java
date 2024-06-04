@@ -26,6 +26,27 @@ public class GameLogic {
         return false;
     }
 
+    public boolean talkToPersonage(Personage c) {
+        if (c.hasName("Sfinge") && game.getCurrentRoom().getState().equals("Start")) {
+            userInputFlow.Event = 1;
+            GameGUI.setImagePanel("Wordle");
+            outputDisplayManager.displayText("Hai iniziato il Wordle!");
+            return true;
+        }
+        if (c.hasName("Mummia") && game.getCurrentRoom().getState().equals("Start") || game.getCurrentRoom().getState().equals("Sbagliato")) {
+            userInputFlow.Event = 2;
+            TriviaGame.getQAndA();
+            return true;
+        }
+        if (c.hasName("Osiride") && game.getCurrentRoom().getState().equals("OsirideStart")) {
+            game.unlockCorridor("Stanza10", "Stanza7");
+            game.unlockCorridor("Stanza10", "Stanza8");
+            game.unlockCorridor("Stanza10", "Stanza9");
+            return true;
+        }
+        return false;
+    }
+
     public boolean executeUseCombinationInInventory(Item i1, Item i2) {
         System.out.println(i1.getName() + " " + i2.getName());
         if (i1.hasName("Coltello") && i2.hasName("Bastone")) {
@@ -73,7 +94,6 @@ public class GameLogic {
     public boolean executeUseCombinationInRoom(Item i1, Item i2) {
         if (i1.hasName("Chiave") && i2.hasName("Porta")) {
             game.unlockCorridor("Desert", "Stanza1");
-            game.setRoomState("Desert", "Giusto");
             return true;
         }
         if (i1.hasName("Piffero") && i2.hasName("Serpenti")) {
@@ -113,13 +133,14 @@ public class GameLogic {
                 game.getCurrentRoom().addAgent(insertoX);
                 game.setRoomState("ingressoPiramide", "Inserto1Acceso");
             }
-            return true;
              */
+            return true;
         }
         if (i1.hasName("Piuma") && i2.hasName("Pergamena")) {
             // TODO: aggiungi start del gioco del crittogramma
-            game.setRoomState("Stanza4", "Giusto");
+            game.setRoomState("Stanza4", "Corretto");
             game.unlockCorridor("Stanza4", "Stanza5");
+            return true;
         }
 
         if (i1.hasName("ArcoFreccia") && i2.hasName("Target")) {
@@ -127,6 +148,11 @@ public class GameLogic {
             game.addInventory((Item) GameManager.getAgentFromName("Arco"));
             game.setRoomState("Stanza5", "End");
             game.unlockCorridor("Stanza5", "Stanza6");
+            return true;
+        }
+
+        if (i1.hasName("Pala") && i2.hasName("Sarcofago")) {
+            game.setRoomState("Stanza10", "SarcofagoAperto");
             return true;
         }
 
@@ -163,7 +189,7 @@ public class GameLogic {
             if (game.getCurrentRoom().getState().equals("Vetro")) {
                 game.removeInventory(i1);
                 game.setRoomState("Stanza9", "Acqua");
-                game.getCurrentRoom().addAgent(GameManager.getAgentFromName("Ankh"));
+                game.getCurrentRoom().addAgent(GameManager.getAgentFromName("Hekat"));
             } else {
                 // fai stampa
             }
@@ -287,19 +313,11 @@ public class GameLogic {
     }
 
     public boolean launchSpecialEvent(CommandType c, Agent a) {
-        if (c == CommandType.PARLA && a.hasName("Sfinge") && game.getCurrentRoom().getState().equals("Start")) {
-            userInputFlow.Event = 1;
-            GameGUI.setImagePanel("Wordle");
-            outputDisplayManager.displayText("Hai iniziato il Wordle!");
-        }
-        if (c == CommandType.PARLA && a.hasName("Mummia") && game.getCurrentRoom().getState().equals("Start") || game.getCurrentRoom().getState().equals("Sbagliato")) {
-            userInputFlow.Event = 2;
-            TriviaGame.getQAndA();
-        }
         if (c == CommandType.OSSERVA && a.hasName("Mattonella") && game.getCurrentRoom().getState().equals("Start")) {
             userInputFlow.Event = 3;
             GameGUI.setImagePanel("Mattonelle");
             outputDisplayManager.displayText("Hai iniziato il puzzle delle mattonelle!");
+            return true;
         }
         return false;
     }

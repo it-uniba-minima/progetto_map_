@@ -57,7 +57,7 @@ public class WordleGame {
             outputDisplayManager.displayText("Hai indovinato la parola!");
             userInputFlow.Event = 0;
             Game game = Game.getInstance();
-            game.getCurrentRoom().setState("Giusto");
+            game.getCurrentRoom().setState("Corretto");
             game.unlockCorridor("Desert", "Stanza1");
             GameGUI.setImagePanel(game.getCurrentRoom().getName());
             return;
