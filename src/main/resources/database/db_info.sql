@@ -5,7 +5,7 @@ VALUES
 INSERT INTO DESCRIZIONI (ID, COMANDO, STANZA, STATO, PERSONAGGIO, OGGETTO1, OGGETTO2, DESCRIZIONE) VALUES
     (1, '0', 'Desert', 'Start', '0', '0', '0', '> Apri gli occhi e ti ritrovi in un disteso letto di sabbia... "Dove sono??"'),
     (2, 'Osserva', 'Desert', 'Start', '0', '0', '0', '> Di fronte a te si pone una grande Sfinge egizia, dietro di lei è presente un imponente piramide che sembra quasi risplendere sotto la luce lunare.'),
-    (3, 'Parla', 'Desert', 'Start', 'Sfinge', '0', '0', '> "Salve viandante, ti pongo una sfida, se la superi entrerai in un luogo dove ogni tuo desiderio verrà realizzato. La sfida che io ti pongo è indovinare la parola a cui sto pensando (Hint: la parole è in inglese)"'),
+    (3, 'Parla', 'Desert', 'Start', 'Sfinge', '0', '0', '> "Salve viandante, ti pongo una sfida, se la superi entrerai in un luogo dove ogni tuo desiderio verrà realizzato. La sfida che io ti pongo è indovinare la parola a cui sto pensando (Hint: la parola è in inglese)"'),
     (4, '0', 'Desert', 'Giusto', 'Sfinge', '0', '0', '> "È esattamente la parola che stavo pensando!"'),
     (5, '0', 'Desert', 'Sbagliato', 'Sfinge', '0', '0', '> "La tua mente è debole per questo posto, torna indietro da dove sei venuto"'),
     (6, 'Parla', 'Desert', 'Giusto', 'Sfinge', '0', '0', '> "Come premio per questa sfida, le porte della piramide si apriranno per te"'),
@@ -20,8 +20,8 @@ INSERT INTO DESCRIZIONI (ID, COMANDO, STANZA, STATO, PERSONAGGIO, OGGETTO1, OGGE
     (15, 'Osserva', 'Desert', 'Giusto', '0', 'Porta', '0', '> Le porte sono aperte, sembra quasi che ti invitino ad entrare.'),
     (16, 'Osserva', 'Desert', 'Secret', '0', 'Porta', '0', '> Le porte della piramide, ormai distrutte segnano l''entrata della piramide.'),
     (17, 'Osserva', '0', '0', '0', 'Pala', '0', '> Una pala abbastanza arrugginita ma meglio di niente no?'),
-    (18, 'Usa', 'Desert', '0', '0', 'Chiave', 'Porta', '> Usi la chiave per aprire le porte della piramide, spingi i due portoni giganti per poi fare il primo passo verso questa nuova avventura.'),
-    (19, 'Usa', 'Deserto', '0', '0', 'Pala', '0', '> Usi la pala vicino l''entrata della piramide e trovi una chiave arrugginita, era sotto un tappeto di sabbia.'),
+    (18, 'Usa', 'Desert', 'Sbagliato', '0', 'Chiave', 'Porta', '> Usi la chiave per aprire le porte della piramide, spingi i due portoni giganti per poi fare il primo passo verso questa nuova avventura.'),
+    (19, 'Usa', 'Deserto', 'Start', '0', 'Pala', '0', '> Usi la pala vicino l''entrata della piramide e trovi una chiave arrugginita, era sotto un tappeto di sabbia.'),
     (20, '0', 'Stanza1', 'Buio', '0', '0', '0', '> Entrando nella piramide, non noti dei gradini ed inciampi...'),
     (21, 'Osserva', 'Stanza1', 'Buio', '0', '0', '0', '> La stanza è oscura, riesci a intravedere solo due stanze laterali da cui proviene una luce fievole.'),
     (22, '0', 'Stanza1', 'Luce', '0', '0', '0', '> Grazie alla torcia, ora la stanza appare più luminosa.'),
@@ -45,7 +45,7 @@ INSERT INTO DESCRIZIONI (ID, COMANDO, STANZA, STATO, PERSONAGGIO, OGGETTO1, OGGE
     (40, 'Osserva', 'Stanza3', 'AcquaOn', '0', '0', '0', '> Nella stanza noti un coltello per terra e una leva.'),
     (41, 'Osserva', 'Stanza3', 'AcquaOn', '0', 'Leva', '0', '> Una marchingegno collegato alla corrente d''acqua, sempre farla scorrere'),
     (42, 'Osserva', 'Stanza3', 'AcquaOff', '0', 'Leva', '0', '> Una marchingegno collegato alla corrente d''acqua, sempre che l''acqua non scorra'),
-    (43, 'Usa', 'Stanza3', 'AcquaOff', '0', 'Corda', 'Leva', '> Leghi la corda alla leva, tirando la leva, l''acqua smette di scorrere.'),
+    (43, 'Usa', 'Stanza3', 'AcquaOn', '0', 'Corda', 'Leva', '> Leghi la corda alla leva, tirando la leva, l''acqua smette di scorrere.'),
     (44, 'Osserva', 'Stanza3', 'AcquaOff', '0', '0', '0', '> Ora intravedi meglio l''altro lato della stanza e noti oltre alla torcia anche una brace accanto a essa.'),
     (45, 'Usa', 'Stanza3', 'AcquaOn', '0', 'Coltello', '0', '> Cerchi di colpire l''acqua con il coltello, questa mossa non è efficace.'),
     (46, 'Usa', 'Stanza3', 'AcquaOn', '0', 'Bastone', '0', '> Cerchi di ripararti usando il bastone ... ma è troppo piccolo per poterti proteggere.'),
@@ -222,4 +222,8 @@ INSERT INTO DESCRIZIONI (ID, COMANDO, STANZA, STATO, PERSONAGGIO, OGGETTO1, OGGE
     (217, '0', 'Stanza9', 'Vetro', '0', '0', '0', '> Entrando nella stanza, noti ancora l''indovinello che non hai risolto'''),
     (218, '0', 'Stanza9', 'Acqua', '0', '0', '0', '> La stanza rifletta ancora la luce grazie al indovinello che hai risolto'),
     (219, '0', 'Stanza1', 'Torcia1', '0', '0', '0', '> La stanza è illuminata dalla torcia posizionata sulla statua.'),
-    (220, '0', 'Stanza1', 'Torcia2', '0', '0', '0', '> La stanza ora è completamente illuminata e ha rivelato il passaggio successivo.');
+    (220, '0', 'Stanza1', 'Torcia2', '0', '0', '0', '> La stanza ora è completamente illuminata e ha rivelato il passaggio successivo.'),
+    (221, 'Usa', 'Deserto', 'Sbagliato', '0', 'Pala', '0', '> Usi la pala vicino l''entrata della piramide e trovi una chiave arrugginita, era sotto un tappeto di sabbia.'),
+    (222, 'Usa', 'Deserto', 'Corretto', '0', 'Pala', '0', '> Usi la pala vicino l''entrata della piramide e trovi una chiave arrugginita, era sotto un tappeto di sabbia.'),
+    (223, 'Usa', 'Desert', 'Start', '0', 'Chiave', 'Porta', '> Usi la chiave per aprire le porte della piramide, spingi i due portoni giganti per poi fare il primo passo verso questa nuova avventura.'),
+    (224, 'Usa', 'Desert', 'Corretto', '0', 'Chiave', 'Porta', '> Vorresti usare la chiave sulla porta, ma è gia aperto');
