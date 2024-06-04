@@ -33,7 +33,7 @@ public class GameGUI extends javax.swing.JPanel {
      */
 
     public static Wordle getWordle() {
-        return (Wordle) imagePanel.getComponent(1);
+        return (Wordle) imagePanel.getComponent(0);
     }
 
     public GameGUI() {
@@ -48,15 +48,24 @@ public class GameGUI extends javax.swing.JPanel {
         imagePanel.setMaximumSize(new Dimension(440, 400));
         imagePanel.setMinimumSize(new Dimension(440, 400));
         imagePanel.setBorder(BorderFactory.createLineBorder(new Color(107, 90, 13), 5));
+        imagePanel.setBackground(new Color(107, 90, 13));
 
         cardLayout = new CardLayout();
         imagePanel.setLayout(cardLayout);
         //substitute JLabel with images
         //beacause of the getComponent method you have to set the event panels on top
         //so that you can retrieve them by index in, for example, the getWordle method
-        imagePanel.add(new JLabel("No image available (Desert)"), "Desert");
         imagePanel.add(new Wordle(), "Wordle");
         imagePanel.add(new MattonelleGUI(), "Mattonelle");
+
+        imagePanel.add(new JPanel() {
+            @Override
+            public void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                ImageIcon image = new ImageIcon("docs/img/Desert.png");
+                g.drawImage(image.getImage(), 0, 0, getWidth(), getHeight(), this);
+            }
+        }, "Desert");
 
         imagePanel.add(new JPanel() {
             @Override
@@ -85,7 +94,14 @@ public class GameGUI extends javax.swing.JPanel {
             }
         }, "Stanza3");
 
-        imagePanel.add(new JLabel("No image available (Stanza4)"), "Stanza4");
+        imagePanel.add(new JPanel() {
+            @Override
+            public void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                ImageIcon image = new ImageIcon("docs/img/Stanza4.png");
+                g.drawImage(image.getImage(), 0, 0, getWidth(), getHeight(), this);
+            }
+        }, "Stanza4");
 
         imagePanel.add(new JPanel() {
             @Override
@@ -96,9 +112,23 @@ public class GameGUI extends javax.swing.JPanel {
             }
         }, "Stanza5");
 
-        imagePanel.add(new JLabel("No image available (Stanza6)"), "Stanza6");
+        imagePanel.add(new JPanel() {
+            @Override
+            public void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                ImageIcon image = new ImageIcon("docs/img/Stanza6.png");
+                g.drawImage(image.getImage(), 0, 0, getWidth(), getHeight(), this);
+            }
+        }, "Stanza6");
 
-        imagePanel.add(new JLabel("No image available (Stanza7)"), "Stanza7");
+        imagePanel.add(new JPanel() {
+            @Override
+            public void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                ImageIcon image = new ImageIcon("docs/img/Stanza7.png");
+                g.drawImage(image.getImage(), 0, 0, getWidth(), getHeight(), this);
+            }
+        }, "Stanza7");
 
         imagePanel.add(new JPanel() {
             @Override
@@ -109,9 +139,23 @@ public class GameGUI extends javax.swing.JPanel {
             }
         }, "Stanza8");
 
-        imagePanel.add(new JLabel("No image available (Stanza9)"), "Stanza9");
+        imagePanel.add(new JPanel() {
+            @Override
+            public void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                ImageIcon image = new ImageIcon("docs/img/Stanza9.png");
+                g.drawImage(image.getImage(), 0, 0, getWidth(), getHeight(), this);
+            }
+        }, "Stanza9");
 
-        imagePanel.add(new JLabel("No image available (Stanza10)"), "Stanza10");
+        imagePanel.add(new JPanel() {
+            @Override
+            public void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                ImageIcon image = new ImageIcon("docs/img/Stanza10.png");
+                g.drawImage(image.getImage(), 0, 0, getWidth(), getHeight(), this);
+            }
+        }, "Stanza10");
     }
 
     public static FontMetrics getTextPaneFontMetrics() {
