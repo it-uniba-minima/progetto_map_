@@ -54,6 +54,7 @@ public class GameGUI extends javax.swing.JPanel {
         //substitute JLabel with images
         //beacause of the getComponent method you have to set the event panels on top
         //so that you can retrieve them by index in, for example, the getWordle method
+        imagePanel.add(new ImpiccatoGUI(), "Impiccato");
         imagePanel.add(new JLabel("No image available (Desert)"), "Desert");
         imagePanel.add(new Wordle(), "Wordle");
         imagePanel.add(new MattonelleGUI(), "Mattonelle");

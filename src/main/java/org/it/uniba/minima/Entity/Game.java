@@ -50,7 +50,7 @@ public class Game {
         for (Corridor corridor : corridorsMap) {
             if (corridor.getStartingRoom().equals(room)) {
                 this.currentRoom = corridor.getStartingRoom();
-                GameGUI.setImagePanel(currentRoom.getName());
+                //GameGUI.setImagePanel(currentRoom.getName());
                 return;
             }
         }
