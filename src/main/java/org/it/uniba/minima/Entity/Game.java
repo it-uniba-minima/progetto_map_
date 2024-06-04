@@ -104,4 +104,8 @@ public class Game {
     public void setStatesMap(Map<String, String> roomStates) {
         this.statesMap = roomStates;
     }
+
+    public Object getRoomState(String room) {
+        return statesMap.get(room);
+    }
 }

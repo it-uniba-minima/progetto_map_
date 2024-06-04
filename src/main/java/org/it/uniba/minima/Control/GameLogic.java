@@ -63,7 +63,8 @@ public class GameLogic {
             // TODO: lancia messagio da db da fare
             return true;
         }
-        if (i.hasName("TorciaAccesa1") || i.hasName("TorciaAccesa2")) {
+        if ((i.hasName("TorciaAccesa1") || i.hasName("TorciaAccesa2")) && !game.getRoomState("Stanza1").equals("Torcia1")) {
+            System.out.println("PUPPA");
             game.setRoomState("Stanza1", "Luce");
             return true;
         }
@@ -297,8 +298,9 @@ public class GameLogic {
             outputDisplayManager.displayText("Hai iniziato il Trivia!");
             TriviaGame.getQAndA();
         }
-        if (c == CommandType.OSSERVA && a.hasName("Mattonelle") && game.getCurrentRoom().getState().equals("Start")) {
+        if (c == CommandType.OSSERVA && a.hasName("Mattonella") && game.getCurrentRoom().getState().equals("Start")) {
             userInputFlow.Event = 3;
+            GameGUI.setImagePanel("Mattonelle");
             outputDisplayManager.displayText("Hai iniziato il puzzle delle mattonelle!");
         }
         return false;

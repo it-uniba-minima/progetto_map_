@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.it.uniba.minima.Control.userInputFlow;
+import org.it.uniba.minima.Entity.Game;
 
 import java.io.*;
 import java.net.*;
@@ -62,11 +63,15 @@ public class TriviaGame {
             outputDisplayManager.displayText("Hai indovinato la risposta!");
             correctAnswers++;
             if (correctAnswers == 3) {
-                outputDisplayManager.displayText("Hai risposto correttament1e a 3 domande, hai vinto!");
+                outputDisplayManager.displayText("Hai risposto correttamente a 3 domande, hai vinto!");
+                Game game = Game.getInstance();
+                game.setRoomState("Stanza6", "Corretto");
+                game.unlockCorridor("Stanza6", "Stanza10");
                 userInputFlow.Event = 0;
             }
         } else {
             outputDisplayManager.displayText("Risposta sbagliata. Riparla con il sacerdote per riprovare.");
+            correctAnswers = 0;
             userInputFlow.Event = 0;
         }
     }

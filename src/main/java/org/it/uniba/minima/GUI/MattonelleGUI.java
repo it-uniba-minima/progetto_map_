@@ -916,6 +916,7 @@ public class MattonelleGUI extends javax.swing.JPanel {
         outputDisplayManager.displayText("Hai vinto!");
         userInputFlow.Event = 0;
         Game game = Game.getInstance();
+        game.setRoomState("Stanza7", "Corretto");
         GameGUI.setImagePanel(game.getCurrentRoom().getName());
     }
 

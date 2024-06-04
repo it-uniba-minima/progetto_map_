@@ -42,7 +42,8 @@
 
 {"name":"Stanza7","currentState":"Start",
   "agents":[
-    {"isPickable":true,"isDroppable":true,"name":"Nekhekh","alias":["Nekek", "Nek", "Flagello"]}]},
+    {"isPickable":true,"isDroppable":true,"name":"Nekhekh","alias":["Nekek", "Nek", "Flagello"]},
+    {"isPickable":false,"isMovable":false,"name":"Mattonella","alias":["Mattonelle", "Piastrelle", "Mattoni", "Meccanismo", "Mattone", "Piastrella", "Pavimento"]}]},
 
 {"name":"Stanza8","currentState":"Start",
   "agents":[
