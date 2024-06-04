@@ -21,7 +21,7 @@ INSERT INTO DESCRIZIONI (ID, COMANDO, STANZA, STATO, PERSONAGGIO, OGGETTO1, OGGE
     (16, 'Osserva', 'Desert', 'Secret', '0', 'Porta', '0', '> Le porte della piramide, ormai distrutte segnano l''entrata della piramide.'),
     (17, 'Osserva', '0', '0', '0', 'Pala', '0', '> Una pala abbastanza arrugginita ma meglio di niente no?'),
     (18, 'Usa', 'Desert', 'Sbagliato', '0', 'Chiave', 'Porta', '> Usi la chiave per aprire le porte della piramide, spingi i due portoni giganti per poi fare il primo passo verso questa nuova avventura.'),
-    (19, 'Usa', '0', '0', '0', 'Pala', '0', '> Usi la pala vicino l''entrata della piramide e trovi una chiave arrugginita, era sotto un tappeto di sabbia.'),
+    (19, 'Usa', 'Desert', 'Start', '0', 'Pala', '0', '> Usi la pala vicino l''entrata della piramide e trovi una chiave arrugginita, era sotto un tappeto di sabbia.'),
     (20, '0', 'Stanza1', 'Buio', '0', '0', '0', '> Entrando nella piramide, non noti dei gradini ed inciampi...'),
     (21, 'Osserva', 'Stanza1', 'Buio', '0', '0', '0', '> La stanza è oscura, riesci a intravedere solo due stanze laterali da cui proviene una luce fievole.'),
     (22, '0', 'Stanza1', 'Luce', '0', '0', '0', '> Grazie alla torcia, ora la stanza appare più luminosa.'),
