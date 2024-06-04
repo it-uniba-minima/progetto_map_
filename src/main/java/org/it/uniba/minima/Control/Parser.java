@@ -124,7 +124,7 @@ public class Parser {
         availableCommands.add( new Command("est", List.of("e", "east", "destra"), CommandType.EST));
         availableCommands.add( new Command("ovest", List.of("o", "west", "sinstra"), CommandType.OVEST));
         availableCommands.add( new Command("inventario", List.of("i", "inventory", "borsa", "zaino"), CommandType.INVENTORY));
-        availableCommands.add( new Command("guarda", List.of("l", "look", "vedi", "esamina"), CommandType.OSSERVA));
+        availableCommands.add( new Command("guarda", List.of("l", "look", "vedi", "esamina", "osserva"), CommandType.OSSERVA));
         availableCommands.add( new Command("prendi", List.of("t", "take", "raccogli"), CommandType.TAKE));
         availableCommands.add( new Command("usa", List.of("u", "use", "utilizza"), CommandType.USA));
         availableCommands.add( new Command("parla", List.of("talk", "p", "dialoga"), CommandType.PARLA));
