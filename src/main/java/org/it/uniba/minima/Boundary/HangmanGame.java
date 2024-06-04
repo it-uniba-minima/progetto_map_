@@ -10,7 +10,6 @@ public class HangmanGame {
         String newText = text.toUpperCase();
         if (newText.length() == 1) {
             checkLetter(newText);
-            outputDisplayManager.displayText("Hai indovinato una lettera!");
         } else if (newText.length() > 1 && newText.length() < 34) {
             outputDisplayManager.displayText("Si può fare o una lettera alla volta o indovinare la frase intera");
         } else {
@@ -29,12 +28,14 @@ public class HangmanGame {
 
     public static void checkLetter(String text) {
         if (guessingPhrase.contains(text)) {
+            outputDisplayManager.displayText("Hai indovinato una lettera!");
             for (int i = 0; i < guessingPhrase.length(); i++) {
                 if (guessingPhrase.charAt(i) == text.charAt(0)) {
                     ImpiccatoGUI.setLetter(i, text.charAt(0), guessingPhrase);
                 }
             }
-
+        } else {
+            outputDisplayManager.displayText("La lettera inserita non è presente nella frase");
         }
     }
 }
