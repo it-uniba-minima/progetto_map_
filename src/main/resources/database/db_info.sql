@@ -223,9 +223,9 @@ INSERT INTO DESCRIZIONI (ID, COMANDO, STANZA, STATO, PERSONAGGIO, OGGETTO1, OGGE
     (218, '0', 'Stanza9', 'Acqua', '0', '0', '0', '> La stanza rifletta ancora la luce grazie al indovinello che hai risolto'),
     (219, '0', 'Stanza1', 'Torcia1', '0', '0', '0', '> La stanza è illuminata dalla torcia posizionata sulla statua.'),
     (220, '0', 'Stanza1', 'Torcia2', '0', '0', '0', '> La stanza ora è completamente illuminata e ha rivelato il passaggio successivo.'),
-    (221, 'Usa', 'Deserto', 'Sbagliato', '0', 'Pala', '0', '> Usi la pala vicino l''entrata della piramide e trovi una chiave arrugginita, era sotto un tappeto di sabbia.'),
-    (222, 'Usa', 'Deserto', 'Corretto', '0', 'Pala', '0', '> Usi la pala vicino l''entrata della piramide e trovi una chiave arrugginita, era sotto un tappeto di sabbia.'),
+    (221, 'Usa', 'Desert', 'Sbagliato', '0', 'Pala', '0', '> Usi la pala vicino l''entrata della piramide e trovi una chiave arrugginita, era sotto un tappeto di sabbia.'),
+    (222, 'Usa', 'Desert', 'Corretto', '0', 'Pala', '0', '> Usi la pala vicino l''entrata della piramide e trovi una chiave arrugginita, era sotto un tappeto di sabbia.'),
     (223, 'Usa', 'Desert', 'Start', '0', 'Chiave', 'Porta', '> Usi la chiave per aprire le porte della piramide, spingi i due portoni giganti per poi fare il primo passo verso questa nuova avventura.'),
     (224, 'Usa', 'Desert', 'Corretto', '0', 'Chiave', 'Porta', '> Vorresti usare la chiave sulla porta, ma è gia aperto'),
     (225, 'Osserva', 'Stanza3', 'AcquaOn', '0', 'Cascata', '0', '> Una corrente d''acqua che scorre dal soffitto, non intravedi da dove potrebbe venire'),
-    (225, 'Osserva', 'Stanza3', 'AcquaOff', '0', 'Cascata', '0', '> Osservi che sono presenti delle fessure sul soffitto.');
+    (226, 'Osserva', 'Stanza3', 'AcquaOff', '0', 'Cascata', '0', '> Osservi che sono presenti delle fessure sul soffitto.');
