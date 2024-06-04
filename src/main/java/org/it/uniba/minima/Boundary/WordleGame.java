@@ -23,6 +23,7 @@ public class WordleGame {
     protected int currentTry = 0;
     protected final int MaxLetters = 5;
     protected String GuessingWord;
+    protected String[] charGuessingWord;
     private WordleGame instance;
 
     public WordleGame() {
@@ -37,11 +38,11 @@ public class WordleGame {
                     result.append(line);
                 }
             }
-
             String json = result.toString();
             JsonObject jsonObject = JsonParser.parseString(json).getAsJsonObject();
             GuessingWord = jsonObject.get("word").getAsString();
-
+            GuessingWord = GuessingWord.toUpperCase();
+            charGuessingWord = GuessingWord.split("");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -96,18 +97,20 @@ public class WordleGame {
     }
 
     public void checkGuess(String guess) {
-        for (int i = 0; i < 5; i++) {
-            if (guess.charAt(i) == GuessingWord.charAt(i)) {
+        String[] charAlreadyGuessed = guess.split("");
+        for(int i = 0; i < 5; i++) {
+            if (charGuessingWord[i].equals(charAlreadyGuessed[i])) {
                 changeBoxColor(currentTry, i, new Color(24, 159, 10));
-            } else if (GuessingWord.contains(String.valueOf(guess.charAt(i)))) {
-                changeBoxColor(currentTry, i, new Color(213, 173, 0));
+                charGuessingWord[i] = "";
             }
-            else {
-                changeBoxColor(currentTry, i, new Color(52, 59, 66));
+        }
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                if (charGuessingWord[i].equals(charAlreadyGuessed[j])) {
+                    changeBoxColor(currentTry, i, new Color(255, 0, 0));
+                    charGuessingWord[i] = "";
+                }
             }
         }
     }
 }
-
-
-
