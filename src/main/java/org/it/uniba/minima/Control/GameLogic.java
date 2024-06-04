@@ -299,10 +299,10 @@ public class GameLogic {
             userInputFlow.Event = 3;
             outputDisplayManager.displayText("Hai iniziato il puzzle delle mattonelle!");
         }
-        if (c == CommandType.PARLA && a.hasName("Sacerdote") && game.getCurrentRoom().getState().equals("Start")) {
-            userInputFlow.Event = 4;
-            outputDisplayManager.displayText("Hai iniziato l'impiccato!");
-        }
+//        if (c == CommandType.PARLA && a.hasName("Sacerdote") && game.getCurrentRoom().getState().equals("Start")) {
+//            userInputFlow.Event = 4;
+//            outputDisplayManager.displayText("Hai iniziato l'impiccato!");
+//        }
 
         return false;
     }

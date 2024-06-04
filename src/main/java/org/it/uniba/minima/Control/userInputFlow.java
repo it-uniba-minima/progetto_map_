@@ -14,15 +14,7 @@ public class userInputFlow {
     public static int Event = 0;
     private static Parser parser = new Parser();
     private static CommandExecutor commandExecutor = new CommandExecutor(Game.getInstance());
-    private static WordleGame wordleGame;
-
-    static {
-        try {
-            wordleGame = new WordleGame();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+    private static WordleGame wordleGame = new WordleGame();
 
     //WordleGame wordleGame = new WordleGame();
 

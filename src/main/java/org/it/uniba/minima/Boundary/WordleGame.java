@@ -1,6 +1,5 @@
 package org.it.uniba.minima.Boundary;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.mashape.unirest.http.HttpResponse;
@@ -14,10 +13,8 @@ import org.it.uniba.minima.GUI.Wordle;
 
 import java.awt.*;
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.ProtocolException;
 import java.net.URL;
 
 
@@ -28,10 +25,10 @@ public class WordleGame {
     protected String GuessingWord;
     private WordleGame instance;
 
-    public WordleGame() throws IOException {
-        StringBuilder result = new StringBuilder();
+    public WordleGame() {
+    StringBuilder result = new StringBuilder();
         try {
-            URL url = new URL("https://api.wordnik.com/v4/words.json/randomWord?hasDictionaryDef=true&includePartOfSpeech=noun%2Cadjective%2Cverb&maxCorpusCount=-1&minDictionaryCount=1&maxDictionaryCount=-1&minLength=5&maxLength=5&api_key=xf9xa1hhzcl71v2q8c6di3dxyix9ou5oarrrksr6h5906harw");
+            URL url = new URL("https://api.wordnik.com/v4/words.json/randomWord?hasDictionaryDef=true&includePartOfSpeech=noun%2Cadjective%2Cverb&maxCorpusCount=-1&minDictionaryCount=1&maxDictionaryCount=-1&minLength=5&maxLength=5&api_key=xf9xabc1q8xk38n6g4l9g5y20mm5ez9tkguat9pv7szu9edharw");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
 
@@ -43,19 +40,12 @@ public class WordleGame {
 
             String json = result.toString();
             JsonObject jsonObject = JsonParser.parseString(json).getAsJsonObject();
-            String guessingWord = jsonObject.get("word").getAsString();
+            GuessingWord = jsonObject.get("word").getAsString();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-
-    public void checkAttempts (int attempts) {
-        if (attempts > MaxAttempts) {
-           outputDisplayManager.displayText("Sei a corto di tentativi, la parola era " + GuessingWord);
-        }
-        //return 0;
+        //GuessingWord = "HELLO";
     }
 
     public void printSplittedText(String text) {
@@ -90,10 +80,10 @@ public class WordleGame {
 
     public boolean checkLenght(String text) {
         if (text.length() != 5) {
-        outputDisplayManager.displayText("La parola inserita non è valida, inserire una parola di 5 lettere.");
+            outputDisplayManager.displayText("La parola inserita non è valida, inserire una parola di 5 lettere.");
             return false;
         }
-         return true;
+        return true;
     }
 
     public String[] SplittedText(String text) {
@@ -118,7 +108,6 @@ public class WordleGame {
         }
     }
 }
-
 
 
 
