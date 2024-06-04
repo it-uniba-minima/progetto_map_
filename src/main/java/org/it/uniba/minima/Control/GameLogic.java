@@ -64,7 +64,6 @@ public class GameLogic {
             return true;
         }
         if ((i.hasName("TorciaAccesa1") || i.hasName("TorciaAccesa2")) && !game.getRoomState("Stanza1").equals("Torcia1")) {
-            System.out.println("PUPPA");
             game.setRoomState("Stanza1", "Luce");
             return true;
         }
@@ -293,9 +292,8 @@ public class GameLogic {
             GameGUI.setImagePanel("Wordle");
             outputDisplayManager.displayText("Hai iniziato il Wordle!");
         }
-        if (c == CommandType.PARLA && a.hasName("Mummia") && game.getCurrentRoom().getState().equals("Start")) {
+        if (c == CommandType.PARLA && a.hasName("Mummia") && game.getCurrentRoom().getState().equals("Start") || game.getCurrentRoom().getState().equals("Sbagliato")) {
             userInputFlow.Event = 2;
-            outputDisplayManager.displayText("Hai iniziato il Trivia!");
             TriviaGame.getQAndA();
         }
         if (c == CommandType.OSSERVA && a.hasName("Mattonella") && game.getCurrentRoom().getState().equals("Start")) {

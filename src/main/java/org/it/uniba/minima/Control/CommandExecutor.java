@@ -9,6 +9,8 @@ import org.it.uniba.minima.Entity.Item;
 import org.it.uniba.minima.Type.CommandType;
 import org.it.uniba.minima.Type.Corridor;
 import org.it.uniba.minima.Type.ParserOutput;
+
+import javax.xml.crypto.Data;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -28,11 +30,9 @@ public class CommandExecutor {
                 game.setCurrentRoom(corridor.getArrivingRoom());
                 DatabaseConnection.printFromDB("0", game.getCurrentRoom().getName(), game.getCurrentRoom().getState(), "0", "0", "0");
             } else if (corridor != null && corridor.isLocked()) {
-                // TODO: Add custom text when the corridor is locked
-                outputDisplayManager.displayText("The corridor is locked");
+                outputDisplayManager.displayText("> Il corridio verso " + direction + " è bloccato!");
             } else {
-                // TODO: Add custom text when there is no corridor in the given direction
-                outputDisplayManager.displayText("There is no corridor to the " + direction);
+                outputDisplayManager.displayText("> Non c'è un corridoio verso " + direction + "!");
             }
         };
     }
@@ -71,9 +71,9 @@ public class CommandExecutor {
                                 gameLogic.launchSpecialEvent(p.getCommand(), p.getAgent1());
                                 p.getAgent1().getDescription(game.getCurrentRoom());
                             } else if (game.getInventory().contains(p.getAgent1())) {
-                                outputDisplayManager.displayText("La tua borsa non è trasperente!");
+                                outputDisplayManager.displayText("> La tua borsa non è trasperente!");
                             } else {
-                                outputDisplayManager.displayText(p.getAgent1().getName() + " non è nella stanza!");
+                                outputDisplayManager.displayText("> " + p.getAgent1().getName() + " non è nella stanza!");
                             }
                         })
         );
@@ -83,7 +83,7 @@ public class CommandExecutor {
                 commandMap.put(new CommandExecutorKey(CommandType.TAKE, item, null),
                         p -> {
                             if (game.getInventory().contains(p.getAgent1())) {
-                                outputDisplayManager.displayText("Hai già " + p.getAgent1().getName() + " nell'inventario!");
+                                outputDisplayManager.displayText("> Hai già " + p.getAgent1().getName() + " nell'inventario!");
                             } else if (game.getCurrentRoom().getAgents().contains(p.getAgent1())) {
                                 if (((Item) p.getAgent1()).isPickable()) {
                                     game.getInventory().add((Item) p.getAgent1());
@@ -104,13 +104,13 @@ public class CommandExecutor {
                 commandMap.put(new CommandExecutorKey(CommandType.DROP, item, null),
                         p -> {
                             if (game.getInventory().contains(p.getAgent1())) {
-                                outputDisplayManager.displayText("Hai lasciato cadere: " + p.getAgent1().getName() + "!");
+                                outputDisplayManager.displayText("> Hai lasciato cadere: " + p.getAgent1().getName() + "!");
                                 game.getInventory().remove(p.getAgent1());
                                 game.getCurrentRoom().getAgents().add(p.getAgent1());
                             } else if (game.getCurrentRoom().getAgents().contains(p.getAgent1())) {
-                                outputDisplayManager.displayText(p.getAgent1().getName() + " è già per terra nella stanza!");
+                                outputDisplayManager.displayText("> " + p.getAgent1().getName() + " è già per terra nella stanza!");
                             } else {
-                                outputDisplayManager.displayText(p.getAgent1().getName() + " non è nell'inventario!");
+                                outputDisplayManager.displayText("> " + p.getAgent1().getName() + " non è nell'inventario!");
                             }
                         })
         );
@@ -120,11 +120,10 @@ public class CommandExecutor {
                 commandMap.put(new CommandExecutorKey(CommandType.PARLA, personage, null),
                         p -> {
                             if (game.getCurrentRoom().getAgents().contains(p.getAgent1())) {
-                                    outputDisplayManager.displayText("Talking to " + p.getAgent1().getName());
+                                    DatabaseConnection.printFromDB("Parla", game.getCurrentRoom().getName(), game.getCurrentRoom().getState(), p.getAgent1().getName(), "0", "0");
                                     gameLogic.launchSpecialEvent(p.getCommand(), p.getAgent1());
-                                    // TODO: Add custom text when talking to the personage !!use an external function
                             } else {
-                                outputDisplayManager.displayText("The personage is not in the room");
+                                outputDisplayManager.displayText("> " + p.getAgent1().getName() + " non è nella stanza!");
                             }
                         })
         );
@@ -138,14 +137,13 @@ public class CommandExecutor {
                         p -> {
                             if (game.getInventory().contains(p.getAgent1())) {
                                 if (gameLogic.executeUseSingleItem((Item) p.getAgent1())) {
-                                    outputDisplayManager.displayText("Used");
-                                    //call function for custom behavior
+                                    DatabaseConnection.printFromDB("Usa", game.getCurrentRoom().getName(), game.getCurrentRoom().getState(), "0", p.getAgent1().getName(), "0");
                                 } else {
-                                    outputDisplayManager.displayText("The item is not usable");
+                                    outputDisplayManager.displayText("> Non puoi usare " + p.getAgent1().getName() + " da solo!");
+                                    //TODO: call db to print a message
                                 }
                             } else {
-                                outputDisplayManager.displayText("The item is not in the inventory");
-                                //call database for custom message
+                                outputDisplayManager.displayText("> " + p.getAgent1().getName() + " non è nell'inventario!");
                             }
                         })
         );
@@ -159,8 +157,7 @@ public class CommandExecutor {
                                     if (game.getInventory().contains(p.getAgent1())) {
                                         if (game.getCurrentRoom().getAgents().contains(p.getAgent2())) {
                                             if (gameLogic.executeUseCombinationInRoom((Item) p.getAgent1(), (Item) p.getAgent2())) { // Replace this with the actual method to check if the combination is valid
-                                                outputDisplayManager.displayText(p.getAgent1().getName() + " used on " + p.getAgent2().getName());
-                                                //call function for custom behavior
+                                                DatabaseConnection.printFromDB("Usa", game.getCurrentRoom().getName(), game.getCurrentRoom().getState(), "0", p.getAgent1().getName(), p.getAgent2().getName());
                                             }
                                         } else if (game.getInventory().contains(p.getAgent2())) {
                                             if (gameLogic.executeUseCombinationInInventory((Item) p.getAgent1(), (Item) p.getAgent2())) { // Replace this with the actual method to check if the combination is valid

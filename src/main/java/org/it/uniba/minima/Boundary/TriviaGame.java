@@ -72,6 +72,8 @@ public class TriviaGame {
         } else {
             outputDisplayManager.displayText("Risposta sbagliata. Riparla con il sacerdote per riprovare.");
             correctAnswers = 0;
+            Game game = Game.getInstance();
+            game.setRoomState("Stanza6", "Sbagliato");
             userInputFlow.Event = 0;
         }
     }
