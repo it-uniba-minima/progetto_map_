@@ -36,7 +36,7 @@ INSERT INTO DESCRIZIONI (ID, COMANDO, STANZA, STATO, PERSONAGGIO, OGGETTO1, OGGE
     (31, 'Osserva', 'Stanza2', 'SerpentiOn', '0', '0', '0', '> Noti che nella stanza sono presenti anche una corda e un bastone.'),
     (32, 'Usa', 'Stanza2', 'SerpentiOn', '0', 'Bastone', 'Serpenti', '> Cerchi di usare il bastone per saltare oltre la fosse, ma un serpente inizia a salirci e decidi di cambiare approccio,'),
     (33, 'Usa', 'Stanza2', 'SerpentiOn', '0', 'Corda', 'Serpenti', '> Cerchi di usare la corda per superare la fossa ma è molto più corta della fossa.'),
-    (34, 'Usa', 'Stanza2', 'SerpentiOn', '0', 'Piffero', 'Serpenti', '> Suoni il piffero, i serpenti rimangono ammaliati che formano un ponte per farti attraversare la fossa. '),
+    (34, 'Usa', 'Stanza2', 'SerpentiOn', '0', 'Piffero', 'Serpenti', '> Suoni il piffero, i serpenti rimangono ammaliati e formano un ponte per farti attraversare la fossa. '),
     (35, 'Osserva', '0', '0', '0', 'Bastone', '0', '> Un semplice bastone, utile per qualsiasi cosa basta che usi l''immaginazione.'),
     (36, 'Osserva', '0', '0', '0', 'Corda', '0', '> Una corda durevole, probabilmente l''avrà lasciata Indiana Jones.'),
     (37, 'Osserva', '0', '0', '0', 'TorciaAccesa1', '0', '> Una torcia, noti che ha dei segni sul manico potrebbe indicare che deve essere inserita in un meccanismo.'),
@@ -144,7 +144,7 @@ INSERT INTO DESCRIZIONI (ID, COMANDO, STANZA, STATO, PERSONAGGIO, OGGETTO1, OGGE
     (139, '0', 'Stanza5', 'Start', '0', '0', '0', '> Entri nella stanza che apparentemente sembra vuota, noti solo la porta chiusa dall''altro lato della stanza,sopra il soffitto invece è presente quello che sembra un occhio di vetro.'),
     (140, 'Osserva', 'Stanza5', 'Start', '0', '0', '0', '> Noti che per terra sono presenti un arco senza spago e una freccia spuntata.'),
     (141, 'Osserva', 'Stanza5', 'Start', '0', 'Target', '0', '> Un occhio di vetro, appena ti sposti sembra seguirti con lo sguardo.'),
-    (142, 'Usa', 'Stanza5', 'Start', '0', 'ArcoFreccia', 'Target', '> Carichi l''arco e scocchi la freccia colpendo con precisione l''occhio di vetro che si frantuma in mille pezzi.'),
+    (142, 'Usa', 'Stanza5', 'Start', '0', 'ArcoFreccia', 'Target', '> Carichi l''arco e scocchi la freccia colpendo con precisione l''occhio di vetro.'),
     (143, 'Osserva', 'Stanza5', 'End', '0', '0', '0', '> La rottura dell''occhio di vetro ha fatto scattare un meccanismo che ha aperto la porta, sbloccando il passaggio.'),
     (144, '0', 'Stanza7', 'Start', '0', '0', '0', '> Entri in una stanza lunga, alla fine della stanza è presente il dono da dare ad Osiride.'),
     (145, 'Osserva', 'Stanza7', 'Start', '0', '0', '0', '> Noti che le mattonelle hanno dei simboli sopra di esse.'),
@@ -229,4 +229,13 @@ INSERT INTO DESCRIZIONI (ID, COMANDO, STANZA, STATO, PERSONAGGIO, OGGETTO1, OGGE
     (224, 'Usa', 'Desert', 'Corretto', '0', 'Chiave', 'Porta', '> Vorresti usare la chiave sulla porta, ma è gia aperto'),
     (225, 'Osserva', 'Stanza3', 'AcquaOn', '0', 'Cascata', '0', '> Una corrente d''acqua che scorre dal soffitto, non intravedi da dove potrebbe venire'),
     (226, 'Osserva', 'Stanza3', 'AcquaOff', '0', 'Cascata', '0', '> Osservi che sono presenti delle fessure sul soffitto.'),
-    (227, 'Usa', 'Stanza2', 'SerpentiOff', '0', 'Piffero', 'Serpenti', '> Suoni il piffero, i serpenti sono ancora amaliati dalla musica');
+    (227, 'Usa', 'Stanza2', 'SerpentiOff', '0', 'Piffero', 'Serpenti', '> Suoni il piffero, i serpenti sono ancora amaliati dalla musica'),
+    (228, 'Usa', 'Stanza3', 'AcquaOff', '0', 'Corda', 'Leva', '> Leghi la corda alla leva, tirando la leve ma l''acqua.'),
+    (229, 'Usa', 'Stanza9', 'Start', '0', 'Acqua', 'Buca', '> Provi a inserire l''acqua nel buco, ma alla prima goccia la stanza ti allerta che è l''ordine sbagliato'),
+    (230, 'Usa', 'Stanza9', 'Start', '0', 'Vetro', 'Buca', '> Provi a inserire il vetro sopra la buca, ma la stanza ti allerta che l''ordine è sbagliato'),
+    (231, 'Usa', 'Stanza9', 'Olio', '0', 'Acqua', 'Buca', '> Provi a inserire l''acqua nel buco, ma alla prima goccia la stanza ti allerta che è l''ordine sbagliato'),
+    (232, 'Osserva', 'Stanza9', 'Olio', '0', 'Buca', '0', '> Ti avvici al buco, ora è pieno di olio'),
+    (233, 'Osserva', 'Stanza9', 'Acqua', '0', 'Buca', '0', '> Ti avvici al buco, la luce ti si riflette negli occhi.'),
+    (234, 'Osserva', 'Stanza9', 'Vetro', '0', 'Buca', '0', '> Ti avvici al buco, ora ha il vetro sopra e si intravede l''olio dentro di esso');
+
+
