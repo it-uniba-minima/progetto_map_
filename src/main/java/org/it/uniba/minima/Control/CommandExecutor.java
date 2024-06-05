@@ -10,7 +10,6 @@ import org.it.uniba.minima.Type.CommandType;
 import org.it.uniba.minima.Type.Corridor;
 import org.it.uniba.minima.Type.ParserOutput;
 
-import javax.xml.crypto.Data;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -57,10 +56,15 @@ public class CommandExecutor {
         commandMap.put(new CommandExecutorKey(CommandType.OSSERVA, null, null),
                 p -> game.getCurrentRoom().printDescription());
 
-        commandMap.put(new CommandExecutorKey(CommandType.HELP, null, null),
-                p -> outputDisplayManager.displayText("List of commands"));
+        commandMap.put(new CommandExecutorKey(CommandType.AIUTO, null, null),
+                p -> {
+                    outputDisplayManager.displayText("> Comandi disponibili:");
+                    Set<Command> commands = GameManager.getAllCommands();
+                    commands.forEach(c -> outputDisplayManager.displayText(">  - " + c.getName()));
+                }
+        );
 
-        commandMap.put(new CommandExecutorKey(CommandType.INVENTORY, null, null),
+        commandMap.put(new CommandExecutorKey(CommandType.INVENTARIO, null, null),
                 p -> game.printInventory());
 
         Set<Agent> allAgents = GameManager.getAllAgents(); // Replace this with the actual method to get all agents
@@ -80,7 +84,7 @@ public class CommandExecutor {
 
         Set<Item> allItems = GameManager.getAllItems();
         allItems.forEach(item ->
-                commandMap.put(new CommandExecutorKey(CommandType.TAKE, item, null),
+                commandMap.put(new CommandExecutorKey(CommandType.PRENDI, item, null),
                         p -> {
                             if (game.getInventory().contains(p.getAgent1())) {
                                 outputDisplayManager.displayText("> Hai già " + p.getAgent1().getName() + " nell'inventario!");
@@ -101,7 +105,7 @@ public class CommandExecutor {
 
         //uses allItems
         allItems.forEach(item ->
-                commandMap.put(new CommandExecutorKey(CommandType.DROP, item, null),
+                commandMap.put(new CommandExecutorKey(CommandType.LASCIA, item, null),
                         p -> {
                             if (game.getInventory().contains(p.getAgent1())) {
                                 outputDisplayManager.displayText("> Hai lasciato cadere: " + p.getAgent1().getName() + "!");
