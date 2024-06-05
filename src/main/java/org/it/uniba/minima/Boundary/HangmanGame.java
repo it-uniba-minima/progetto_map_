@@ -1,12 +1,16 @@
 package org.it.uniba.minima.Boundary;
 
+import org.it.uniba.minima.Control.userInputFlow;
+import org.it.uniba.minima.Database.DatabaseConnection;
+import org.it.uniba.minima.Entity.Game;
+import org.it.uniba.minima.GUI.GameGUI;
 import org.it.uniba.minima.GUI.ImpiccatoGUI;
 
 public class HangmanGame {
-    private static final String GUESSING_PHRASE = "TI TROVI NELLA PIRAMIDE DI OSIRIDE";
-    private static final int PHRASE_LENGTH = 34;
-    private static final ImpiccatoGUI impiccatoGUI = ImpiccatoGUI.getInstance();
-    private static final int MAX_ATTEMPTS = 6;
+    private final String GUESSING_PHRASE = "TI TROVI NELLA PIRAMIDE DI OSIRIDE";
+    private final int PHRASE_LENGTH = 34;
+    private final ImpiccatoGUI impiccatoGUI = ImpiccatoGUI.getInstance();
+    private final int MAX_ATTEMPTS = 7;
     private int currentAttempt = 0;
     private char[] guessedLetters = new char[PHRASE_LENGTH];
 
@@ -21,22 +25,31 @@ public class HangmanGame {
                 currentAttempt++;
             }
         } else {
-            outputDisplayManager.displayText("Si può inserire solo una lettera o la frase intera!");
+            outputDisplayManager.displayText("> Ti sembra di sentire il tuo prof. di italiano che ti dice: \"Una lettera per volta! (oppure la soluzione intera)\"");
         }
 
         if (currentAttempt >= MAX_ATTEMPTS) {
-            outputDisplayManager.displayText("Hai perso! La frase era: " + GUESSING_PHRASE);
-            impiccatoGUI.setPhrase(GUESSING_PHRASE);
+            outputDisplayManager.displayText("> La piuma si asciuga dell'inchiostro, hai esaurito i tentativi! Riprova.");
+            currentAttempt = 0;
+            userInputFlow.Event = 0;
+            Game game = Game.getInstance();
+            game.setRoomState("Stanza4", "Sbagliato");
+            GameGUI.setImagePanel(game.getCurrentRoom().getName());
         }
     }
 
     public boolean checkGuess(String text) {
         if (text.equals(GUESSING_PHRASE)) {
-            outputDisplayManager.displayText("Hai indovinato la frase! Complimenti!");
             impiccatoGUI.setPhrase(GUESSING_PHRASE);
+            DatabaseConnection.printFromDB("0", "Stanza4", "Start", "0", "0", "0");
+            userInputFlow.Event = 0;
+            Game game = Game.getInstance();
+            game.getCurrentRoom().setState("Corretto");
+            game.unlockCorridor("Stanza4", "Stanza5");
+            GameGUI.setImagePanel(game.getCurrentRoom().getName());
             return true;
         } else {
-            outputDisplayManager.displayText("Hai sbagliato la frase! Riprova!");
+            outputDisplayManager.displayText("> Provi a scrivere la frase, ma si cancella immediatamente, è sbagliata!");
             return false;
         }
     }
@@ -45,7 +58,7 @@ public class HangmanGame {
         char letter = text.charAt(0);
         for (int i = 0; i < PHRASE_LENGTH; i++) {
             if (guessedLetters[i] == letter) {
-                outputDisplayManager.displayText("Hai già indovinato questa lettera!");
+                outputDisplayManager.displayText("> Provi a scrivere la lettera, ma la piuma non si muove, è già stata scritta!");
                 return true;
             }
         }
@@ -60,11 +73,11 @@ public class HangmanGame {
         }
 
         if (found) {
-            outputDisplayManager.displayText("Hai indovinato una lettera!");
+            outputDisplayManager.displayText("> Scritta la lettera, sembra che non vada più via dal foglio, è corretta!");
             impiccatoGUI.setLetter(GUESSING_PHRASE, letter);
             return true;
         } else {
-            outputDisplayManager.displayText("La lettera inserita non è presente nella frase");
+            outputDisplayManager.displayText("> Scritta la lettera, si cancella immediatamente dal foglio, è sbagliata!");
             return false;
         }
     }
