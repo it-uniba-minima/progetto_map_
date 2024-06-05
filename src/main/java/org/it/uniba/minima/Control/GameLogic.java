@@ -26,10 +26,29 @@ public class GameLogic {
         return false;
     }
 
+    public boolean talkToPersonage(Personage c) {
+        if (c.hasName("Sfinge") && game.getCurrentRoom().getState().equals("Start")) {
+            userInputFlow.Event = 1;
+            GameGUI.setImagePanel("Wordle");
+            return true;
+        }
+        if (c.hasName("Mummia") && game.getCurrentRoom().getState().equals("Start") || game.getCurrentRoom().getState().equals("Sbagliato")) {
+            userInputFlow.Event = 2;
+            TriviaGame.getQAndA();
+            return true;
+        }
+        if (c.hasName("Osiride") && game.getCurrentRoom().getState().equals("SarcofagoAperto")) {
+            game.setRoomState("Stanza10", "OsirideStart");
+            game.unlockCorridor("Stanza10", "Stanza7");
+            game.unlockCorridor("Stanza10", "Stanza8");
+            game.unlockCorridor("Stanza10", "Stanza9");
+            return true;
+        }
+        return false;
+    }
+
     public boolean executeUseCombinationInInventory(Item i1, Item i2) {
-        System.out.println(i1.getName() + " " + i2.getName());
         if (i1.hasName("Coltello") && i2.hasName("Bastone")) {
-            System.out.println("Puppa3");
             game.removeInventory(i2);
             game.addInventory((Item) GameManager.getAgentFromName("Piffero"));
             return true;
@@ -58,12 +77,13 @@ public class GameLogic {
     }
 
     public boolean executeTake(Item i) {
-        if (i.hasName("Torcia2") && game.getCurrentRoom().getState().equals("AcquaOn")) {
+        if (i.hasName("TorciaAccesa2") && game.getCurrentRoom().getState().equals("AcquaOn")) {
             game.removeInventory(i);
             game.getCurrentRoom().addAgent(GameManager.getAgentFromName("TorciaSpenta2"));
+            // TODO: lancia messagio da db da fare
             return true;
         }
-        if (i.hasName("Torcia1") || i.hasName("Torcia2")) {
+        if ((i.hasName("TorciaAccesa1") || i.hasName("TorciaAccesa2")) && !game.getRoomState("Stanza1").equals("Torcia1")) {
             game.setRoomState("Stanza1", "Luce");
             return true;
         }
@@ -77,22 +97,22 @@ public class GameLogic {
         }
         if (i1.hasName("Piffero") && i2.hasName("Serpenti")) {
             game.setRoomState("Stanza2", "SerpentiOff");
-            Item torcia1 = (Item) GameManager.getAgentFromName("Torcia1");
+            Item torcia1 = (Item) GameManager.getAgentFromName("TorciaAccesa1");
             torcia1.setPickable(true);
             return true;
         }
         if (i1.hasName("Corda") && i2.hasName("Leva")) {
             game.setRoomState("Stanza3", "AcquaOff");
-            Item torcia2 = (Item) GameManager.getAgentFromName("Torcia2");
+            Item torcia2 = (Item) GameManager.getAgentFromName("TorciaAccesa2");
             torcia2.setPickable(true);
             return true;
         }
         if (i1.hasName("TorciaSpenta2") && i2.hasName("Brace")) {
             game.removeInventory(i1);
-            game.getCurrentRoom().addAgent(GameManager.getAgentFromName("Torcia2"));
+            game.getCurrentRoom().addAgent(GameManager.getAgentFromName("TorciaAccesa2"));
             return true;
         }
-        if ((i1.hasName("Torcia1") || i1.hasName("Torcia2")) && (i2.hasName("Statua"))) {
+        if ((i1.hasName("TorciaAccesa1") || i1.hasName("TorciaAccesa2")) && (i2.hasName("Statua"))) {
             game.removeInventory(i1);
             if (game.getCurrentRoom().getState().equals("Luce")) {
                 game.setRoomState("Stanza1", "Torcia1");
@@ -112,11 +132,14 @@ public class GameLogic {
                 game.getCurrentRoom().addAgent(insertoX);
                 game.setRoomState("ingressoPiramide", "Inserto1Acceso");
             }
-            return true;
              */
+            return true;
         }
         if (i1.hasName("Piuma") && i2.hasName("Pergamena")) {
             // TODO: aggiungi start del gioco del crittogramma
+            game.setRoomState("Stanza4", "Corretto");
+            game.unlockCorridor("Stanza4", "Stanza5");
+            return true;
         }
 
         if (i1.hasName("ArcoFreccia") && i2.hasName("Target")) {
@@ -124,6 +147,11 @@ public class GameLogic {
             game.addInventory((Item) GameManager.getAgentFromName("Arco"));
             game.setRoomState("Stanza5", "End");
             game.unlockCorridor("Stanza5", "Stanza6");
+            return true;
+        }
+
+        if (i1.hasName("Pala") && i2.hasName("Sarcofago")) {
+            game.setRoomState("Stanza10", "SarcofagoAperto");
             return true;
         }
 
@@ -160,7 +188,7 @@ public class GameLogic {
             if (game.getCurrentRoom().getState().equals("Vetro")) {
                 game.removeInventory(i1);
                 game.setRoomState("Stanza9", "Acqua");
-                game.getCurrentRoom().addAgent(GameManager.getAgentFromName("Ankh"));
+                game.getCurrentRoom().addAgent(GameManager.getAgentFromName("Hekat"));
             } else {
                 // fai stampa
             }
@@ -284,19 +312,13 @@ public class GameLogic {
     }
 
     public boolean launchSpecialEvent(CommandType c, Agent a) {
-        if (c == CommandType.PARLA && a.hasName("Sfinge") && game.getCurrentRoom().getState().equals("Start")) {
-            userInputFlow.Event = 1;
-            GameGUI.setImagePanel("Wordle");
-            outputDisplayManager.displayText("Hai iniziato il Wordle!");
-        }
-        if (c == CommandType.PARLA && a.hasName("Mummia") && game.getCurrentRoom().getState().equals("Start")) {
-            userInputFlow.Event = 2;
-            outputDisplayManager.displayText("Hai iniziato il Trivia!");
-            TriviaGame.getQAndA();
-        }
-        if (c == CommandType.OSSERVA && a.hasName("Mattonelle") && game.getCurrentRoom().getState().equals("Start")) {
+        if (c == CommandType.OSSERVA && a.hasName("Mattonella")
+            && game.getCurrentRoom().getState().equals("Start")
+            || game.getCurrentRoom().getState().equals("Sbagliato")) {
+            
             userInputFlow.Event = 3;
-            outputDisplayManager.displayText("Hai iniziato il puzzle delle mattonelle!");
+            GameGUI.setImagePanel("Mattonelle");
+            return true;
         }
         return false;
     }

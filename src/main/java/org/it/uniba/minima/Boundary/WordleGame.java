@@ -5,10 +5,12 @@ import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import org.it.uniba.minima.Control.GameManager;
 import org.it.uniba.minima.Control.userInputFlow;
+import org.it.uniba.minima.Database.DatabaseConnection;
 import org.it.uniba.minima.Entity.Game;
 import org.it.uniba.minima.GUI.GameGUI;
 import org.it.uniba.minima.GUI.Wordle;
 
+import javax.xml.crypto.Data;
 import java.awt.*;
 
 
@@ -54,20 +56,21 @@ public class WordleGame {
         }
 
         if (text.equals(GuessingWord)) {
-            outputDisplayManager.displayText("Hai indovinato la parola!");
+            DatabaseConnection.printFromDB("0", "Desert", "Corretto", "Sfinge", "0", "0");
             userInputFlow.Event = 0;
             Game game = Game.getInstance();
-            game.getCurrentRoom().setState("Solved");
+            game.getCurrentRoom().setState("Corretto");
             game.unlockCorridor("Desert", "Stanza1");
             GameGUI.setImagePanel(game.getCurrentRoom().getName());
             return;
         }
 
         if (currentTry == MaxAttempts) {
-            outputDisplayManager.displayText("Hai esaurito i tentativi, la parola era " + GuessingWord);
+            DatabaseConnection.printFromDB("0", "Desert", "Sbagliato", "Sfinge", "0", "0");
+            outputDisplayManager.displayText("> \"La parola corretta era: " + GuessingWord + "!\"");
             userInputFlow.Event = 0;
             Game game = Game.getInstance();
-            game.getCurrentRoom().setState("Failed");
+            game.getCurrentRoom().setState("Sbagliato");
             GameGUI.setImagePanel(game.getCurrentRoom().getName());
         }
     }

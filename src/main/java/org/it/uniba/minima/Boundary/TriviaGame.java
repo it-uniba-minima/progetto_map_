@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.it.uniba.minima.Control.userInputFlow;
+import org.it.uniba.minima.Database.DatabaseConnection;
+import org.it.uniba.minima.Entity.Game;
 
 import java.io.*;
 import java.net.*;
@@ -39,11 +41,9 @@ public class TriviaGame {
                 displayQuestion(question);
                 break;
             } catch (IOException e) {
-                System.err.println("Attempt " + (attempt + 1) + " failed. Retrying...");
                 if (attempt == maxAttempts - 1) {
-                    // This was the last attempt
-                    System.err.println("All attempts failed. Please check your network connection.");
-                    throw new RuntimeException("Error reading from URL", e);
+                    outputDisplayManager.displayText("> Scusa nipotino, l'età fa brutti scherzi e non riesco a ricordare la domanda. Ti dispiace ricominciare? (Il numero di domande a cui hai risposto correttamente me lo ricordo però!)");
+                    userInputFlow.Event = 0;
                 }
             }
         }
@@ -52,21 +52,28 @@ public class TriviaGame {
     public static void checkGuess(String guess) {
         int guessType = checkAnswerIsLegit(guess);
         if (guessType == 3) {
-            outputDisplayManager.displayText("Risposta non valida, riprova");
+            outputDisplayManager.displayText("> Risposta non valida, riprova");
             return;
         }
 
         guess = (guessType == 1) ? "True" : "False";
 
         if (guess.equalsIgnoreCase(correctAnswer)) {
-            outputDisplayManager.displayText("Hai indovinato la risposta!");
             correctAnswers++;
             if (correctAnswers == 3) {
-                outputDisplayManager.displayText("Hai risposto correttament1e a 3 domande, hai vinto!");
+                Game game = Game.getInstance();
+                DatabaseConnection.printFromDB("0", "Stanza6", "Corretto", "Mummia", "0", "0");
+                game.setRoomState("Stanza6", "Corretto");
+                game.unlockCorridor("Stanza6", "Stanza10");
                 userInputFlow.Event = 0;
+            } else {
+                outputDisplayManager.displayText("> \"Bravo nipotino, è corretto! Ancora " + (3 - correctAnswers) + ".\"");
             }
         } else {
-            outputDisplayManager.displayText("Risposta sbagliata. Riparla con il sacerdote per riprovare.");
+            correctAnswers = 0;
+            Game game = Game.getInstance();
+            DatabaseConnection.printFromDB("0", "Stanza6", "Sbagliato", "Mummia", "0", "0");
+            game.setRoomState("Stanza6", "Sbagliato");
             userInputFlow.Event = 0;
         }
     }
@@ -86,7 +93,7 @@ public class TriviaGame {
     }
 
     public static void displayQuestion(String question) {
-        outputDisplayManager.displayText(question);
-        outputDisplayManager.displayText("Rispondi con Vero o Falso");
+        outputDisplayManager.displayText("> " + question);
+        outputDisplayManager.displayText("> Rispondi con Vero o Falso");
     }
 }

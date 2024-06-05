@@ -1,6 +1,7 @@
 package org.it.uniba.minima.Control;
 
 import org.it.uniba.minima.Boundary.outputDisplayManager;
+import org.it.uniba.minima.Database.DatabaseConnection;
 import org.it.uniba.minima.Entity.Agent;
 import org.it.uniba.minima.Entity.Personage;
 import org.it.uniba.minima.Entity.Game;
@@ -8,6 +9,8 @@ import org.it.uniba.minima.Entity.Item;
 import org.it.uniba.minima.Type.CommandType;
 import org.it.uniba.minima.Type.Corridor;
 import org.it.uniba.minima.Type.ParserOutput;
+
+import javax.xml.crypto.Data;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -25,11 +28,11 @@ public class CommandExecutor {
 
             if (corridor != null && !corridor.isLocked()) {
                 game.setCurrentRoom(corridor.getArrivingRoom());
-                outputDisplayManager.displayText("You moved to the " + direction);
+                DatabaseConnection.printFromDB("0", game.getCurrentRoom().getName(), game.getCurrentRoom().getState(), "0", "0", "0");
             } else if (corridor != null && corridor.isLocked()) {
-                outputDisplayManager.displayText("The corridor is locked");
+                outputDisplayManager.displayText("> Il corridio verso " + direction + " è bloccato!");
             } else {
-                outputDisplayManager.displayText("There is no corridor to the " + direction);
+                outputDisplayManager.displayText("> Non c'è un corridoio verso " + direction + "!");
             }
         };
     }
@@ -52,7 +55,7 @@ public class CommandExecutor {
                 createDirectionCommandBehavior(CommandType.OVEST));
 
         commandMap.put(new CommandExecutorKey(CommandType.OSSERVA, null, null),
-                p -> outputDisplayManager.displayText(game.getCurrentRoom().getDescription()));
+                p -> game.getCurrentRoom().printDescription());
 
         commandMap.put(new CommandExecutorKey(CommandType.HELP, null, null),
                 p -> outputDisplayManager.displayText("List of commands"));
@@ -64,13 +67,13 @@ public class CommandExecutor {
         allAgents.forEach(agent ->
                 commandMap.put(new CommandExecutorKey(CommandType.OSSERVA, agent, null),
                         p -> {
-                            if (game.getCurrentRoom().getAgents().contains(p.getAgent1())
-                            //|| game.getInventory().contains((Item) p.getAgent1())
-                            ) {
+                            if (game.getCurrentRoom().getAgents().contains(p.getAgent1())) {
                                 gameLogic.launchSpecialEvent(p.getCommand(), p.getAgent1());
-                                outputDisplayManager.displayText(p.getAgent1().getDescription());
+                                p.getAgent1().getDescription(game.getCurrentRoom());
+                            } else if (game.getInventory().contains(p.getAgent1())) {
+                                outputDisplayManager.displayText("> La tua borsa non è trasperente!");
                             } else {
-                                outputDisplayManager.displayText("The agent is not in the room");
+                                outputDisplayManager.displayText("> " + p.getAgent1().getName() + " non è nella stanza!");
                             }
                         })
         );
@@ -79,21 +82,19 @@ public class CommandExecutor {
         allItems.forEach(item ->
                 commandMap.put(new CommandExecutorKey(CommandType.TAKE, item, null),
                         p -> {
-                            if (game.getCurrentRoom().getAgents().contains(p.getAgent1())) {
+                            if (game.getInventory().contains(p.getAgent1())) {
+                                outputDisplayManager.displayText("> Hai già " + p.getAgent1().getName() + " nell'inventario!");
+                            } else if (game.getCurrentRoom().getAgents().contains(p.getAgent1())) {
                                 if (((Item) p.getAgent1()).isPickable()) {
                                     game.getInventory().add((Item) p.getAgent1());
                                     game.getCurrentRoom().getAgents().remove(p.getAgent1());
-                                    if (gameLogic.executeTake((Item) p.getAgent1())) {
-                                        outputDisplayManager.displayText("Taken and custom behavior");
-                                    }
-                                    outputDisplayManager.displayText("Taken");
-                                    // TODO: Add custom text when picking up the item !!use an external function
+                                    gameLogic.executeTake((Item) p.getAgent1());
+                                    outputDisplayManager.displayText("> Hai raccolto: " + p.getAgent1().getName() + "!");
                                 } else {
-                                    outputDisplayManager.displayText("The item is not pickable");
-                                    // TODO: Add custom text when the item is not pickable !!use an external function
+                                    outputDisplayManager.displayText("> Non puoi raccogliere " + p.getAgent1().getName() + "!");
                                 }
                             } else {
-                                outputDisplayManager.displayText("The item is not in the room");
+                                outputDisplayManager.displayText("> Non c'è " + p.getAgent1().getName() + " nella stanza!");
                             }
                         })
         );
@@ -103,29 +104,26 @@ public class CommandExecutor {
                 commandMap.put(new CommandExecutorKey(CommandType.DROP, item, null),
                         p -> {
                             if (game.getInventory().contains(p.getAgent1())) {
-                                if (((Item) p.getAgent1()).isDroppable()) {
-                                    game.getCurrentRoom().getAgents().add((Item) p.getAgent1());
-                                    game.getInventory().remove(p.getAgent1());
-                                    outputDisplayManager.displayText("Dropped");
-                                } else {
-                                    outputDisplayManager.displayText("The item is not droppable");
-                                }
+                                outputDisplayManager.displayText("> Hai lasciato cadere: " + p.getAgent1().getName() + "!");
+                                game.getInventory().remove(p.getAgent1());
+                                game.getCurrentRoom().getAgents().add(p.getAgent1());
+                            } else if (game.getCurrentRoom().getAgents().contains(p.getAgent1())) {
+                                outputDisplayManager.displayText("> " + p.getAgent1().getName() + " è già per terra nella stanza!");
                             } else {
-                                outputDisplayManager.displayText("The item is not in the inventory");
+                                outputDisplayManager.displayText("> " + p.getAgent1().getName() + " non è nell'inventario!");
                             }
                         })
         );
 
-        Set<Personage> allPersonages = GameManager.getAllPersonages(); // Replace this with the actual method to get all agents
+        Set<Personage> allPersonages = GameManager.getAllPersonages();
         allPersonages.forEach(personage ->
                 commandMap.put(new CommandExecutorKey(CommandType.PARLA, personage, null),
                         p -> {
                             if (game.getCurrentRoom().getAgents().contains(p.getAgent1())) {
-                                    outputDisplayManager.displayText("Talking to " + p.getAgent1().getName());
-                                    gameLogic.launchSpecialEvent(p.getCommand(), p.getAgent1());
-                                    // TODO: Add custom text when talking to the personage !!use an external function
+                                    DatabaseConnection.printFromDB("Parla", game.getCurrentRoom().getName(), game.getCurrentRoom().getState(), p.getAgent1().getName(), "0", "0");
+                                    gameLogic.talkToPersonage((Personage) p.getAgent1());
                             } else {
-                                outputDisplayManager.displayText("The personage is not in the room");
+                                outputDisplayManager.displayText("> " + p.getAgent1().getName() + " non è nella stanza!");
                             }
                         })
         );
@@ -138,15 +136,15 @@ public class CommandExecutor {
                 commandMap.put(new CommandExecutorKey(CommandType.USA, item, null),
                         p -> {
                             if (game.getInventory().contains(p.getAgent1())) {
+                                String statusBeforeAction = game.getCurrentRoom().getState();
                                 if (gameLogic.executeUseSingleItem((Item) p.getAgent1())) {
-                                    outputDisplayManager.displayText("Used");
-                                    //call function for custom behavior
+                                    DatabaseConnection.printFromDB("Usa", game.getCurrentRoom().getName(), statusBeforeAction, "0", p.getAgent1().getName(), "0");
                                 } else {
-                                    outputDisplayManager.displayText("The item is not usable");
+                                    outputDisplayManager.displayText("> Non puoi usare " + p.getAgent1().getName() + " da solo!");
+                                    //TODO: call db to print a message
                                 }
                             } else {
-                                outputDisplayManager.displayText("The item is not in the inventory");
-                                //call database for custom message
+                                outputDisplayManager.displayText("> " + p.getAgent1().getName() + " non è nell'inventario!");
                             }
                         })
         );
@@ -159,24 +157,23 @@ public class CommandExecutor {
                                 p -> {
                                     if (game.getInventory().contains(p.getAgent1())) {
                                         if (game.getCurrentRoom().getAgents().contains(p.getAgent2())) {
-                                            if (gameLogic.executeUseCombinationInRoom((Item) p.getAgent1(), (Item) p.getAgent2())) { // Replace this with the actual method to check if the combination is valid
-                                                outputDisplayManager.displayText(p.getAgent1().getName() + " used on " + p.getAgent2().getName());
-                                                //call function for custom behavior
+                                            String statusBeforeAction = game.getCurrentRoom().getState();
+                                            if (gameLogic.executeUseCombinationInRoom((Item) p.getAgent1(), (Item) p.getAgent2())) {
+                                                DatabaseConnection.printFromDB("Usa", game.getCurrentRoom().getName(), statusBeforeAction, "0", p.getAgent1().getName(), p.getAgent2().getName());
                                             } else {
-                                                outputDisplayManager.displayText("Puppa");
+                                                outputDisplayManager.displayText("> Non puoi usare " + p.getAgent1().getName() + " su " + p.getAgent2().getName() + "!");
                                             }
                                         } else if (game.getInventory().contains(p.getAgent2())) {
-                                            if (gameLogic.executeUseCombinationInInventory((Item) p.getAgent1(), (Item) p.getAgent2())) { // Replace this with the actual method to check if the combination is valid
-                                                outputDisplayManager.displayText(p.getAgent1().getName() + " used on " + p.getAgent2().getName());
-                                                //call function for custom behavior
+                                            if (gameLogic.executeUseCombinationInInventory((Item) p.getAgent1(), (Item) p.getAgent2())) {
+                                                DatabaseConnection.printFromDB("Usa", "0", "0", "0", p.getAgent1().getName(), p.getAgent2().getName());
                                             } else {
-                                                outputDisplayManager.displayText("Puppa2");
+                                                outputDisplayManager.displayText("> Non puoi usare " + p.getAgent1().getName() + " su " + p.getAgent2().getName() + "!");
                                             }
                                         } else {
-                                            outputDisplayManager.displayText("The second agent is not in the room or in the inventory");
+                                            outputDisplayManager.displayText("> " + p.getAgent2().getName() + " non è qui con noi!");
                                         }
                                     } else {
-                                        outputDisplayManager.displayText("The first agent is not in the inventory");
+                                        outputDisplayManager.displayText("> " + p.getAgent1().getName() + " non è nell'inventario!");
                                     }
                                 })
                 )
@@ -190,15 +187,14 @@ public class CommandExecutor {
                                 p -> {
                                     if (game.getInventory().contains(p.getAgent1()) && game.getInventory().contains(p.getAgent2())) {
                                         if (item1 == item2) {
-                                            outputDisplayManager.displayText("You can't fuse an item with itself");
-                                        } else if (gameLogic.executeFuseCombination((Item) p.getAgent1(), (Item) p.getAgent2())) { // Replace this with the actual method to check if the combination is valid
-                                            outputDisplayManager.displayText(p.getAgent1().getName() + " fused with " + p.getAgent2().getName());
-                                            //call function for custom behavior
+                                            outputDisplayManager.displayText("> Ti rivelerò un segreto: " + p.getAgent1().getName() + " non può fondersi con se stesso!");
+                                        } else if (gameLogic.executeFuseCombination((Item) p.getAgent1(), (Item) p.getAgent2())) {
+                                            DatabaseConnection.printFromDB("Unisci", "0", "0", "0", p.getAgent1().getName(), p.getAgent2().getName());
                                         } else {
-                                            outputDisplayManager.displayText("The combination is not valid");
+                                            outputDisplayManager.displayText("> Non puoi unire " + p.getAgent1().getName() + " con " + p.getAgent2().getName() + "!");
                                         }
                                     } else {
-                                        outputDisplayManager.displayText("You're missing one or both of the items in the inventory");
+                                        outputDisplayManager.displayText("> La tua borsa non è quella di Mary Poppins! " + p.getAgent1().getName() + " o " + p.getAgent2().getName() + " non sono nell'inventario!");
                                     }
                                 })
         ));
@@ -211,17 +207,17 @@ public class CommandExecutor {
                                 p -> {
                                     if (game.getInventory().contains(p.getAgent1())) {
                                         if (game.getCurrentRoom().getAgents().contains(p.getAgent2())) {
+                                            String statusBeforeAction = game.getCurrentRoom().getState();
                                             if (gameLogic.executeGiveCombination((Item) p.getAgent1(), (Personage) p.getAgent2())) { // Replace this with the actual method to check if the combination is valid
-                                                outputDisplayManager.displayText(p.getAgent1().getName() + " given to " + p.getAgent2().getName());
-                                                //call function for custom behavior
+                                                DatabaseConnection.printFromDB("Dai", game.getCurrentRoom().getName(), statusBeforeAction, p.getAgent2().getName(), p.getAgent1().getName(), "0");
                                             } else {
-                                                outputDisplayManager.displayText("The combination is not valid");
+                                                outputDisplayManager.displayText("> Non puoi dare " + p.getAgent1().getName() + " a " + p.getAgent2().getName() + "!");
                                             }
                                         } else {
-                                            outputDisplayManager.displayText("The personage is not in the room");
+                                            outputDisplayManager.displayText("> Se non è invisibile, allora " + p.getAgent2().getName() + " non è qui con noi!");
                                         }
                                     } else {
-                                        outputDisplayManager.displayText("The item is not in the inventory");
+                                        outputDisplayManager.displayText("> Non puoi dare qualcosa che non possiedi!");
                                     }
                                 })
                 )

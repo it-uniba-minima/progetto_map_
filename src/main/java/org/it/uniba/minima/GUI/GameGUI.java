@@ -49,8 +49,12 @@ public class GameGUI extends javax.swing.JPanel {
         imagePanel.setMinimumSize(new Dimension(440, 400));
         imagePanel.setBorder(BorderFactory.createLineBorder(new Color(107, 90, 13), 5));
         imagePanel.setBackground(new Color(107, 90, 13));
-
         cardLayout = new CardLayout();
+        cardLayout.setVgap(0);
+        cardLayout.setHgap(0);
+        cardLayout.minimumLayoutSize(imagePanel);
+        cardLayout.preferredLayoutSize(imagePanel);
+        cardLayout.maximumLayoutSize(imagePanel);
         imagePanel.setLayout(cardLayout);
         //substitute JLabel with images
         //beacause of the getComponent method you have to set the event panels on top
@@ -58,7 +62,12 @@ public class GameGUI extends javax.swing.JPanel {
         imagePanel.add(new Wordle(), "Wordle");
         imagePanel.add(new MattonelleGUI(), "Mattonelle");
 
-        imagePanel.add(new JPanel() {
+        imagePanel.add(new JPanel(null) {
+            {
+                setBounds(0, 0, 440, 400);
+                setBorder(BorderFactory.createLineBorder(new Color(107, 90, 13), 5));
+
+            }
             @Override
             public void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -338,7 +347,7 @@ public class GameGUI extends javax.swing.JPanel {
         inventoryTextArea.setMaximumSize(new Dimension(440, 100));
         inventoryTextArea.setMinimumSize(new Dimension(440, 100));
         inventoryTextArea.setFont(new Font("Papyrus", Font.PLAIN, 20));
-        inventoryTextArea.setForeground(Color.BLACK);
+        inventoryTextArea.setForeground(new Color(0, 0, 0));
         inventoryTextArea.setText(" Inventario:\n");
         jScrollPane2.setViewport(inventoryView);
         jScrollPane2.setViewportView(inventoryTextArea);
@@ -361,7 +370,7 @@ public class GameGUI extends javax.swing.JPanel {
         displayTextPane.setFocusable(false);
         displayTextPane.setAutoscrolls(false);
         displayTextPane.setFont(new Font("Georgia", 0, 13));
-        displayTextPane.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 0, new Color(107, 90, 13)));
+        displayTextPane.setBorder(null);
         displayTextPane.setOpaque(false);
         displayTextPane.setForeground(new Color(0, 0, 0));
 
@@ -372,7 +381,7 @@ public class GameGUI extends javax.swing.JPanel {
         jScrollPane1.setMaximumSize(new Dimension(335, 550));
         jScrollPane1.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane1.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        jScrollPane1.setBorder(null);
+        jScrollPane1.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 0, new Color(107, 90, 13)));
 
         userInputField.addActionListener(new ActionListener() {
             @Override

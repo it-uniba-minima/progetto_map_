@@ -15,13 +15,13 @@
     {"isPickable":true,"isDroppable":true,"name":"Corda","alias":["Stringa", "Cordicella", "Laccio", "Spago", "Frusta"]},
     {"isPickable":true,"isDroppable":true,"name":"Bastone","alias":["Ramo", "PezzoDiLegno", "Ramoscello", "Bastoncino", "Asta", "Legno"]},
     {"isPickable":false,"isDroppable":false,"name":"Serpenti","alias":["Serpente", "Cobra", "Serpi", "Serpe", "Vipere", "Vipera"]},
-    {"isPickable":false,"isDroppable":true,"name":"Torcia1","alias":["TorciaSerpenti", "TorciaSinistra", "TorciaSx"]}]},
+    {"isPickable":false,"isDroppable":true,"name":"TorciaAccesa1","alias":["TorciaSerpenti", "TorciaSinistra", "TorciaSx"]}]},
 
 {"name":"Stanza3","currentState":"AcquaOn",
   "agents":[
     {"isPickable":false,"isDroppable":false,"name":"Leva","alias":["Gancio", "Gancetto", "Uncino"]},
     {"isPickable":true,"isDroppable":true,"name":"Coltello","alias":["Lama", "Coltellino", "ArmaDaTaglio"]},
-    {"isPickable":false,"isDroppable":true,"name":"Torcia2","alias":["TorciaCascata", "TorciaDestra", "TorciaDx"]},
+    {"isPickable":false,"isDroppable":true,"name":"TorciaAccesa2","alias":["TorciaCascata", "TorciaDestra", "TorciaDx"]},
     {"isPickable":false,"isDroppable":false,"name":"Brace","alias":["Accendino", "Carboni"]}]},
 
 {"name":"Stanza4","currentState":"Start",
@@ -42,7 +42,8 @@
 
 {"name":"Stanza7","currentState":"Start",
   "agents":[
-    {"isPickable":true,"isDroppable":true,"name":"Nekhekh","alias":["Nekek", "Nek", "Flagello"]}]},
+    {"isPickable":true,"isDroppable":true,"name":"Nekhekh","alias":["Nekek", "Nek", "Flagello"]},
+    {"isPickable":false,"isMovable":false,"name":"Mattonella","alias":["Mattonelle", "Piastrelle", "Mattoni", "Meccanismo", "Mattone", "Piastrella", "Pavimento"]}]},
 
 {"name":"Stanza8","currentState":"Start",
   "agents":[

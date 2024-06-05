@@ -1,5 +1,8 @@
 package org.it.uniba.minima.Entity;
 
+import org.it.uniba.minima.Database.DatabaseConnection;
+import org.it.uniba.minima.Type.CommandType;
+
 import java.util.*;
 
 public class Room {
@@ -11,9 +14,8 @@ public class Room {
         this.agents = new ArrayList<>();
     }
 
-    public String getDescription() {
-        //call database with currentState
-        return "Substitute this with the description of the room";
+    public void printDescription() {
+        DatabaseConnection.printFromDB("Osserva", name, currentState, "0", "0", "0");
     }
 
     public void setState(String state) {
