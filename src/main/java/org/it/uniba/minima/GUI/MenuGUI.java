@@ -1,7 +1,6 @@
 package org.it.uniba.minima.GUI;
 import org.it.uniba.minima.Boundary.outputDisplayManager;
 import org.it.uniba.minima.Control.GameManager;
-import org.it.uniba.minima.Control.Serializer;
 import org.it.uniba.minima.Database.DatabaseConnection;
 import org.it.uniba.minima.Entity.Game;
 import org.it.uniba.minima.Mixer;
@@ -15,7 +14,9 @@ import javax.swing.plaf.metal.MetalButtonUI;
 import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.sql.Connection;
 
 
@@ -285,10 +286,11 @@ private void helpActionPerformed(java.awt.event.ActionEvent evt) {
 }
 
 private void loadGameActionPerformed(java.awt.event.ActionEvent evt) throws IOException, ClassNotFoundException {
-    Game game = Serializer.deserialize();
-    //GameGUI.setGame(game);
+    BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    GameManager gameManager = new GameManager();
+    Game game = gameManager.loadGame();
     CardLayout cl = (CardLayout) getParent().getLayout();
-    // get timer from file -> Timer.start();
+    cl.show(getParent(), "GameGUI");
 }
 
 private void creditsActionPerformed(java.awt.event.ActionEvent evt) {
