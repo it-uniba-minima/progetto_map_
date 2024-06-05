@@ -28,7 +28,7 @@ public class DatabaseHandler extends HttpHandler {
         PrintWriter out = new PrintWriter(response.getWriter());
         try (Connection conn = DriverManager.getConnection("jdbc:h2:./src/main/resources/database/db_map", "sa", "");
              Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT STANZA, STATO FROM DESCRIZIONI")) {
+             ResultSet rs = stmt.executeQuery("SELECT * FROM CLASSIFICA ORDER BY TEMPO" )) {
             out.println("<!DOCTYPE html>\n" +
                     "<html lang=\"en\">\n" +
                     "<head>\n" +
@@ -124,8 +124,19 @@ public class DatabaseHandler extends HttpHandler {
                     "            <li><a href=\"#section4\">Sviluppatori \uD83D\uDC68\u200D\uD83D\uDCBB\uD83E\uDD13</a></li>\n" +
                     "        </ul>\n" +
                     "\n" +
-                    "        <h1 id=\"section1\">MIGLIORI TEMPI DI GIOCO\uD83C\uDFC6</h1>\n" +
-                    "        <p>Fusce pulvinar odio vitae eros efficitur...</p>\n" +
+                    "        <h1 id=\"section1\">MIGLIORI TEMPI DI GIOCO\uD83C\uDFC6</h1>\n" );
+                                out.println("<html><body><table border='10'>");
+                                out.println("<tr><th> USERNAME </th><th> TEMPO </th><th> FINALE </th></tr>");
+                                while (rs.next()) {
+                                    out.println("<tr><td>" + rs.getString("USERNAME") + "</td><td>" + rs.getString("TEMPO") + "</td><td>" +rs.getString("FINALE") + "</td></tr>");
+                                }
+                                out.println("</table></body></html>");
+
+                            } catch (SQLException e) {
+                                out.println("SQL Error: " + e.getMessage());
+                                e.printStackTrace(out);
+                            }
+                            out.println(
                     "        <a href=\"#top\">Torna all'indice</a>\n" +
                     "\n" +
                     "        <h1 id=\"section2\">MANUALE UTENTE\uD83C\uDFAE</h1>\n" +
@@ -190,17 +201,7 @@ public class DatabaseHandler extends HttpHandler {
                     "</script>\n" +
                     "</body>\n" +
                     "</html>\n");
-            out.println("<html><body><table border='10'>");
-            out.println("<tr><th> Nome </th><th> Tempo </th></tr>");
-            while (rs.next()) {
-                out.println("<tr><td>" + rs.getString("STANZA") + "</td><td>" + rs.getString("STATO") + "</td></tr>");
-            }
-            out.println("</table></body></html>");
 
-        } catch (SQLException e) {
-            out.println("SQL Error: " + e.getMessage());
-            e.printStackTrace(out);
-        }
     }
 
     private void handlePost(Request request, Response response) throws IOException {
