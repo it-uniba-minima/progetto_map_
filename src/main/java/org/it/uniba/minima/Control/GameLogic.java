@@ -136,10 +136,9 @@ public class GameLogic {
              */
             return true;
         }
-        if (i1.hasName("Piuma") && i2.hasName("Pergamena")) {
-            // TODO: aggiungi start del gioco del crittogramma
-            game.setRoomState("Stanza4", "Corretto");
-            game.unlockCorridor("Stanza4", "Stanza5");
+        if (i1.hasName("Piuma") && i2.hasName("Pergamena") && game.getCurrentRoom().getState().equals("Start")) {
+            userInputFlow.Event = 4;
+            GameGUI.setImagePanel("Impiccato");
             return true;
         }
 
@@ -321,11 +320,6 @@ public class GameLogic {
             GameGUI.setImagePanel("Mattonelle");
             return true;
         }
-//        if (c == CommandType.PARLA && a.hasName("Sacerdote") && game.getCurrentRoom().getState().equals("Start")) {
-//            userInputFlow.Event = 4;
-//            outputDisplayManager.displayText("Hai iniziato l'impiccato!");
-//        }
-
         return false;
     }
 }
