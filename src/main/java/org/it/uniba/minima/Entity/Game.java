@@ -73,9 +73,9 @@ public class Game {
     }
 
     public void printInventory() {
-        outputDisplayManager.displayText("Inventory: \n");
+        outputDisplayManager.displayText("> Inventario: ");
         for (Item item : inventory) {
-            outputDisplayManager.displayText(item.getName());
+            outputDisplayManager.displayText(">  - " + item.getName());
         }
     }
 
