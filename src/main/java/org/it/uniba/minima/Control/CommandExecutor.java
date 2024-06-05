@@ -194,7 +194,7 @@ public class CommandExecutor {
                                             outputDisplayManager.displayText("> Non puoi unire " + p.getAgent1().getName() + " con " + p.getAgent2().getName() + "!");
                                         }
                                     } else {
-                                        outputDisplayManager.displayText("> La tua borsa non è quella di Mary Poppins!" + p.getAgent1().getName() + " o " + p.getAgent2().getName() + " non sono nell'inventario!");
+                                        outputDisplayManager.displayText("> La tua borsa non è quella di Mary Poppins! " + p.getAgent1().getName() + " o " + p.getAgent2().getName() + " non sono nell'inventario!");
                                     }
                                 })
         ));

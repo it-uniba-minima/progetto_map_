@@ -312,7 +312,10 @@ public class GameLogic {
     }
 
     public boolean launchSpecialEvent(CommandType c, Agent a) {
-        if (c == CommandType.OSSERVA && a.hasName("Mattonella") && game.getCurrentRoom().getState().equals("Start")) {
+        if (c == CommandType.OSSERVA && a.hasName("Mattonella")
+            && game.getCurrentRoom().getState().equals("Start")
+            || game.getCurrentRoom().getState().equals("Sbagliato")) {
+            
             userInputFlow.Event = 3;
             GameGUI.setImagePanel("Mattonelle");
             return true;

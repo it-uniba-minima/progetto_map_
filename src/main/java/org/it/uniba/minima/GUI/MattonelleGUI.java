@@ -2,6 +2,7 @@ package org.it.uniba.minima.GUI;
 
 import org.it.uniba.minima.Boundary.outputDisplayManager;
 import org.it.uniba.minima.Control.userInputFlow;
+import org.it.uniba.minima.Database.DatabaseConnection;
 import org.it.uniba.minima.Entity.Game;
 
 import javax.swing.*;
@@ -913,7 +914,7 @@ public class MattonelleGUI extends javax.swing.JPanel {
 
     private void G2ActionPerformed(java.awt.event.ActionEvent evt) {
         makeVisible('G');
-        outputDisplayManager.displayText("Hai vinto!");
+        DatabaseConnection.printFromDB("0", "Stanza7", "Corretto", "0", "Mattonella", "0");
         userInputFlow.Event = 0;
         Game game = Game.getInstance();
         game.setRoomState("Stanza7", "Corretto");
@@ -983,6 +984,11 @@ public class MattonelleGUI extends javax.swing.JPanel {
     }
     
     public void resetAllMattonelle() {
+        userInputFlow.Event = 0;
+        Game game = Game.getInstance();
+        game.setRoomState("Stanza7", "Sbagliato");
+        GameGUI.setImagePanel(game.getCurrentRoom().getName());
+        DatabaseConnection.printFromDB("0", "Stanza7", "Sbagliato", "0", "Mattonella", "0");
         A1.setText("");
         A2.setText("");
         A3.setText("");

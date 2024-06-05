@@ -59,7 +59,6 @@ public class TriviaGame {
         guess = (guessType == 1) ? "True" : "False";
 
         if (guess.equalsIgnoreCase(correctAnswer)) {
-            outputDisplayManager.displayText("> \"Bravo nipotina, è corretto! Ancora " + correctAnswer + ".\"");
             correctAnswers++;
             if (correctAnswers == 3) {
                 Game game = Game.getInstance();
@@ -67,6 +66,8 @@ public class TriviaGame {
                 game.setRoomState("Stanza6", "Corretto");
                 game.unlockCorridor("Stanza6", "Stanza10");
                 userInputFlow.Event = 0;
+            } else {
+                outputDisplayManager.displayText("> \"Bravo nipotino, è corretto! Ancora " + (3 - correctAnswers) + ".\"");
             }
         } else {
             correctAnswers = 0;
