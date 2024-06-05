@@ -86,7 +86,7 @@ public class CommandExecutor {
                                 outputDisplayManager.displayText("> Hai già " + p.getAgent1().getName() + " nell'inventario!");
                             } else if (game.getCurrentRoom().getAgents().contains(p.getAgent1())) {
                                 if (((Item) p.getAgent1()).isPickable()) {
-                                    game.getInventory().add((Item) p.getAgent1());
+                                    game.addInventory((Item) p.getAgent1());
                                     game.getCurrentRoom().getAgents().remove(p.getAgent1());
                                     gameLogic.executeTake((Item) p.getAgent1());
                                     outputDisplayManager.displayText("> Hai raccolto: " + p.getAgent1().getName() + "!");
@@ -105,7 +105,7 @@ public class CommandExecutor {
                         p -> {
                             if (game.getInventory().contains(p.getAgent1())) {
                                 outputDisplayManager.displayText("> Hai lasciato cadere: " + p.getAgent1().getName() + "!");
-                                game.getInventory().remove(p.getAgent1());
+                                game.removeInventory((Item) (p.getAgent1()));
                                 game.getCurrentRoom().getAgents().add(p.getAgent1());
                             } else if (game.getCurrentRoom().getAgents().contains(p.getAgent1())) {
                                 outputDisplayManager.displayText("> " + p.getAgent1().getName() + " è già per terra nella stanza!");
