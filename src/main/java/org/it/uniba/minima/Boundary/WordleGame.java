@@ -1,5 +1,7 @@
 package org.it.uniba.minima.Boundary;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
@@ -12,6 +14,10 @@ import org.it.uniba.minima.GUI.Wordle;
 
 import javax.xml.crypto.Data;
 import java.awt.*;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 
 public class WordleGame {
@@ -19,29 +25,30 @@ public class WordleGame {
     protected int currentTry = 0;
     protected final int MaxLetters = 5;
     protected String GuessingWord;
+    protected String[] charGuessingWord;
     private WordleGame instance;
 
     public WordleGame() {
-        /*
+    StringBuilder result = new StringBuilder();
         try {
-            HttpResponse<String> response = Unirest.get("https://random-words5.p.rapidapi.com/getRandom?wordLength=5")
-                    .header("X-RapidAPI-Key", "5339375a8fmshfa0b0925e33764fp13145cjsn20bc586a6e62")
-                    .header("X-RapidAPI-Host", "random-words5.p.rapidapi.com")
-                    .asString();
-            GuessingWord = response.getBody().toUpperCase();
-        } catch (UnirestException e) {
+            URL url = new URL("https://api.wordnik.com/v4/words.json/randomWord?hasDictionaryDef=true&includePartOfSpeech=noun%2Cadjective%2Cverb&maxCorpusCount=-1&minDictionaryCount=1&maxDictionaryCount=-1&minLength=5&maxLength=5&api_key=xf9xabc1q8xk38n6g4l9g5y20mm5ez9tkguat9pv7szu9edharw");
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
+                for (String line; (line = reader.readLine()) != null; ) {
+                    result.append(line);
+                }
+            }
+            String json = result.toString();
+            JsonObject jsonObject = JsonParser.parseString(json).getAsJsonObject();
+            GuessingWord = jsonObject.get("word").getAsString();
+            GuessingWord = GuessingWord.toUpperCase();
+            charGuessingWord = GuessingWord.split("");
+        } catch (Exception e) {
             e.printStackTrace();
         }
-         */
-        GuessingWord = "HELLO";
-    }
-
-
-    public void checkAttempts (int attempts) {
-        if (attempts > MaxAttempts) {
-           outputDisplayManager.displayText("Sei a corto di tentativi, la parola era " + GuessingWord);
-        }
-        //return 0;
+        //GuessingWord = "HELLO";
     }
 
     public void printSplittedText(String text) {
@@ -77,10 +84,10 @@ public class WordleGame {
 
     public boolean checkLenght(String text) {
         if (text.length() != 5) {
-        outputDisplayManager.displayText("La parola inserita non è valida, inserire una parola di 5 lettere.");
+            outputDisplayManager.displayText("La parola inserita non è valida, inserire una parola di 5 lettere.");
             return false;
         }
-         return true;
+        return true;
     }
 
     public String[] SplittedText(String text) {
@@ -93,19 +100,20 @@ public class WordleGame {
     }
 
     public void checkGuess(String guess) {
-        for (int i = 0; i < 5; i++) {
-            if (guess.charAt(i) == GuessingWord.charAt(i)) {
+        String[] charAlreadyGuessed = guess.split("");
+        for(int i = 0; i < 5; i++) {
+            if (charGuessingWord[i].equals(charAlreadyGuessed[i])) {
                 changeBoxColor(currentTry, i, new Color(24, 159, 10));
-            } else if (GuessingWord.contains(String.valueOf(guess.charAt(i)))) {
-                changeBoxColor(currentTry, i, new Color(213, 173, 0));
+                charGuessingWord[i] = "";
             }
-            else {
-                changeBoxColor(currentTry, i, new Color(52, 59, 66));
+        }
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                if (charGuessingWord[i].equals(charAlreadyGuessed[j])) {
+                    changeBoxColor(currentTry, i, new Color(255, 0, 0));
+                    charGuessingWord[i] = "";
+                }
             }
         }
     }
 }
-
-
-
-

@@ -61,6 +61,7 @@ public class GameGUI extends javax.swing.JPanel {
         //so that you can retrieve them by index in, for example, the getWordle method
         imagePanel.add(new Wordle(), "Wordle");
         imagePanel.add(new MattonelleGUI(), "Mattonelle");
+        imagePanel.add(new ImpiccatoGUI(), "Impiccato");
 
         imagePanel.add(new JPanel(null) {
             {
