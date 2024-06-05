@@ -15,6 +15,7 @@ public class userInputFlow {
     private static Parser parser = new Parser();
     private static CommandExecutor commandExecutor = new CommandExecutor(Game.getInstance());
     private static WordleGame wordleGame = new WordleGame();
+    private static HangmanGame hangmanGame = new HangmanGame();
 
     //WordleGame wordleGame = new WordleGame();
 
@@ -43,7 +44,7 @@ public class userInputFlow {
     }
 
     private static void hangmanFlow(String text) {
-        HangmanGame.HangmanFlow(text);
+        hangmanGame.HangmanFlow(text);
     }
 
     public static void triviaFlow(String text) {
