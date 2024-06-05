@@ -37,7 +37,7 @@ public class WordleGame {
                 result.append(line);
             }
         }
-        GuessingWord = result.toString().replace("[", "").replace("]", "").replace("\"", "").toUpperCase();
+        GuessingWord = result.toString().replace("[", "").replace("]", "").replace("\"", "").replace("&quot;", "\"").replace("&amp;", "&").replace("&apos;", "'").replace("&lt;", "<").replace("&gt;", ">").replace("&#039;", "'").toUpperCase();
     }
 
     public void checkAttempts (int attempts) {
