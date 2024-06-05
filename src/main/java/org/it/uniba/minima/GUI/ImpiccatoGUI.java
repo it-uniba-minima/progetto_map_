@@ -9,15 +9,15 @@ import java.awt.*;
  * @author miche
  */
 public class ImpiccatoGUI extends javax.swing.JPanel {
-    private JLabel jLabel1;
+    private static JLabel jLabel1;
     private final Image backgroundImage;
     private static ImpiccatoGUI impiccatoGUI;
+    private final char[] guessedLetters = new char[34];
 
     /**
      * Creates new form cryptedTextGUI
      */
     public ImpiccatoGUI() {
-        // Load the background image
         backgroundImage = new ImageIcon("docs/img/hangman.png").getImage();
         initComponents();
         impiccatoGUI = this;
@@ -40,7 +40,7 @@ public class ImpiccatoGUI extends javax.swing.JPanel {
         setMinimumSize(new java.awt.Dimension(440, 400));
         setPreferredSize(new java.awt.Dimension(440, 400));
 
-        jLabel1.setFont(new java.awt.Font("Papyrus", Font.BOLD, 36)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Papyrus", Font.BOLD, 24)); // NOI18N
         jLabel1.setFocusable(false);
         jLabel1.setText("<html><center>__ _____ _____ ________ __ _______</center></html>");
 
@@ -83,18 +83,30 @@ public class ImpiccatoGUI extends javax.swing.JPanel {
     // Variables declaration - do not modify
     // End of variables declaration
 
-    public void setLetter(int i, char c, String phrase) {
+    public void setLetter(String phrase, char guessedLetter) {
         SwingUtilities.invokeLater(() -> {
-            String currentText = jLabel1.getText().replaceAll("<[^>]*>", "");
-            StringBuilder newText = new StringBuilder(currentText);
-            if (phrase.charAt(i) == ' ') {
-                newText.setCharAt(i, ' ');
-            } else {
-                newText.setCharAt(i, c);
+            for (int i = 0; i < phrase.length(); i++) {
+                if (phrase.charAt(i) == guessedLetter || guessedLetters[i] != 0) {
+                    guessedLetters[i] = phrase.charAt(i);
+                }
             }
-            jLabel1.setText("<html><center>" + newText.toString() + "</center></html>");
+            StringBuilder sb = new StringBuilder();
+            for (char letter : guessedLetters) {
+                if (letter == guessedLetter) {
+                    sb.append(guessedLetter);
+                } else if (letter != 0) {
+                    sb.append(letter);
+                } else if (phrase.charAt(sb.length()) == ' '){
+                    sb.append(' ');
+                } else {
+                    sb.append('_');
+                }
+            }
+            jLabel1.setText("<html><center>" + sb.toString() + "</center></html>");
         });
     }
+
+
 
     public void setPhrase(String phrase) {
         SwingUtilities.invokeLater(() -> jLabel1.setText("<html><center>" + phrase + "</center></html>"));
