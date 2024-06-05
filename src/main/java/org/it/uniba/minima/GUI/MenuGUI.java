@@ -3,6 +3,7 @@ import org.it.uniba.minima.Boundary.outputDisplayManager;
 import org.it.uniba.minima.Control.GameManager;
 import org.it.uniba.minima.Control.Serializer;
 import org.it.uniba.minima.Database.DatabaseConnection;
+import org.it.uniba.minima.Database.REST_Server;
 import org.it.uniba.minima.Entity.Game;
 import org.it.uniba.minima.Mixer;
 import org.it.uniba.minima.TimerManager;
@@ -16,6 +17,8 @@ import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.sql.Connection;
 
 
@@ -76,7 +79,13 @@ public class MenuGUI extends javax.swing.JPanel{
         site.setPreferredSize(new java.awt.Dimension(60, 60));
         site.addActionListener(new java.awt.event.ActionListener() {
     public void actionPerformed(java.awt.event.ActionEvent evt) {
-        siteActionPerformed(evt);
+        try {
+            siteActionPerformed(evt);
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 });
 
@@ -293,11 +302,21 @@ private void loadGameActionPerformed(java.awt.event.ActionEvent evt) throws IOEx
 
 private void creditsActionPerformed(java.awt.event.ActionEvent evt) {
     CardLayout cl = (CardLayout) getParent().getLayout();
-    cl.show(getParent(), "RiconoscimentiGUI");    }
+    cl.show(getParent(), "RiconoscimentiGUI");}
 
-private void siteActionPerformed(java.awt.event.ActionEvent evt) {
-    // TODO add your handling code here:
+private void siteActionPerformed(java.awt.event.ActionEvent evt) throws URISyntaxException, IOException {
+    REST_Server server = new REST_Server();
+    try {
+        server.startServer();
+
+        if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+            Desktop.getDesktop().browse(new URI("http://localhost:8080/api/data"));
+        }
+    } catch (IOException | URISyntaxException e) {
+        e.printStackTrace();
+    }
 }
+
 
 public static void musicButtonSetTextMenu(String text) {
     sound.setText(text);
