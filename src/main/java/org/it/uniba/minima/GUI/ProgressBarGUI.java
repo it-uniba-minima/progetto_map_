@@ -1,12 +1,13 @@
 package org.it.uniba.minima.GUI;
 import javax.swing.*;
+import javax.swing.plaf.basic.BasicProgressBarUI;
 import java.awt.*;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 
 /**
- *
- * @author miche
+ * ProgressBarGUI is a custom JPanel that displays a progress bar with a running animation.
+ * Author: miche
  */
 public class ProgressBarGUI extends javax.swing.JPanel {
 
@@ -14,6 +15,8 @@ public class ProgressBarGUI extends javax.swing.JPanel {
     private int x;
     private final ImageIcon img;
     private final PropertyChangeSupport support;
+    private JLabel progressBarLabel;
+
     /**
      * Creates new form ProgressBarGUI
      */
@@ -45,12 +48,12 @@ public class ProgressBarGUI extends javax.swing.JPanel {
             if (counter < 100) {
                 counter++;
                 progressBar.setValue(counter);
-                progressBar.setString("Loading... " + counter + "%");
+                progressBarLabel.setText("Loading... " + counter + "%");
                 x = (int) ((double) counter / 100 * (panelWidth + imgWidth)) - imgWidth;
                 runningGIFPanel.repaint();
             } else {
                 ((Timer) e.getSource()).stop();
-                progressBar.setString("Get Ready to Play!");
+                progressBarLabel.setText("Get Ready to Play!");
 
                 Timer delayTimer = new Timer(1000, e1 -> {
                     ((Timer) e1.getSource()).stop();
@@ -60,7 +63,6 @@ public class ProgressBarGUI extends javax.swing.JPanel {
             }
         });
         timer.start();
-
     }
 
     /**
@@ -74,13 +76,13 @@ public class ProgressBarGUI extends javax.swing.JPanel {
         backgroundPanel = new javax.swing.JPanel();
         runningGIFPanel = new JPanel();
         progressBar = new javax.swing.JProgressBar();
+        progressBarLabel = new JLabel("Loading... 0%");
 
         setMaximumSize(new java.awt.Dimension(800, 600));
         setMinimumSize(new java.awt.Dimension(800, 600));
         setPreferredSize(new java.awt.Dimension(800, 600));
 
-        backgroundPanel = new javax.swing.JPanel()
-        {
+        backgroundPanel = new javax.swing.JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -91,8 +93,7 @@ public class ProgressBarGUI extends javax.swing.JPanel {
         };
 
         runningGIFPanel.setPreferredSize(new Dimension(482, 161));
-        runningGIFPanel = new JPanel()
-        {
+        runningGIFPanel = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -115,12 +116,53 @@ public class ProgressBarGUI extends javax.swing.JPanel {
 
         progressBar.setFont(new java.awt.Font("Papyrus", 1, 24));
         progressBar.setForeground(new java.awt.Color(204, 173, 27));
-        progressBar.setBackground(new Color(204, 173, 27));
-        progressBar.setBorder(BorderFactory.createLineBorder(new Color(107, 90, 13), 5));
+        progressBar.setBackground(new java.awt.Color(107, 90, 13));
+        progressBar.setOpaque(true);
+        progressBar.setBorder(BorderFactory.createLineBorder(new java.awt.Color(107, 90, 13), 5));
         progressBar.setMaximumSize(new java.awt.Dimension(482, 48));
         progressBar.setMinimumSize(new java.awt.Dimension(482, 48));
         progressBar.setPreferredSize(new java.awt.Dimension(482, 48));
-        progressBar.setStringPainted(true);
+        progressBar.setStringPainted(false); // Disable the default string painting
+
+        // Remove the blue frame by customizing the UI
+        progressBar.setUI(new BasicProgressBarUI() {
+            @Override
+            protected void paintDeterminate(Graphics g, JComponent c) {
+                if (!(g instanceof Graphics2D)) {
+                    return;
+                }
+
+                Insets b = progressBar.getInsets(); // area for border
+                int width = progressBar.getWidth();
+                int height = progressBar.getHeight();
+                int barRectWidth = width - (b.right + b.left);
+                int barRectHeight = height - (b.top + b.bottom);
+
+                if (barRectWidth <= 0 || barRectHeight <= 0) {
+                    return;
+                }
+
+                // Paint the background.
+                Graphics2D g2d = (Graphics2D) g;
+                g2d.setColor(progressBar.getBackground());
+                g2d.fillRect(b.left, b.top, barRectWidth, barRectHeight);
+
+                // Paint the progress bar
+                int amountFull = getAmountFull(b, barRectWidth, barRectHeight);
+
+                g2d.setColor(progressBar.getForeground());
+                g2d.fillRect(b.left, b.top, amountFull, barRectHeight);
+            }
+        });
+
+        // Configure the label
+        progressBarLabel.setFont(new java.awt.Font("Papyrus", 1, 24));
+        progressBarLabel.setForeground(new java.awt.Color(255, 255, 255)); // Set the text color to black
+        progressBarLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
+        // Add the label to the progress bar
+        progressBar.setLayout(new BorderLayout());
+        progressBar.add(progressBarLabel, BorderLayout.CENTER);
 
         javax.swing.GroupLayout backgroundPanelLayout = new javax.swing.GroupLayout(backgroundPanel);
         backgroundPanel.setLayout(backgroundPanelLayout);
@@ -156,7 +198,6 @@ public class ProgressBarGUI extends javax.swing.JPanel {
                         .addComponent(backgroundPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>
-
 
     // Variables declaration - do not modify
     private javax.swing.JPanel runningGIFPanel;
