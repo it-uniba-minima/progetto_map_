@@ -12,6 +12,11 @@ import org.it.uniba.minima.GUI.Wordle;
 
 import javax.xml.crypto.Data;
 import java.awt.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 
 public class WordleGame {
@@ -21,21 +26,19 @@ public class WordleGame {
     protected String GuessingWord;
     private WordleGame instance;
 
-    public WordleGame() {
-        /*
-        try {
-            HttpResponse<String> response = Unirest.get("https://random-words5.p.rapidapi.com/getRandom?wordLength=5")
-                    .header("X-RapidAPI-Key", "5339375a8fmshfa0b0925e33764fp13145cjsn20bc586a6e62")
-                    .header("X-RapidAPI-Host", "random-words5.p.rapidapi.com")
-                    .asString();
-            GuessingWord = response.getBody().toUpperCase();
-        } catch (UnirestException e) {
-            e.printStackTrace();
+    public WordleGame() throws IOException {
+        StringBuilder result = new StringBuilder();
+        URL url = new URL("https://random-word-api.herokuapp.com/word?lang=it&length=5");
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setRequestMethod("GET");
+        try (BufferedReader reader = new BufferedReader(
+                new InputStreamReader(conn.getInputStream()))) {
+            for (String line; (line = reader.readLine()) != null; ) {
+                result.append(line);
+            }
         }
-         */
-        GuessingWord = "HELLO";
+        GuessingWord = result.toString().replace("[", "").replace("]", "").replace("\"", "").toUpperCase();
     }
-
 
     public void checkAttempts (int attempts) {
         if (attempts > MaxAttempts) {
