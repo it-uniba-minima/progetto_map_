@@ -136,7 +136,7 @@ public class GameLogic {
              */
             return true;
         }
-        if (i1.hasName("Piuma") && i2.hasName("Pergamena") && game.getCurrentRoom().getState().equals("Start")) {
+        if (i1.hasName("Piuma") && i2.hasName("Pergamena") && game.getCurrentRoom().getState().equals("Start") || game.getCurrentRoom().getState().equals("Sbagliato")) {
             userInputFlow.Event = 4;
             GameGUI.setImagePanel("Impiccato");
             return true;
@@ -313,8 +313,8 @@ public class GameLogic {
 
     public boolean launchSpecialEvent(CommandType c, Agent a) {
         if (c == CommandType.OSSERVA && a.hasName("Mattonella")
-            && game.getCurrentRoom().getState().equals("Start")
-            || game.getCurrentRoom().getState().equals("Sbagliato")) {
+        && (game.getCurrentRoom().getState().equals("Start")
+            || game.getCurrentRoom().getState().equals("Sbagliato"))) {
             
             userInputFlow.Event = 3;
             GameGUI.setImagePanel("Mattonelle");
