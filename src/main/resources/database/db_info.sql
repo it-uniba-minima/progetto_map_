@@ -261,7 +261,8 @@ INSERT INTO DESCRIZIONI (ID, COMANDO, STANZA, STATO, PERSONAGGIO, OGGETTO1, OGGE
     (257, 'Osserva', 'Stanza10', 'OsirideNekhekh', '0', 'Sarcofago', '0', '> Un sarcofago addobbato, il suo interno è ricoperto di seta per renderlo più confortevole al faraone.'),
     (258, 'Osserva', 'Stanza10', 'OsirideEnd', '0', 'Sarcofago', '0', '> Un sarcofago addobbato, il suo interno è ricoperto di seta per renderlo più confortevole al faraone.'),
     (259, '0', 'Stanza7', 'Corretto', '0', '0', '0', '> Entri nella stanza, ma non noti niente di utile al suo interno.'),
-    (260, '0', 'Stanza7', 'Sbagliato', '0', '0', '0', '> Entri nella stamza più determinato a riprovare il puzzle.'),
-    (261, 'Osserva', 'Stanza7', 'Sbagliato', '0', 'Mattonella', '0', '> Ti ricordi perfettamente che la mattonella per iniziare è quella centrale.');
+    (260, '0', 'Stanza7', 'Sbagliato', '0', '0', '0', '> Entri nella stanza più determinato a riprovare il puzzle.'),
+    (261, 'Osserva', 'Stanza7', 'Sbagliato', '0', 'Mattonella', '0', '> Ti ricordi perfettamente che la mattonella per iniziare è quella centrale.'),
+    (262, 'Osserva', 'Stanza7', 'Sbagliato', '0', '0', '0', '> Le trappolle sono state disattivate, puoi riprovare il puzzle.');
 
 
