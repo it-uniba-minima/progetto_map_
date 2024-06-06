@@ -1,13 +1,23 @@
 package org.it.uniba.minima.Entity;
-
 import org.it.uniba.minima.Database.DatabaseConnection;
 
+/**
+ * The class that represent an item.
+ */
 public class Item extends Agent{
+    /**
+     * Represents if the item is pickable.
+     */
     boolean isPickable;
+    /**
+     * Represents if the item is movable.
+     */
     boolean isMovable;
 
-    public Item() {}
-
+    /**
+     * Prints the description of the item.
+     */
+    @Override
     public void getDescription(Room room) {
         String name = getName();
         if (isMovable) {
@@ -17,14 +27,20 @@ public class Item extends Agent{
         }
     }
 
+    /**
+     * Returns if the item is pickable.
+     *
+     * @return isPickable
+     */
     public boolean isPickable() {
         return isPickable;
     }
 
-    public boolean isMovable() {
-        return isMovable;
-    }
-
+    /**
+     * Sets if the item is pickable.
+     *
+     * @param b if the item is pickable
+     */
     public void setPickable(boolean b) {
         isPickable = b;
     }
