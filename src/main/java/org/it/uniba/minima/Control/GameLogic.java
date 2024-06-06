@@ -1,7 +1,5 @@
 package org.it.uniba.minima.Control;
-import org.it.uniba.minima.Boundary.HangmanGame;
 import org.it.uniba.minima.Boundary.TriviaGame;
-import org.it.uniba.minima.Boundary.outputDisplayManager;
 import org.it.uniba.minima.Entity.Agent;
 import org.it.uniba.minima.Entity.Personage;
 import org.it.uniba.minima.Entity.Game;
@@ -9,32 +7,68 @@ import org.it.uniba.minima.Entity.Item;
 import org.it.uniba.minima.GUI.GameGUI;
 import org.it.uniba.minima.Type.CommandType;
 
+/**
+ * The class that manages the game logic.
+ */
 public class GameLogic {
+
+    /**
+     * The game instance.
+     */
     Game game;
 
+    /**
+     * Constructor of the class.
+     *
+     * @param game the game instance
+     */
     public GameLogic(Game game) {
         this.game = game;
     }
 
-    public boolean executeUseSingleItem(Item i) {
-        if (i.hasName("Pala") && game.getCurrentRoom().getName().equals("Desert")
-            && !game.getCurrentRoom().getAgents().contains(GameManager.getAgentFromName("Chiave"))
-            && !game.getInventory().contains(GameManager.getAgentFromName("Chiave"))) {
+    /**
+     * The actions to perform when the player looks at an agent.
+     *
+     * @param a the agent to look at
+     */
+    public void executeLook(Agent a) {
+        if (a.hasName("Mattonella")
+                && (game.getCurrentRoom().getState().equals("Start")
+                || game.getCurrentRoom().getState().equals("Sbagliato"))) {
 
-            game.addInventory((Item) GameManager.getAgentFromName("Chiave"));
+            UserInputFlow.Event = 3;
+            GameGUI.setImagePanel("Mattonelle");
+        }
+    }
+
+    /**
+     * The actions to perform when the player takes an item.
+     *
+     * @param i the item to take
+     * @return true if the action is performed, false otherwise
+     */
+    public boolean executeTake(Item i) {
+        if ((i.hasName("TorciaAccesa1") || i.hasName("TorciaAccesa2")) && !game.getRoomState("Stanza1").equals("Torcia1")) {
+            game.setRoomState("Stanza1", "Luce");
             return true;
         }
         return false;
     }
 
+    /**
+     * The actions to perform when the player talks to a personage.
+     *
+     * @param c the personage to talk to
+     * @return true if the action is performed, false otherwise
+     */
     public boolean talkToPersonage(Personage c) {
         if (c.hasName("Sfinge") && game.getCurrentRoom().getState().equals("Start")) {
-            userInputFlow.Event = 1;
-            GameGUI.setImagePanel("Wordle");
+            UserInputFlow.Event = 1;
+            GameGUI.setImagePanel("WordleGUI");
             return true;
         }
-        if (c.hasName("Mummia") && game.getCurrentRoom().getState().equals("Start") || game.getCurrentRoom().getState().equals("Sbagliato")) {
-            userInputFlow.Event = 2;
+        if (c.hasName("Mummia") && (game.getCurrentRoom().getState().equals("Start") || game.getCurrentRoom().getState().equals("Sbagliato"))) {
+            UserInputFlow.Event = 2;
             TriviaGame.getQAndA();
             return true;
         }
@@ -46,12 +80,36 @@ public class GameLogic {
             return true;
         }
         if (c.hasName("Osiride") && game.getCurrentRoom().getState().equals("OsirideEnd")) {
-            userInputFlow.Event = 6;
+            UserInputFlow.Event = 6;
             return true;
         }
         return false;
     }
 
+    /**
+     * The actions to perform when the player uses a single item.
+     *
+     * @param i the item used
+     * @return true if the action is performed, false otherwise
+     */
+    public boolean executeUseSingleItem(Item i) {
+        if (i.hasName("Pala") && game.getCurrentRoom().getName().equals("Desert")
+                && !game.getCurrentRoom().getAgents().contains(GameManager.getAgentFromName("Chiave"))
+                && !game.getInventory().contains(GameManager.getAgentFromName("Chiave"))) {
+
+            game.addInventory((Item) GameManager.getAgentFromName("Chiave"));
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * The actions to perform when the player uses a combination of two items that are in their inventory.
+     *
+     * @param i1 the first item
+     * @param i2 the second item
+     * @return true if the action is performed, false otherwise
+     */
     public boolean executeUseCombinationInInventory(Item i1, Item i2) {
         if (i1.hasName("Coltello") && i2.hasName("Bastone")) {
             game.removeInventory(i2);
@@ -81,20 +139,13 @@ public class GameLogic {
         return false;
     }
 
-    public boolean executeTake(Item i) {
-        if (i.hasName("TorciaAccesa2") && game.getCurrentRoom().getState().equals("AcquaOn")) {
-            game.removeInventory(i);
-            game.getCurrentRoom().addAgent(GameManager.getAgentFromName("TorciaSpenta2"));
-            // TODO: lancia messagio da db da fare
-            return true;
-        }
-        if ((i.hasName("TorciaAccesa1") || i.hasName("TorciaAccesa2")) && !game.getRoomState("Stanza1").equals("Torcia1")) {
-            game.setRoomState("Stanza1", "Luce");
-            return true;
-        }
-        return false;
-    }
-
+    /**
+     * The actions to perform when the player uses a combination of an item in their inventory and an item in the room.
+     *
+     * @param i1 the item in the inventory
+     * @param i2 the item in the room
+     * @return true if the action is performed, false otherwise
+     */
     public boolean executeUseCombinationInRoom(Item i1, Item i2) {
         if (i1.hasName("Chiave") && i2.hasName("Porta")) {
             game.unlockCorridor("Desert", "Stanza1");
@@ -112,11 +163,6 @@ public class GameLogic {
             torcia2.setPickable(true);
             return true;
         }
-        if (i1.hasName("TorciaSpenta2") && i2.hasName("Brace")) {
-            game.removeInventory(i1);
-            game.getCurrentRoom().addAgent(GameManager.getAgentFromName("TorciaAccesa2"));
-            return true;
-        }
         if ((i1.hasName("TorciaAccesa1") || i1.hasName("TorciaAccesa2")) && (i2.hasName("Statua"))) {
             game.removeInventory(i1);
             if (game.getCurrentRoom().getState().equals("Luce")) {
@@ -125,23 +171,10 @@ public class GameLogic {
                 game.setRoomState("Stanza1", "Torcia2");
                 game.unlockCorridor("Stanza1", "Stanza4");
             }
-            /*
-            Item insertoX = (Item) GameManager.getAgentFromName("InsertoAccesoX");
-            Item inserto = (Item) GameManager.getAgentFromName("InsertoAcceso");
-
-            if (game.getCurrentRoom().hasAgent(insertoX)) {
-                game.getCurrentRoom().addAgent(inserto);
-                game.unlockCorridor("ingressoPiramide", "Corridoio1");
-                game.setRoomState("ingressoPiramide", "CorridoioAperto");
-            } else {
-                game.getCurrentRoom().addAgent(insertoX);
-                game.setRoomState("ingressoPiramide", "Inserto1Acceso");
-            }
-             */
             return true;
         }
         if (i1.hasName("Piuma") && i2.hasName("Pergamena") && game.getCurrentRoom().getState().equals("Start") || game.getCurrentRoom().getState().equals("Sbagliato")) {
-            userInputFlow.Event = 4;
+            UserInputFlow.Event = 4;
             GameGUI.setImagePanel("Impiccato");
             return true;
         }
@@ -182,8 +215,6 @@ public class GameLogic {
             if (game.getCurrentRoom().getState().equals("Olio")) {
                 game.removeInventory(i1);
                 game.setRoomState("Stanza9", "Vetro");
-            } else {
-                // fai stampa
             }
             return true;
         }
@@ -193,8 +224,6 @@ public class GameLogic {
                 game.removeInventory(i1);
                 game.setRoomState("Stanza9", "Acqua");
                 game.getCurrentRoom().addAgent(GameManager.getAgentFromName("Hekat"));
-            } else {
-                // fai stampa
             }
             return true;
         }
@@ -202,6 +231,13 @@ public class GameLogic {
         return false;
     }
 
+    /**
+     * The actions to perform when the player fuses two items.
+     *
+     * @param i1 the first item
+     * @param i2 the second item
+     * @return true if the action is performed, false otherwise
+     */
     public boolean executeFuseCombination(Item i1, Item i2) {
         if (i1.hasName("FrecciaSmussata") && i2.hasName("Piuma")
         || i1.hasName("Piuma") && i2.hasName("FrecciaSmussata")) {
@@ -290,6 +326,13 @@ public class GameLogic {
         return false;
     }
 
+    /**
+     * The actions to perform when the player gives an item to a personage.
+     *
+     * @param i the item to give
+     * @param c the personage to give the item to
+     * @return true if the action is performed, false otherwise
+     */
     public boolean executeGiveCombination(Item i, Personage c) {
         if (i.hasName("Hekat") || i.hasName("Nekhekh") || i.hasName("Ankh") && c.hasName("Osiride")) {
             game.removeInventory(i);
@@ -309,18 +352,6 @@ public class GameLogic {
                 game.getCurrentRoom().hasAgent(GameManager.getAgentFromName("Ankh"))) {
 
                 game.setRoomState("Stanza10", "OsirideEnd");}
-            return true;
-        }
-        return false;
-    }
-
-    public boolean launchSpecialEvent(CommandType c, Agent a) {
-        if (c == CommandType.OSSERVA && a.hasName("Mattonella")
-        && (game.getCurrentRoom().getState().equals("Start")
-            || game.getCurrentRoom().getState().equals("Sbagliato"))) {
-            
-            userInputFlow.Event = 3;
-            GameGUI.setImagePanel("Mattonelle");
             return true;
         }
         return false;
