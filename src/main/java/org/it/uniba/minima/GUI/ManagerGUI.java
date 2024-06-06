@@ -1,21 +1,25 @@
 package org.it.uniba.minima.GUI;
 import javax.imageio.ImageIO;
-import javax.swing.*;
-import javax.swing.plaf.metal.MetalButtonUI;
-import java.awt.*;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import java.awt.CardLayout;
+import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
-
 import org.it.uniba.minima.Mixer;
 
-public class GUIManager extends JFrame {
-    public GUIManager() {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
+/**
+ * The manager of the GUIs.
+ */
+public class ManagerGUI extends JFrame {
+    /**
+     * Instantiates a new Gui manager.
+     */
+    public ManagerGUI() {
+        // Set the properties of the frame
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(800, 600));
         setResizable(false);
-
         try {
             Image icon = ImageIO.read(new File("docs/img/gameIcon.jpg"));
             setIconImage(icon);
@@ -23,23 +27,26 @@ public class GUIManager extends JFrame {
             e.printStackTrace();
         }
 
+        // Create the cards
         JPanel cards = new JPanel(new CardLayout());
-
         MenuGUI menu = new MenuGUI();
         RiconoscimentiGUI credits = new RiconoscimentiGUI();
         ProgressBarGUI progressBar = new ProgressBarGUI();
         GameGUI game = new GameGUI();
 
+        // Add the panels to cards
         cards.add(menu, "MenuGUI");
         cards.add(credits, "RiconoscimentiGUI");
         cards.add(progressBar, "ProgressBarGUI");
         cards.add(game, "GameGUI");
 
+        // Start the frame
         add(cards);
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
 
+        // Start the music
         Mixer music = Mixer.getInstance();
         music.start();
     }
