@@ -1,6 +1,4 @@
 package org.it.uniba.minima.Entity;
-
-
 import org.it.uniba.minima.Boundary.outputDisplayManager;
 import org.it.uniba.minima.GUI.GameGUI;
 import org.it.uniba.minima.Type.Corridor;
@@ -8,70 +6,112 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static org.it.uniba.minima.GUI.GameGUI.updateInventoryTextArea;
-
+/**
+ * The class that represents the game.
+ */
 public class Game {
+    /**
+     * The nickname of the player.
+     */
     private String nickname;
+    /**
+     * The inventory of the player.
+     */
     private List<Item> inventory;
+    /**
+     * The starting time of the game.
+     */
     private String currentTime;
+    /**
+     * The current room in which the player is in.
+     */
     private Room currentRoom;
+    /**
+     * The map of the corridors.
+     */
     private List<Corridor> corridorsMap;
+    /**
+     * The map of the states of the rooms.
+     */
     private Map<String, String> statesMap;
+    /**
+     * The instance of the game.
+     */
     public static Game game = new Game();
 
+    /**
+     * Sets up the instance of the game.
+     *
+     * @param game the game
+     */
     public static void setUpGame(Game game) {
         Game.game = game;
         GameGUI.setImagePanel(game.getCurrentRoom().getName());
     }
 
+    /**
+     * Gets the instance of the game.
+     *
+     * @return the instance
+     */
     public static Game getInstance() {
         return game;
     }
 
+    /**
+     * Gets nickname.
+     *
+     * @return the nickname
+     */
     public String getNickname() {
         return game.nickname;
     }
 
+    /**
+     * Sets nickname.
+     *
+     * @param nickname the nickname
+     */
     public void setNickname(String nickname) {
         game.nickname = nickname;
     }
 
-    public void addInventory(Item item) {
-        game.inventory.add(item);
-        List<String> itemDescriptions = game.inventory.stream().map(Item::getName).collect(Collectors.toList());
-        String[] itemDescriptionArray = itemDescriptions.toArray(new String[0]);
-        updateInventoryTextArea(itemDescriptionArray);
-    }
-
-    public void removeInventory(Item item) {
-        game.inventory.remove(item);
-        List<String> itemDescriptions = game.inventory.stream().map(Item::getName).collect(Collectors.toList());
-        String[] itemDescriptionArray = itemDescriptions.toArray(new String[0]);
-        updateInventoryTextArea(itemDescriptionArray);
-    }
-
-    public Room getCurrentRoom() {
-        return game.currentRoom;
-    }
-
-    public void setCurrentRoom(Room room) {
-        // Retrieve the Room instance from the corridorsMap
-        for (Corridor corridor : game.corridorsMap) {
-            if (corridor.getStartingRoom().equals(room)) {
-                game.currentRoom = corridor.getStartingRoom();
-                GameGUI.setImagePanel(game.currentRoom.getName());
-                return;
-            }
-        }
-        // If the room is not found in the corridorsMap, set the currentRoom to the provided room
-        game.currentRoom = room;
-        GameGUI.setImagePanel(game.currentRoom.getName());
-    }
-
+    /**
+     * Gets inventory.
+     *
+     * @return the inventory
+     */
     public List<Item> getInventory() {
         return game.inventory;
     }
 
+    /**
+     * Add an item to the inventory.
+     *
+     * @param item the item
+     */
+    public void addInventory(Item item) {
+        game.inventory.add(item);
+        List<String> itemsNames = game.inventory.stream().map(Item::getName).toList();
+        String[] itemsNamesArray = itemsNames.toArray(new String[0]);
+        GameGUI.updateInventoryTextArea(itemsNamesArray);
+    }
+
+    /**
+     * Remove an item from the inventory.
+     *
+     * @param item the item
+     */
+    public void removeInventory(Item item) {
+        game.inventory.remove(item);
+        List<String> itemsNames = game.inventory.stream().map(Item::getName).toList();
+        String[] itemsNamesArray = itemsNames.toArray(new String[0]);
+        GameGUI.updateInventoryTextArea(itemsNamesArray);
+    }
+
+    /**
+     * Print the inventory.
+     */
     public void printInventory() {
         outputDisplayManager.displayText("> Inventario: ");
         for (Item item : game.inventory) {
@@ -79,10 +119,65 @@ public class Game {
         }
     }
 
+    /**
+     * Gets current room.
+     *
+     * @return the current room
+     */
+    public Room getCurrentRoom() {
+        return game.currentRoom;
+    }
+
+    /**
+     * Sets current room.
+     *
+     * @param room the room
+     */
+    public void setCurrentRoom(Room room) {
+        for (Corridor corridor : game.corridorsMap) {
+            if (corridor.getStartingRoom().equals(room)) {
+                game.currentRoom = corridor.getStartingRoom();
+                GameGUI.setImagePanel(game.currentRoom.getName());
+                return;
+            }
+        }
+        game.currentRoom = room;
+        GameGUI.setImagePanel(game.currentRoom.getName());
+    }
+
+    /**
+     * Gets the starting time.
+     *
+     * @return the starting time
+     */
+    public String getCurrentTime() {
+        return game.currentTime;
+    }
+
+    /**
+     * Sets starting time.
+     *
+     * @param currentTime the starting time
+     */
+    public void setCurrentTime(String currentTime) {
+        game.currentTime = currentTime;
+    }
+
+    /**
+     * Gets corridors map.
+     *
+     * @return the corridors map
+     */
     public List<Corridor> getCorridorsMap() {
         return game.corridorsMap;
     }
 
+    /**
+     * Unlocks a corridor.
+     *
+     * @param r1 the starting room
+     * @param r2 the arriving room
+     */
     public void unlockCorridor(String r1, String r2) {
         for (Corridor corridor : game.corridorsMap) {
             if (corridor.getStartingRoom().getName().equals(r1) && corridor.getArrivingRoom().getName().equals(r2)) {
@@ -91,30 +186,26 @@ public class Game {
         }
     }
 
-    public void setCurrentTime(String currentTime) {
-         game.currentTime = currentTime;
+    /**
+     * Gets room state.
+     *
+     * @param room the room
+     * @return the room state
+     */
+    public Object getRoomState(String room) {
+        return game.statesMap.get(room);
     }
 
-    public String getCurrentTime() {
-        return game.currentTime;
-    }
-
+    /**
+     * Sets room state.
+     *
+     * @param room  the room
+     * @param state the state
+     */
     public void setRoomState(String room, String state) {
         game.statesMap.replace(room, state);
         game.corridorsMap.stream()
                 .filter(corridor -> corridor.getStartingRoom().getName().equals(room))
                 .forEach(corridor -> corridor.getStartingRoom().setState(state));
-    }
-
-    public void setCorridorsMap(List<Corridor> corridorsMap) {
-        game.corridorsMap = corridorsMap;
-    }
-
-    public void setStatesMap(Map<String, String> roomStates) {
-        game.statesMap = roomStates;
-    }
-
-    public Object getRoomState(String room) {
-        return game.statesMap.get(room);
     }
 }
