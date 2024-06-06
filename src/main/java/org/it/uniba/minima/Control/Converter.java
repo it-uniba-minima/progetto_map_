@@ -1,5 +1,4 @@
 package org.it.uniba.minima.Control;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -9,7 +8,6 @@ import org.it.uniba.minima.Entity.Game;
 import org.it.uniba.minima.Entity.Item;
 import org.it.uniba.minima.Entity.Room;
 import org.it.uniba.minima.Type.Corridor;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -20,8 +18,36 @@ import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * The class that manages the conversion of json files to java classes and vice versa.
+ */
 public class Converter {
+    /**
+     * Method that manages the conversion of json files to java classes in the case of a new game.
+     *
+     * @return the map of all the agents
+     */
+    public Map<String, Agent> convertJsonToJavaClass() {
+        return processJsonFiles("src/main/resources/static/Game.json", "src/main/resources/static/Agents.json");
+    }
 
+    /**
+     * Method that manages the conversion of json files to java classes in the case of a loaded game.
+     *
+     * @return the map of all the agents
+     */
+    public Map<String, Agent> loadGame() {
+        return processJsonFiles("src/main/resources/LoadedGame.json", "src/main/resources/LoadedItems.json");
+    }
+
+    /**
+     * Converts the json files of a game and its agents to java classes.
+     * Returns a map containing all the agents mapped to their names.
+     *
+     * @param gameFilePath   the game file path
+     * @param agentsFilePath the agents file path
+     * @return the map of the agents
+     */
     private Map<String, Agent> processJsonFiles(String gameFilePath, String agentsFilePath) {
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(Agent.class, new AgentDeserializer())
@@ -29,6 +55,7 @@ public class Converter {
         Map<String, Agent> allAgents = new HashMap<>();
         Map<String, Room> allRooms = new HashMap<>();
 
+        // Read the game file
         try {
             byte[] fileBytes = Files.readAllBytes(Paths.get(gameFilePath));
             if (fileBytes.length == 0) {
@@ -59,13 +86,13 @@ public class Converter {
                     corridor.setArrivingRoom(existingRoom);
                 }
             });
-
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
+        // Read the agents file
         try {
             byte[] fileBytes = Files.readAllBytes(Paths.get(agentsFilePath));
             if (fileBytes.length == 0) {
@@ -85,18 +112,14 @@ public class Converter {
         return allAgents;
     }
 
-    public Map<String, Agent> convertJsonToJavaClass() {
-        return processJsonFiles("src/main/resources/static/Game.json", "src/main/resources/static/Agents.json");
-    }
-
-    public Map<String, Agent> loadGame() {
-        return processJsonFiles("src/main/resources/LoadedGame.json", "src/main/resources/LoadedItems.json");
-    }
-
-    public void ConvertGametoJson() {
+    /**
+     * Converts the game instance to json file to save the game.
+     */
+    public void ConvertGameToJson() {
         Gson gson = new Gson();
         Game game = Game.getInstance();
         String json = gson.toJson(game);
+
         try {
             Files.write(Paths.get("src/main/resources/LoadedGame.json"), json.getBytes());
         } catch (IOException e) {
@@ -104,13 +127,21 @@ public class Converter {
         }
     }
 
-    public void ConvertAgentstoJson() throws IOException {
+    /**
+     * Converts the agents to json file to save the game.
+     *
+     * @throws IOException the io exception
+     */
+    public void ConvertAgentsToJson() {
         Gson gson = new Gson();
         Game game = Game.getInstance();
         Set<Item> allItems = GameManager.getAllItems();
+
+        // Save only the items that are not in the inventory or in a room
         Set<Room> rooms = game.getCorridorsMap().stream()
                 .map(Corridor::getStartingRoom)
                 .collect(Collectors.toSet());
+
         Set<Item> itemsToSave = allItems.stream()
                 .filter(item -> !game.getInventory().contains(item))
                 .filter(item -> rooms.stream()
@@ -118,6 +149,10 @@ public class Converter {
                 .collect(Collectors.toSet());
 
         String json = gson.toJson(itemsToSave);
-        Files.write(Paths.get("src/main/resources/LoadedItems.json"), json.getBytes());
+        try {
+            Files.write(Paths.get("src/main/resources/LoadedItems.json"), json.getBytes());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
