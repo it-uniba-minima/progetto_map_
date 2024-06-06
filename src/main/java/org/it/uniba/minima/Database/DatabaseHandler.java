@@ -208,8 +208,15 @@ public class DatabaseHandler extends HttpHandler {
         String param = request.getParameter("param");
         response.setContentType("text/html");
         PrintWriter out = new PrintWriter(response.getWriter());
-        out.println("<html><body>");
-        out.println("<h1>POST received with param: " + param + "</h1>");
-        out.println("</body></html>");
+        try (Connection conn = DriverManager.getConnection("jdbc:h2:./src/main/resources/database/db_map", "sa", "");
+             Statement stmt = conn.createStatement()) {
+            String username = request.getParameter("USERNAME");
+            String tempo = request.getParameter("TEMPO");
+            String finale = request.getParameter("FINALE");
+            stmt.executeUpdate("INSERT INTO CLASSIFICA (USERNAME, TEMPO, FINALE) VALUES ('" + username + "', '" + tempo + "', '" + finale + "')");
+        } catch (SQLException e) {
+            out.println("SQL Error: " + e.getMessage());
+            e.printStackTrace(out);
+        }
     }
 }
