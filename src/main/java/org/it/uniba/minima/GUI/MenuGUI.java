@@ -2,6 +2,7 @@ package org.it.uniba.minima.GUI;
 import org.it.uniba.minima.Boundary.outputDisplayManager;
 import org.it.uniba.minima.Control.GameManager;
 import org.it.uniba.minima.Control.Serializer;
+import org.it.uniba.minima.Control.userInputFlow;
 import org.it.uniba.minima.Database.DatabaseConnection;
 import org.it.uniba.minima.Entity.Game;
 import org.it.uniba.minima.Mixer;
@@ -249,7 +250,7 @@ javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
                 }// </editor-fold>
 
 private void newGameActionPerformed(java.awt.event.ActionEvent evt) {
-    ProgressBarGUI progressBarGUI = new ProgressBarGUI();
+    ProgressBarGUI progressBarGUI;
     progressBarGUI = (ProgressBarGUI) this.getParent().getComponent(2);
     CardLayout cl = (CardLayout) getParent().getLayout();
     cl.show(getParent(), "ProgressBarGUI");
