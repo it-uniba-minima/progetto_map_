@@ -5,7 +5,7 @@ VALUES
 INSERT INTO DESCRIZIONI (ID, COMANDO, STANZA, STATO, PERSONAGGIO, OGGETTO1, OGGETTO2, DESCRIZIONE) VALUES
     (1, '0', 'Desert', 'Start', '0', '0', '0', '> Apri gli occhi e ti ritrovi in un disteso letto di sabbia... "Dove sono??"'),
     (2, 'Osserva', 'Desert', 'Start', '0', '0', '0', '> Di fronte a te si pone una grande Sfinge egizia, dietro di lei è presente un imponente piramide che sembra quasi risplendere sotto la luce lunare.'),
-    (3, 'Parla', 'Desert', 'Start', 'Sfinge', '0', '0', '> "Salve viandante, ti pongo una sfida, se la superi entrerai in un luogo dove ogni tuo desiderio verrà realizzato. La sfida che io ti pongo è indovinare la parola a cui sto pensando (Hint: la parola è in inglese)"'),
+    (3, 'Parla', 'Desert', 'Start', 'Sfinge', '0', '0', '> "Salve viandante, ti pongo una sfida, se la superi entrerai in un luogo dove ogni tuo desiderio verrà realizzato. La sfida che io ti pongo è indovinare la parola a cui sto pensando"'),
     (4, '0', 'Desert', 'Corretto', 'Sfinge', '0', '0', '> "È esattamente la parola che stavo pensando!"'),
     (5, '0', 'Desert', 'Sbagliato', 'Sfinge', '0', '0', '> "La tua mente è debole per questo posto, torna indietro da dove sei venuto"'),
     (6, 'Parla', 'Desert', 'Corretto', 'Sfinge', '0', '0', '> "Come premio per questa sfida, le porte della piramide si apriranno per te"'),

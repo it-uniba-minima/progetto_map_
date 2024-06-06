@@ -36,7 +36,7 @@ public class TriviaGame {
 
                 Gson gson = new Gson();
                 JsonObject jsonObject = JsonParser.parseString(result.toString()).getAsJsonObject();
-                question = jsonObject.getAsJsonArray("results").get(0).getAsJsonObject().get("question").getAsString();
+                question = jsonObject.getAsJsonArray("results").get(0).getAsJsonObject().get("question").getAsString().replace("&quot;", "\"").replace("&amp;", "&").replace("&apos;", "'").replace("&lt;", "<").replace("&gt;", ">").replace("&#039;", "'").replace("&eacute;", "é").replace("&egrave;", "è");
                 correctAnswer = jsonObject.getAsJsonArray("results").get(0).getAsJsonObject().get("correct_answer").getAsString();
                 displayQuestion(question);
                 break;
