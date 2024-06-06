@@ -6,6 +6,9 @@ import org.it.uniba.minima.GUI.GameGUI;
 import org.it.uniba.minima.Type.Corridor;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+
+import static org.it.uniba.minima.GUI.GameGUI.updateInventoryTextArea;
 
 public class Game {
     private String nickname;
@@ -35,10 +38,16 @@ public class Game {
 
     public void addInventory(Item item) {
         inventory.add(item);
+        List<String> itemDescriptions = inventory.stream().map(Item::getName).collect(Collectors.toList());
+        String[] itemDescriptionArray = itemDescriptions.toArray(new String[0]);
+        updateInventoryTextArea(itemDescriptionArray);
     }
 
     public void removeInventory(Item item) {
         inventory.remove(item);
+        List<String> itemDescriptions = inventory.stream().map(Item::getName).collect(Collectors.toList());
+        String[] itemDescriptionArray = itemDescriptions.toArray(new String[0]);
+        updateInventoryTextArea(itemDescriptionArray);
     }
 
     public Room getCurrentRoom() {
@@ -64,9 +73,9 @@ public class Game {
     }
 
     public void printInventory() {
-        outputDisplayManager.displayText("Inventory: \n");
+        outputDisplayManager.displayText("> Inventario: ");
         for (Item item : inventory) {
-            outputDisplayManager.displayText(item.getName());
+            outputDisplayManager.displayText(">  - " + item.getName());
         }
     }
 

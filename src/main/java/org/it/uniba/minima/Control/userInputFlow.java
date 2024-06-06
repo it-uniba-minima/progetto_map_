@@ -6,6 +6,9 @@ import org.it.uniba.minima.Boundary.WordleGame;
 import org.it.uniba.minima.Boundary.outputDisplayManager;
 import org.it.uniba.minima.Entity.Game;
 import org.it.uniba.minima.Type.ParserOutput;
+import org.it.uniba.minima.Boundary.HangmanGame;
+
+import java.io.IOException;
 
 import java.io.IOException;
 
@@ -21,8 +24,7 @@ public class userInputFlow {
             throw new RuntimeException(e);
         }
     }
-
-    //WordleGame wordleGame = new WordleGame();
+    private static HangmanGame hangmanGame = new HangmanGame();
 
     public static void GameFlow(String text) {
         outputDisplayManager.displayText(text);
@@ -39,10 +41,17 @@ public class userInputFlow {
             case 3:
                 mattonelleFlow();
                 break;
+            case 4:
+                hangmanFlow(text);
+                break;
             default:
                 parserFlow(text);
                 break;
         }
+    }
+
+    private static void hangmanFlow(String text) {
+        hangmanGame.HangmanFlow(text);
     }
 
     public static void triviaFlow(String text) {

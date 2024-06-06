@@ -1,4 +1,5 @@
 package org.it.uniba.minima.Control;
+import org.it.uniba.minima.Boundary.HangmanGame;
 import org.it.uniba.minima.Boundary.TriviaGame;
 import org.it.uniba.minima.Boundary.outputDisplayManager;
 import org.it.uniba.minima.Entity.Agent;
@@ -135,10 +136,9 @@ public class GameLogic {
              */
             return true;
         }
-        if (i1.hasName("Piuma") && i2.hasName("Pergamena")) {
-            // TODO: aggiungi start del gioco del crittogramma
-            game.setRoomState("Stanza4", "Corretto");
-            game.unlockCorridor("Stanza4", "Stanza5");
+        if (i1.hasName("Piuma") && i2.hasName("Pergamena") && game.getCurrentRoom().getState().equals("Start") || game.getCurrentRoom().getState().equals("Sbagliato")) {
+            userInputFlow.Event = 4;
+            GameGUI.setImagePanel("Impiccato");
             return true;
         }
 
@@ -313,8 +313,8 @@ public class GameLogic {
 
     public boolean launchSpecialEvent(CommandType c, Agent a) {
         if (c == CommandType.OSSERVA && a.hasName("Mattonella")
-            && game.getCurrentRoom().getState().equals("Start")
-            || game.getCurrentRoom().getState().equals("Sbagliato")) {
+        && (game.getCurrentRoom().getState().equals("Start")
+            || game.getCurrentRoom().getState().equals("Sbagliato"))) {
             
             userInputFlow.Event = 3;
             GameGUI.setImagePanel("Mattonelle");

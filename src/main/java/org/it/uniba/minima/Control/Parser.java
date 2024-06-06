@@ -10,13 +10,9 @@ import java.net.URL;
 import java.util.*;
 
 public class Parser {
-    public static List<Command> availableCommands = new ArrayList<>(); //MainController.getAvailableCommands();
+    public static Set<Command> availableCommands = GameManager.getAllCommands(); //MainController.getAvailableCommands();
     public static Set<Agent> availableAgents = GameManager.getAllAgents();     //MainController.getAvailableAgents();
     private static Set<String> stopWords = new HashSet<>();
-
-    public Parser() {
-        setAvailableCommands();
-    }
 
     public ParserOutput parse(String input) {
         ParserOutput output = new ParserOutput();
@@ -37,17 +33,18 @@ public class Parser {
             return output;
         } else {
             Command command;
-            int i = 0;
-            while (output.getCommand() == null && i < availableCommands.size()) {
-                command = availableCommands.get(i);
-                if (command.getName().equals(words[0])) {
+            Iterator<Command> cm = availableCommands.iterator();
+            while (output.getCommand() == null && cm.hasNext()) {
+                command = cm.next();
+                if (command.getName().equalsIgnoreCase(words[0])) {
                     output.setCommand(command.getCommandType());
                 } else {
-                    if (command.getAlias().contains(words[0])) {
-                        output.setCommand(command.getCommandType());
-                    }
+                    String theAlias = command.getAlias().stream()
+                            .filter(alias -> alias.equalsIgnoreCase(words[0]))
+                            .findFirst()
+                            .orElse(null);
+                    if (theAlias != null) output.setCommand(command.getCommandType());
                 }
-                i++;
             }
 
             if (output.getCommand() == null) {
@@ -115,21 +112,5 @@ public class Parser {
             stopWords.add(reader.readLine().trim().toLowerCase());
         }
         reader.close();
-    }
-
-    private void setAvailableCommands() {
-        availableCommands.add(new Command("help", List.of("h", "aiuto", "comandi"), CommandType.HELP));
-        availableCommands.add( new Command("nord", List.of("n", "north", "avanti"), CommandType.NORD));
-        availableCommands.add( new Command("sud", List.of("s", "south", "indietro"), CommandType.SUD));
-        availableCommands.add( new Command("est", List.of("e", "east", "destra"), CommandType.EST));
-        availableCommands.add( new Command("ovest", List.of("o", "west", "sinstra"), CommandType.OVEST));
-        availableCommands.add( new Command("inventario", List.of("i", "inventory", "borsa", "zaino"), CommandType.INVENTORY));
-        availableCommands.add( new Command("guarda", List.of("l", "look", "vedi", "esamina", "osserva"), CommandType.OSSERVA));
-        availableCommands.add( new Command("prendi", List.of("t", "take", "raccogli"), CommandType.TAKE));
-        availableCommands.add( new Command("usa", List.of("u", "use", "utilizza"), CommandType.USA));
-        availableCommands.add( new Command("parla", List.of("talk", "p", "dialoga"), CommandType.PARLA));
-        availableCommands.add( new Command("dai", List.of("give", "d", "passa"), CommandType.DAI));
-        availableCommands.add( new Command("lascia", List.of("drop", "l", "abbandona"), CommandType.DROP));
-        availableCommands.add( new Command("fonde", List.of("fuse", "f", "componi"), CommandType.UNISCI));
     }
 }

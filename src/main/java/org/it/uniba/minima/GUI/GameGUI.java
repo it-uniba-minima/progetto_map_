@@ -6,11 +6,6 @@ package org.it.uniba.minima.GUI;
 
 
 
-import com.mashape.unirest.http.exceptions.UnirestException;
-import org.it.uniba.minima.Boundary.WordleGame;
-import org.it.uniba.minima.Control.Serializer;
-import org.it.uniba.minima.Database.DatabaseConnection;
-import org.it.uniba.minima.Entity.Game;
 import org.it.uniba.minima.Mixer;
 import org.it.uniba.minima.TimerManager;
 import org.it.uniba.minima.Boundary.userInputManager;
@@ -19,8 +14,6 @@ import javax.swing.plaf.metal.MetalButtonUI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import static javax.swing.SwingUtilities.invokeLater;
 
 /**
  *
@@ -61,6 +54,7 @@ public class GameGUI extends javax.swing.JPanel {
         //so that you can retrieve them by index in, for example, the getWordle method
         imagePanel.add(new Wordle(), "Wordle");
         imagePanel.add(new MattonelleGUI(), "Mattonelle");
+        imagePanel.add(new ImpiccatoGUI(), "Impiccato");
 
         imagePanel.add(new JPanel(null) {
             {
@@ -335,19 +329,15 @@ public class GameGUI extends javax.swing.JPanel {
         };
 
         inventoryTextArea.setEditable(false);
-        inventoryTextArea.setColumns(20);
-        inventoryTextArea.setRows(5);
         inventoryTextArea.setAutoscrolls(false);
         inventoryTextArea.setBorder(null);
         inventoryTextArea.setEnabled(false);
         inventoryTextArea.setFocusable(false);
         inventoryTextArea.setOpaque(false);
-        inventoryTextArea.setMargin(new Insets(0, 0, 0, 0));
         inventoryTextArea.setPreferredSize(new Dimension(440, 100));
         inventoryTextArea.setMaximumSize(new Dimension(440, 100));
         inventoryTextArea.setMinimumSize(new Dimension(440, 100));
-        inventoryTextArea.setFont(new Font("Papyrus", Font.PLAIN, 20));
-        inventoryTextArea.setForeground(new Color(0, 0, 0));
+        inventoryTextArea.setFont(new Font("Georgia", 0, 16));
         inventoryTextArea.setText(" Inventario:\n");
         jScrollPane2.setViewport(inventoryView);
         jScrollPane2.setViewportView(inventoryTextArea);
@@ -514,6 +504,28 @@ public class GameGUI extends javax.swing.JPanel {
         musicButton.setText(text);
     }
 
+    public static void updateInventoryTextArea(String[] items) {
+        StringBuilder inventory = new StringBuilder(" Inventario:\n");
+        int maxHorItems = 3; // Adjust this value based on the height of your text area
+
+        int i = 0;
+        while (i < items.length) {
+            int j = 0;
+            while (j < maxHorItems && i < items.length) {
+                inventory.append(" - ").append(items[i]).append("   ");
+                j++;
+                i++;
+            }
+            inventory.append("\n");
+        }
+
+//        if (items.length > maxHorItems) {
+//            inventory.append("... and ").append(items.length - maxHorItems).append(" more items");
+//        }
+
+        inventoryTextArea.setText(inventory.toString());
+    }
+
     // Variables declaration - do not modify
     private javax.swing.JButton goBackButton;
     private javax.swing.JButton saveGameButton;
@@ -522,7 +534,7 @@ public class GameGUI extends javax.swing.JPanel {
     private static javax.swing.JPanel imagePanel;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea inventoryTextArea;
+    private static javax.swing.JTextArea inventoryTextArea;
     private javax.swing.JTextField userInputField;
     private static javax.swing.JTextPane displayTextPane;
     private javax.swing.JToolBar toolBar;

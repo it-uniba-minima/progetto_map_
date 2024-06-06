@@ -65,7 +65,7 @@ public class WordleGame {
 
     public boolean checkLenght(String text) {
         if (text.length() != MAX_LETTERS) {
-            outputDisplayManager.displayText("La parola inserita non è valida, inserire una parola di MAX_LETTERS lettere.");
+            outputDisplayManager.displayText("> \"Come puoi vedere, la parola è di esattamente 5 lettere!\"");
             return false;
         }
         return true;

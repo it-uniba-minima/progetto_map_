@@ -178,12 +178,12 @@ INSERT INTO DESCRIZIONI (ID, COMANDO, STANZA, STATO, PERSONAGGIO, OGGETTO1, OGGE
     (174, 'Unisci', '0', '0', '0', 'Uova', 'Zucchero', '> Hai unito lo zucchero e hai rotto le uova per prendere i tuorli per creare un impasto dolce.'),
     (175, 'Unisci', '0', '0', '0', 'ImpastoDolce', 'Farina', '> Unendo l''impasto dolce con la farina ottieni un impasto completo, è ancora crudo servirebbe cuocerlo.'),
     (176, 'Unisci', '0', '0', '0', 'Farina', 'ImpastoDolce', '> Unendo l''impasto dolce con la farina ottieni un impasto completo, è ancora crudo servirebbe cuocerlo.'),
-    (177, '0', 'Stanza4', 'Start', '0', '0', '0', '> Entrando nella stanza prestando particolare attenzione a dove metti i piedi, per non ripetere gli errori fatti in precedenza.'),
-    (178, 'Osserva', 'Stanza4', 'Start', '0', '0', '0', '> Noti un banco al centro della stanza dove è presente una penna e una pergamena, hai i PTSD della maturità appena li vedi.'),
-    (179, 'Osserva', 'Stanza4', 'Start', '0', 'Pergamena', '0', '> Una semplice pergamena, noti che ci sono degli spazi bianchi nel testo scritto sopra.'),
-    (180, 'Usa', 'Stanza4', 'Start', '0', 'Piuma', 'Pergamena', '> Prova Scritta: Traduci il testo presente.'),
-    (181, '0', 'Stanza4', 'Corretto', '0', '0', '0', '> Noti che la porta successiva si apre, probabilmente hai risolto i tuoi problemi di PTSD.'),
-    (182, 'Osserva', 'Stanza4', 'Corretto', '0', '0', '0', '> La stanza ti fa ricordare tutti i momenti passati della tua adolescenza, sui banchi a studiare.'),
+    (177, '0', 'Stanza4', 'Start', '0', '0', '0', '> Entri nella stanza prestando particolare attenzione a dove metti i piedi, per non ripetere gli errori fatti in precedenza.'),
+    (178, 'Osserva', 'Stanza4', 'Start', '0', '0', '0', '> Noti un banco al centro della stanza dove è presente una piuma e una pergamena, hai i flashback della maturità appena li vedi.'),
+    (179, 'Osserva', 'Stanza4', 'Start', '0', 'Pergamena', '0', '> Una semplice pergamena, noti che ci sono dei trattini e degli spazi bianchi. Sembra volerti invitare a giocare.'),
+    (180, 'Usa', 'Stanza4', 'Start', '0', 'Piuma', 'Pergamena', '> Prova scritta: indovina la frase in 7 tentativi. (Hint: puoi indovinare una lettera per volta o l''intera frase)'),
+    (181, '0', 'Stanza4', 'Corretto', '0', '0', '0', '> > Il foglio è pieno, la piuma si asciuga, hai indovinato la frase! La porta di fronte a te si apre.'),
+    (182, 'Osserva', 'Stanza4', 'Corretto', '0', '0', '0', '> La stanza ti fa ricordare tutti i momenti della tua adolescenza passati sui banchi a studiare.'),
     (183, 'Osserva', 'Stanza4', 'Corretto', '0', 'Pergamena', '0', '> Adesso che la pergamena è risolta, hai un peso in meno sullo stomaco.'),
     (184, 'Osserva', 'Desert', 'Sbagliato', 'Sfinge', '0', '0', '> Una gigantesca Sfinge, sembra che voglio evitare la tua presenza.'),
     (185, 'Osserva', 'Desert', 'Sbagliato', '0', 'Porta', '0', '> Una porta ornata che fa da entrata per la piramide, devi trovare un modo per aprirla.'),
@@ -263,6 +263,11 @@ INSERT INTO DESCRIZIONI (ID, COMANDO, STANZA, STATO, PERSONAGGIO, OGGETTO1, OGGE
     (259, '0', 'Stanza7', 'Corretto', '0', '0', '0', '> Entri nella stanza, ma non noti niente di utile al suo interno.'),
     (260, '0', 'Stanza7', 'Sbagliato', '0', '0', '0', '> Entri nella stanza più determinato a riprovare il puzzle.'),
     (261, 'Osserva', 'Stanza7', 'Sbagliato', '0', 'Mattonella', '0', '> Ti ricordi perfettamente che la mattonella per iniziare è quella centrale.'),
-    (262, 'Osserva', 'Stanza7', 'Sbagliato', '0', '0', '0', '> Le trappolle sono state disattivate, puoi riprovare il puzzle.');
+    (262, 'Osserva', 'Stanza7', 'Corretto', '0', '0', '0', '> Le trappolle sono state disattivate, puoi riprovare il puzzle.'),
+    (263, '0', 'Stanza4', 'Corretto', '0', '0', '0', '> Vedere il foglio pieno ti riempie di soddisfazione, hai fatto un buon lavoro.'),
+    (264, '0', 'Stanza4', 'Sbagliato', '0', '0', '0', '> Il foglio, ancora totalmente vuoto, ti fa venire ansia, e se non riuscissi a superare l''esame?'),
+    (265, 'Osserva', 'Stanza4', 'Sbagliato', '0', '0', '0', '> La sola vista di questa stanza ti riempie di insicurezze, che ne sarà del mio futuro?'),
+    (266, 'Usa', 'Stanza4', 'Sbagliato', '0', 'Piuma', 'Pergamena', '> Prova scritta: indovina la frase in 7 tentativi. (Hint: puoi indovinare una lettera per volta o l''intera frase)'),
+    (267, 'Osserva', 'Stanza4', 'Sbagliato', '0', 'Pergamena', '0', '> La pergamena, ancora piena di trattini e spazi bianchi, ti fa'' venire i brividi');
 
 
