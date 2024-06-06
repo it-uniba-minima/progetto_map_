@@ -35,7 +35,7 @@ public class GameGUI extends JPanel {
      */
 
     public static Wordle getWordle() {
-        return (Wordle) imagePanel.getComponent(0);
+        return (Wordle) imagePanel.getComponent(1);
     }
 
     public GameGUI() {
@@ -61,9 +61,7 @@ public class GameGUI extends JPanel {
         //substitute JLabel with images
         //beacause of the getComponent method you have to set the event panels on top
         //so that you can retrieve them by index in, for example, the getWordle method
-        imagePanel.add(new Wordle(), "Wordle");
-        imagePanel.add(new MattonelleGUI(), "Mattonelle");
-        imagePanel.add(new ImpiccatoGUI(), "Impiccato");
+
 
         imagePanel.add(new JPanel(null) {
             {
@@ -78,6 +76,10 @@ public class GameGUI extends JPanel {
                 g.drawImage(image.getImage(), 0, 0, getWidth(), getHeight(), this);
             }
         }, "Desert");
+
+        imagePanel.add(new Wordle(), "Wordle");
+        imagePanel.add(new MattonelleGUI(), "Mattonelle");
+        imagePanel.add(new ImpiccatoGUI(), "Impiccato");
 
         imagePanel.add(new JPanel() {
             @Override
@@ -490,6 +492,17 @@ private void goBackButtonActionPerformed(ActionEvent evt) {
         if (back == JOptionPane.YES_OPTION) {
             CardLayout cl = (CardLayout) getParent().getLayout();
             cl.show(getParent(), "MenuGUI");
+            //TODO: completare questo if perchè se salvo un game , ci rivado e non risalvo il timer riparte da 0.
+            // serve un attributo per verificare se si è verificato in precedenza un salvataggio in modo che prenda l'ultimo salvataggio esistente
+            /*
+            if (ciccio) {
+                TimerManager.getInstance().stopTimer();
+                TimerManager.getInstance().killTimer();
+            }
+            else {
+                buttonActions2();
+            }
+             */
         } else {
             buttonActions2();
         }
