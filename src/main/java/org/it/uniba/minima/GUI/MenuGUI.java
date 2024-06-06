@@ -19,6 +19,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.Connection;
 
+import static javax.swing.JOptionPane.ERROR_MESSAGE;
+import static javax.swing.JOptionPane.showMessageDialog;
+
 
 public class MenuGUI extends javax.swing.JPanel{
 
@@ -285,13 +288,19 @@ private void helpActionPerformed(java.awt.event.ActionEvent evt) {
     // TODO add your handling code here:
 }
 
-private void loadGameActionPerformed(java.awt.event.ActionEvent evt) throws IOException, ClassNotFoundException {
-    BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-    GameManager gameManager = new GameManager();
-    Game game = gameManager.loadGame();
-    CardLayout cl = (CardLayout) getParent().getLayout();
-    cl.show(getParent(), "GameGUI");
-}
+    private void loadGameActionPerformed(java.awt.event.ActionEvent evt) throws IOException, ClassNotFoundException {
+        GameManager gameManager = new GameManager();
+        boolean loadedGameSuccessfully = gameManager.loadGame();
+        if (loadedGameSuccessfully) {
+            GameGUI gameGUI = (GameGUI) this.getParent().getComponent(3);
+            CardLayout cl = (CardLayout) getParent().getLayout();
+            cl.show(getParent(), "GameGUI");
+            TimerManager.getInstance().startTimer();
+        }
+        else {
+            showMessageDialog(null, "No saved game found", "Error", ERROR_MESSAGE);
+        }
+    }
 
 private void creditsActionPerformed(java.awt.event.ActionEvent evt) {
     CardLayout cl = (CardLayout) getParent().getLayout();
