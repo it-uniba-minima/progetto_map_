@@ -14,4 +14,14 @@ public class Client {
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
     }
+
+    public void sendPostRequest() throws Exception {
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(new URI("http://localhost:8080/api/data"))
+                .POST(HttpRequest.BodyPublishers.ofString("data"))
+                .build();
+
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+    }
 }
