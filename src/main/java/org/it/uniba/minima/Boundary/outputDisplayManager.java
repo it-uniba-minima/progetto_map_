@@ -4,10 +4,18 @@ import org.it.uniba.minima.GUI.GameGUI;
 
 import java.awt.*;
 
+/**
+ * The type Output display manager.
+ */
 public class outputDisplayManager {
     private static final FontMetrics fontMetrics = GameGUI.getTextPaneFontMetrics();
     private static final int maxWidth = GameGUI.getTextPaneWidth();
 
+    /**
+     * Display text.
+     *
+     * @param text the text
+     */
     public static void displayText(String text) {
         String formattedText = splitString(text);
         GameGUI.displayTextPaneSetText(formattedText);
