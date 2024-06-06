@@ -187,12 +187,84 @@ intolo
 #### [Ritorna all'Indice](#indice)
 ## 5 - Specifiche Algebriche
 
+- In questa sezione verranno elencate le specifiche algebriche del progetto.
+
+
+#### Specifica algebrica Mappa
+
+<table>
+    <thead>
+        <tr>
+            <th>Componente</th>
+            <th>Descrizione</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><strong>Tipo di Dati</strong></td>
+            <td><code>Map</code> rappresenta una mappa</td>
+        </tr>
+        <tr>
+            <td colspan="2"><strong>Metodi (Operazioni)</strong></td>
+        </tr>
+        <tr>
+            <td><code>put(key, value)</code></td>
+            <td><code>Map × Key × Value → Map</code> - Aggiunge una coppia chiave-valore o aggiorna il valore esistente</td>
+        </tr>
+        <tr>
+            <td><code>get(key)</code></td>
+            <td><code>Map × Key → Value</code> - Restituisce il valore associato alla chiave specificata</td>
+          </tr>
+            <tr>
+                <td><code>remove(key)</code></td>
+                <td><code>Map × Key → Map</code> - Rimuove la coppia chiave-valore specificata</td>
+            </tr> 
+            <tr>
+                <td><code>containsKey(key)</code></td>
+                <td><code>Map × Key → Boolean</code> - Restituisce <code>true</code> se la chiave specificata è presente nella mappa</td>
+            </tr> 
+            <tr>
+                <td><code>containsValue(value)</code></td>
+                <td><code>Map × Value → Boolean</code> - Restituisce <code>true</code> se il valore specificato è presente nella mappa</td> 
+            </tr> 
+            <tr>
+                <td><code>size()</code></td>
+                <td><code>Map → Integer</code> - Restituisce il numero di coppie chiave-valore presenti nella mappa</td>  
+            </tr>
+            <tr>
+                <td><code>isEmpty()</code></td>
+                <td><code>Map → Boolean</code> - Restituisce <code>true</code> se la mappa è vuota</td>
+            </tr> 
+            <tr>
+                <td><code>clear()</code></td>
+                <td><code>Map → Map</code> - Rimuove tutte le coppie chiave-valore dalla mappa</td> 
+            </tr>
+            <tr>
+                <td><code>keySet()</code></td>
+                <td><code>Map → Set</code> - Restituisce un insieme di tutte le chiavi presenti nella mappa</td>
+            </tr> 
+            <tr>
+                <td><code>values()</code></td>
+                <td><code>Map → Collection</code> - Restituisce una collezione di tutti i valori presenti nella mappa</td>
+            </tr>
+            <tr>
+                <td><code>entrySet()</code></td>
+                <td><code>Map → Set</code> - Restituisce un insieme di tutte le coppie chiave-valore presenti nella mappa</td>
+            </tr>
+    </tbody>
+</table>
+
 
 #### [Ritorna all'Indice](#indice)
 
 
 ## 6 - Applicazione Argomenti del Corso
+
+- In questa sezione verrà spiegato come il progetto //INSERIRE TITOLO si collega agli argomenti trattati durante il corso di "Metodi Avanzati di Programmazione".
+
+
 [Applicazione Argomenti del Corso](Applicazione%20Argomenti%20del%20corso.md)
+
 
 #### [Ritorna all'Indice](#indice)
 ## 7 - Manuale Utente
