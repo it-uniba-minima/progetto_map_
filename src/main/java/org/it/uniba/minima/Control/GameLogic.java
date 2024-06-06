@@ -45,6 +45,10 @@ public class GameLogic {
             game.unlockCorridor("Stanza10", "Stanza9");
             return true;
         }
+        if (c.hasName("Osiride") && game.getCurrentRoom().getState().equals("OsirideEnd")) {
+            userInputFlow.Event = 6;
+            return true;
+        }
         return false;
     }
 
@@ -303,9 +307,8 @@ public class GameLogic {
             if (game.getCurrentRoom().hasAgent(GameManager.getAgentFromName("Hekat")) &&
                 game.getCurrentRoom().hasAgent(GameManager.getAgentFromName("Nekhekh")) &&
                 game.getCurrentRoom().hasAgent(GameManager.getAgentFromName("Ankh"))) {
-                game.setRoomState("Stanza10", "OsirideEnd");
-                //start final event
-            }
+
+                game.setRoomState("Stanza10", "OsirideEnd");}
             return true;
         }
         return false;

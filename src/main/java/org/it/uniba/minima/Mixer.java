@@ -49,10 +49,10 @@ public class Mixer extends Thread {
 
     public static void reverseIcones() {
         if (!running) {
-            musicButtonSetTextGame(" 🔇 ");
+            musicButtonSetTextGame("🔇");
             musicButtonSetTextMenu("🔇");
         } else {
-            musicButtonSetTextGame(" 🔊 ");
+            musicButtonSetTextGame("🔊");
             musicButtonSetTextMenu("🔊");
         }
     }

@@ -1,22 +1,21 @@
 package org.it.uniba.minima.Control;
 
-import com.mashape.unirest.http.exceptions.UnirestException;
-import org.it.uniba.minima.Boundary.TriviaGame;
-import org.it.uniba.minima.Boundary.WordleGame;
-import org.it.uniba.minima.Boundary.outputDisplayManager;
+import org.it.uniba.minima.Boundary.*;
+import org.it.uniba.minima.Database.DatabaseConnection;
 import org.it.uniba.minima.Entity.Game;
+import org.it.uniba.minima.GUI.GUIManager;
 import org.it.uniba.minima.Type.ParserOutput;
-import org.it.uniba.minima.Boundary.HangmanGame;
-
 import java.io.IOException;
-
-import java.io.IOException;
+import java.awt.CardLayout;
 
 public class userInputFlow {
-    public static int Event = 0;
+    public static int Event = 5;
     private static Parser parser = new Parser();
     private static CommandExecutor commandExecutor = new CommandExecutor(Game.getInstance());
     private static WordleGame wordleGame;
+    private static boolean isNameConfirmed = false;
+    private static boolean isGameEnded = false;
+
     static {
         try {
             wordleGame = new WordleGame();
@@ -44,9 +43,58 @@ public class userInputFlow {
             case 4:
                 hangmanFlow(text);
                 break;
+            case 5:
+                nicknameFlow(text);
+                break;
+            case 6:
+                endingFlow(text);
+                break;
             default:
                 parserFlow(text);
                 break;
+        }
+    }
+
+    private static void nicknameFlow(String text) {
+        if (!isNameConfirmed) {
+            outputDisplayManager.displayText("> Sei sicuro che questo sia il mio nome? (S/N)");
+            Game.getInstance().setNickname(text);
+            isNameConfirmed = true;
+        }
+        else {
+            if (text.equalsIgnoreCase("S")) {
+                outputDisplayManager.displayText("> Perfetto! Ora possiamo iniziare!");
+                outputDisplayManager.displayText("> Benvenuto " + Game.getInstance().getNickname() + "!");
+                Event = 0;
+            } else {
+                outputDisplayManager.displayText("> Va bene, allora proviamo di nuovo! Inserisci il mio nome:");
+                isNameConfirmed = false;
+            }
+        }
+    }
+
+    private static void endingFlow(String text) {
+        if (!isGameEnded) {
+            String finale;
+
+            if (text.equalsIgnoreCase("Saggezza")) {
+                finale = "Saggezza";
+            } else if (text.equalsIgnoreCase("Ricchezza")) {
+                finale = "Ricchezza";
+            } else {
+                outputDisplayManager.displayText("> \"Parla forte e chiaro! Prendi una delle due scelte e si preciso nelle tue decisioni!\"");
+                outputDisplayManager.displayText("> \"Saggezza\" o \"Ricchezza\"?");
+                return;
+            }
+            DatabaseConnection.printFromDB("0", "Stanza10", finale, "0", "0", "0");
+            //TODO: chiamata post per salvataggio del tempo e tipo di finale
+
+            outputDisplayManager.displayText("");
+            outputDisplayManager.displayText("> La tua avventura nella piramide è giunta al termine! Grazie per aver giocato!");
+            outputDisplayManager.displayText("> Scrivi qualsiasi cosa per terminare il gioco.");
+            isGameEnded = true;
+        } else {
+            System.exit(0);
         }
     }
 
