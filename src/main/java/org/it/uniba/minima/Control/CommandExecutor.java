@@ -22,7 +22,7 @@ public class CommandExecutor {
     private CommandBehavior createDirectionCommandBehavior(CommandType direction) {
         return p -> {
             Corridor corridor = game.getCorridorsMap().stream()
-                    .filter(c -> c.getStartingRoom().equals(game.getCurrentRoom()) && c.getDirection() == direction)
+                    .filter(c -> c.getStartingRoom().getName().equals(game.getCurrentRoom().getName()) && c.getDirection() == direction)
                     .findFirst()
                     .orElse(null);
 
