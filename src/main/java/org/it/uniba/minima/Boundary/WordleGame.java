@@ -1,5 +1,7 @@
 package org.it.uniba.minima.Boundary;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
@@ -24,6 +26,7 @@ public class WordleGame {
     protected int currentTry = 0;
     protected final int MaxLetters = 5;
     protected String GuessingWord;
+    protected String[] charGuessingWord = GuessingWord.split("");
     private WordleGame instance;
 
     public WordleGame() throws IOException {
@@ -80,10 +83,10 @@ public class WordleGame {
 
     public boolean checkLenght(String text) {
         if (text.length() != 5) {
-        outputDisplayManager.displayText("La parola inserita non è valida, inserire una parola di 5 lettere.");
+            outputDisplayManager.displayText("La parola inserita non è valida, inserire una parola di 5 lettere.");
             return false;
         }
-         return true;
+        return true;
     }
 
     public String[] SplittedText(String text) {
@@ -96,19 +99,20 @@ public class WordleGame {
     }
 
     public void checkGuess(String guess) {
-        for (int i = 0; i < 5; i++) {
-            if (guess.charAt(i) == GuessingWord.charAt(i)) {
+        String[] charAlreadyGuessed = guess.split("");
+        for(int i = 0; i < 5; i++) {
+            if (charGuessingWord[i].equals(charAlreadyGuessed[i])) {
                 changeBoxColor(currentTry, i, new Color(24, 159, 10));
-            } else if (GuessingWord.contains(String.valueOf(guess.charAt(i)))) {
-                changeBoxColor(currentTry, i, new Color(213, 173, 0));
+                charGuessingWord[i] = "";
             }
-            else {
-                changeBoxColor(currentTry, i, new Color(52, 59, 66));
+        }
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                if (charGuessingWord[i].equals(charAlreadyGuessed[j])) {
+                    changeBoxColor(currentTry, i, new Color(255, 0, 0));
+                    charGuessingWord[i] = "";
+                }
             }
         }
     }
 }
-
-
-
-
