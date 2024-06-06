@@ -581,7 +581,7 @@ private void goBackButtonActionPerformed(ActionEvent evt) {
     private static JPanel imagePanel;
     private JScrollPane jScrollPane1;
     private JScrollPane jScrollPane2;
-    private JTextArea inventoryTextArea;
+    private static JTextArea inventoryTextArea;
     private JTextField userInputField;
     private static JTextPane displayTextPane;
     private JToolBar toolBar;
