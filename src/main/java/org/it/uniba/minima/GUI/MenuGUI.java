@@ -1,42 +1,66 @@
 package org.it.uniba.minima.GUI;
-import org.it.uniba.minima.Boundary.outputDisplayManager;
 import org.it.uniba.minima.Control.GameManager;
-import org.it.uniba.minima.Control.userInputFlow;
-import org.it.uniba.minima.Database.DatabaseConnection;
 import org.it.uniba.minima.Entity.Game;
+import org.it.uniba.minima.Entity.Item;
 import org.it.uniba.minima.Mixer;
 import org.it.uniba.minima.TimerManager;
-
 import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.plaf.metal.MetalButtonUI;
-
 import java.awt.*;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.io.BufferedReader;
+import java.awt.event.ActionEvent;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.sql.Connection;
-
+import java.util.List;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import static javax.swing.JOptionPane.showMessageDialog;
 
-
-public class MenuGUI extends javax.swing.JPanel{
-
+/**
+ * The GUI of the menu.
+ */
+public class MenuGUI extends JPanel{
+    /**
+     * The background panel.
+     */
+    private JPanel backgroundPanel;
+    /**
+     * The new game button.
+     */
+    private JButton newGame;
+    /**
+     * The sound button.
+     */
+    private static JButton sound;
+    /**
+     * The help button.
+     */
+    private JButton help;
+    /**
+     * The load game button.
+     */
+    private JButton loadGame;
+    /**
+     * The credits button.
+     */
+    private JButton credits;
+    /**
+     * The site button.
+     */
+    private JButton site;
 
     /**
-     * Creates new form MenuGUI
+     * Constructor of the class.
      */
     public MenuGUI() {
         initComponents();
     }
 
-
+    /**
+     * Initializes the components.
+     */
     private void initComponents() {
-        backgroundPanel = new javax.swing.JPanel()
+        // Create the components
+        backgroundPanel = new JPanel()
         {
             @Override
             protected void paintComponent(Graphics g) {
@@ -46,28 +70,31 @@ public class MenuGUI extends javax.swing.JPanel{
                 g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
             }
         };
-        newGame = new javax.swing.JButton();
+        newGame = new JButton();
         newGame.setAlignmentX(Component.CENTER_ALIGNMENT);
-        sound = new javax.swing.JButton( );
-        help = new javax.swing.JButton();
+        sound = new JButton( );
+        help = new JButton();
         help.setText("?");
-        loadGame = new javax.swing.JButton();
-        credits = new javax.swing.JButton();
-        site = new javax.swing.JButton();
+        loadGame = new JButton();
+        credits = new JButton();
+        site = new JButton();
 
+        // Set the properties of the panel
         setPreferredSize(new java.awt.Dimension(800, 600));
         setSize(new java.awt.Dimension(800, 600));
 
+        // Set the properties of the background panel
         backgroundPanel.setMinimumSize(new java.awt.Dimension(800, 600));
         backgroundPanel.setPreferredSize(new java.awt.Dimension(800, 600));
         backgroundPanel.setRequestFocusEnabled(false);
 
+        // Set the properties of the site button
         site.setUI(new MetalButtonUI() {
-    protected Color getSelectColor () {
-        return new Color(133, 106, 5, 50);
+            protected Color getSelectColor () {
+                return new Color(133, 106, 5, 50);
+            }
+        });
 
-    }
-});
         site.setFocusPainted(false);
         site.setBackground(new Color(204, 173, 27));
         site.setForeground(new Color(255, 255, 255));
@@ -75,22 +102,19 @@ public class MenuGUI extends javax.swing.JPanel{
         site.setBorder(BorderFactory.createLineBorder(new Color(107, 90, 13), 5));
         site.setFont(site.getFont().deriveFont(40f));
         site.setText("\uD83C\uDF10");
-        site.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        site.setHorizontalTextPosition(SwingConstants.CENTER);
         site.setMaximumSize(new java.awt.Dimension(60, 60));
         site.setMinimumSize(new java.awt.Dimension(60, 60));
         site.setPreferredSize(new java.awt.Dimension(60, 60));
-        site.addActionListener(new java.awt.event.ActionListener() {
-    public void actionPerformed(java.awt.event.ActionEvent evt) {
-        siteActionPerformed(evt);
-    }
-});
+        site.addActionListener(this::siteActionPerformed);
 
+        // Set the properties of the new game button
         newGame.setUI(new MetalButtonUI() {
-    protected Color getSelectColor () {
-        return new Color(133, 106, 5, 50);
+            protected Color getSelectColor () {
+                return new Color(133, 106, 5, 50);
 
-    }
-});
+            }
+        });
         newGame.setFocusPainted(false);
         newGame.setBackground(new Color(204, 173, 27));
         newGame.setForeground(new Color(255, 255, 255));
@@ -101,18 +125,15 @@ public class MenuGUI extends javax.swing.JPanel{
         newGame.setMaximumSize(new java.awt.Dimension(240, 60));
         newGame.setMinimumSize(new java.awt.Dimension(240, 60));
         newGame.setPreferredSize(new java.awt.Dimension(240, 60));
-        newGame.addActionListener(new java.awt.event.ActionListener() {
-    public void actionPerformed(java.awt.event.ActionEvent evt) {
-        newGameActionPerformed(evt);
-    }
-});
+        newGame.addActionListener(this::newGameActionPerformed);
 
+        // Set the properties of the sound button
         sound.setUI(new MetalButtonUI() {
-    protected Color getSelectColor () {
-        return new Color(133, 106, 5, 50);
+            protected Color getSelectColor () {
+                return new Color(133, 106, 5, 50);
 
-    }
-});
+            }
+        });
         sound.setFocusPainted(false);
         sound.setBackground(new Color(204, 173, 27));
         sound.setForeground(new Color(255, 255, 255));
@@ -124,18 +145,15 @@ public class MenuGUI extends javax.swing.JPanel{
         sound.setMaximumSize(new java.awt.Dimension(40, 40));
         sound.setMinimumSize(new java.awt.Dimension(40, 40));
         sound.setPreferredSize(new java.awt.Dimension(40, 40));
-        sound.addActionListener(new java.awt.event.ActionListener() {
-    public void actionPerformed(java.awt.event.ActionEvent evt) {
-        soundActionPerformed(evt);
-    }
-});
+        sound.addActionListener(this::soundActionPerformed);
 
+        // Set the properties of the help button
         help.setUI(new MetalButtonUI() {
-    protected Color getSelectColor () {
-        return new Color(133, 106, 5, 50);
+            protected Color getSelectColor () {
+                return new Color(133, 106, 5, 50);
 
-    }
-});
+            }
+        });
         help.setFocusPainted(false);
         help.setBackground(new Color(204, 173, 27));
         help.setForeground(new Color(255, 255, 255));
@@ -146,18 +164,15 @@ public class MenuGUI extends javax.swing.JPanel{
         help.setMaximumSize(new java.awt.Dimension(40, 40));
         help.setMinimumSize(new java.awt.Dimension(40, 40));
         help.setPreferredSize(new java.awt.Dimension(40, 40));
-        help.addActionListener(new java.awt.event.ActionListener() {
-    public void actionPerformed(java.awt.event.ActionEvent evt) {
-        helpActionPerformed(evt);
-    }
-});
+        help.addActionListener(this::helpActionPerformed);
 
+        // Set the properties of the load game button
         loadGame.setUI(new MetalButtonUI() {
-    protected Color getSelectColor () {
-        return new Color(133, 106, 5, 50);
+            protected Color getSelectColor () {
+                return new Color(133, 106, 5, 50);
 
-    }
-});
+            }
+        });
         loadGame.setFocusPainted(false);
         loadGame.setBackground(new Color(204, 173, 27));
         loadGame.setForeground(new Color(255, 255, 255));
@@ -168,24 +183,21 @@ public class MenuGUI extends javax.swing.JPanel{
         loadGame.setMaximumSize(new java.awt.Dimension(240, 60));
         loadGame.setMinimumSize(new java.awt.Dimension(240, 60));
         loadGame.setPreferredSize(new java.awt.Dimension(240, 60));
-        loadGame.addActionListener(new java.awt.event.ActionListener() {
-    public void actionPerformed(java.awt.event.ActionEvent evt) {
-        try {
-            loadGameActionPerformed(evt);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-    }
-});
+        loadGame.addActionListener(evt -> {
+            try {
+                loadGameActionPerformed(evt);
+            } catch (IOException | ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        });
 
+        // Set the properties of the credits button
         credits.setUI(new MetalButtonUI() {
-    protected Color getSelectColor () {
-        return new Color(133, 106, 5, 50);
+            protected Color getSelectColor () {
+                return new Color(133, 106, 5, 50);
 
-    }
-});
+            }
+        });
         credits.setFocusPainted(false);
         credits.setBackground(new Color(204, 173, 27));
         credits.setForeground(new Color(255, 255, 255));
@@ -196,104 +208,119 @@ public class MenuGUI extends javax.swing.JPanel{
         credits.setMaximumSize(new java.awt.Dimension(240, 60));
         credits.setMinimumSize(new java.awt.Dimension(240, 60));
         credits.setPreferredSize(new java.awt.Dimension(240, 60));
-        credits.addActionListener(new java.awt.event.ActionListener() {
-    public void actionPerformed(java.awt.event.ActionEvent evt) {
-        creditsActionPerformed(evt);
-    }
-});
+        credits.addActionListener(this::creditsActionPerformed);
 
-javax.swing.GroupLayout backgroundPanelLayout = new javax.swing.GroupLayout(backgroundPanel);
-        backgroundPanelLayout.setHorizontalGroup(
-        backgroundPanelLayout.createParallelGroup(Alignment.LEADING)
-                .addGroup(backgroundPanelLayout.createSequentialGroup()
-                    .addGap(25)
-                    .addGroup(backgroundPanelLayout.createParallelGroup(Alignment.TRAILING)
-                        .addComponent(sound, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(help, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-        .addPreferredGap(ComponentPlacement.RELATED, 420, Short.MAX_VALUE)
-                    .addComponent(site, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addGap(25))
-        .addGroup(backgroundPanelLayout.createSequentialGroup()
-                    .addGap(270)
-                    .addGroup(backgroundPanelLayout.createParallelGroup(Alignment.LEADING)
-                        .addComponent(newGame, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(loadGame, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(credits, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-        .addContainerGap(270, Short.MAX_VALUE))
-        );
-        backgroundPanelLayout.setVerticalGroup(
-        backgroundPanelLayout.createParallelGroup(Alignment.TRAILING)
-                .addGroup(backgroundPanelLayout.createSequentialGroup()
-                    .addGap(25)
-                    .addGroup(backgroundPanelLayout.createParallelGroup(Alignment.LEADING)
-                        .addComponent(site, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        GroupLayout backgroundPanelLayout = new GroupLayout(backgroundPanel);
+                backgroundPanelLayout.setHorizontalGroup(
+                backgroundPanelLayout.createParallelGroup(Alignment.LEADING)
                         .addGroup(backgroundPanelLayout.createSequentialGroup()
-                            .addComponent(sound, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
-                            .addGap(12)
-                            .addComponent(help, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)))
-        .addPreferredGap(ComponentPlacement.RELATED, 149, Short.MAX_VALUE)
-                    .addComponent(newGame, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
-                    .addGap(32)
-                    .addComponent(loadGame, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
-                    .addGap(32)
-                    .addComponent(credits, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
-                    .addGap(90))
-        );
-        backgroundPanel.setLayout(backgroundPanelLayout);
+                            .addGap(25)
+                            .addGroup(backgroundPanelLayout.createParallelGroup(Alignment.TRAILING)
+                                .addComponent(sound, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(help, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(ComponentPlacement.RELATED, 420, Short.MAX_VALUE)
+                            .addComponent(site, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                            .addGap(25))
+                .addGroup(backgroundPanelLayout.createSequentialGroup()
+                            .addGap(270)
+                            .addGroup(backgroundPanelLayout.createParallelGroup(Alignment.LEADING)
+                                .addComponent(newGame, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(loadGame, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(credits, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(270, Short.MAX_VALUE))
+                );
+                backgroundPanelLayout.setVerticalGroup(
+                backgroundPanelLayout.createParallelGroup(Alignment.TRAILING)
+                        .addGroup(backgroundPanelLayout.createSequentialGroup()
+                            .addGap(25)
+                            .addGroup(backgroundPanelLayout.createParallelGroup(Alignment.LEADING)
+                                .addComponent(site, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addGroup(backgroundPanelLayout.createSequentialGroup()
+                                    .addComponent(sound, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+                                    .addGap(12)
+                                    .addComponent(help, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(ComponentPlacement.RELATED, 149, Short.MAX_VALUE)
+                            .addComponent(newGame, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
+                            .addGap(32)
+                            .addComponent(loadGame, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
+                            .addGap(32)
+                            .addComponent(credits, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
+                            .addGap(90))
+                );
+                backgroundPanel.setLayout(backgroundPanelLayout);
 
-javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(backgroundPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-                layout.setVerticalGroup(
-        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(backgroundPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-                }// </editor-fold>
+        GroupLayout layout = new GroupLayout(this);
+                this.setLayout(layout);
+                layout.setHorizontalGroup(
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addComponent(backgroundPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                );
+                        layout.setVerticalGroup(
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addComponent(backgroundPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                );
+    }
 
-private void newGameActionPerformed(java.awt.event.ActionEvent evt) {
-    ProgressBarGUI progressBarGUI;
-    progressBarGUI = (ProgressBarGUI) this.getParent().getComponent(2);
-    CardLayout cl = (CardLayout) getParent().getLayout();
-    cl.show(getParent(), "ProgressBarGUI");
-    GameManager.createGame();
+    /**
+     * Start a new game.
+     *
+     * @param evt the event
+     */
+    private void newGameActionPerformed(ActionEvent evt) {
+        ProgressBarGUI progressBarGUI;
+        progressBarGUI = (ProgressBarGUI) this.getParent().getComponent(2);
+        CardLayout cl = (CardLayout) getParent().getLayout();
+        cl.show(getParent(), "ProgressBarGUI");
+        GameManager.createGame();
 
-    GameGUI gameGUI = (GameGUI) this.getParent().getComponent(3);
+        GameGUI gameGUI = (GameGUI) this.getParent().getComponent(3);
 
-    progressBarGUI.addPropertyChangeListener(new PropertyChangeListener() {
-        @Override
-        public void propertyChange(PropertyChangeEvent evt) {
-            if (evt.getPropertyName().equals("isFinished") && (boolean) evt.getNewValue()) {
+        progressBarGUI.addPropertyChangeListener(evt1 -> {
+            if (evt1.getPropertyName().equals("isFinished") && (boolean) evt1.getNewValue()) {
                 cl.show(getParent(), "GameGUI");
                 TimerManager.getInstance().startTimer();
             }
-        }
-    });
+        });
 
-    progressBarGUI.startProgressBar();
-}
-
-private void soundActionPerformed(java.awt.event.ActionEvent evt) {
-    if (Mixer.isRunning()) {
-        Mixer.stopClip();
-    } else {
-        Mixer.startClip();
+        progressBarGUI.startProgressBar();
     }
-}
 
-private void helpActionPerformed(java.awt.event.ActionEvent evt) {
-    HelpGUI helpGUI = HelpGUI.getInstance();
-    helpGUI.setVisible(true);
-    // TODO add your handling code here:
-}
+    /**
+     * Start or stop the music.
+     */
+    private void soundActionPerformed(ActionEvent evt) {
+        if (Mixer.isRunning()) {
+            Mixer.stopClip();
+        } else {
+            Mixer.startClip();
+        }
+    }
 
-    private void loadGameActionPerformed(java.awt.event.ActionEvent evt) throws IOException, ClassNotFoundException {
+    /**
+     * Open the help dialog.
+     *
+     * @param evt the event
+     */
+    private void helpActionPerformed(ActionEvent evt) {
+        HelpGUI helpGUI = HelpGUI.getInstance();
+        helpGUI.setVisible(true);
+    }
+
+    /**
+     * Load a saved game.
+     *
+     * @param evt the event
+     * @throws IOException            the io exception
+     * @throws ClassNotFoundException the class not found exception
+     */
+    private void loadGameActionPerformed(ActionEvent evt) throws IOException, ClassNotFoundException {
         GameManager gameManager = new GameManager();
         boolean loadedGameSuccessfully = gameManager.loadGame();
         if (loadedGameSuccessfully) {
-            GameGUI gameGUI = (GameGUI) this.getParent().getComponent(3);
+            Game game = Game.getInstance();
+            List<String> itemsNames = game.getInventory().stream().map(Item::getName).toList();
+            String[] itemsNamesArray = itemsNames.toArray(new String[0]);
+            GameGUI.updateInventoryTextArea(itemsNamesArray);
             CardLayout cl = (CardLayout) getParent().getLayout();
             cl.show(getParent(), "GameGUI");
             TimerManager.getInstance().startTimer();
@@ -303,27 +330,31 @@ private void helpActionPerformed(java.awt.event.ActionEvent evt) {
         }
     }
 
-private void creditsActionPerformed(java.awt.event.ActionEvent evt) {
-    CardLayout cl = (CardLayout) getParent().getLayout();
-    cl.show(getParent(), "RiconoscimentiGUI");    }
+    /**
+     * Switch to the credits panel.
+     *
+     * @param evt the event
+     */
+    private void creditsActionPerformed(ActionEvent evt) {
+        CardLayout cl = (CardLayout) getParent().getLayout();
+        cl.show(getParent(), "RiconoscimentiGUI");
+    }
 
-private void siteActionPerformed(java.awt.event.ActionEvent evt) {
-    // TODO add your handling code here:
-}
+    /**
+     * Open the site.
+     *
+     * @param evt the event
+     */
+    private void siteActionPerformed(ActionEvent evt) {
+        // TODO add your handling code here:
+    }
 
-public static void musicButtonSetTextMenu(String text) {
-    sound.setText(text);
-}
-
-public static void setGame(GameGUI game) {
-    // TODO add your handling code here:
-}
-// Variables declaration - do not modify
-private javax.swing.JPanel backgroundPanel;
-private javax.swing.JButton newGame;
-private static javax.swing.JButton sound;
-private javax.swing.JButton help;
-private javax.swing.JButton loadGame;
-private javax.swing.JButton credits;
-private javax.swing.JButton site;
+    /**
+     * Method to set the text of the sound button.
+     *
+     * @param text the text
+     */
+    public static void musicButtonSetTextMenu(String text) {
+        sound.setText(text);
+    }
 }
