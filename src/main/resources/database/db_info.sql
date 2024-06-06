@@ -3,7 +3,7 @@ VALUES
     ( 'Osiride', '23:59:59', 'S');
 
 INSERT INTO DESCRIZIONI (ID, COMANDO, STANZA, STATO, PERSONAGGIO, OGGETTO1, OGGETTO2, DESCRIZIONE) VALUES
-    (1, '0', 'Desert', 'Start', '0', '0', '0', '> Apri gli occhi e ti ritrovi in un disteso letto di sabbia... "Dove sono??"'),
+    (1, '0', 'Desert', 'Start', '0', '0', '0', '> Apri gli occhi e ti ritrovi disteso in un letto di sabbia... "Dove sono?? Come mi chiamo?? Se potessi scrivere il mio nome potrei ricordarlo... (Hint: una volta scritto il tuo nome, non potrai tornare indietro)"'),
     (2, 'Osserva', 'Desert', 'Start', '0', '0', '0', '> Di fronte a te si pone una grande Sfinge egizia, dietro di lei è presente un imponente piramide che sembra quasi risplendere sotto la luce lunare.'),
     (3, 'Parla', 'Desert', 'Start', 'Sfinge', '0', '0', '> "Salve viandante, ti pongo una sfida, se la superi entrerai in un luogo dove ogni tuo desiderio verrà realizzato. La sfida che io ti pongo è indovinare la parola a cui sto pensando"'),
     (4, '0', 'Desert', 'Corretto', 'Sfinge', '0', '0', '> "È esattamente la parola che stavo pensando!"'),
