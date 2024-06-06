@@ -1,11 +1,14 @@
 package org.it.uniba.minima.Boundary;
 
-import org.it.uniba.minima.Control.userInputFlow;
+import org.it.uniba.minima.Control.UserInputFlow;
 import org.it.uniba.minima.Database.DatabaseConnection;
 import org.it.uniba.minima.Entity.Game;
 import org.it.uniba.minima.GUI.GameGUI;
 import org.it.uniba.minima.GUI.ImpiccatoGUI;
 
+/**
+ * The type Hangman game.
+ */
 public class HangmanGame {
     private final String GUESSING_PHRASE = "TI TROVI NELLA PIRAMIDE DI OSIRIDE";
     private final int PHRASE_LENGTH = 34;
@@ -14,6 +17,11 @@ public class HangmanGame {
     private int currentAttempt = 0;
     private char[] guessedLetters = new char[PHRASE_LENGTH];
 
+    /**
+     * Hangman flow.
+     *
+     * @param text the text
+     */
     public void HangmanFlow(String text) {
         String newText = text.toUpperCase();
         if (newText.length() == 1) {
@@ -31,18 +39,24 @@ public class HangmanGame {
         if (currentAttempt >= MAX_ATTEMPTS) {
             outputDisplayManager.displayText("> La piuma si asciuga dell'inchiostro, hai esaurito i tentativi! Riprova.");
             currentAttempt = 0;
-            userInputFlow.Event = 0;
+            UserInputFlow.Event = 0;
             Game game = Game.getInstance();
             game.setRoomState("Stanza4", "Sbagliato");
             GameGUI.setImagePanel(game.getCurrentRoom().getName());
         }
     }
 
+    /**
+     * Check guess boolean.
+     *
+     * @param text the text
+     * @return the boolean
+     */
     public boolean checkGuess(String text) {
         if (text.equals(GUESSING_PHRASE)) {
             impiccatoGUI.setPhrase(GUESSING_PHRASE);
             DatabaseConnection.printFromDB("0", "Stanza4", "Start", "0", "0", "0");
-            userInputFlow.Event = 0;
+            UserInputFlow.Event = 0;
             Game game = Game.getInstance();
             game.getCurrentRoom().setState("Corretto");
             game.unlockCorridor("Stanza4", "Stanza5");
@@ -54,6 +68,12 @@ public class HangmanGame {
         }
     }
 
+    /**
+     * Check letter boolean.
+     *
+     * @param text the text
+     * @return the boolean
+     */
     public boolean checkLetter(String text) {
         char letter = text.charAt(0);
         for (int i = 0; i < PHRASE_LENGTH; i++) {
