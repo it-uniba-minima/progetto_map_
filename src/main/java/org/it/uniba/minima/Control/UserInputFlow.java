@@ -1,32 +1,50 @@
 package org.it.uniba.minima.Control;
-
 import org.it.uniba.minima.Boundary.*;
 import org.it.uniba.minima.Database.DatabaseConnection;
 import org.it.uniba.minima.Entity.Game;
-import org.it.uniba.minima.GUI.GUIManager;
 import org.it.uniba.minima.Type.ParserOutput;
-import java.io.IOException;
-import java.awt.CardLayout;
 
-public class userInputFlow {
+/**
+ * The class that redirects the user input to the correct part of the game.
+ */
+public class UserInputFlow {
+    /**
+     * The constant Event that represents the current event.
+     */
     public static int Event = 5;
+    /**
+     * The parser object that parses the user input in case 0.
+     */
     private static Parser parser = new Parser();
+    /**
+     * The command executor object that executes the commands in case 0.
+     */
     private static CommandExecutor commandExecutor = new CommandExecutor(Game.getInstance());
+    /**
+     * The wordleGame object that manages the wordle game in case 1.
+     */
     private static WordleGame wordleGame;
+    /**
+     * The hangmanGame object that manages the hangman game in case 4.
+     */
+    private static HangmanGame hangmanGame = new HangmanGame();
+    /**
+     * The flag that manages the input of the nickname.
+     */
     private static boolean isNameConfirmed = false;
+    /**
+     * The flag that manages the end of the game.
+     */
     private static boolean isGameEnded = false;
 
-    static {
-        try {
-            wordleGame = new WordleGame();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    private static HangmanGame hangmanGame = new HangmanGame();
-
-    public static void GameFlow(String text) {
+    /**
+     * Manages the flow of the game based on the current event.
+     *
+     * @param text the user input
+     */
+    public static void gameFlow(String text) {
         outputDisplayManager.displayText(text);
+
         switch(Event) {
             case 0:
                 parserFlow(text);
@@ -55,6 +73,65 @@ public class userInputFlow {
         }
     }
 
+    /**
+     * The method to manage command parsing and execution.
+     *
+     * @param text the user input
+     */
+    private static void parserFlow(String text) {
+        ParserOutput output = parser.parse(text);
+        if (output.getArgs() != 0) {
+            commandExecutor.execute(output);
+        } else {
+            outputDisplayManager.displayText("Comando non valido");
+        }
+
+    }
+
+    /**
+     * The method to manage the hangman game event.
+     *
+     * @param text the user input
+     */
+    private static void hangmanFlow(String text) {
+        hangmanGame.HangmanFlow(text);
+    }
+
+    /**
+     * The method to manage the wordle game event.
+     *
+     * @param text the user input
+     */
+    public static void wordleFlow(String text) {
+        wordleGame.manageGuess(text.trim().toUpperCase());
+    }
+
+    /**
+     * The method to manage the trivia game event.
+     *
+     * @param text the user input
+     */
+    public static void triviaFlow(String text) {
+        try {
+            TriviaGame.checkGuess(text);
+            if (Event == 2) TriviaGame.getQAndA();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * The method to manage the mattonelle game event.
+     */
+    public static void mattonelleFlow() {
+        outputDisplayManager.displayText("Risolvi il puzzle delle mattonelle per proseguire!");
+    }
+
+    /**
+     * The method to manage the nickname input.
+     *
+     * @param text the user input
+     */
     private static void nicknameFlow(String text) {
         if (!isNameConfirmed) {
             outputDisplayManager.displayText("> Sei sicuro che questo sia il mio nome? (S/N)");
@@ -73,6 +150,11 @@ public class userInputFlow {
         }
     }
 
+    /**
+     * The method to manage the ending of the game.
+     *
+     * @param text the user input
+     */
     private static void endingFlow(String text) {
         if (!isGameEnded) {
             String finale;
@@ -96,36 +178,5 @@ public class userInputFlow {
         } else {
             System.exit(0);
         }
-    }
-
-    private static void hangmanFlow(String text) {
-        hangmanGame.HangmanFlow(text);
-    }
-
-    public static void triviaFlow(String text) {
-        try {
-            TriviaGame.checkGuess(text);
-            if (Event == 2) TriviaGame.getQAndA();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static void parserFlow(String text) {
-        ParserOutput output = parser.parse(text);
-        if (output.getArgs() != 0) {
-            commandExecutor.execute(output);
-        } else {
-            outputDisplayManager.displayText("Comando non valido");
-        }
-
-    }
-
-    public static void wordleFlow(String text) {
-        wordleGame.printSplittedText(text.trim().toUpperCase());
-    }
-
-    public static void mattonelleFlow() {
-        outputDisplayManager.displayText("Risolvi il puzzle delle mattonelle per proseguire!");
     }
 }
