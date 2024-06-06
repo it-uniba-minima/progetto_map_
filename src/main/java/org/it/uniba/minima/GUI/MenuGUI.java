@@ -1,7 +1,6 @@
 package org.it.uniba.minima.GUI;
 import org.it.uniba.minima.Boundary.outputDisplayManager;
 import org.it.uniba.minima.Control.GameManager;
-import org.it.uniba.minima.Control.Serializer;
 import org.it.uniba.minima.Database.DatabaseConnection;
 import org.it.uniba.minima.Entity.Game;
 import org.it.uniba.minima.Mixer;
@@ -15,8 +14,13 @@ import javax.swing.plaf.metal.MetalButtonUI;
 import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.sql.Connection;
+
+import static javax.swing.JOptionPane.ERROR_MESSAGE;
+import static javax.swing.JOptionPane.showMessageDialog;
 
 
 public class MenuGUI extends javax.swing.JPanel{
@@ -284,12 +288,19 @@ private void helpActionPerformed(java.awt.event.ActionEvent evt) {
     // TODO add your handling code here:
 }
 
-private void loadGameActionPerformed(java.awt.event.ActionEvent evt) throws IOException, ClassNotFoundException {
-    Game game = Serializer.deserialize();
-    //GameGUI.setGame(game);
-    CardLayout cl = (CardLayout) getParent().getLayout();
-    // get timer from file -> Timer.start();
-}
+    private void loadGameActionPerformed(java.awt.event.ActionEvent evt) throws IOException, ClassNotFoundException {
+        GameManager gameManager = new GameManager();
+        boolean loadedGameSuccessfully = gameManager.loadGame();
+        if (loadedGameSuccessfully) {
+            GameGUI gameGUI = (GameGUI) this.getParent().getComponent(3);
+            CardLayout cl = (CardLayout) getParent().getLayout();
+            cl.show(getParent(), "GameGUI");
+            TimerManager.getInstance().startTimer();
+        }
+        else {
+            showMessageDialog(null, "No saved game found", "Error", ERROR_MESSAGE);
+        }
+    }
 
 private void creditsActionPerformed(java.awt.event.ActionEvent evt) {
     CardLayout cl = (CardLayout) getParent().getLayout();

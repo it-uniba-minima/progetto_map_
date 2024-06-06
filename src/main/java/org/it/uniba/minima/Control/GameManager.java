@@ -37,13 +37,20 @@ public class GameManager {
 
     public void saveGame() throws IOException, ClassNotFoundException {
         Converter converter = new Converter();
-        converter.ConvertGametoJson();//(Game.getInstance());
-
+        Game game = Game.getInstance();
+        converter.ConvertGametoJson();
+        converter.ConvertAgentstoJson();
     }
 
-    public Game loadGame() {
+    public boolean loadGame() {
         Converter converter = new Converter();
-        return converter.loadGame();
+        allAgents = converter.loadGame();
+        try {
+            allAgents.get(1);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public static Agent getAgentFromName(String name) {
@@ -69,16 +76,5 @@ public class GameManager {
                 .collect(Collectors.toSet());
         return allPersonages;
     }
-    /*
-        1) Scrittura dei file JSON contenenti le istanziazioni di stanze, oggetti e personaggi,
-        nota che le descrizioni in particolare sono una cosa di cui si occupa Marco,
-        quindi puoi anche ignorarle per ora e usare la stringa vuota
-        2) Creazione di una classe chiamata ad esempio GameManager che al suo interno istanzia
-        tutte le stanze, tutte gli oggetti, tutti i personaggi e l'istanza di iniziale di Game
-        3) Creazione di un altro/i metodo/i nella classe GameManager per la serializzazione di tutte le stanze,
-        oggetti, personaggi e dell'istanza di Game per il salvataggio
-        4) Creazione/modifica di metodo/i per il caricamento di una partita
-
-     */
-
+    
 }
