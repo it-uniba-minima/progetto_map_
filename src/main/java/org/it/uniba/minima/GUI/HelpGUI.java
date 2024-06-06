@@ -8,11 +8,11 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- *
- * @author Avventura-nella-piramide-egizia
+ * Author: Avventura-nella-piramide-egizia
  */
 public class HelpGUI extends JFrame {
     private static HelpGUI instance;
+
     /**
      * Creates new form HelpGUI
      */
@@ -35,63 +35,50 @@ public class HelpGUI extends JFrame {
      */
     @SuppressWarnings("unchecked")
     private void initComponents() {
+        JLabel listaComandi = new javax.swing.JLabel();
 
-        jPanel1 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        listaComandi = new javax.swing.JTextArea();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(480, 320));
+        setTitle("Guida Comandi");
+        setPreferredSize(new java.awt.Dimension(500, 340));
+        setMaximumSize(new java.awt.Dimension(500, 340));
+        setMinimumSize(new java.awt.Dimension(500, 340));
         setResizable(false);
+        getContentPane().setBackground(new Color(204, 173, 27));
+        setIconImage(new ImageIcon("docs/img/gameIcon.jpg").getImage());
 
-        Font font = new Font("Courier", Font.BOLD, 15);
-        listaComandi.setColumns(20);
-        listaComandi.setRows(5);
-        listaComandi.setEditable(false);
-        listaComandi.setBackground(Color.BLACK);
+        Font font = new Font("Papyrus", Font.BOLD, 12);
+        listaComandi.setOpaque(true);
+        listaComandi.setBackground(new Color(204, 173, 27));
         listaComandi.setForeground(Color.WHITE);
         listaComandi.setFont(font);
-        listaComandi.setText("Ecco la lista dei comandi: \n" +
-                "- (help/aiuto/h/comandi): mostra questa lista\n" +
-                "- (nord/north/n/avanti): vai a nord\n" +
-                "- (sud/south/s/indietro): vai a sud\n" +
-                "- (est/east/e/destra): vai a est\n" +
-                "- (ovest/west/o/sinistra): vai a ovest\n" +
-                "- (inventario/i/inventory/borsa/zaino): mostra inventario\n" +
-                "- (guarda/look/l/vedi/esamina): esamina stanza\n" +
-                "- (prendi/take/t/raccogli): raccogli oggetto\n" +
-                "- (usa/use/u/utilizza): usa oggetto\n" +
-                "- (parla/talk/p/dialoga): dialoga con personaggio\n");
-        jScrollPane1.setViewportView(listaComandi);
-        jScrollPane1.setPreferredSize(new Dimension(480, 320));
-        jScrollPane1.setMaximumSize(new Dimension(480, 320));
-        jScrollPane1.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane1.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
+        listaComandi.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, new Color(107, 90, 13)));
+        listaComandi.setText(
+                "<html>" +
+                        "Ecco la lista dei comandi:<br>" +
+                        "AIUTO<br>" +
+                        "NORD<br>" +
+                        "SUD<br>" +
+                        "EST<br>" +
+                        "OVEST<br>" +
+                        "OSSERVA<br>" +
+                        "INVENTARIO<br>" +
+                        "PRENDI<br>" +
+                        "LASCIA<br>" +
+                        "USA<br>" +
+                        "UNISCI<br>" +
+                        "PARLA<br>" +
+                        "DAI" +
+                        "</html>"
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(listaComandi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(listaComandi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -99,8 +86,5 @@ public class HelpGUI extends JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private static javax.swing.JTextArea listaComandi;
     // End of variables declaration//GEN-END:variables
 }
