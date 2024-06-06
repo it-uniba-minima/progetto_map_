@@ -1,22 +1,17 @@
 package org.it.uniba.minima.Control;
 
-import com.mashape.unirest.http.exceptions.UnirestException;
-import org.it.uniba.minima.Boundary.TriviaGame;
-import org.it.uniba.minima.Boundary.WordleGame;
-import org.it.uniba.minima.Boundary.outputDisplayManager;
+import org.it.uniba.minima.Boundary.*;
 import org.it.uniba.minima.Entity.Game;
 import org.it.uniba.minima.Type.ParserOutput;
-import org.it.uniba.minima.Boundary.HangmanGame;
-
 import java.io.IOException;
 
-import java.io.IOException;
 
 public class userInputFlow {
-    public static int Event = 0;
+    public static int Event = 5;
     private static Parser parser = new Parser();
     private static CommandExecutor commandExecutor = new CommandExecutor(Game.getInstance());
     private static WordleGame wordleGame;
+    private static boolean isYourName = true;
     static {
         try {
             wordleGame = new WordleGame();
@@ -44,9 +39,30 @@ public class userInputFlow {
             case 4:
                 hangmanFlow(text);
                 break;
+            case 5:
+                nicknameFlow(text);
+                break;
             default:
                 parserFlow(text);
                 break;
+        }
+    }
+
+    private static void nicknameFlow(String text) {
+        if (isYourName) {
+            outputDisplayManager.displayText("> Sei sicuro che questo sia il mio nome? (S/N)");
+            isYourName = false;
+        }
+        else {
+            if (text.equalsIgnoreCase("S")) {
+                outputDisplayManager.displayText("> Perfetto! Ora possiamo iniziare!");
+                Game.getInstance().setNickname(text);
+                outputDisplayManager.displayText("> Benvenuto " + text + "!");
+                Event = 0;
+            } else {
+                outputDisplayManager.displayText("> Va bene, allora proviamo di nuovo! Inserisci il mio nome:");
+                isYourName = true;
+            }
         }
     }
 
