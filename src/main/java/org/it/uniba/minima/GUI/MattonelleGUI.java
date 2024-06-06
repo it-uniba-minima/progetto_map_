@@ -1,7 +1,6 @@
 package org.it.uniba.minima.GUI;
 
-import org.it.uniba.minima.Boundary.outputDisplayManager;
-import org.it.uniba.minima.Control.userInputFlow;
+import org.it.uniba.minima.Control.UserInputFlow;
 import org.it.uniba.minima.Database.DatabaseConnection;
 import org.it.uniba.minima.Entity.Game;
 
@@ -11,6 +10,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 
 /**
+ * The type Mattonelle gui.
  *
  * @author miche
  */
@@ -41,7 +41,7 @@ public class MattonelleGUI extends javax.swing.JPanel {
         A1 = new javax.swing.JButton();
         A2 = new javax.swing.JButton();
         A3 = new javax.swing.JButton();
-        
+
         B1 = new javax.swing.JButton();
         B2 = new javax.swing.JButton();
         B3 = new javax.swing.JButton();
@@ -915,7 +915,7 @@ public class MattonelleGUI extends javax.swing.JPanel {
     private void G2ActionPerformed(java.awt.event.ActionEvent evt) {
         makeVisible('G');
         DatabaseConnection.printFromDB("0", "Stanza7", "Corretto", "0", "Mattonella", "0");
-        userInputFlow.Event = 0;
+        UserInputFlow.Event = 0;
         Game game = Game.getInstance();
         game.setRoomState("Stanza7", "Corretto");
         GameGUI.setImagePanel(game.getCurrentRoom().getName());
@@ -982,9 +982,12 @@ public class MattonelleGUI extends javax.swing.JPanel {
                 break;
         }
     }
-    
+
+    /**
+     * Reset all mattonelle.
+     */
     public void resetAllMattonelle() {
-        userInputFlow.Event = 0;
+        UserInputFlow.Event = 0;
         Game game = Game.getInstance();
         game.setRoomState("Stanza7", "Sbagliato");
         GameGUI.setImagePanel(game.getCurrentRoom().getName());
