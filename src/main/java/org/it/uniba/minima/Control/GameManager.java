@@ -22,10 +22,15 @@ public class GameManager {
         converter.ConvertAgentstoJson();
     }
 
-    public Game loadGame() {
+    public boolean loadGame() {
         Converter converter = new Converter();
-        // TODO: implement the loading of the game
-        return null;
+        allAgents = converter.loadGame();
+        try {
+            allAgents.get(1);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public static Agent getAgentFromName(String name) {
