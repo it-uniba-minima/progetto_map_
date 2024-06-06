@@ -3,9 +3,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package org.it.uniba.minima.GUI;
-
-
-
+import com.mashape.unirest.http.exceptions.UnirestException;
+import org.it.uniba.minima.Boundary.WordleGame;
+import org.it.uniba.minima.Control.Converter;
+import org.it.uniba.minima.Control.GameManager;
+import org.it.uniba.minima.Database.DatabaseConnection;
+import org.it.uniba.minima.Entity.Game;
 import org.it.uniba.minima.Mixer;
 import org.it.uniba.minima.TimerManager;
 import org.it.uniba.minima.Boundary.userInputManager;
@@ -14,19 +17,20 @@ import javax.swing.plaf.metal.MetalButtonUI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 /**
  *
  * @author miche
  */
-public class GameGUI extends javax.swing.JPanel {
+public class GameGUI extends JPanel {
     private static CardLayout cardLayout;
     /**
      * Creates new form GameGUI
      */
 
     public static Wordle getWordle() {
-        return (Wordle) imagePanel.getComponent(0);
+        return (Wordle) imagePanel.getComponent(1);
     }
 
     public GameGUI() {
@@ -52,9 +56,7 @@ public class GameGUI extends javax.swing.JPanel {
         //substitute JLabel with images
         //beacause of the getComponent method you have to set the event panels on top
         //so that you can retrieve them by index in, for example, the getWordle method
-        imagePanel.add(new Wordle(), "Wordle");
-        imagePanel.add(new MattonelleGUI(), "Mattonelle");
-        imagePanel.add(new ImpiccatoGUI(), "Impiccato");
+
 
         imagePanel.add(new JPanel(null) {
             {
@@ -69,6 +71,10 @@ public class GameGUI extends javax.swing.JPanel {
                 g.drawImage(image.getImage(), 0, 0, getWidth(), getHeight(), this);
             }
         }, "Desert");
+
+        imagePanel.add(new Wordle(), "Wordle");
+        imagePanel.add(new MattonelleGUI(), "Mattonelle");
+        imagePanel.add(new ImpiccatoGUI(), "Impiccato");
 
         imagePanel.add(new JPanel() {
             @Override
@@ -181,20 +187,20 @@ public class GameGUI extends javax.swing.JPanel {
     private void initComponents() {
         setBackground(new Color(25, 30, 66));
 
-        toolBar = new javax.swing.JToolBar();
-        goBackButton = new javax.swing.JButton();
-        saveGameButton = new javax.swing.JButton();
-        helpButton = new javax.swing.JButton();
-        musicButton = new javax.swing.JButton();
-        timerLabel = new javax.swing.JLabel();
-        userInputField = new javax.swing.JTextField();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        inventoryTextArea = new javax.swing.JTextArea();
-        imagePanel = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        displayTextPane = new javax.swing.JTextPane();
+        toolBar = new JToolBar();
+        goBackButton = new JButton();
+        saveGameButton = new JButton();
+        helpButton = new JButton();
+        musicButton = new JButton();
+        timerLabel = new JLabel();
+        userInputField = new JTextField();
+        jScrollPane2 = new JScrollPane();
+        inventoryTextArea = new JTextArea();
+        imagePanel = new JPanel();
+        jScrollPane1 = new JScrollPane();
+        displayTextPane = new JTextPane();
 
-        setPreferredSize(new java.awt.Dimension(800, 600));
+        setPreferredSize(new Dimension(800, 600));
 
         toolBar.setBorderPainted(false);
         toolBar.setFloatable(false);
@@ -218,8 +224,8 @@ public class GameGUI extends javax.swing.JPanel {
         goBackButton.setFocusable(false);
         goBackButton.setHorizontalTextPosition(SwingConstants.CENTER);
         goBackButton.setVerticalTextPosition(SwingConstants.CENTER);
-        goBackButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        goBackButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 goBackButtonActionPerformed(evt);
             }
         });
@@ -244,9 +250,15 @@ public class GameGUI extends javax.swing.JPanel {
         saveGameButton.setFocusable(false);
         saveGameButton.setHorizontalTextPosition(SwingConstants.CENTER);
         saveGameButton.setVerticalTextPosition(SwingConstants.CENTER);
-        saveGameButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                saveGameButtonActionPerformed(evt);
+        saveGameButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                try {
+                    saveGameButtonActionPerformed(evt);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                } catch (ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
         toolBar.add(saveGameButton);
@@ -270,8 +282,8 @@ public class GameGUI extends javax.swing.JPanel {
         helpButton.setFocusable(false);
         helpButton.setHorizontalTextPosition(SwingConstants.CENTER);
         helpButton.setVerticalTextPosition(SwingConstants.CENTER);
-        helpButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        helpButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 helpButtonActionPerformed(evt);
             }
         });
@@ -299,8 +311,8 @@ public class GameGUI extends javax.swing.JPanel {
         musicButton.setFocusable(false);
         musicButton.setHorizontalTextPosition(SwingConstants.CENTER);
         musicButton.setVerticalTextPosition(SwingConstants.CENTER);
-        musicButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        musicButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 musicButtonActionPerformed(evt);
             }
         });
@@ -407,30 +419,30 @@ public class GameGUI extends javax.swing.JPanel {
         userInputFieldPanel.add(userInputField);
 
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        GroupLayout layout = new GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addComponent(toolBar, 800, 800, 800)
                         .addGroup(layout.createSequentialGroup()
                                 .addGap(5, 5, 5)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
                                         .addGroup(layout.createSequentialGroup()
                                                 .addComponent(userInputFieldPanel, 335, 335, 335))
                                         .addComponent(jScrollPane1))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                         .addComponent(jScrollPane2, 440, 440, 440)
                                         .addComponent(imagePanel, 440, 440, 440))
                                 .addGap(5, 5, 5))
         );
         layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
-                                .addComponent(toolBar, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(toolBar, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                         .addGroup(layout.createSequentialGroup()
-                                                .addComponent(imagePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addComponent(imagePanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(jScrollPane2, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE))
                                         .addGroup(layout.createSequentialGroup()
                                                 .addComponent(jScrollPane1)
                                                 .addComponent(userInputFieldPanel, 31, 31, 31)))
@@ -438,31 +450,67 @@ public class GameGUI extends javax.swing.JPanel {
         );
     }// </editor-fold>
 
-    private void saveGameButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        /*
-        Serializer serializer = new Serializer();
-        try {
-            serializer.serialize(game);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-         */
+    private void saveGameButtonActionPerformed(ActionEvent evt) throws IOException, ClassNotFoundException {
+            Font font = new Font("Papyrus", 0, 13);
+            UIManager.put("OptionPane.messageFont", font);
+            int save = JOptionPane.showConfirmDialog(this, "Would you like to save?", "Save",
+                    JOptionPane.YES_NO_OPTION);
+
+            if (save == JOptionPane.YES_OPTION) {
+                saveFile();
+            } else {
+                buttonActions1();
+            }
     }
 
-    private void goBackButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        TimerManager.getInstance().stopTimer();
-        //Get timer -> insert in File
-        TimerManager.getInstance().killTimer();
+    private void buttonActions1() {
+        UIManager.put("OptionPane.messageFont", new Font("Papyrus", 0, 13));
+        JOptionPane.showMessageDialog(this, "Game not saved", "Save", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private void saveFile() throws IOException, ClassNotFoundException {
+        GameManager gameManager = new GameManager();
+        gameManager.saveGame();
+        JOptionPane.showMessageDialog(this, "Game saved successfully", "Save", JOptionPane.INFORMATION_MESSAGE);
         CardLayout cl = (CardLayout) getParent().getLayout();
         cl.show(getParent(), "MenuGUI");
     }
 
-    private void helpButtonActionPerformed(java.awt.event.ActionEvent evt) {
+private void goBackButtonActionPerformed(ActionEvent evt) {
+        UIManager.put("OptionPane.messageFont", new Font("Papyrus", 0, 13));
+        int back = JOptionPane.showConfirmDialog(this, "Sei sicuro di voler tornare al Menù senza salvare?", "Back",
+                JOptionPane.YES_NO_OPTION);
+        if (back == JOptionPane.YES_OPTION) {
+            CardLayout cl = (CardLayout) getParent().getLayout();
+            cl.show(getParent(), "MenuGUI");
+            //TODO: completare questo if perchè se salvo un game , ci rivado e non risalvo il timer riparte da 0.
+            // serve un attributo per verificare se si è verificato in precedenza un salvataggio in modo che prenda l'ultimo salvataggio esistente
+            /*
+            if (ciccio) {
+                TimerManager.getInstance().stopTimer();
+                TimerManager.getInstance().killTimer();
+            }
+            else {
+                buttonActions2();
+            }
+             */
+        } else {
+            buttonActions2();
+        }
+
+    }
+
+    private void buttonActions2() {
+        UIManager.put("OptionPane.messageFont", new Font("Papyrus", 0, 13));
+        JOptionPane.showMessageDialog(this, "Sii più deciso la prossima volta", "Back", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private void helpButtonActionPerformed(ActionEvent evt) {
         HelpGUI helpGUI = HelpGUI.getInstance();
         helpGUI.setVisible(true);
     }
 
-    private void musicButtonActionPerformed(java.awt.event.ActionEvent evt) {
+    private void musicButtonActionPerformed(ActionEvent evt) {
         if(Mixer.isRunning()) {
             Mixer.stopClip();
         } else {
@@ -470,7 +518,7 @@ public class GameGUI extends javax.swing.JPanel {
         }
     }
 
-    private void userInputFieldActionPerformed(java.awt.event.ActionEvent evt) {
+    private void userInputFieldActionPerformed(ActionEvent evt) {
         String text = userInputField.getText();
         userInputField.setText("");
         userInputManager.setCurrentInput(text);
@@ -526,18 +574,16 @@ public class GameGUI extends javax.swing.JPanel {
         inventoryTextArea.setText(inventory.toString());
     }
 
-    // Variables declaration - do not modify
-    private javax.swing.JButton goBackButton;
-    private javax.swing.JButton saveGameButton;
-    private javax.swing.JButton helpButton;
-    private static javax.swing.JButton musicButton;
-    private static javax.swing.JPanel imagePanel;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private static javax.swing.JTextArea inventoryTextArea;
-    private javax.swing.JTextField userInputField;
-    private static javax.swing.JTextPane displayTextPane;
-    private javax.swing.JToolBar toolBar;
-    private static javax.swing.JLabel timerLabel;
-    // End of variables declaration
+    private JButton goBackButton;
+    private JButton saveGameButton;
+    private JButton helpButton;
+    private static JButton musicButton;
+    private static JPanel imagePanel;
+    private JScrollPane jScrollPane1;
+    private JScrollPane jScrollPane2;
+    private JTextArea inventoryTextArea;
+    private JTextField userInputField;
+    private static JTextPane displayTextPane;
+    private JToolBar toolBar;
+    private static JLabel timerLabel;
 }
