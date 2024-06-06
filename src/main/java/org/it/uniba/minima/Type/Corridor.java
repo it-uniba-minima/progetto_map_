@@ -1,45 +1,87 @@
 package org.it.uniba.minima.Type;
-
 import org.it.uniba.minima.Entity.Room;
 
+/**
+ * The class representing the corridors type.
+ */
 public class Corridor {
-    private Room room1;
+    /**
+     * The starting room.
+     */
+    private Room startingRoom;
+    /**
+     * The direction of the corridor.
+     */
     private CommandType direction;
+    /**
+     * The locked status of the corridor.
+     */
     private boolean locked;
-    private Room room2;
+    /**
+     * The arriving room.
+     */
+    private Room arrivingRoom;
 
-    public Corridor(Room room1, CommandType direction, boolean locked, Room room2) {
-        this.room1 = room1;
-        this.direction = direction;
-        this.locked = locked;
-        this.room2 = room2;
-    }
-
+    /**
+     * Gets starting room.
+     *
+     * @return the starting room
+     */
     public Room getStartingRoom() {
-        return room1;
+        return startingRoom;
     }
 
+    /**
+     * Gets direction.
+     *
+     * @return the direction
+     */
     public CommandType getDirection() {
         return direction;
     }
 
+    /**
+     * Returns the locked status of the corridor.
+     *
+     * @return the locked status
+     */
     public boolean isLocked() {
         return locked;
     }
 
+    /**
+     * Sets the locked status of the corridor.
+     *
+     * @param locked the locked status
+     */
     public void setLocked(boolean locked) {
         this.locked = locked;
     }
 
+    /**
+     * Gets arriving room.
+     *
+     * @return the arriving room
+     */
     public Room getArrivingRoom() {
-        return room2;
+        return arrivingRoom;
     }
 
+    /**
+     * Sets starting room.
+     *
+     * @param room the room
+     */
     public void setStartingRoom(Room room) {
-        this.room1 = room;
+        this.startingRoom = room;
     }
 
+    /**
+     * Sets arriving room.
+     *
+     * @param room the room
+     */
     public void setArrivingRoom(Room room) {
-        this.room2 = room;
+        this.arrivingRoom = room;
     }
 }
