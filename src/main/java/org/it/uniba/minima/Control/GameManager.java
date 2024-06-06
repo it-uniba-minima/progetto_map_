@@ -1,20 +1,104 @@
 package org.it.uniba.minima.Control;
-
 import org.it.uniba.minima.Entity.*;
 import org.it.uniba.minima.Type.CommandType;
-
 import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * The class that manages the game.
+ */
 public class GameManager {
+    /**
+     * A map containing all the agents mapped to their names.
+     */
     private static Map<String, Agent> allAgents;
 
+    /**
+     * Instantiates a new game and creates all the agents.
+     */
     public static void createGame() {
         Converter converter = new Converter();
         allAgents = converter.convertJsonToJavaClass();
     }
 
+    /**
+     * The method to save the game and the agents in a json file.
+     *
+     * @throws IOException the io exception
+     */
+    public void saveGame() throws IOException {
+        Converter converter = new Converter();
+        converter.ConvertGameToJson();
+        converter.ConvertAgentsToJson();
+    }
+
+    /**
+     * Load game boolean.
+     *
+     * @return the boolean
+     */
+    public boolean loadGame() {
+        Converter converter = new Converter();
+        allAgents = converter.loadGame();
+        try {
+            allAgents.get(1);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    /**
+     * Gets an agent from its name.
+     *
+     * @param name the name of the agent
+     * @return the agent
+     */
+    public static Agent getAgentFromName(String name) {
+        return allAgents.get(name);
+    }
+
+    /**
+     * Returns a set with all the agents.
+     *
+     * @return the all agents set
+     */
+    public static Set<Agent> getAllAgents() {
+        return new HashSet<>(allAgents.values());
+    }
+
+    /**
+     * Returns a set with all the items.
+     *
+     * @return the all items set
+     */
+    public static Set<Item> getAllItems() {
+        Set<Item> allItems = allAgents.values().stream()
+                .filter(agent -> agent instanceof Item)
+                .map(agent -> (Item) agent)
+                .collect(Collectors.toSet());
+        return allItems;
+    }
+
+    /**
+     * Returns a set with all the personages.
+     *
+     * @return the all personages set
+     */
+    public static Set<Personage> getAllPersonages() {
+        Set<Personage> allPersonages = allAgents.values().stream()
+                .filter(agent -> agent instanceof Personage)
+                .map(agent -> (Personage) agent)
+                .collect(Collectors.toSet());
+        return allPersonages;
+    }
+
+    /**
+     * Instantiates all the commands and returns them.
+     *
+     * @return the all commands set
+     */
     public static Set<Command> getAllCommands() {
         Set<Command> availableCommands = new HashSet<>();
 
@@ -34,47 +118,4 @@ public class GameManager {
 
         return availableCommands;
     }
-
-    public void saveGame() throws IOException, ClassNotFoundException {
-        Converter converter = new Converter();
-        Game game = Game.getInstance();
-        converter.ConvertGametoJson();
-        converter.ConvertAgentstoJson();
-    }
-
-    public boolean loadGame() {
-        Converter converter = new Converter();
-        allAgents = converter.loadGame();
-        try {
-            allAgents.get(1);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
-    public static Agent getAgentFromName(String name) {
-        return allAgents.get(name);
-    }
-
-    public static Set<Agent> getAllAgents() {
-        return new HashSet<>(allAgents.values());
-    }
-
-    public static Set<Item> getAllItems() {
-        Set<Item> allItems = allAgents.values().stream()
-                .filter(agent -> agent instanceof Item)
-                .map(agent -> (Item) agent)
-                .collect(Collectors.toSet());
-        return allItems;
-    }
-
-    public static Set<Personage> getAllPersonages() {
-        Set<Personage> allPersonages = allAgents.values().stream()
-                .filter(agent -> agent instanceof Personage)
-                .map(agent -> (Personage) agent)
-                .collect(Collectors.toSet());
-        return allPersonages;
-    }
-    
 }
