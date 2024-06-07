@@ -23,7 +23,7 @@ public class UserInputFlow {
     /**
      * The wordleGame object that manages the wordle game in case 1.
      */
-    private static WordleGame wordleGame;
+    private static WordleGame wordleGame = new WordleGame();
     /**
      * The hangmanGame object that manages the hangman game in case 4.
      */
