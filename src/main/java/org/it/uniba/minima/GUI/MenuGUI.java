@@ -1,7 +1,7 @@
 package org.it.uniba.minima.GUI;
 import org.it.uniba.minima.Control.GameManager;
+import org.it.uniba.minima.Control.UserInputFlow;
 import org.it.uniba.minima.Entity.Game;
-import org.it.uniba.minima.Entity.Item;
 import org.it.uniba.minima.Mixer;
 import org.it.uniba.minima.TimerManager;
 import javax.swing.*;
@@ -11,7 +11,6 @@ import javax.swing.plaf.metal.MetalButtonUI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
-import java.util.List;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import static javax.swing.JOptionPane.showMessageDialog;
 
@@ -211,54 +210,54 @@ public class MenuGUI extends JPanel{
         credits.addActionListener(this::creditsActionPerformed);
 
         GroupLayout backgroundPanelLayout = new GroupLayout(backgroundPanel);
-                backgroundPanelLayout.setHorizontalGroup(
+        backgroundPanelLayout.setHorizontalGroup(
                 backgroundPanelLayout.createParallelGroup(Alignment.LEADING)
                         .addGroup(backgroundPanelLayout.createSequentialGroup()
-                            .addGap(25)
-                            .addGroup(backgroundPanelLayout.createParallelGroup(Alignment.TRAILING)
-                                .addComponent(sound, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                .addComponent(help, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(ComponentPlacement.RELATED, 420, Short.MAX_VALUE)
-                            .addComponent(site, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                            .addGap(25))
-                .addGroup(backgroundPanelLayout.createSequentialGroup()
-                            .addGap(270)
-                            .addGroup(backgroundPanelLayout.createParallelGroup(Alignment.LEADING)
-                                .addComponent(newGame, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                .addComponent(loadGame, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                .addComponent(credits, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(270, Short.MAX_VALUE))
-                );
-                backgroundPanelLayout.setVerticalGroup(
+                                .addGap(25)
+                                .addGroup(backgroundPanelLayout.createParallelGroup(Alignment.TRAILING)
+                                        .addComponent(sound, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(help, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(ComponentPlacement.RELATED, 420, Short.MAX_VALUE)
+                                .addComponent(site, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addGap(25))
+                        .addGroup(backgroundPanelLayout.createSequentialGroup()
+                                .addGap(270)
+                                .addGroup(backgroundPanelLayout.createParallelGroup(Alignment.LEADING)
+                                        .addComponent(newGame, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(loadGame, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(credits, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap(270, Short.MAX_VALUE))
+        );
+        backgroundPanelLayout.setVerticalGroup(
                 backgroundPanelLayout.createParallelGroup(Alignment.TRAILING)
                         .addGroup(backgroundPanelLayout.createSequentialGroup()
-                            .addGap(25)
-                            .addGroup(backgroundPanelLayout.createParallelGroup(Alignment.LEADING)
-                                .addComponent(site, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                .addGroup(backgroundPanelLayout.createSequentialGroup()
-                                    .addComponent(sound, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
-                                    .addGap(12)
-                                    .addComponent(help, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(ComponentPlacement.RELATED, 149, Short.MAX_VALUE)
-                            .addComponent(newGame, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
-                            .addGap(32)
-                            .addComponent(loadGame, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
-                            .addGap(32)
-                            .addComponent(credits, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
-                            .addGap(90))
-                );
-                backgroundPanel.setLayout(backgroundPanelLayout);
+                                .addGap(25)
+                                .addGroup(backgroundPanelLayout.createParallelGroup(Alignment.LEADING)
+                                        .addComponent(site, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(backgroundPanelLayout.createSequentialGroup()
+                                                .addComponent(sound, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+                                                .addGap(12)
+                                                .addComponent(help, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(ComponentPlacement.RELATED, 149, Short.MAX_VALUE)
+                                .addComponent(newGame, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
+                                .addGap(32)
+                                .addComponent(loadGame, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
+                                .addGap(32)
+                                .addComponent(credits, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
+                                .addGap(90))
+        );
+        backgroundPanel.setLayout(backgroundPanelLayout);
 
         GroupLayout layout = new GroupLayout(this);
-                this.setLayout(layout);
-                layout.setHorizontalGroup(
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
                 layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addComponent(backgroundPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                );
-                        layout.setVerticalGroup(
+        );
+        layout.setVerticalGroup(
                 layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addComponent(backgroundPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                );
+        );
     }
 
     /**
@@ -273,16 +272,17 @@ public class MenuGUI extends JPanel{
         cl.show(getParent(), "ProgressBarGUI");
         GameManager.createGame();
 
-        GameGUI gameGUI = (GameGUI) this.getParent().getComponent(3);
-
         progressBarGUI.addPropertyChangeListener(evt1 -> {
             if (evt1.getPropertyName().equals("isFinished") && (boolean) evt1.getNewValue()) {
                 cl.show(getParent(), "GameGUI");
-                TimerManager.getInstance().startTimer();
+                TimerManager.getInstance().startTimer("00:00:00");
             }
         });
 
         progressBarGUI.startProgressBar();
+
+        //new thread to set up a new game during the charge of the progress bar
+        new Thread(UserInputFlow::setUpGameFlow).start();
     }
 
     /**
@@ -316,14 +316,24 @@ public class MenuGUI extends JPanel{
     private void loadGameActionPerformed(ActionEvent evt) throws IOException, ClassNotFoundException {
         GameManager gameManager = new GameManager();
         boolean loadedGameSuccessfully = gameManager.loadGame();
+
         if (loadedGameSuccessfully) {
             Game game = Game.getInstance();
-            List<String> itemsNames = game.getInventory().stream().map(Item::getName).toList();
-            String[] itemsNamesArray = itemsNames.toArray(new String[0]);
-            GameGUI.updateInventoryTextArea(itemsNamesArray);
+            ProgressBarGUI progressBarGUI;
+            progressBarGUI = (ProgressBarGUI) this.getParent().getComponent(2);
             CardLayout cl = (CardLayout) getParent().getLayout();
-            cl.show(getParent(), "GameGUI");
-            TimerManager.getInstance().startTimer();
+            cl.show(getParent(), "ProgressBarGUI");
+
+            progressBarGUI.addPropertyChangeListener(evt1 -> {
+                if (evt1.getPropertyName().equals("isFinished") && (boolean) evt1.getNewValue()) {
+                    cl.show(getParent(), "GameGUI");
+                    TimerManager.getInstance().startTimer(game.getCurrentTime());
+                }
+            });
+            progressBarGUI.startProgressBar();
+
+            //new thread to set up a saved game during the charge of the progress bar
+            new Thread(() -> UserInputFlow.setUpLoadedGameFlow(game)).start();
         }
         else {
             showMessageDialog(null, "No saved game found", "Error", ERROR_MESSAGE);
