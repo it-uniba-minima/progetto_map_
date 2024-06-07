@@ -99,8 +99,8 @@ public class GameGUI extends JPanel {
         }, "Desert");
 
         imagePanel.add(new WordleGUI(), "WordleGUI");
-        imagePanel.add(new MattonelleGUI(), "Mattonelle");
-        imagePanel.add(new ImpiccatoGUI(), "Impiccato");
+        imagePanel.add(new TilesGUI(), "Mattonelle");
+        imagePanel.add(new HangmanGUI(), "Impiccato");
 
         for (int i = 1; i <= 10; i++) {
             final String imagePath = "docs/img/Stanza" + i + ".png";
