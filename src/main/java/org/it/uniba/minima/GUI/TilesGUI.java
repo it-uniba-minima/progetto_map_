@@ -14,12 +14,12 @@ import java.awt.event.ActionEvent;
  *
  * @author miche
  */
-public class MattonelleGUI extends javax.swing.JPanel {
+public class TilesGUI extends javax.swing.JPanel {
 
     /**
-     * Creates new form MattonelleGUI
+     * Creates new form TilesGUI
      */
-    public MattonelleGUI() {
+    public TilesGUI() {
         initComponents();
     }
 
