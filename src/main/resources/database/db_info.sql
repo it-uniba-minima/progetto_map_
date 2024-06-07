@@ -182,7 +182,7 @@ INSERT INTO DESCRIZIONI (ID, COMANDO, STANZA, STATO, PERSONAGGIO, OGGETTO1, OGGE
     (178, 'Osserva', 'Stanza4', 'Start', '0', '0', '0', '> Noti un banco al centro della stanza dove è presente una piuma e una pergamena, hai i flashback della maturità appena li vedi.'),
     (179, 'Osserva', 'Stanza4', 'Start', '0', 'Pergamena', '0', '> Una semplice pergamena, noti che ci sono dei trattini e degli spazi bianchi. Sembra volerti invitare a giocare.'),
     (180, 'Usa', 'Stanza4', 'Start', '0', 'Piuma', 'Pergamena', '> Prova scritta: indovina la frase in 7 tentativi. (Hint: puoi indovinare una lettera per volta o l''intera frase)'),
-    (181, '0', 'Stanza4', 'Corretto', '0', '0', '0', '> > Il foglio è pieno, la piuma si asciuga, hai indovinato la frase! La porta di fronte a te si apre.'),
+    (181, '0', 'Stanza4', 'Corretto', '0', '0', '0', '> Il foglio è pieno, la piuma si asciuga, hai indovinato la frase! La porta di fronte a te si apre.'),
     (182, 'Osserva', 'Stanza4', 'Corretto', '0', '0', '0', '> La stanza ti fa ricordare tutti i momenti della tua adolescenza passati sui banchi a studiare.'),
     (183, 'Osserva', 'Stanza4', 'Corretto', '0', 'Pergamena', '0', '> Adesso che la pergamena è risolta, hai un peso in meno sullo stomaco.'),
     (184, 'Osserva', 'Desert', 'Sbagliato', 'Sfinge', '0', '0', '> Una gigantesca Sfinge, sembra che voglio evitare la tua presenza.'),
