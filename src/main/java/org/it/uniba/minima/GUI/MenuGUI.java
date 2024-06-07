@@ -337,7 +337,7 @@ public class MenuGUI extends JPanel{
      */
     private void creditsActionPerformed(ActionEvent evt) {
         CardLayout cl = (CardLayout) getParent().getLayout();
-        cl.show(getParent(), "RiconoscimentiGUI");
+        cl.show(getParent(), "CreditsGUI");
     }
 
     /**
