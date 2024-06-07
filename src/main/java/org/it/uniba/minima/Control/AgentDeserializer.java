@@ -1,11 +1,14 @@
 package org.it.uniba.minima.Control;
-
 import com.google.gson.*;
 import org.it.uniba.minima.Entity.Agent;
 import org.it.uniba.minima.Entity.Item;
 import org.it.uniba.minima.Entity.Personage;
 import java.lang.reflect.Type;
 
+/**
+ * The custom deserializer for the Agent class.
+ * It checks if the agent is an Item or a Personage.
+ */
 public class AgentDeserializer implements JsonDeserializer<Agent> {
     @Override
     public Agent deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {

@@ -1,23 +1,71 @@
 package org.it.uniba.minima.Type;
 
+/**
+ * The enum of the command types.
+ */
 public enum CommandType {
-    AIUTO, // Comando che mostra la lista di comandi disponibili
+    /**
+     * Help command type, shows the list of available commands.
+     */
+    AIUTO,
 
-    NORD, // Comando per direzione Nord
-    SUD, // Comando per direzione Sud
-    EST, // Comando per direzione Est
-    OVEST, // Comando per direzione Ovest
+    /**
+     * Nord command type, moves the player to the north room.
+     */
+    NORD,
 
-    OSSERVA, // Comando per osservare oggetti, stanze, personaggi
+    /**
+     * Sud command type, moves the player to the south room.
+     */
+    SUD,
 
-    INVENTARIO, // Comando per accedere all'inventario
+    /**
+     * Est command type, moves the player to the east room.
+     */
+    EST,
 
-    PRENDI, //Comando per prendere oggetti
+    /**
+     * Ovest command type, moves the player to the west room.
+     */
+    OVEST,
+
+    /**
+     * Observe command type, allows the player to observe objects, rooms, and characters.
+     */
+    OSSERVA,
+
+    /**
+     * Inventory command type, lists the objects in the player's inventory.
+     */
+    INVENTARIO,
+
+    /**
+     * Take command type, allows the player to pick up objects.
+     */
+    PRENDI,
+
+    /**
+     * Drop command type, allows the player to drop objects.
+     */
     LASCIA, // Comando per lasciare oggetti
-    USA, // Comando per usare oggetti e usare oggetti su altri oggetti
-    UNISCI, // Comando per fondere oggetti
 
-    PARLA, // Comando per parlare con personaggi
-    DAI, // Comando per dare oggetti
+    /**
+     * Use command type, allows the player to use objects and use objects on other objects.
+     */
+    USA,
 
+    /**
+     * Fuse command type, allows the player to merge objects.
+     */
+    UNISCI,
+
+    /**
+     * Talk command type, allows the player to talk to characters.
+     */
+    PARLA,
+
+    /**
+     * Give command type, allows the player to give objects to characters.
+     */
+    DAI,
 }

@@ -1,33 +1,54 @@
 package org.it.uniba.minima.Entity;
-
-import org.it.uniba.minima.Database.DatabaseConnection;
-
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Class that represents an agent in the game.
+ */
 public class Agent {
+
+    /**
+     * Name of the agent.
+     */
     private String name;
-    private List<String> alias;
+    /**
+     * List of aliases of the agent.
+     */
+    private List<String> aliases;
 
-    public Agent() {
-    }
-
+    /**
+     * Gets name.
+     *
+     * @return the name
+     */
     public String getName() {
         return name;
     }
 
-    public List<String> getAlias() {
-        return alias;
+    /**
+     * Gets aliases.
+     *
+     * @return the aliases
+     */
+    public List<String> getAliases() {
+        return aliases;
     }
 
+    /**
+     * Sets name.
+     *
+     * @param name the name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setAlias(List<String> alias) {
-        this.alias = alias;
-    }
-
+    /**
+     * Has name name.
+     *
+     * @param name the name
+     * @return the boolean
+     */
     public boolean hasName(String name) {
         return this.name.equals(name);
     }
@@ -38,16 +59,18 @@ public class Agent {
         if (!(o instanceof Agent)) return false;
         Agent agent = (Agent) o;
         return Objects.equals(name, agent.name) &&
-                Objects.equals(alias, agent.alias);
+                Objects.equals(aliases, agent.aliases);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, alias);
+        return Objects.hash(name, aliases);
     }
 
-    public void getDescription(Room room) {
-
-    }
+    /**
+     * Method to override in subclasses to print the description of the agent.
+     *
+     * @param room the room
+     */
+    public void getDescription(Room room) { }
 }
-
