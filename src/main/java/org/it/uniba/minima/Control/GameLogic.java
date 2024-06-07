@@ -1,5 +1,6 @@
 package org.it.uniba.minima.Control;
 import org.it.uniba.minima.Boundary.TriviaGame;
+import org.it.uniba.minima.Boundary.UserInputManager;
 import org.it.uniba.minima.Entity.Agent;
 import org.it.uniba.minima.Entity.Personage;
 import org.it.uniba.minima.Entity.Game;
@@ -175,6 +176,7 @@ public class GameLogic {
         }
         if (i1.hasName("Piuma") && i2.hasName("Pergamena") && game.getCurrentRoom().getState().equals("Start") || game.getCurrentRoom().getState().equals("Sbagliato")) {
             UserInputFlow.Event = 4;
+            UserInputFlow.startHangmanGame();
             GameGUI.setImagePanel("Impiccato");
             return true;
         }
