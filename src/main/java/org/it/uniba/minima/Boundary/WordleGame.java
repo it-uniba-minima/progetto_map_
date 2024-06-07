@@ -97,7 +97,7 @@ public class WordleGame {
         // if it is the wordle game ends and the user loses
         if (currentTry == MAX_ATTEMPTS) {
             DatabaseConnection.printFromDB("0", "Desert", "Sbagliato", "Sfinge", "0", "0");
-            outputDisplayManager.displayText("> \"La parola corretta era: " + GuessingWord + "!\"");
+            OutputDisplayManager.displayText("> \"La parola corretta era: " + GuessingWord + "!\"");
             UserInputFlow.Event = 0;
             Game game = Game.getInstance();
             game.getCurrentRoom().setState("Sbagliato");
@@ -113,7 +113,7 @@ public class WordleGame {
      */
     public boolean checkLenght(String text) {
         if (text.length() != MAX_LETTERS) {
-            outputDisplayManager.displayText("> \"Come puoi vedere, la parola è di esattamente 5 lettere!\"");
+            OutputDisplayManager.displayText("> \"Come puoi vedere, la parola è di esattamente 5 lettere!\"");
             return false;
         }
         return true;
