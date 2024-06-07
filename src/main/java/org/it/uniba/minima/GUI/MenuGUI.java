@@ -1,6 +1,8 @@
 package org.it.uniba.minima.GUI;
 import org.it.uniba.minima.Control.GameManager;
-import org.it.uniba.minima.Control.UserInputFlow;
+import org.it.uniba.minima.Control.userInputFlow;
+import org.it.uniba.minima.Database.DatabaseConnection;
+import org.it.uniba.minima.Database.REST_Server;
 import org.it.uniba.minima.Entity.Game;
 import org.it.uniba.minima.Mixer;
 import org.it.uniba.minima.TimerManager;
@@ -11,6 +13,10 @@ import javax.swing.plaf.metal.MetalButtonUI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.io.InputStreamReader;
+import java.sql.Connection;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import static javax.swing.JOptionPane.showMessageDialog;
 
@@ -105,7 +111,17 @@ public class MenuGUI extends JPanel{
         site.setMaximumSize(new java.awt.Dimension(60, 60));
         site.setMinimumSize(new java.awt.Dimension(60, 60));
         site.setPreferredSize(new java.awt.Dimension(60, 60));
-        site.addActionListener(this::siteActionPerformed);
+        site.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            try {
+                siteActionPerformed(evt);
+            } catch (URISyntaxException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    });
 
         // Set the properties of the new game button
         newGame.setUI(new MetalButtonUI() {
@@ -339,7 +355,7 @@ public class MenuGUI extends JPanel{
             showMessageDialog(null, "No saved game found", "Error", ERROR_MESSAGE);
         }
     }
-
+  
     /**
      * Switch to the credits panel.
      *
@@ -355,9 +371,18 @@ public class MenuGUI extends JPanel{
      *
      * @param evt the event
      */
-    private void siteActionPerformed(ActionEvent evt) {
-        // TODO add your handling code here:
+private void siteActionPerformed(java.awt.event.ActionEvent evt) throws URISyntaxException, IOException {
+    REST_Server server = new REST_Server();
+    try {
+        server.startServer();
+
+        if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+            Desktop.getDesktop().browse(new URI("http://localhost:8080/api/data"));
+        }
+    } catch (IOException | URISyntaxException e) {
+        e.printStackTrace();
     }
+}
 
     /**
      * Method to set the text of the sound button.
