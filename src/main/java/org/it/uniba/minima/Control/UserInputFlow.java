@@ -2,7 +2,10 @@ package org.it.uniba.minima.Control;
 import org.it.uniba.minima.Boundary.*;
 import org.it.uniba.minima.Database.DatabaseConnection;
 import org.it.uniba.minima.Entity.Game;
+import org.it.uniba.minima.Entity.Item;
+import org.it.uniba.minima.GUI.GameGUI;
 import org.it.uniba.minima.Type.ParserOutput;
+import java.util.List;
 
 /**
  * The class that redirects the user input to the correct part of the game.
@@ -11,19 +14,19 @@ public class UserInputFlow {
     /**
      * The constant Event that represents the current event.
      */
-    public static int Event = 5;
+    public static int Event;
     /**
      * The parser object that parses the user input in case 0.
      */
-    private static Parser parser = new Parser();
+    private static final Parser parser = new Parser();
     /**
      * The command executor object that executes the commands in case 0.
      */
-    private static CommandExecutor commandExecutor = new CommandExecutor(Game.getInstance());
+    private static final CommandExecutor commandExecutor = new CommandExecutor(Game.getInstance());
     /**
      * The wordleGame object that manages the wordle game in case 1.
      */
-    private static WordleGame wordleGame = new WordleGame();
+    private static WordleGame wordleGame;
     /**
      * The hangmanGame object that manages the hangman game in case 4.
      */
@@ -31,11 +34,11 @@ public class UserInputFlow {
     /**
      * The flag that manages the input of the nickname.
      */
-    private static boolean isNameConfirmed = false;
+    private static boolean isNameConfirmed;
     /**
      * The flag that manages the end of the game.
      */
-    private static boolean isGameEnded = false;
+    private static boolean isGameEnded ;
 
     /**
      * Manages the flow of the game based on the current event.
@@ -185,5 +188,29 @@ public class UserInputFlow {
      */
     public static void startHangmanGame() {
         hangmanGame = new HangmanGame();
+    }
+
+    /**
+     * Set up a new game
+     */
+    public static void setUpGameFlow() {
+        Event = 5;
+        DatabaseConnection.printFromDB("0", "Desert", "Start", "0", "0", "0");
+        isNameConfirmed = false;
+        isGameEnded = false;
+        wordleGame = new WordleGame();
+    }
+
+    /*
+     * Set up a saved game
+     */
+    public static void setUpLoadedGameFlow(Game game) {
+        Event = 0;
+        isNameConfirmed = true;
+        isGameEnded = false;
+        wordleGame = new WordleGame();
+        List<String> itemsNames = game.getInventory().stream().map(Item::getName).toList();
+        String[] itemsNamesArray = itemsNames.toArray(new String[0]);
+        GameGUI.updateInventoryTextArea(itemsNamesArray);
     }
 }
