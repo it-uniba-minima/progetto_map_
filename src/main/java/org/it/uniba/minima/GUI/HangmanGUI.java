@@ -5,7 +5,7 @@ import java.awt.*;
 /**
  * The panel of the hangman game.
  */
-public class ImpiccatoGUI extends JPanel {
+public class HangmanGUI extends JPanel {
     /**
      * The hidden text label.
      */
@@ -21,15 +21,15 @@ public class ImpiccatoGUI extends JPanel {
     /**
      * The instance of the class.
      */
-    private static ImpiccatoGUI impiccatoGUI;
+    private static HangmanGUI hangmanGUI;
 
     /**
      * Constructor of the class.
      */
-    public ImpiccatoGUI() {
+    public HangmanGUI() {
         backgroundImage = new ImageIcon("docs/img/hangman.png").getImage();
         initComponents();
-        impiccatoGUI = this;
+        hangmanGUI = this;
     }
 
     /**
@@ -37,8 +37,8 @@ public class ImpiccatoGUI extends JPanel {
      *
      * @return the instance
      */
-    public static ImpiccatoGUI getInstance() {
-        return impiccatoGUI;
+    public static HangmanGUI getInstance() {
+        return hangmanGUI;
     }
 
     /**
@@ -127,5 +127,12 @@ public class ImpiccatoGUI extends JPanel {
      */
     public void setPhrase(String phrase) {
         SwingUtilities.invokeLater(() -> hiddenText.setText("<html><center>" + phrase + "</center></html>"));
+    }
+
+    /**
+     * Reset the guessed letters.
+     */
+    public void resetGuessedLetters() {
+        SwingUtilities.invokeLater(() -> hiddenText.setText("<html><center>__ _____ _____ ________ __ _______</center></html>"));
     }
 }
