@@ -1,10 +1,9 @@
 package org.it.uniba.minima.Entity;
-import org.it.uniba.minima.Boundary.outputDisplayManager;
+import org.it.uniba.minima.Boundary.OutputDisplayManager;
 import org.it.uniba.minima.GUI.GameGUI;
 import org.it.uniba.minima.Type.Corridor;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * The class that represents the game.
@@ -46,6 +45,7 @@ public class Game {
      */
     public static void setUpGame(Game game) {
         Game.game = game;
+        game.currentRoom = game.corridorsMap.get(7).getStartingRoom();
         GameGUI.setImagePanel(game.getCurrentRoom().getName());
     }
 
@@ -113,9 +113,9 @@ public class Game {
      * Print the inventory.
      */
     public void printInventory() {
-        outputDisplayManager.displayText("> Inventario: ");
+        OutputDisplayManager.displayText("> Inventario: ");
         for (Item item : game.inventory) {
-            outputDisplayManager.displayText(">  - " + item.getName());
+            OutputDisplayManager.displayText(">  - " + item.getName());
         }
     }
 
