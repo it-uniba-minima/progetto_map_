@@ -5,9 +5,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 
 /**
- * The type Riconoscimenti gui.
+ * The GUI of the credits.
  */
-public class RiconoscimentiGUI extends JPanel {
+public class CreditsGUI extends JPanel {
     /**
      * The button to go back to the main menu.
      */
@@ -40,7 +40,7 @@ public class RiconoscimentiGUI extends JPanel {
     /**
      * Constructor of the class.
      */
-    public RiconoscimentiGUI() {
+    public CreditsGUI() {
         initComponents();
     }
 
