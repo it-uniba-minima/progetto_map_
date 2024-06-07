@@ -1,7 +1,6 @@
 package org.it.uniba.minima.Database;
 
-import org.h2.tools.RunScript;
-import org.it.uniba.minima.Boundary.outputDisplayManager;
+import org.it.uniba.minima.Boundary.OutputDisplayManager;
 
 import java.sql.*;
 
@@ -128,7 +127,7 @@ public class DatabaseConnection {
         Connection conn;
         conn = DatabaseConnection.connect();
         String sql_query = "SELECT DESCRIZIONE FROM DESCRIZIONI WHERE COMANDO = '" + idComando + "' AND STANZA = '" + idStanza + "' AND STATO = '" + idStato + "' AND PERSONAGGIO = '" + idPersonaggio + "' AND OGGETTO1 = '" + idOggetto1 + "' AND OGGETTO2 = '" + idOggetto2 + "'";
-        outputDisplayManager.displayText(DatabaseConnection.getDescriptionFromDatabase(conn, sql_query));
+        OutputDisplayManager.displayText(DatabaseConnection.getDescriptionFromDatabase(conn, sql_query));
         DatabaseConnection.close(conn);
     }
 
