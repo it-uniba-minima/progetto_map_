@@ -27,7 +27,7 @@ public class UserInputFlow {
     /**
      * The hangmanGame object that manages the hangman game in case 4.
      */
-    private static HangmanGame hangmanGame = new HangmanGame();
+    private static HangmanGame hangmanGame;
     /**
      * The flag that manages the input of the nickname.
      */
@@ -43,7 +43,7 @@ public class UserInputFlow {
      * @param text the user input
      */
     public static void gameFlow(String text) {
-        outputDisplayManager.displayText(text);
+        OutputDisplayManager.displayText(text);
 
         switch(Event) {
             case 0:
@@ -83,7 +83,7 @@ public class UserInputFlow {
         if (output.getArgs() != 0) {
             commandExecutor.execute(output);
         } else {
-            outputDisplayManager.displayText("Comando non valido");
+            OutputDisplayManager.displayText("> Non ho capito cosa vuoi fare, riprova!");
         }
 
     }
@@ -94,7 +94,7 @@ public class UserInputFlow {
      * @param text the user input
      */
     private static void hangmanFlow(String text) {
-        hangmanGame.HangmanFlow(text);
+        hangmanGame.HangmanChecker(text);
     }
 
     /**
@@ -124,7 +124,7 @@ public class UserInputFlow {
      * The method to manage the mattonelle game event.
      */
     public static void mattonelleFlow() {
-        outputDisplayManager.displayText("Risolvi il puzzle delle mattonelle per proseguire!");
+        OutputDisplayManager.displayText("Risolvi il puzzle delle mattonelle per proseguire!");
     }
 
     /**
@@ -134,17 +134,17 @@ public class UserInputFlow {
      */
     private static void nicknameFlow(String text) {
         if (!isNameConfirmed) {
-            outputDisplayManager.displayText("> Sei sicuro che questo sia il mio nome? (S/N)");
+            OutputDisplayManager.displayText("> Sei sicuro che questo sia il mio nome? (S/N)");
             Game.getInstance().setNickname(text);
             isNameConfirmed = true;
         }
         else {
             if (text.equalsIgnoreCase("S")) {
-                outputDisplayManager.displayText("> Perfetto! Ora possiamo iniziare!");
-                outputDisplayManager.displayText("> Benvenuto " + Game.getInstance().getNickname() + "!");
+                OutputDisplayManager.displayText("> Perfetto! Ora possiamo iniziare!");
+                OutputDisplayManager.displayText("> Benvenuto " + Game.getInstance().getNickname() + "!");
                 Event = 0;
             } else {
-                outputDisplayManager.displayText("> Va bene, allora proviamo di nuovo! Inserisci il mio nome:");
+                OutputDisplayManager.displayText("> Va bene, allora proviamo di nuovo! Inserisci il mio nome:");
                 isNameConfirmed = false;
             }
         }
@@ -164,19 +164,26 @@ public class UserInputFlow {
             } else if (text.equalsIgnoreCase("Ricchezza")) {
                 finale = "Ricchezza";
             } else {
-                outputDisplayManager.displayText("> \"Parla forte e chiaro! Prendi una delle due scelte e si preciso nelle tue decisioni!\"");
-                outputDisplayManager.displayText("> \"Saggezza\" o \"Ricchezza\"?");
+                OutputDisplayManager.displayText("> \"Parla forte e chiaro! Prendi una delle due scelte e si preciso nelle tue decisioni!\"");
+                OutputDisplayManager.displayText("> \"Saggezza\" o \"Ricchezza\"?");
                 return;
             }
             DatabaseConnection.printFromDB("0", "Stanza10", finale, "0", "0", "0");
             //TODO: chiamata post per salvataggio del tempo e tipo di finale
 
-            outputDisplayManager.displayText("");
-            outputDisplayManager.displayText("> La tua avventura nella piramide è giunta al termine! Grazie per aver giocato!");
-            outputDisplayManager.displayText("> Scrivi qualsiasi cosa per terminare il gioco.");
+            OutputDisplayManager.displayText("");
+            OutputDisplayManager.displayText("> La tua avventura nella piramide è giunta al termine! Grazie per aver giocato!");
+            OutputDisplayManager.displayText("> Scrivi qualsiasi cosa per terminare il gioco.");
             isGameEnded = true;
         } else {
             System.exit(0);
         }
+    }
+
+    /**
+     * Start hangman game.
+     */
+    public static void startHangmanGame() {
+        hangmanGame = new HangmanGame();
     }
 }
