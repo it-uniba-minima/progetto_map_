@@ -1,9 +1,18 @@
 package org.it.uniba.minima.GUI;
-import javax.swing.*;
+import javax.swing.JPanel;
+import javax.swing.JProgressBar;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.BorderFactory;
+import javax.swing.SwingConstants;
+import javax.swing.GroupLayout;
 import javax.swing.plaf.basic.BasicProgressBarUI;
 import java.awt.*;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import java.util.Timer;
+import java.util.TimerTask;
+import javax.swing.JComponent;
 
 /**
  * The GUI of the progress bar.
@@ -87,25 +96,32 @@ public class ProgressBarGUI extends JPanel {
         int panelWidth = runningGIFPanel.getWidth();
         counter = 0;
 
-        Timer timer = new Timer(1, e -> {
-            if (counter < 100) {
-                counter++;
-                progressBar.setValue(counter);
-                progressBarLabel.setText("Loading... " + counter + "%");
-                x = (int) ((double) counter / 100 * (panelWidth + imgWidth)) - imgWidth;
-                runningGIFPanel.repaint();
-            } else {
-                ((Timer) e.getSource()).stop();
-                progressBarLabel.setText("Get Ready to Play!");
-
-                Timer delayTimer = new Timer(1000, e1 -> {
-                    ((Timer) e1.getSource()).stop();
-                    setFinished(true);
-                });
-                delayTimer.start();
+        Timer timerP = new Timer();
+        TimerTask taskProgressBar = new TimerTask() {
+            @Override
+            public void run() {
+                if (counter < 100) {
+                    counter++;
+                    progressBar.setValue(counter);
+                    progressBarLabel.setText("Loading... " + counter + "%");
+                    x = (int) ((double) counter / 100 * (panelWidth + imgWidth)) - imgWidth;
+                    runningGIFPanel.repaint();
+                } else {
+                    progressBarLabel.setText("Get Ready to Play!");
+                    Timer timerPLW = new Timer();
+                    TimerTask taskProgressBarLastWord = new TimerTask() {
+                        @Override
+                        public void run() {
+                            setFinished(true);
+                            timerPLW.cancel();
+                        }
+                    };
+                    timerPLW.schedule(taskProgressBarLastWord, 1000);
+                    timerP.cancel();
+                }
             }
-        });
-        timer.start();
+        };
+        timerP.scheduleAtFixedRate(taskProgressBar, 0, 10);
     }
 
     /**
