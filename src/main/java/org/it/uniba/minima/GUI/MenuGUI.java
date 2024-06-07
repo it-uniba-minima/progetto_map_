@@ -1,7 +1,6 @@
 package org.it.uniba.minima.GUI;
 import org.it.uniba.minima.Control.GameManager;
-import org.it.uniba.minima.Control.userInputFlow;
-import org.it.uniba.minima.Database.DatabaseConnection;
+import org.it.uniba.minima.Control.UserInputFlow;
 import org.it.uniba.minima.Database.REST_Server;
 import org.it.uniba.minima.Entity.Game;
 import org.it.uniba.minima.Mixer;
@@ -15,8 +14,6 @@ import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.io.InputStreamReader;
-import java.sql.Connection;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import static javax.swing.JOptionPane.showMessageDialog;
 
