@@ -30,13 +30,13 @@ public class ManagerGUI extends JFrame {
         // Create the cards
         JPanel cards = new JPanel(new CardLayout());
         MenuGUI menu = new MenuGUI();
-        RiconoscimentiGUI credits = new RiconoscimentiGUI();
+        CreditsGUI credits = new CreditsGUI();
         ProgressBarGUI progressBar = new ProgressBarGUI();
         GameGUI game = new GameGUI();
 
         // Add the panels to cards
         cards.add(menu, "MenuGUI");
-        cards.add(credits, "RiconoscimentiGUI");
+        cards.add(credits, "CreditsGUI");
         cards.add(progressBar, "ProgressBarGUI");
         cards.add(game, "GameGUI");
 
