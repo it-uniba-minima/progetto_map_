@@ -45,7 +45,6 @@ public class Game {
      */
     public static void setUpGame(Game game) {
         Game.game = game;
-        game.currentRoom = game.corridorsMap.get(7).getStartingRoom();
         GameGUI.setImagePanel(game.getCurrentRoom().getName());
     }
 
