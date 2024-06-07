@@ -1,7 +1,7 @@
 package org.it.uniba.minima;
+import org.it.uniba.minima.GUI.GameGUI;
 import java.util.Timer;
 import java.util.TimerTask;
-import static org.it.uniba.minima.GUI.GameGUI.timerLabelSetTime;
 
 /**
  * The class that manages the timer.
@@ -18,15 +18,15 @@ public class TimerManager {
     /**
      * The seconds.
      */
-    static int seconds = 0;
+    static int seconds;
     /**
      * The minutes.
      */
-    static int minutes = 0;
+    static int minutes;
     /**
      * The hours.
      */
-    static int hours = 0;
+    static int hours;
     /**
      * The timer instance.
      */
@@ -41,7 +41,7 @@ public class TimerManager {
         if (instance == null && !running) {
             instance = new TimerManager();
             timer = new Timer();
-            timer.scheduleAtFixedRate(new TimerTask() {
+            TimerTask taskTimer = new TimerTask() {
                 @Override
                 public void run() {
                     seconds++;
@@ -53,9 +53,10 @@ public class TimerManager {
                         minutes = 0;
                         hours++;
                     }
-                    timerLabelSetTime(getTime());
+                    GameGUI.timerLabelSetTime(getTime());
                 }
-            }, 1000, 1000);
+            };
+            timer.scheduleAtFixedRate(taskTimer, 1000, 1000);
         }
         return instance;
     }
@@ -63,9 +64,21 @@ public class TimerManager {
     /**
      * Start timer.
      */
-    public void startTimer() {
+    public void startTimer(String time) {
         running = true;
-        timerLabelSetTime("00:00:00");
+        if (time.equals("00:00:00")) {
+            seconds = 0;
+            minutes = 0;
+            hours = 0;
+            GameGUI.timerLabelSetTime("00:00:00");
+        } else {
+
+            String[] split = time.trim().split(":");
+            hours = Integer.parseInt(split[0]);
+            minutes = Integer.parseInt(split[1]);
+            seconds = Integer.parseInt(split[2]);
+            GameGUI.timerLabelSetTime(time.trim());
+        }
     }
 
     /**
@@ -75,30 +88,5 @@ public class TimerManager {
      */
     public static String getTime() {
         return String.format("%02d:%02d:%02d", hours, minutes, seconds);
-    }
-
-    /**
-     * Stops timer.
-     */
-    public void stopTimer() {
-        if (timer != null) {
-            timer.cancel();
-        }
-        running = false;
-    }
-
-    /**
-     * Kills timer.
-     */
-    public void killTimer() {
-        if (timer != null) {
-            timer.cancel();
-        }
-        timerLabelSetTime("00:00:00");
-        seconds = 0;
-        minutes = 0;
-        hours = 0;
-        running = false;
-        instance = null;
     }
 }
