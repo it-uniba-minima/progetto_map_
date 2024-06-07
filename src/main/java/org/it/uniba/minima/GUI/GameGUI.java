@@ -1,5 +1,6 @@
 package org.it.uniba.minima.GUI;
 import org.it.uniba.minima.Control.GameManager;
+import org.it.uniba.minima.Entity.Game;
 import org.it.uniba.minima.Mixer;
 import org.it.uniba.minima.Boundary.UserInputManager;
 import javax.swing.plaf.metal.MetalButtonUI;
@@ -283,6 +284,7 @@ public class GameGUI extends JPanel {
         timerLabel.setFocusable(false);
         timerLabel.setHorizontalTextPosition(SwingConstants.CENTER);
         timerLabel.setVerticalTextPosition(SwingConstants.CENTER);
+        timerLabel.setText(" 00:00:00 ");
         toolBar.add(timerLabel);
 
         // Setting the properties of the inventory text area
@@ -431,10 +433,14 @@ public class GameGUI extends JPanel {
      */
     private void saveFile() throws IOException, ClassNotFoundException {
         GameManager gameManager = new GameManager();
+        Game game = Game.getInstance();
+        game.setCurrentTime(timerLabel.getText());
         gameManager.saveGame();
         JOptionPane.showMessageDialog(this, "Game saved successfully", "Save", JOptionPane.INFORMATION_MESSAGE);
         CardLayout cl = (CardLayout) getParent().getLayout();
         cl.show(getParent(), "MenuGUI");
+        displayTextPane.setText("");
+        inventoryTextArea.setText(" Inventory:\n");
     }
 
     /**
@@ -457,17 +463,8 @@ public class GameGUI extends JPanel {
         if (back == JOptionPane.YES_OPTION) {
             CardLayout cl = (CardLayout) getParent().getLayout();
             cl.show(getParent(), "MenuGUI");
-            //TODO: completare questo if perchè se salvo un game , ci rivado e non risalvo il timer riparte da 0.
-            // serve un attributo per verificare se si è verificato in precedenza un salvataggio in modo che prenda l'ultimo salvataggio esistente
-            /*
-            if (ciccio) {
-                TimerManager.getInstance().stopTimer();
-                TimerManager.getInstance().killTimer();
-            }
-            else {
-                buttonActions2();
-            }
-             */
+            displayTextPane.setText("");
+            inventoryTextArea.setText(" Inventory:\n");
         } else {
             notGoBack();
         }
@@ -544,9 +541,9 @@ public class GameGUI extends JPanel {
      * @param panelName the panel name
      */
     public static void setImagePanel(String panelName) {
-        Timer timer = new Timer(600, e -> cardLayout.show(imagePanel, panelName));
-        timer.setRepeats(false);
-        timer.start();
+        Timer timerImagePanel = new Timer(600, e -> cardLayout.show(imagePanel, panelName));
+        timerImagePanel.setRepeats(false);
+        timerImagePanel.start();
     }
 
     /**
