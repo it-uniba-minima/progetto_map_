@@ -1,7 +1,6 @@
 package org.it.uniba.minima.Control;
 import org.it.uniba.minima.Entity.*;
 import org.it.uniba.minima.Type.CommandType;
-import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -25,9 +24,8 @@ public class GameManager {
     /**
      * The method to save the game and the agents in a json file.
      *
-     * @throws IOException the io exception
      */
-    public void saveGame() throws IOException {
+    public void saveGame() {
         Converter converter = new Converter();
         converter.ConvertGameToJson();
         converter.ConvertAgentsToJson();
