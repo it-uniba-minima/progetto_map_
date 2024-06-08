@@ -89,6 +89,9 @@
                 <includes>
                     <include>**/*.xml</include>
                     <include>**/*.properties</include>
+                    <include>**/*.png</include>
+                    <include>**/*.jpg</include>
+                    <include>**/*.mp3</include>
                 </includes>
             </resource>
         </resources>

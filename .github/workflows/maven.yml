@@ -24,7 +24,7 @@ jobs:
         run: mvn -B clean package
 
       - name: Upload JAR file
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: Progetto_MAP_JAR
           path: target/Progetto_MAP_-1.0-SNAPSHOT-jar-with-dependencies.jar
