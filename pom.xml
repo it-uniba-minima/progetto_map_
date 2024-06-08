@@ -91,7 +91,8 @@
                     <include>**/*.properties</include>
                     <include>**/*.png</include>
                     <include>**/*.jpg</include>
-                    <include>**/*.mp3</include>
+                    <include>**/*.jpeg</include>
+                    <include>**/*.wav</include>
                 </includes>
             </resource>
         </resources>
