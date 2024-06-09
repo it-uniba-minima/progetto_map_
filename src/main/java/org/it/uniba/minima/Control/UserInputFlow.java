@@ -212,5 +212,7 @@ public class UserInputFlow {
         List<String> itemsNames = game.getInventory().stream().map(Item::getName).toList();
         String[] itemsNamesArray = itemsNames.toArray(new String[0]);
         GameGUI.updateInventoryTextArea(itemsNamesArray);
+        DatabaseConnection.printFromDB("0", game.getCurrentRoom().getName(), game.getRoomState(game.getCurrentRoom().getName()).toString(), "0", "0", "0");
+        OutputDisplayManager.displayText("> Bentornato " + game.getNickname() + "!");
     }
 }
