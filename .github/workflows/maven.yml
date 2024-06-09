@@ -12,10 +12,10 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Set up JDK 22
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v4
         with:
           java-version: '22'
           distribution: 'temurin'
@@ -24,7 +24,7 @@ jobs:
         run: mvn -B clean package
 
       - name: Upload JAR file
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: Progetto_MAP_JAR
           path: target/Progetto_MAP_-1.0-SNAPSHOT-jar-with-dependencies.jar
