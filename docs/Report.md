@@ -17,10 +17,7 @@
 - ### [**7 - Manuale Utente**](#7---manuale-utente)
     - [**7.1 - Walkthrough**](#walkthrough)
     - [**7.2 - Procedura Preliminare**](#procedura-preliminare)
-- ### [**8 - Analisi Retrospettiva**](#8---analisi-retrospettiva)
-    - [**8.1 - Mad-Sad-Glad**](#mad-sad-glad)
-    - [**8.2 - Miglioramenti Proposti**](#miglioramenti-proposti)
-- ### [**9 - Conclusioni e Opinioni Finali**](#9---conclusioni-e-opinioni-finali)
+- ### [**8 - Conclusioni e Opinioni Finali**](#9---conclusioni-e-opinioni-finali)
 
 ## 1 - Introduzione
 <hr>
@@ -481,39 +478,7 @@ Tornando nella **Stanza del Faraone** e usando i comandi:
 ### Procedura Preliminare
 
 #### [Ritorna all'Indice](#indice)
-## 8 - Analisi Retrospettiva
-- In questa sezione andremo ad analizzare i nostri comportamenti durante lo sviluppo dell'avventura testuale
-  ed il rispetto delle regole di sviluppo imposte dal team.
-  Si riporteranno i punti forza e debolezza emersi durante lo sviluppo del progetto tramite tabelle ed infine
-  verranno suggeriti i miglioramenti proposti per evitare errori simili in futuro.
-## Modello Mad-Sad-Glad
-Di seguito viene riportato il modello Mad-Sad-Glad, che rappresenta i punti di forza e debolezza emersi durante lo sviluppo del progetto.<br>
-Dalla tabella si evince che:
-<ul>
-    <li>Il team è contento di:
-        <ul>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-        </ul>
-    </li>
-    <li>Il team è triste per:
-        <ul>
-            <li></li>
-            <li></li>
-        </ul>
-    </li>
-    <li>Il team è arrabbiato per:
-        <ul>
-            <li></li>
-        </ul>
-    </li>
-</ul>
-
-## Miglioramenti Proposti
-#### [Ritorna all'Indice](#indice)
-## 9 - Conclusioni e Opinioni Finali
+## 8 - Conclusioni e Opinioni Finali
 
 
 #### [Ritorna all'Indice](#indice)
