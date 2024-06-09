@@ -2,7 +2,7 @@
 {"isPickable":true,"isMovable":true,"name":"Chiave","aliases":["ChiaveSegreta", "ChiavePiramide", "ChiavePorta", "ChiaveTappeto"]},
 {"isPickable": true,"isMovable": true,"name": "Piffero", "aliases": ["Flauto", "Ocarina", "Fischietto", "StrumentoMusicale"]},
 {"isPickable": true,"isMovable": true,"name": "TorciaSpenta2","aliases": ["TorciaSpenta", "TorciaSpentaCascata", "TorciaBagnata", "TorciaSpentaDestra", "TorciaSpentaDx"]},
-{"isPickable": true,"isMovable": true,"name": "Arco", "aliases": ["ArcoCorto", "ArcoAggiustato", "ArcoSistemato", "ArcoIntero", "ArcoFunzionante"]},
+{"isPickable": true,"isMovable": true,"name": "Arco", "aliases": ["ArcoSemplice","ArcoCorto", "ArcoAggiustato", "ArcoSistemato", "ArcoIntero", "ArcoFunzionante"]},
 {"isPickable": true,"isMovable": true,"name": "FrecciaAffilata","aliases": ["FrecciaAppuntita", "FrecciaPungente", "FrecciaTagliente"]},
 {"isPickable": true, "isMovable": true,"name": "FrecciaPiuma","aliases": ["FrecciaPiumata", "FrecciaVolante", "FrecciaAerodinamica"]},
 {"isPickable": true,"isMovable": true,"name": "Freccia","aliases": ["FrecciaCompleta", "FrecciaFinita", "FrecciaFinale", "FrecciaIntera"]},

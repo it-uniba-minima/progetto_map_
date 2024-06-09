@@ -42,7 +42,7 @@ INSERT INTO DESCRIZIONI (ID, COMANDO, STANZA, STATO, PERSONAGGIO, OGGETTO1, OGGE
     (37, 'Osserva', '0', '0', '0', 'TorciaAccesa1', '0', '> Una torcia, noti che ha dei segni sul manico potrebbe indicare che deve essere inserita in un meccanismo.'),
     (38, 'Osserva', '0', '0', '0', 'TorciaSpenta1', '0', '> Una torcia, noti che ha dei segni sul manico potrebbe indicare che deve essere inserita in un meccanismo.'),
     (39, '0', 'Stanza3', 'AcquaOn', '0', '0', '0', '> Entrando nella stanza, noti che dal soffitto scorre dell''acqua e dall''altro lato intravedi una torcia, potrebbe tornarti utile.'),
-    (40, 'Osserva', 'Stanza3', 'AcquaOn', '0', '0', '0', '> Nella stanza noti un coltello per terra e una leva.'),
+    (40, 'Osserva', 'Stanza3', 'AcquaOn', '0', '0', '0', '> Nella stanza noti un coltello per terra e una leva sul soffitto.'),
     (41, 'Osserva', 'Stanza3', 'AcquaOn', '0', 'Leva', '0', '> Una marchingegno collegato alla corrente d''acqua, sempre farla scorrere'),
     (42, 'Osserva', 'Stanza3', 'AcquaOff', '0', 'Leva', '0', '> Una marchingegno collegato alla corrente d''acqua, sempre che l''acqua non scorra'),
     (43, 'Usa', 'Stanza3', 'AcquaOn', '0', 'Corda', 'Leva', '> Leghi la corda alla leva, tirando la leva, l''acqua smette di scorrere.'),
