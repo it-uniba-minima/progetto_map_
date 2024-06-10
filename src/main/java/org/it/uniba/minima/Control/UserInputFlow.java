@@ -18,7 +18,11 @@ public class UserInputFlow {
     /**
      * The parser object that parses the user input in case 0.
      */
-    private static final Parser parser = new Parser();
+    private static Parser parser;
+    /**
+     * The commandExecutor object that executes the command in case 0.
+     */
+    private static CommandExecutor commandExecutor;
     /**
      * The wordleGame object that manages the wordle game in case 1.
      */
@@ -79,7 +83,7 @@ public class UserInputFlow {
      */
     private static void parserFlow(String text) {
         ParserOutput output = parser.parse(text);
-        CommandExecutor commandExecutor = new CommandExecutor(Game.getInstance());
+
         if (output.getArgs() != 0) {
             commandExecutor.execute(output);
         } else {
@@ -196,6 +200,8 @@ public class UserInputFlow {
         isNameConfirmed = false;
         isGameEnded = false;
         wordleGame = new WordleGame();
+        parser = new Parser();
+        commandExecutor = new CommandExecutor(Game.getInstance());
     }
 
     /*
@@ -206,6 +212,8 @@ public class UserInputFlow {
         isNameConfirmed = true;
         isGameEnded = false;
         wordleGame = new WordleGame();
+        parser = new Parser();
+        commandExecutor = new CommandExecutor(game);
         List<String> itemsNames = game.getInventory().stream().map(Item::getName).toList();
         String[] itemsNamesArray = itemsNames.toArray(new String[0]);
         GameGUI.updateInventoryTextArea(itemsNamesArray);
