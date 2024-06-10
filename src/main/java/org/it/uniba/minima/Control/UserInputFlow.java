@@ -4,6 +4,7 @@ import org.it.uniba.minima.Database.DatabaseConnection;
 import org.it.uniba.minima.Entity.Game;
 import org.it.uniba.minima.Entity.Item;
 import org.it.uniba.minima.GUI.GameGUI;
+import org.it.uniba.minima.GUI.ManagerGUI;
 import org.it.uniba.minima.Type.ParserOutput;
 import java.util.List;
 
@@ -173,14 +174,15 @@ public class UserInputFlow {
                 return;
             }
             DatabaseConnection.printFromDB("0", "Stanza10", finale, "0", "0", "0");
+            GameGUI.setImagePanel(finale);
             //TODO: chiamata post per salvataggio del tempo e tipo di finale
 
             OutputDisplayManager.displayText("");
             OutputDisplayManager.displayText("> La tua avventura nella piramide è giunta al termine! Grazie per aver giocato!");
-            OutputDisplayManager.displayText("> Scrivi qualsiasi cosa per terminare il gioco.");
+            OutputDisplayManager.displayText("> Scrivi qualsiasi cosa per terminare la partita.");
             isGameEnded = true;
         } else {
-            System.exit(0);
+            ManagerGUI.closeGame();
         }
     }
 
@@ -217,7 +219,7 @@ public class UserInputFlow {
         List<String> itemsNames = game.getInventory().stream().map(Item::getName).toList();
         String[] itemsNamesArray = itemsNames.toArray(new String[0]);
         GameGUI.updateInventoryTextArea(itemsNamesArray);
-        DatabaseConnection.printFromDB("0", game.getCurrentRoom().getName(), game.getRoomState(game.getCurrentRoom().getName()).toString(), "0", "0", "0");
         OutputDisplayManager.displayText("> Bentornato " + game.getNickname() + "!");
+        DatabaseConnection.printFromDB("0", game.getCurrentRoom().getName(), game.getRoomState(game.getCurrentRoom().getName()).toString(), "0", "0", "0");
     }
 }
