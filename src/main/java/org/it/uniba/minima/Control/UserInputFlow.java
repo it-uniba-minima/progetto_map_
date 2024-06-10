@@ -1,9 +1,12 @@
 package org.it.uniba.minima.Control;
 import org.it.uniba.minima.Boundary.*;
+import org.it.uniba.minima.Database.Client;
 import org.it.uniba.minima.Database.DatabaseConnection;
+import org.it.uniba.minima.Database.RestServer;
 import org.it.uniba.minima.Entity.Game;
 import org.it.uniba.minima.Entity.Item;
 import org.it.uniba.minima.GUI.GameGUI;
+import org.it.uniba.minima.GUI.ManagerGUI;
 import org.it.uniba.minima.Type.ParserOutput;
 import java.util.List;
 
@@ -18,11 +21,11 @@ public class UserInputFlow {
     /**
      * The parser object that parses the user input in case 0.
      */
-    private static final Parser parser = new Parser();
+    private static Parser parser;
     /**
-     * The command executor object that executes the commands in case 0.
+     * The commandExecutor object that executes the command in case 0.
      */
-    private static final CommandExecutor commandExecutor = new CommandExecutor(Game.getInstance());
+    private static CommandExecutor commandExecutor;
     /**
      * The wordleGame object that manages the wordle game in case 1.
      */
@@ -38,17 +41,17 @@ public class UserInputFlow {
     /**
      * The flag that manages the end of the game.
      */
-    private static boolean isGameEnded ;
+    private static boolean isGameEnded;
 
     /**
      * Manages the flow of the game based on the current event.
      *
      * @param text the user input
      */
-    public static void gameFlow(String text) {
+    public static void gameFlow(final String text) {
         OutputDisplayManager.displayText(text);
 
-        switch(Event) {
+        switch (Event) {
             case 0:
                 parserFlow(text);
                 break;
@@ -81,8 +84,9 @@ public class UserInputFlow {
      *
      * @param text the user input
      */
-    private static void parserFlow(String text) {
+    private static void parserFlow(final String text) {
         ParserOutput output = parser.parse(text);
+
         if (output.getArgs() != 0) {
             commandExecutor.execute(output);
         } else {
@@ -96,7 +100,7 @@ public class UserInputFlow {
      *
      * @param text the user input
      */
-    private static void hangmanFlow(String text) {
+    private static void hangmanFlow(final String text) {
         hangmanGame.HangmanChecker(text);
     }
 
@@ -105,7 +109,7 @@ public class UserInputFlow {
      *
      * @param text the user input
      */
-    public static void wordleFlow(String text) {
+    public static void wordleFlow(final String text) {
         wordleGame.manageGuess(text.trim().toUpperCase());
     }
 
@@ -114,7 +118,7 @@ public class UserInputFlow {
      *
      * @param text the user input
      */
-    public static void triviaFlow(String text) {
+    public static void triviaFlow(final String text) {
         try {
             TriviaGame.checkGuess(text);
             if (Event == 2) TriviaGame.getQAndA();
@@ -135,13 +139,12 @@ public class UserInputFlow {
      *
      * @param text the user input
      */
-    private static void nicknameFlow(String text) {
+    private static void nicknameFlow(final String text) {
         if (!isNameConfirmed) {
             OutputDisplayManager.displayText("> Sei sicuro che questo sia il mio nome? (S/N)");
             Game.getInstance().setNickname(text);
             isNameConfirmed = true;
-        }
-        else {
+        } else {
             if (text.equalsIgnoreCase("S")) {
                 OutputDisplayManager.displayText("> Perfetto! Ora possiamo iniziare!");
                 OutputDisplayManager.displayText("> Benvenuto " + Game.getInstance().getNickname() + "!");
@@ -158,7 +161,7 @@ public class UserInputFlow {
      *
      * @param text the user input
      */
-    private static void endingFlow(String text) {
+    private static void endingFlow(final String text) throws RuntimeException {
         if (!isGameEnded) {
             String finale;
 
@@ -172,14 +175,21 @@ public class UserInputFlow {
                 return;
             }
             DatabaseConnection.printFromDB("0", "Stanza10", finale, "0", "0", "0");
-            //TODO: chiamata post per salvataggio del tempo e tipo di finale
+            GameGUI.setImagePanel(finale);
+
+            try {
+                Client client = new Client();
+                client.sendPostRequest(Game.getInstance().getNickname(), Game.getInstance().getCurrentTime(), finale);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
 
             OutputDisplayManager.displayText("");
             OutputDisplayManager.displayText("> La tua avventura nella piramide è giunta al termine! Grazie per aver giocato!");
-            OutputDisplayManager.displayText("> Scrivi qualsiasi cosa per terminare il gioco.");
+            OutputDisplayManager.displayText("> Scrivi qualsiasi cosa per terminare la partita.");
             isGameEnded = true;
         } else {
-            System.exit(0);
+            ManagerGUI.closeGame();
         }
     }
 
@@ -199,18 +209,24 @@ public class UserInputFlow {
         isNameConfirmed = false;
         isGameEnded = false;
         wordleGame = new WordleGame();
+        parser = new Parser();
+        commandExecutor = new CommandExecutor(Game.getInstance());
     }
 
     /*
      * Set up a saved game
      */
-    public static void setUpLoadedGameFlow(Game game) {
+    public static void setUpLoadedGameFlow(final Game game) {
         Event = 0;
         isNameConfirmed = true;
         isGameEnded = false;
         wordleGame = new WordleGame();
+        parser = new Parser();
+        commandExecutor = new CommandExecutor(game);
         List<String> itemsNames = game.getInventory().stream().map(Item::getName).toList();
         String[] itemsNamesArray = itemsNames.toArray(new String[0]);
         GameGUI.updateInventoryTextArea(itemsNamesArray);
+        OutputDisplayManager.displayText("> Bentornato " + game.getNickname() + "!");
+        DatabaseConnection.printFromDB("0", game.getCurrentRoom().getName(), game.getRoomState(game.getCurrentRoom().getName()).toString(), "0", "0", "0");
     }
 }

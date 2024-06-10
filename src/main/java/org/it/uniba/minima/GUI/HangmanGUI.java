@@ -9,7 +9,7 @@ public class HangmanGUI extends JPanel {
     /**
      * The hidden text label.
      */
-    private static JLabel hiddenText;
+    private JLabel hiddenText;
     /**
      * The guessed letters.
      */
@@ -27,7 +27,7 @@ public class HangmanGUI extends JPanel {
      * Constructor of the class.
      */
     public HangmanGUI() {
-        backgroundImage = new ImageIcon("docs/img/hangman.png").getImage();
+        backgroundImage = new ImageIcon("src/main/resources/docs/img/hangman.png").getImage();
         initComponents();
         hangmanGUI = this;
     }

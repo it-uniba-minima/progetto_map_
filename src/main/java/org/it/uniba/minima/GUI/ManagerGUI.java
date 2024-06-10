@@ -12,6 +12,8 @@ import org.it.uniba.minima.Mixer;
  * The manager of the GUIs.
  */
 public class ManagerGUI extends JFrame {
+    static GameGUI game;
+
     /**
      * Instantiates a new Gui manager.
      */
@@ -21,7 +23,8 @@ public class ManagerGUI extends JFrame {
         setPreferredSize(new java.awt.Dimension(800, 600));
         setResizable(false);
         try {
-            Image icon = ImageIO.read(new File("docs/img/gameIcon.jpg"));
+
+            Image icon = ImageIO.read(new File("src/main/resources/docs/img/gameIcon.jpg"));
             setIconImage(icon);
         } catch (IOException e) {
             e.printStackTrace();
@@ -32,7 +35,7 @@ public class ManagerGUI extends JFrame {
         MenuGUI menu = new MenuGUI();
         CreditsGUI credits = new CreditsGUI();
         ProgressBarGUI progressBar = new ProgressBarGUI();
-        GameGUI game = new GameGUI();
+        game = new GameGUI();
 
         // Add the panels to cards
         cards.add(menu, "MenuGUI");
@@ -49,5 +52,12 @@ public class ManagerGUI extends JFrame {
         // Start the music
         Mixer music = Mixer.getInstance();
         music.start();
+    }
+
+    /**
+     * Closes the game GUI.
+     */
+    public static void closeGame() {
+        game.goBack();
     }
 }

@@ -100,6 +100,7 @@ public class TriviaGame {
             // If the player has answered correctly 3 times, the game is won
             // Otherwise, the player has to answer another question
             if (correctAnswers == 3) {
+                correctAnswers = 0;
                 Game game = Game.getInstance();
 
                 DatabaseConnection.printFromDB("0", "Stanza6", "Corretto", "Mummia", "0", "0");

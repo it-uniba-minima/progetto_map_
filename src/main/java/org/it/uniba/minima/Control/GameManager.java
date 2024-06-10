@@ -36,9 +36,10 @@ public class GameManager {
      *
      * @return the boolean
      */
-    public boolean loadGame() {
+    public static boolean loadGame() {
         Converter converter = new Converter();
         allAgents = converter.loadGame();
+
         try {
             allAgents.get(1);
             return true;
@@ -100,9 +101,9 @@ public class GameManager {
     public static Set<Command> getAllCommands() {
         Set<Command> availableCommands = new HashSet<>();
 
-        availableCommands.add(new Command("Aiuto", List.of("a", "h", "help", "comandi", "comando", "guida"), CommandType.AIUTO));
-        availableCommands.add(new Command("Nord", List.of("n", "north", "avanti", "vaiAvanti", "su"), CommandType.NORD));
-        availableCommands.add(new Command("Sud", List.of("s", "south", "indietro", "vaiIndietro", "giu", "giù"), CommandType.SUD));
+        availableCommands.add(new Command("Aiuto", List.of("h", "help", "comandi", "comando", "guida"), CommandType.AIUTO));
+        availableCommands.add(new Command("Nord", List.of("n", "north", "avanti", "vaiAvanti"), CommandType.NORD));
+        availableCommands.add(new Command("Sud", List.of("s", "south", "indietro", "vaiIndietro"), CommandType.SUD));
         availableCommands.add(new Command("Est", List.of("e", "east", "destra", "vaiDestra", "vaiADestra"), CommandType.EST));
         availableCommands.add(new Command("Ovest", List.of("o", "west", "sinistra", "vaiSinistra", "vaiASinistra"), CommandType.OVEST));
         availableCommands.add(new Command("Inventario", List.of("i", "inventory", "borsa", "zaino", "valigia", "inv"), CommandType.INVENTARIO));
@@ -115,5 +116,9 @@ public class GameManager {
         availableCommands.add(new Command("Unisci", List.of("fuse", "f", "componi", "fondi", "combina", "assembla", "mischia", "miscela", "incastra"), CommandType.UNISCI));
 
         return availableCommands;
+    }
+
+    public static void resetAllAgents() {
+        allAgents = null;
     }
 }

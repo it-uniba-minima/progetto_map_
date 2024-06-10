@@ -68,6 +68,7 @@ public class Converter {
                 return null;
             }
             Game.setUpGame(game);
+            game.getInventory().forEach(item -> allAgents.put(item.getName(), item));
             game.getCorridorsMap().forEach(corridor -> {
                 Room room = corridor.getStartingRoom();
                 if (!allRooms.containsKey(room.getName())) {
@@ -86,6 +87,9 @@ public class Converter {
                     corridor.setArrivingRoom(existingRoom);
                 }
             });
+
+            game.setCurrentRoom(allRooms.get(game.getCurrentRoom().getName()));
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

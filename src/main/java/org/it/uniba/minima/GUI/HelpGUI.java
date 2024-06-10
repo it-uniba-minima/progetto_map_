@@ -45,33 +45,37 @@ public class HelpGUI extends JFrame {
         setMinimumSize(new Dimension(500, 340));
         setResizable(false);
         getContentPane().setBackground(new Color(204, 173, 27));
-        setIconImage(new ImageIcon("docs/img/gameIcon.jpg").getImage());
+        setIconImage(new ImageIcon("src/main/resources/docs/img/gameIcon.jpg").getImage());
 
         // Set the properties of the label
         Font font = new Font("Papyrus", Font.BOLD, 12);
         listaComandi.setOpaque(true);
         listaComandi.setBackground(new Color(204, 173, 27));
-        listaComandi.setForeground(Color.WHITE);
+        listaComandi.setForeground(Color.BLACK);
         listaComandi.setFont(font);
         listaComandi.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, new Color(107, 90, 13)));
         listaComandi.setText(
                 "<html>" +
-                        "Ecco la lista dei comandi:<br>" +
-                        "AIUTO<br>" +
-                        "NORD<br>" +
-                        "SUD<br>" +
-                        "EST<br>" +
-                        "OVEST<br>" +
-                        "OSSERVA<br>" +
-                        "INVENTARIO<br>" +
-                        "PRENDI<br>" +
-                        "LASCIA<br>" +
-                        "USA<br>" +
-                        "UNISCI<br>" +
-                        "PARLA<br>" +
-                        "DAI" +
-                        "</html>"
+                        "Comandi di movimento:<br>" +
+                        "Nord - Permette all'utente di muoversi in avanti<br>" +
+                        "Est - Permette all'utente di muoversi a destra<br>" +
+                        "Sud - Permette all'utente di muoversi indietro<br>" +
+                        "Ovest - Permette all'utente di muoversi a sinistra<br>" +
+                        "<br>Comandi di gioco:<br>" +
+                        "Inventario - Mostra l'inventario dell'utente<br>" +
+                        "Aiuto - Mostra i comandi disponibili<br>" +
+                        "Osserva - Mostra la descrizione della stanza.<br>" +
+                        "Osserva [oggetto|personaggio] - Mostra la descrizione dell'oggetto o del personaggio, presente nella stanza.<br>" +
+                        "Usa [oggetto] - Utilizza l'oggetto specificato.<br>" +
+                        "Usa [oggetto1] [oggetto2] - Utilizza l'oggetto1 sull'oggetto2.<br>" +
+                        "Prendi [oggetto] - Prendi l'oggetto specificato.<br>" +
+                        "Lascia [oggetto] - Lascia l'oggetto specificato, deve essere presente nell'inventario.<br>" +
+                        "Parla [personaggio] - Parla con il personaggio specificato.<br>" +
+                        "Fondi [oggetto1] [oggetto2] - Fonde l'oggetto1 con l'oggetto2, creando un [oggetto3] presente nell'inventario<br>" +
+                        "Dai [oggetto] [personaggio] - Dai l'oggetto specificato al personaggio specificato.<br>" +
+                "</html>"
         );
+
 
         // Set the layout
         GroupLayout layout = new GroupLayout(getContentPane());
