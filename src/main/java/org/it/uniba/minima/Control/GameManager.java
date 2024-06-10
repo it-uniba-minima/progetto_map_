@@ -36,9 +36,10 @@ public class GameManager {
      *
      * @return the boolean
      */
-    public boolean loadGame() {
+    public static boolean loadGame() {
         Converter converter = new Converter();
         allAgents = converter.loadGame();
+
         try {
             allAgents.get(1);
             return true;
@@ -115,5 +116,9 @@ public class GameManager {
         availableCommands.add(new Command("Unisci", List.of("fuse", "f", "componi", "fondi", "combina", "assembla", "mischia", "miscela", "incastra"), CommandType.UNISCI));
 
         return availableCommands;
+    }
+
+    public static void resetAllAgents() {
+        allAgents = null;
     }
 }
