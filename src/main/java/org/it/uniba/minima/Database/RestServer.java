@@ -4,8 +4,16 @@ import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.grizzly.http.server.ServerConfiguration;
 import java.io.IOException;
 
-public class REST_Server {
+/**
+ * The class that starts the server.
+ */
+public class RestServer {
 
+    /**
+     * Start server.
+     *
+     * @throws IOException the io exception
+     */
     public void startServer() throws IOException {
         HttpServer server = HttpServer.createSimpleServer("/", 8080);
         ServerConfiguration config = server.getServerConfiguration();

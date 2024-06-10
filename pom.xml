@@ -57,7 +57,17 @@
         <maven.compiler.target>22</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*</include>
+                </includes>
+            </resource>
+        </resources>
+
         <plugins>
             <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
@@ -73,10 +83,10 @@
                             <outputDirectory>${project.build.directory}/classes</outputDirectory>
                             <resources>
                                 <resource>
-                                    <directory>docs</directory>
+                                    <directory>src/main/resources</directory>
                                     <includes>
-                                        <include>audio/**</include>
-                                        <include>img/**</include>
+                                        <include>docs/audio/**</include>
+                                        <include>docs/img/**</include>
                                     </includes>
                                 </resource>
                             </resources>
@@ -84,6 +94,7 @@
                     </execution>
                 </executions>
             </plugin>
+
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>3.3.0</version>
@@ -109,5 +120,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

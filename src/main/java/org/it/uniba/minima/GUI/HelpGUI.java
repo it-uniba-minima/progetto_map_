@@ -45,7 +45,7 @@ public class HelpGUI extends JFrame {
         setMinimumSize(new Dimension(500, 340));
         setResizable(false);
         getContentPane().setBackground(new Color(204, 173, 27));
-        setIconImage(new ImageIcon("docs/img/gameIcon.jpg").getImage());
+        setIconImage(new ImageIcon("src/main/resources/docs/img/gameIcon.jpg").getImage());
 
         // Set the properties of the label
         Font font = new Font("Papyrus", Font.BOLD, 12);

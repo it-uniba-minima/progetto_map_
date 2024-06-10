@@ -56,7 +56,7 @@ public class ProgressBarGUI extends JPanel {
      */
     public ProgressBarGUI() {
         initComponents();
-        img = new ImageIcon("docs/img/runningChar.png");
+        img = new ImageIcon("src/main/resources/docs/img/runningChar.png");
         x = -img.getIconWidth();
         support = new PropertyChangeSupport(this);
     }
@@ -143,7 +143,7 @@ public class ProgressBarGUI extends JPanel {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                ImageIcon img = new ImageIcon("docs/img/placeholder_immagine sfondo.jpeg");
+                ImageIcon img = new ImageIcon("src/main/resources/docs/img/placeholder_immagine sfondo.jpeg");
                 Image image = img.getImage();
                 g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
             }

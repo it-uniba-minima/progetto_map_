@@ -94,7 +94,7 @@ public class GameGUI extends JPanel {
             @Override
             public void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                ImageIcon image = new ImageIcon("docs/img/Desert.png");
+                ImageIcon image = new ImageIcon("src/main/resources/docs/img/Desert.png");
                 g.drawImage(image.getImage(), 0, 0, getWidth(), getHeight(), this);
             }
         }, "Desert");
@@ -104,7 +104,7 @@ public class GameGUI extends JPanel {
         imagePanel.add(new HangmanGUI(), "Impiccato");
 
         for (int i = 1; i <= 10; i++) {
-            final String imagePath = "docs/img/Stanza" + i + ".png";
+            final String imagePath = "src/main/resources/docs/img/Stanza" + i + ".png";
             imagePanel.add(new JPanel() {
                 @Override
                 protected void paintComponent(Graphics g) {
@@ -288,7 +288,7 @@ public class GameGUI extends JPanel {
         toolBar.add(timerLabel);
 
         // Setting the properties of the inventory text area
-        Image inventoryImg = new ImageIcon("docs/img/bagTextArea.png").getImage();
+        Image inventoryImg = new ImageIcon("src/main/resources/docs/img/bagTextArea.png").getImage();
 
         JViewport inventoryView = new JViewport() {
             @Override
@@ -318,7 +318,7 @@ public class GameGUI extends JPanel {
         scrollPaneInventoryText.setBorder(BorderFactory.createMatteBorder(0, 5, 5, 5, new Color(107, 90, 13)));
 
         // Setting the properties of the display text pane
-        Image img = new ImageIcon("docs/img/papyrTextPane.png").getImage();
+        Image img = new ImageIcon("src/main/resources/docs/img/papyrTextPane.png").getImage();
 
         JViewport view = new JViewport() {
             @Override
@@ -358,7 +358,7 @@ public class GameGUI extends JPanel {
         userInputField.setBounds(0, 0, 335, 31);
         UserInputManager.startInputListener(userInputField);
 
-        Image img2 = new ImageIcon("docs/img/papyrUserInputField.png").getImage();
+        Image img2 = new ImageIcon("src/main/resources/docs/img/papyrUserInputField.png").getImage();
 
         JPanel userInputFieldPanel = new JPanel()
         {

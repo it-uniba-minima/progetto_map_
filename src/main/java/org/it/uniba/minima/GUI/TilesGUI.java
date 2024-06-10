@@ -1,20 +1,40 @@
 package org.it.uniba.minima.GUI;
-
 import org.it.uniba.minima.Control.UserInputFlow;
 import org.it.uniba.minima.Database.DatabaseConnection;
 import org.it.uniba.minima.Entity.Game;
 
 import javax.swing.*;
 import javax.swing.plaf.metal.MetalButtonUI;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 
-/**
- * The type Mattonelle gui.
- *
- * @author miche
- */
-public class TilesGUI extends javax.swing.JPanel {
+public class TilesGUI extends JPanel {
+    /**
+     * The buttons of the tiles.
+     */
+    private static JButton C1;
+    private static JButton G1;
+    private static JButton G2;
+    private static JButton G3;
+    private static JButton F2;
+    private static JButton F1;
+    private static JButton E1;
+    private static JButton E3;
+    private static JButton E2;
+    private static JButton F3;
+    private static JButton A1;
+    private static JButton B1;
+    private static JButton A3;
+    private static JButton A2;
+    private static JButton B3;
+    private static JButton B2;
+    private static JButton C3;
+    private static JButton D1;
+    private static JButton D2;
+    private static JButton D3;
+    private static JButton C2;
 
     /**
      * Creates new form TilesGUI
@@ -30,41 +50,41 @@ public class TilesGUI extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     @Override
-    protected void paintComponent(Graphics g) {
+    protected void paintComponent(final Graphics g) {
         super.paintComponent(g);
-        ImageIcon img = new ImageIcon("docs/img/stoneBackground.png");
+        ImageIcon img = new ImageIcon("src/main/resources/docs/img/stoneBackground.png");
         Image image = img.getImage();
         g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
     }
 
     private void initComponents() {
-        A1 = new javax.swing.JButton();
-        A2 = new javax.swing.JButton();
-        A3 = new javax.swing.JButton();
+        A1 = new JButton();
+        A2 = new JButton();
+        A3 = new JButton();
 
-        B1 = new javax.swing.JButton();
-        B2 = new javax.swing.JButton();
-        B3 = new javax.swing.JButton();
+        B1 = new JButton();
+        B2 = new JButton();
+        B3 = new JButton();
 
-        C1 = new javax.swing.JButton();
-        C2 = new javax.swing.JButton();
-        C3 = new javax.swing.JButton();
+        C1 = new JButton();
+        C2 = new JButton();
+        C3 = new JButton();
 
-        D1 = new javax.swing.JButton();
-        D2 = new javax.swing.JButton();
-        D3 = new javax.swing.JButton();
+        D1 = new JButton();
+        D2 = new JButton();
+        D3 = new JButton();
 
-        E1 = new javax.swing.JButton();
-        E2 = new javax.swing.JButton();
-        E3 = new javax.swing.JButton();
+        E1 = new JButton();
+        E2 = new JButton();
+        E3 = new JButton();
 
-        F1 = new javax.swing.JButton();
-        F2 = new javax.swing.JButton();
-        F3 = new javax.swing.JButton();
+        F1 = new JButton();
+        F2 = new JButton();
+        F3 = new JButton();
 
-        G1 = new javax.swing.JButton();
-        G2 = new javax.swing.JButton();
-        G3 = new javax.swing.JButton();
+        G1 = new JButton();
+        G2 = new JButton();
+        G3 = new JButton();
 
         setMaximumSize(new java.awt.Dimension(440, 400));
         setMinimumSize(new java.awt.Dimension(440, 400));
@@ -78,7 +98,7 @@ public class TilesGUI extends javax.swing.JPanel {
             }
 
             @Override
-            public void paint(Graphics g, JComponent c) {
+            public void paint(final Graphics g, final JComponent c) {
                 AbstractButton b = (AbstractButton) c;
                 if (!b.isEnabled()) {
                     g.setColor(new Color(119, 95, 43)); // Change this to the color you want when the button is disabled
@@ -109,7 +129,7 @@ public class TilesGUI extends javax.swing.JPanel {
             }
 
             @Override
-            public void paint(Graphics g, JComponent c) {
+            public void paint(final Graphics g, final JComponent c) {
                 AbstractButton b = (AbstractButton) c;
                 if (!b.isEnabled()) {
                     g.setColor(new Color(119, 95, 43)); // Change this to the color you want when the button is disabled
@@ -141,7 +161,7 @@ public class TilesGUI extends javax.swing.JPanel {
             }
 
             @Override
-            public void paint(Graphics g, JComponent c) {
+            public void paint(final Graphics g, final JComponent c) {
                 AbstractButton b = (AbstractButton) c;
                 if (!b.isEnabled()) {
                     g.setColor(new Color(119, 95, 43)); // Change this to the color you want when the button is disabled
@@ -173,7 +193,7 @@ public class TilesGUI extends javax.swing.JPanel {
             }
 
             @Override
-            public void paint(Graphics g, JComponent c) {
+            public void paint(final Graphics g, final JComponent c) {
                 AbstractButton b = (AbstractButton) c;
                 if (!b.isEnabled()) {
                     g.setColor(new Color(119, 95, 43)); // Change this to the color you want when the button is disabled
@@ -205,7 +225,7 @@ public class TilesGUI extends javax.swing.JPanel {
             }
 
             @Override
-            public void paint(Graphics g, JComponent c) {
+            public void paint(final Graphics g, final JComponent c) {
                 AbstractButton b = (AbstractButton) c;
                 if (!b.isEnabled()) {
                     g.setColor(new Color(119, 95, 43)); // Change this to the color you want when the button is disabled
@@ -237,7 +257,7 @@ public class TilesGUI extends javax.swing.JPanel {
             }
 
             @Override
-            public void paint(Graphics g, JComponent c) {
+            public void paint(final Graphics g, final JComponent c) {
                 AbstractButton b = (AbstractButton) c;
                 if (!b.isEnabled()) {
                     g.setColor(new Color(119, 95, 43)); // Change this to the color you want when the button is disabled
@@ -269,7 +289,7 @@ public class TilesGUI extends javax.swing.JPanel {
             }
 
             @Override
-            public void paint(Graphics g, JComponent c) {
+            public void paint(final Graphics g, final JComponent c) {
                 AbstractButton b = (AbstractButton) c;
                 if (!b.isEnabled()) {
                     g.setColor(new Color(119, 95, 43)); // Change this to the color you want when the button is disabled
@@ -286,11 +306,7 @@ public class TilesGUI extends javax.swing.JPanel {
         D2.setMaximumSize(new java.awt.Dimension(100, 50));
         D2.setMinimumSize(new java.awt.Dimension(100, 50));
         D2.setPreferredSize(new java.awt.Dimension(100, 50));
-        D2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                D2ActionPerformed(evt);
-            }
-        });
+        D2.addActionListener(this::D2ActionPerformed);
 
 
         D3.setEnabled(false);
@@ -301,7 +317,7 @@ public class TilesGUI extends javax.swing.JPanel {
             }
 
             @Override
-            public void paint(Graphics g, JComponent c) {
+            public void paint(final Graphics g, final JComponent c) {
                 AbstractButton b = (AbstractButton) c;
                 if (!b.isEnabled()) {
                     g.setColor(new Color(119, 95, 43)); // Change this to the color you want when the button is disabled
@@ -333,7 +349,7 @@ public class TilesGUI extends javax.swing.JPanel {
             }
 
             @Override
-            public void paint(Graphics g, JComponent c) {
+            public void paint(final Graphics g, final JComponent c) {
                 AbstractButton b = (AbstractButton) c;
                 if (!b.isEnabled()) {
                     g.setColor(new Color(119, 95, 43)); // Change this to the color you want when the button is disabled
@@ -365,7 +381,7 @@ public class TilesGUI extends javax.swing.JPanel {
             }
 
             @Override
-            public void paint(Graphics g, JComponent c) {
+            public void paint(final Graphics g, final JComponent c) {
                 AbstractButton b = (AbstractButton) c;
                 if (!b.isEnabled()) {
                     g.setColor(new Color(119, 95, 43)); // Change this to the color you want when the button is disabled
@@ -397,7 +413,7 @@ public class TilesGUI extends javax.swing.JPanel {
             }
 
             @Override
-            public void paint(Graphics g, JComponent c) {
+            public void paint(final Graphics g, final JComponent c) {
                 AbstractButton b = (AbstractButton) c;
                 if (!b.isEnabled()) {
                     g.setColor(new Color(119, 95, 43)); // Change this to the color you want when the button is disabled
@@ -429,7 +445,7 @@ public class TilesGUI extends javax.swing.JPanel {
             }
 
             @Override
-            public void paint(Graphics g, JComponent c) {
+            public void paint(final Graphics g, final JComponent c) {
                 AbstractButton b = (AbstractButton) c;
                 if (!b.isEnabled()) {
                     g.setColor(new Color(119, 95, 43)); // Change this to the color you want when the button is disabled
@@ -461,7 +477,7 @@ public class TilesGUI extends javax.swing.JPanel {
             }
 
             @Override
-            public void paint(Graphics g, JComponent c) {
+            public void paint(final Graphics g, final JComponent c) {
                 AbstractButton b = (AbstractButton) c;
                 if (!b.isEnabled()) {
                     g.setColor(new Color(119, 95, 43)); // Change this to the color you want when the button is disabled
@@ -493,7 +509,7 @@ public class TilesGUI extends javax.swing.JPanel {
             }
 
             @Override
-            public void paint(Graphics g, JComponent c) {
+            public void paint(final Graphics g, final JComponent c) {
                 AbstractButton b = (AbstractButton) c;
                 if (!b.isEnabled()) {
                     g.setColor(new Color(119, 95, 43)); // Change this to the color you want when the button is disabled
@@ -557,7 +573,7 @@ public class TilesGUI extends javax.swing.JPanel {
             }
 
             @Override
-            public void paint(Graphics g, JComponent c) {
+            public void paint(final Graphics g, final JComponent c) {
                 AbstractButton b = (AbstractButton) c;
                 if (!b.isEnabled()) {
                     g.setColor(new Color(119, 95, 43)); // Change this to the color you want when the button is disabled
@@ -589,7 +605,7 @@ public class TilesGUI extends javax.swing.JPanel {
             }
 
             @Override
-            public void paint(Graphics g, JComponent c) {
+            public void paint(final Graphics g, final JComponent c) {
                 AbstractButton b = (AbstractButton) c;
                 if (!b.isEnabled()) {
                     g.setColor(new Color(119, 95, 43)); // Change this to the color you want when the button is disabled
@@ -653,7 +669,7 @@ public class TilesGUI extends javax.swing.JPanel {
             }
 
             @Override
-            public void paint(Graphics g, JComponent c) {
+            public void paint(final Graphics g, final JComponent c) {
                 AbstractButton b = (AbstractButton) c;
                 if (!b.isEnabled()) {
                     g.setColor(new Color(119, 95, 43)); // Change this to the color you want when the button is disabled
@@ -684,7 +700,7 @@ public class TilesGUI extends javax.swing.JPanel {
             }
 
             @Override
-            public void paint(Graphics g, JComponent c) {
+            public void paint(final Graphics g, final JComponent c) {
                 AbstractButton b = (AbstractButton) c;
                 if (!b.isEnabled()) {
                     g.setColor(new Color(119, 95, 43)); // Change this to the color you want when the button is disabled
@@ -715,7 +731,7 @@ public class TilesGUI extends javax.swing.JPanel {
             }
 
             @Override
-            public void paint(Graphics g, JComponent c) {
+            public void paint(final Graphics g, final JComponent c) {
                 AbstractButton b = (AbstractButton) c;
                 if (!b.isEnabled()) {
                     g.setColor(new Color(119, 95, 43)); // Change this to the color you want when the button is disabled
@@ -738,181 +754,181 @@ public class TilesGUI extends javax.swing.JPanel {
             }
         });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        GroupLayout layout = new GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                                 .addGap(64, 64, 64)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
                                         .addGroup(layout.createSequentialGroup()
-                                                .addComponent(A1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(A2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(A3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(A1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(A2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(A3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                                 .addGroup(layout.createSequentialGroup()
-                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                                .addComponent(G1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addComponent(F1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addComponent(E1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                                                                .addComponent(G1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                                                .addComponent(F1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                                                .addComponent(E1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                                                 .addGroup(layout.createSequentialGroup()
-                                                                        .addComponent(E2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                        .addComponent(E3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                        .addComponent(E2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                                                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                                                        .addComponent(E3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                                                                 .addGroup(layout.createSequentialGroup()
-                                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                                .addComponent(G2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                                .addComponent(F2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                                .addComponent(F3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                                .addComponent(G3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                                                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                                                                .addComponent(G2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                                                                .addComponent(F2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                                                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                                                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                                                                .addComponent(F3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                                                                .addComponent(G3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))))
                                                 .addGroup(layout.createSequentialGroup()
-                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                                .addComponent(D1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addComponent(C1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addComponent(B1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                                                                .addComponent(D1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                                                .addComponent(C1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                                                .addComponent(B1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                                                 .addGroup(layout.createSequentialGroup()
-                                                                        .addComponent(B2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                        .addComponent(B3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                        .addComponent(B2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                                                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                                                        .addComponent(B3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                                                                 .addGroup(layout.createSequentialGroup()
-                                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                                .addComponent(D2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                                .addComponent(C2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                                .addComponent(C3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                                .addComponent(D3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                                                                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                                                                .addComponent(D2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                                                                .addComponent(C2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                                                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                                                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                                                                .addComponent(C3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                                                                .addComponent(D3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))))))
                                 .addContainerGap(64, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(G1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(G2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(G3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(F1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(F2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(F3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(E1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(E2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(E3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(D1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(D2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(D3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(C1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(C2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(C3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(B1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(B2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(B3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(A1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(A2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(A3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                        .addComponent(G1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(G2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(G3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                        .addComponent(F1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(F2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(F3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                        .addComponent(E1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(E2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(E3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                        .addComponent(D1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(D2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(D3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                        .addComponent(C1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(C2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(C3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                        .addComponent(B1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(B2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(B3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                        .addComponent(A1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(A2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(A3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                                 .addGap(8, 8, 8))
         );
-    }// </editor-fold>
+    }
 
 
-    private void A1ActionPerformed(ActionEvent evt) {
+    private void A1ActionPerformed(final ActionEvent evt) {
         resetAllMattonelle();
     }
 
-    private void A2ActionPerformed(java.awt.event.ActionEvent evt) {
+    private void A2ActionPerformed(final java.awt.event.ActionEvent evt) {
         makeVisible('A');
     }
 
-    private void A3ActionPerformed(java.awt.event.ActionEvent evt) {
+    private void A3ActionPerformed(final java.awt.event.ActionEvent evt) {
         resetAllMattonelle();
     }
 
-    private void B1ActionPerformed(ActionEvent evt) {
+    private void B1ActionPerformed(final ActionEvent evt) {
         makeVisible('B');
     }
 
-    private void B2ActionPerformed(java.awt.event.ActionEvent evt) {
+    private void B2ActionPerformed(final java.awt.event.ActionEvent evt) {
         makeVisible('B');
     }
 
-    private void B3ActionPerformed(ActionEvent evt) {
+    private void B3ActionPerformed(final ActionEvent evt) {
         resetAllMattonelle();
     }
 
-    private void C1ActionPerformed(java.awt.event.ActionEvent evt) {
+    private void C1ActionPerformed(final java.awt.event.ActionEvent evt) {
         resetAllMattonelle();
     }
 
-    private void C2ActionPerformed(java.awt.event.ActionEvent evt) {
+    private void C2ActionPerformed(final java.awt.event.ActionEvent evt) {
         resetAllMattonelle();
 
     }
 
-    private void C3ActionPerformed(java.awt.event.ActionEvent evt) {
+    private void C3ActionPerformed(final java.awt.event.ActionEvent evt) {
         makeVisible('C');
     }
 
-    private void D1ActionPerformed(java.awt.event.ActionEvent evt) {
+    private void D1ActionPerformed(final java.awt.event.ActionEvent evt) {
         makeVisible('D');
     }
 
-    private void D2ActionPerformed(java.awt.event.ActionEvent evt) {
+    private void D2ActionPerformed(final java.awt.event.ActionEvent evt) {
         makeVisible('D');
     }
 
-    private void D3ActionPerformed(java.awt.event.ActionEvent evt) {
+    private void D3ActionPerformed(final java.awt.event.ActionEvent evt) {
         makeVisible('D');
     }
 
-    private void E1ActionPerformed(ActionEvent evt) {
+    private void E1ActionPerformed(final ActionEvent evt) {
         makeVisible('E');
     }
 
-    private void E2ActionPerformed(ActionEvent evt) {
+    private void E2ActionPerformed(final ActionEvent evt) {
         makeVisible('E');
     }
 
-    private void E3ActionPerformed(ActionEvent evt) {
+    private void E3ActionPerformed(final ActionEvent evt) {
         makeVisible('E');
     }
 
-    private void F1ActionPerformed(java.awt.event.ActionEvent evt) {
+    private void F1ActionPerformed(final java.awt.event.ActionEvent evt) {
         makeVisible('F');
     }
 
-    private void F2ActionPerformed(java.awt.event.ActionEvent evt) {
+    private void F2ActionPerformed(final java.awt.event.ActionEvent evt) {
         resetAllMattonelle();
     }
 
-    private void F3ActionPerformed(java.awt.event.ActionEvent evt) {
+    private void F3ActionPerformed(final java.awt.event.ActionEvent evt) {
         makeVisible('F');
     }
 
-    private void G1ActionPerformed(java.awt.event.ActionEvent evt) {
+    private void G1ActionPerformed(final java.awt.event.ActionEvent evt) {
         resetAllMattonelle();
     }
 
-    private void G2ActionPerformed(java.awt.event.ActionEvent evt) {
+    private void G2ActionPerformed(final java.awt.event.ActionEvent evt) {
         makeVisible('G');
         DatabaseConnection.printFromDB("0", "Stanza7", "Corretto", "0", "Mattonella", "0");
         UserInputFlow.Event = 0;
@@ -921,12 +937,12 @@ public class TilesGUI extends javax.swing.JPanel {
         GameGUI.setImagePanel(game.getCurrentRoom().getName());
     }
 
-    private void G3ActionPerformed(java.awt.event.ActionEvent evt) {
+    private void G3ActionPerformed(final java.awt.event.ActionEvent evt) {
         makeVisible('G');
     }
 
-    private void makeVisible(Character chara) {
-        switch(chara) {
+    private void makeVisible(final Character chara) {
+        switch (chara) {
             case 'A':
                 A1.setText("⬆");
                 B1.setEnabled(true);
@@ -979,6 +995,8 @@ public class TilesGUI extends javax.swing.JPanel {
                 G1.setText("⮕");
                 G2.setText("⬆");
                 G3.setText("⬅");
+                break;
+            default:
                 break;
         }
     }
@@ -1033,28 +1051,6 @@ public class TilesGUI extends javax.swing.JPanel {
         G3.setEnabled(false);
     }
 
-    // Variables declaration - do not modify
-    private javax.swing.JButton C1;
-    private javax.swing.JButton G1;
-    private javax.swing.JButton G2;
-    private javax.swing.JButton G3;
-    private javax.swing.JButton F2;
-    private javax.swing.JButton F1;
-    private javax.swing.JButton E1;
-    private javax.swing.JButton E3;
-    private javax.swing.JButton E2;
-    private javax.swing.JButton F3;
-    private javax.swing.JButton A1;
-    private javax.swing.JButton B1;
-    private javax.swing.JButton A3;
-    private javax.swing.JButton A2;
-    private javax.swing.JButton B3;
-    private javax.swing.JButton B2;
-    private javax.swing.JButton C3;
-    private javax.swing.JButton D1;
-    private javax.swing.JButton D2;
-    private javax.swing.JButton D3;
-    private javax.swing.JButton C2;
-    // End of variables declaration
+
 }
 
