@@ -1,12 +1,10 @@
 package org.it.uniba.minima.Control;
 import org.it.uniba.minima.Boundary.TriviaGame;
-import org.it.uniba.minima.Boundary.UserInputManager;
 import org.it.uniba.minima.Entity.Agent;
 import org.it.uniba.minima.Entity.Personage;
 import org.it.uniba.minima.Entity.Game;
 import org.it.uniba.minima.Entity.Item;
 import org.it.uniba.minima.GUI.GameGUI;
-import org.it.uniba.minima.Type.CommandType;
 
 /**
  * The class that manages the game logic.
@@ -166,12 +164,17 @@ public class GameLogic {
         }
         if ((i1.hasName("TorciaAccesa1") || i1.hasName("TorciaAccesa2")) && (i2.hasName("Statua"))) {
             game.removeInventory(i1);
-            if (game.getCurrentRoom().getState().equals("Luce")) {
-                game.setRoomState("Stanza1", "Torcia1");
-            } else {
+            game.getCurrentRoom().addAgent(i1);
+            i1.setPickable(false);
+
+            if (game.getCurrentRoom().hasAgent(GameManager.getAgentFromName("TorciaAccesa1"))
+            && game.getCurrentRoom().hasAgent(GameManager.getAgentFromName("TorciaAccesa2"))) {
                 game.setRoomState("Stanza1", "Torcia2");
                 game.unlockCorridor("Stanza1", "Stanza4");
+            } else {
+                game.setRoomState("Stanza1", "Torcia1");
             }
+
             return true;
         }
         if (i1.hasName("Piuma") && i2.hasName("Pergamena") && game.getCurrentRoom().getState().equals("Start") || game.getCurrentRoom().getState().equals("Sbagliato")) {
@@ -353,7 +356,9 @@ public class GameLogic {
                 game.getCurrentRoom().hasAgent(GameManager.getAgentFromName("Nekhekh")) &&
                 game.getCurrentRoom().hasAgent(GameManager.getAgentFromName("Ankh"))) {
 
-                game.setRoomState("Stanza10", "OsirideEnd");}
+                game.setRoomState("Stanza10", "OsirideEnd");
+            }
+
             return true;
         }
         return false;
