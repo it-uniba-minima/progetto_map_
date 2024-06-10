@@ -183,7 +183,7 @@
         {"isPickable":true,"isMovable":true,"name":"CannaZucchero","aliases":["CannaDaZucchero","Canna"]},
         {"isPickable":true,"isMovable":true,"name":"Uova","aliases":["Uovo","UovoDiCuccò","UovaDiCuccò"]},
         {"isPickable":true,"isMovable":true,"name":"LatteVecchio","aliases":["Panna","Latte","LatteLonLon"]},
-        {"isPickable":true,"isMovable":true,"name":"Fuoco","aliases":["Forno","Fiamma","Fiammetta","Calcifer"]},
+        {"isPickable":false,"isMovable":false,"name":"Fuoco","aliases":["Forno","Fiamma","Fiammetta","Calcifer"]},
         {"isPickable":false,"isMovable":false,"name":"Piedistallo","aliases":["Espositore","Colonna","Vassoio","Tavolo"]}
       ]}},
     {"startingRoom":{"name":"Stanza8","currentState":"Start",
@@ -193,7 +193,7 @@
         {"isPickable":true,"isMovable":true,"name":"CannaZucchero","aliases":["CannaDaZucchero","Canna"]},
         {"isPickable":true,"isMovable":true,"name":"Uova","aliases":["Uovo","UovoDiCuccò","UovaDiCuccò"]},
         {"isPickable":true,"isMovable":true,"name":"LatteVecchio","aliases":["Panna","Latte","LatteLonLon"]},
-        {"isPickable":true,"isMovable":true,"name":"Fuoco","aliases":["Forno","Fiamma","Fiammetta","Calcifer"]},
+        {"isPickable":false,"isMovable":false,"name":"Fuoco","aliases":["Forno","Fiamma","Fiammetta","Calcifer"]},
         {"isPickable":false,"isMovable":false,"name":"Piedistallo","aliases":["Espositore","Colonna","Vassoio","Tavolo"]}
       ]},
       "direction":"EST","locked":false,"arrivingRoom":{"name":"Stanza10","currentState":"SarcofagoChiuso",
