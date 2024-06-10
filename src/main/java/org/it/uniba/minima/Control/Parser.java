@@ -14,15 +14,15 @@ public class Parser {
     /**
      * The available commands set.
      */
-    public static Set<Command> availableCommands = GameManager.getAllCommands();
+    private final Set<Command> availableCommands = GameManager.getAllCommands();
     /**
      * The available agents set
      */
-    public static Set<Agent> availableAgents = GameManager.getAllAgents();
+    private final Set<Agent> availableAgents = GameManager.getAllAgents();
     /**
      * The stop words set.
      */
-    private static Set<String> stopWords = new HashSet<>();
+    private final Set<String> stopWords = new HashSet<>();
 
     /**
      * Parses the input and returns the output of the operation.
