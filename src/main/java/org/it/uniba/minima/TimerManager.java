@@ -10,28 +10,31 @@ public class TimerManager {
     /**
      * The instance of the TimerManager.
      */
-    public static TimerManager instance;
+    private static TimerManager instance;
     /**
      * The running status of the timer.
      */
-    public static boolean running = false;
+    private static boolean running = false;
     /**
      * The seconds.
      */
-    static int seconds;
+    private static int seconds;
     /**
      * The minutes.
      */
-    static int minutes;
+    private static int minutes;
     /**
      * The hours.
      */
-    static int hours;
-    /**
-     * The timer instance.
-     */
-    static Timer timer;
+    private static int hours;
 
+    /**
+     * The constants.
+     */
+    private static final int SECONDS_IN_MINUTE = 60;
+    private static final int MINUTES_IN_HOUR = 60;
+    private static final int DELAY = 1000;
+    private static final int PERIOD = 1000;
     /**
      * Gets instance and starts the timer.
      *
@@ -40,23 +43,23 @@ public class TimerManager {
     public static synchronized TimerManager getInstance() {
         if (instance == null && !running) {
             instance = new TimerManager();
-            timer = new Timer();
+            Timer timer = new Timer();
             TimerTask taskTimer = new TimerTask() {
                 @Override
                 public void run() {
                     seconds++;
-                    if (seconds == 60) {
+                    if (seconds == SECONDS_IN_MINUTE) {
                         seconds = 0;
                         minutes++;
                     }
-                    if (minutes == 60) {
+                    if (minutes == MINUTES_IN_HOUR) {
                         minutes = 0;
                         hours++;
                     }
                     GameGUI.timerLabelSetTime(getTime());
                 }
             };
-            timer.scheduleAtFixedRate(taskTimer, 1000, 1000);
+            timer.scheduleAtFixedRate(taskTimer, DELAY, PERIOD);
         }
         return instance;
     }
@@ -64,7 +67,7 @@ public class TimerManager {
     /**
      * Start timer.
      */
-    public void startTimer(String time) {
+    public void startTimer(final String time) {
         running = true;
         if (time.equals("00:00:00")) {
             seconds = 0;

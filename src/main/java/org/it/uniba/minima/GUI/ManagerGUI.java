@@ -23,7 +23,8 @@ public class ManagerGUI extends JFrame {
         setPreferredSize(new java.awt.Dimension(800, 600));
         setResizable(false);
         try {
-            Image icon = ImageIO.read(new File("docs/img/gameIcon.jpg"));
+
+            Image icon = ImageIO.read(new File("src/main/resources/docs/img/gameIcon.jpg"));
             setIconImage(icon);
         } catch (IOException e) {
             e.printStackTrace();

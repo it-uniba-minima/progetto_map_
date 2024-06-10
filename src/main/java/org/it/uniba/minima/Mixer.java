@@ -1,6 +1,8 @@
 package org.it.uniba.minima;
 import java.io.File;
-import javax.sound.sampled.*;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import static org.it.uniba.minima.GUI.GameGUI.musicButtonSetTextGame;
 import static org.it.uniba.minima.GUI.MenuGUI.musicButtonSetTextMenu;
 
@@ -40,7 +42,7 @@ public class Mixer extends Thread {
     public void run() {
         running = true;
         try {
-            File file = new File("docs/audio/Desert_Menu-newSMB_DS.wav");
+            File file = new File("src/main/resources/docs/audio/Desert_Menu-newSMB_DS.wav");
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
             clip = AudioSystem.getClip();
             clip.open(audioStream);

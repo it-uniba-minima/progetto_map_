@@ -1,7 +1,7 @@
 package org.it.uniba.minima.GUI;
 import org.it.uniba.minima.Control.GameManager;
 import org.it.uniba.minima.Control.UserInputFlow;
-import org.it.uniba.minima.Database.REST_Server;
+import org.it.uniba.minima.Database.RestServer;
 import org.it.uniba.minima.Entity.Game;
 import org.it.uniba.minima.Mixer;
 import org.it.uniba.minima.TimerManager;
@@ -20,7 +20,7 @@ import static javax.swing.JOptionPane.showMessageDialog;
 /**
  * The GUI of the menu.
  */
-public class MenuGUI extends JPanel{
+public class MenuGUI extends JPanel {
     /**
      * The background panel.
      */
@@ -67,7 +67,7 @@ public class MenuGUI extends JPanel{
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                ImageIcon img = new ImageIcon("docs/img/placeholder_immagine sfondo.jpeg");
+                ImageIcon img = new ImageIcon("src/main/resources/docs/img/placeholder_immagine sfondo.jpeg");
                 Image image = img.getImage();
                 g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
             }
@@ -347,8 +347,7 @@ public class MenuGUI extends JPanel{
 
             //new thread to set up a saved game during the charge of the progress bar
             new Thread(() -> UserInputFlow.setUpLoadedGameFlow(game)).start();
-        }
-        else {
+        } else {
             showMessageDialog(null, "No saved game found", "Error", ERROR_MESSAGE);
         }
     }
@@ -368,17 +367,10 @@ public class MenuGUI extends JPanel{
      *
      * @param evt the event
      */
-private void siteActionPerformed(java.awt.event.ActionEvent evt) throws URISyntaxException, IOException {
-    REST_Server server = new REST_Server();
-    try {
-        server.startServer();
-
+private void siteActionPerformed(final java.awt.event.ActionEvent evt) throws URISyntaxException, IOException {
         if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
             Desktop.getDesktop().browse(new URI("http://localhost:8080/api/data"));
         }
-    } catch (IOException | URISyntaxException e) {
-        e.printStackTrace();
-    }
 }
 
     /**
