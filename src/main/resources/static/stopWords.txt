@@ -21,7 +21,6 @@ d
 da
 dagl
 dagli
-dai
 dal
 dall
 dalla
@@ -39,6 +38,7 @@ di
 e
 ed
 fra
+gli
 i
 ie
 il

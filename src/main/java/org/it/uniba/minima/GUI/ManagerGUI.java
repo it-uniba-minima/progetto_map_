@@ -12,6 +12,8 @@ import org.it.uniba.minima.Mixer;
  * The manager of the GUIs.
  */
 public class ManagerGUI extends JFrame {
+    static GameGUI game;
+
     /**
      * Instantiates a new Gui manager.
      */
@@ -33,7 +35,7 @@ public class ManagerGUI extends JFrame {
         MenuGUI menu = new MenuGUI();
         CreditsGUI credits = new CreditsGUI();
         ProgressBarGUI progressBar = new ProgressBarGUI();
-        GameGUI game = new GameGUI();
+        game = new GameGUI();
 
         // Add the panels to cards
         cards.add(menu, "MenuGUI");
@@ -50,5 +52,12 @@ public class ManagerGUI extends JFrame {
         // Start the music
         Mixer music = Mixer.getInstance();
         music.start();
+    }
+
+    /**
+     * Closes the game GUI.
+     */
+    public static void closeGame() {
+        game.goBack();
     }
 }

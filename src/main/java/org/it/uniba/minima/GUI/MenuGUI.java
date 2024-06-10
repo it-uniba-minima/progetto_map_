@@ -327,8 +327,8 @@ public class MenuGUI extends JPanel {
      * @throws ClassNotFoundException the class not found exception
      */
     private void loadGameActionPerformed(ActionEvent evt) throws IOException, ClassNotFoundException {
-        GameManager gameManager = new GameManager();
-        boolean loadedGameSuccessfully = gameManager.loadGame();
+        GameManager.resetAllAgents();
+        boolean loadedGameSuccessfully = GameManager.loadGame();
 
         if (loadedGameSuccessfully) {
             Game game = Game.getInstance();

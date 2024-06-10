@@ -114,6 +114,24 @@ public class GameGUI extends JPanel {
                 }
             }, "Stanza" + i);
         }
+
+        imagePanel.add(new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                ImageIcon image = new ImageIcon("src/main/resources/docs/img/Saggezza.png");
+                g.drawImage(image.getImage(), 0, 0, getWidth(), getHeight(), this);
+            }
+        }, "Saggezza");
+
+        imagePanel.add(new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                ImageIcon image = new ImageIcon("src/main/resources/docs/img/Ricchezza.png");
+                g.drawImage(image.getImage(), 0, 0, getWidth(), getHeight(), this);
+            }
+        }, "Ricchezza");
     }
 
     /**
@@ -437,10 +455,7 @@ public class GameGUI extends JPanel {
         game.setCurrentTime(timerLabel.getText());
         gameManager.saveGame();
         JOptionPane.showMessageDialog(this, "Game saved successfully", "Save", JOptionPane.INFORMATION_MESSAGE);
-        CardLayout cl = (CardLayout) getParent().getLayout();
-        cl.show(getParent(), "MenuGUI");
-        displayTextPane.setText("");
-        inventoryTextArea.setText(" Inventory:\n");
+        goBack();
     }
 
     /**
@@ -461,15 +476,21 @@ public class GameGUI extends JPanel {
         int back = JOptionPane.showConfirmDialog(this, "Sei sicuro di voler tornare al Menù senza salvare?", "Back", JOptionPane.YES_NO_OPTION);
 
         if (back == JOptionPane.YES_OPTION) {
-            CardLayout cl = (CardLayout) getParent().getLayout();
-            cl.show(getParent(), "MenuGUI");
-            displayTextPane.setText("");
-            inventoryTextArea.setText(" Inventory:\n");
+            goBack();
         } else {
             notGoBack();
         }
     }
 
+    /**
+     * Method to go back
+     */
+    public void goBack() {
+        CardLayout cl = (CardLayout) getParent().getLayout();
+        cl.show(getParent(), "MenuGUI");
+        displayTextPane.setText("");
+        inventoryTextArea.setText(" Inventory:\n");
+    }
     /**
      * Method when you don't go back
      */

@@ -6,6 +6,7 @@ import org.it.uniba.minima.Database.RestServer;
 import org.it.uniba.minima.Entity.Game;
 import org.it.uniba.minima.Entity.Item;
 import org.it.uniba.minima.GUI.GameGUI;
+import org.it.uniba.minima.GUI.ManagerGUI;
 import org.it.uniba.minima.Type.ParserOutput;
 import java.util.List;
 
@@ -20,11 +21,11 @@ public class UserInputFlow {
     /**
      * The parser object that parses the user input in case 0.
      */
-    private static final Parser parser = new Parser();
+    private static Parser parser;
     /**
-     * The command executor object that executes the commands in case 0.
+     * The commandExecutor object that executes the command in case 0.
      */
-    private static final CommandExecutor commandExecutor = new CommandExecutor(Game.getInstance());
+    private static CommandExecutor commandExecutor;
     /**
      * The wordleGame object that manages the wordle game in case 1.
      */
@@ -85,6 +86,7 @@ public class UserInputFlow {
      */
     private static void parserFlow(final String text) {
         ParserOutput output = parser.parse(text);
+
         if (output.getArgs() != 0) {
             commandExecutor.execute(output);
         } else {
@@ -173,19 +175,21 @@ public class UserInputFlow {
                 return;
             }
             DatabaseConnection.printFromDB("0", "Stanza10", finale, "0", "0", "0");
+            GameGUI.setImagePanel(finale);
+
             try {
                 Client client = new Client();
                 client.sendPostRequest(Game.getInstance().getNickname(), Game.getInstance().getCurrentTime(), finale);
             } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
-
 
             OutputDisplayManager.displayText("");
             OutputDisplayManager.displayText("> La tua avventura nella piramide è giunta al termine! Grazie per aver giocato!");
-            OutputDisplayManager.displayText("> Scrivi qualsiasi cosa per terminare il gioco.");
+            OutputDisplayManager.displayText("> Scrivi qualsiasi cosa per terminare la partita.");
             isGameEnded = true;
         } else {
-            System.exit(0);
+            ManagerGUI.closeGame();
         }
     }
 
@@ -205,6 +209,8 @@ public class UserInputFlow {
         isNameConfirmed = false;
         isGameEnded = false;
         wordleGame = new WordleGame();
+        parser = new Parser();
+        commandExecutor = new CommandExecutor(Game.getInstance());
     }
 
     /*
@@ -215,8 +221,12 @@ public class UserInputFlow {
         isNameConfirmed = true;
         isGameEnded = false;
         wordleGame = new WordleGame();
+        parser = new Parser();
+        commandExecutor = new CommandExecutor(game);
         List<String> itemsNames = game.getInventory().stream().map(Item::getName).toList();
         String[] itemsNamesArray = itemsNames.toArray(new String[0]);
         GameGUI.updateInventoryTextArea(itemsNamesArray);
+        OutputDisplayManager.displayText("> Bentornato " + game.getNickname() + "!");
+        DatabaseConnection.printFromDB("0", game.getCurrentRoom().getName(), game.getRoomState(game.getCurrentRoom().getName()).toString(), "0", "0", "0");
     }
 }

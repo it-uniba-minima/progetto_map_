@@ -90,6 +90,8 @@ public class HangmanGame {
             game.getCurrentRoom().setState("Corretto");
             game.unlockCorridor("Stanza4", "Stanza5");
             GameGUI.setImagePanel(game.getCurrentRoom().getName());
+
+            hangmanGUI.resetGuessedLetters();
         } else {
             OutputDisplayManager.displayText("> Provi a scrivere la frase, ma si cancella immediatamente, è sbagliata!");
         }
