@@ -68,7 +68,6 @@ public class Converter {
                 return null;
             }
             Game.setUpGame(game);
-            game.getInventory().forEach(item -> allAgents.put(item.getName(), item));
             game.getCorridorsMap().forEach(corridor -> {
                 Room room = corridor.getStartingRoom();
                 if (!allRooms.containsKey(room.getName())) {
