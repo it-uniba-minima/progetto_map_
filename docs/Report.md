@@ -6,18 +6,13 @@
     -  [**1.1 - Sviluppatori**](#partecipanti-al-progetto)
     -  [**1.2 - Descrizione Progetto**](#descrizione-progetto)
 - ### [**2 - Modello di Dominio**](#2---modello-di-dominio)
-    - [**2.1 - Chiarimenti scelte progettuali**](#chiarimenti-scelte-progettuali)
 - ### [**3 - Progettazione**](#3---progettazione)
     - [**3.1 - Diagramma delle Classi**](#diagramma-delle-classi)
-- ### [**4 - Requisiti Specifici**](#4---requisiti-specifici)
-    -  [**4.1 - Requisiti Funzionali**](#requisiti-funzionali)
-    - [**4.2 - Requisiti Non Funzionali**](#requisiti-non-funzionali)
-- ### [**5 - Specifiche Algebriche**](#5---specifiche-algebriche)
-- ### [**6 - Applicazione Argomenti del Corso**](#6---applicazione-argomenti-del-corso)
+- ### [**4 - Specifiche Algebriche**](#5---specifiche-algebriche)
+- ### [**5 - Applicazione Argomenti del Corso**](#6---applicazione-argomenti-del-corso)
 - ### [**7 - Manuale Utente**](#7---manuale-utente)
     - [**7.1 - Walkthrough**](#walkthrough)
-    - [**7.2 - Procedura Preliminare**](#procedura-preliminare)
-- ### [**8 - Conclusioni e Opinioni Finali**](#9---conclusioni-e-opinioni-finali)
+- ### [**8 - Conclusioni e Opinioni Finali**](#8---conclusioni-e-opinioni-finali)
 
 ## 1 - Introduzione
 <hr>
@@ -102,140 +97,18 @@ Il progetto è stato realizzato utilizzando il linguaggio di programmazione **Ja
 - Il seguente diagramma rappresenta il modello di dominio della nostra avventura testuale, realizzata utilizzando il web software [Lucidchart](https://www.lucidchart.com/)
   ![img_Modello_di_dominio](img/Modello_di_dominio.png)
 
-## Chiarimenti scelte progettuali
-
-- Relazioni **Parser**  ⇄ **Partita:**
-<hr>
-La relazione tra il <b>Parser</b> e la <b>Partita</b> è stata progettata in modo tale che il **Parser** possa ricevere i comandi dall'utente e trasmetterli alla **Partita** per l'esecuzione. Inoltre, il **Parser** può ricevere informazioni sulla situazione di gioco dalla **Partita** e presentarle all'utente.
-- Relazioni **Parser**  ⇄ **Comandi:**
-<hr> 
-
-- Relazioni **Parser**  ⇄ **Agente:**
-<hr>
-
-- Relazioni **Partita**  ⇄ **Stanza:**
-<hr>
-
-- Relazioni **Stanza**  ⇄ **Agente:**
-<hr>
-
-- Relazioni **Agente**  ⇄ **Oggetto/Personaggio:**
-<hr>
-
-
 #### [Ritorna all'Indice](#indice)
 
 ## 3 - Progettazione
 - Il nostro principale obiettivo di progettazione è stato:
     - Creare un'architettura modulare e scalabile che permetta di aggiungere nuove funzionalità in modo semplice e flessibile.
 
-Questo obiettivo è stato pienamente rispettato dal modello di progettazione adottato, ossia il **Modello Entity-Controller-Boundary (ECB)**.
-<h3> Che cos'è il Modello Entity-Controller-Boundary?</h3>
-- Il **Modello ECB** è un modello architetturale che permette di separare le entità (Entity) dal controllo (Controller) e dalla presentazione (Boundary) all'interno di un sistema software.
-    - **Entity:** rappresenta i dati e le regole di business del sistema.
-    - **Controller:** gestisce le interazioni tra le entità e le boundary, implementando la logica di controllo del sistema.
-    - **Boundary:** fornisce l'interfaccia utente per interagire con il sistema, presentando i dati e ricevendo input dall'utente.
-- Questo modello permette di ottenere una maggiore modularità e flessibilità del sistema, facilitando la manutenzione e l'estensione del codice.
-
-Esempio Pratico:
-<table>
-<tr> 
-<th> Entity </th>
-<th> Control </th>
-<th> Boundary </th>
-</tr>
-<tr>
-<td>
-
-```java
-// Esempio di classe Entity
-public class User {
-  private String username;
-  private String email;
-
-  public User(String username, String email) {
-    this.username = username;
-    this.email = email;
-  }
-}
-
-```
-
-</td>
-<td>
-
-```java
-// Esempio di classe Controller
-public class UserController {
-  private List<User> users = new ArrayList<>();
-
-  public void addUser(String username, String email) {
-    User user = new User(username, email);
-    users.add(user);
-    System.out.println("User added: " + user);
-  }
-  public List<User> getAllUsers() {
-    return users;
-  }
-}
-
-```
-</td>
-<td>
-
-```java
-//Esempio di classe Boundary
-import java.util.Scanner;
-
-public class UserInterface {
-  private UserController userController;
-  private Scanner scanner;
-
-  private void addUser() {
-    System.out.print("Enter username: ");
-    String username = scanner.nextLine();
-    System.out.print("Enter email: ");
-    String email = scanner.nextLine();
-    userController.addUser(username, email);
-  }
-
-  private void viewUser() {
-    System.out.print("Enter username: ");
-    String username = scanner.nextLine();
-    User user = userController.getUser(username);
-    if (user != null) {
-      System.out.println("User found: " + user);
-    } else {
-      System.out.println("User not found.");
-    }
-  }
-}
-
-```
-</td>
-</tr>
-
-</table>
-
-intolo
 ## Diagramma delle classi
 - Il seguente diagramma rappresenta le classi del nostro progetto, realizzato utilizzando il web software [Lucidchart](https://www.lucidchart.com/)
 
-
-
 #### [Ritorna all'Indice](#indice)
-## 4 - Requisiti Specifici
-- In questa sezione verranno elencati i requisiti funzionali e non funzionali del progetto.
 
-### Requisiti Funzionali
-
-
-### Requisiti Non Funzionali
-
-
-#### [Ritorna all'Indice](#indice)
 ## 5 - Specifiche Algebriche
-
 - In questa sezione verranno elencate le specifiche algebriche del progetto.
 
 
@@ -524,10 +397,7 @@ Tornando nella **Stanza del Faraone** e usando i comandi:
 - `Dai Ankh a Faraone`
   Arriviamo allo stato finale del gioco, dove l'utente con il comando `Parla con Faraone`, dove alla fine del gioco l'utente potrà scegliere uno dei due finali: **Ricchezza** o **Saggezza**.
 
-### Procedura Preliminare
-
 #### [Ritorna all'Indice](#indice)
 ## 8 - Conclusioni e Opinioni Finali
-
 
 #### [Ritorna all'Indice](#indice)
