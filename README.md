@@ -5,7 +5,7 @@
 
 
 ## Requisiti
-<hr><br>
+<br>
 Per poter eseguire il nostro progetto è necessario:
 
 - **Java 22**: per poter eseguire il nostro progetto è necessario avere installato Java 22.<br>
@@ -20,7 +20,7 @@ A questo punto sarete già sulla sezione della JDK 22, quindi non dovrete fare a
 - **Qualsiasi IDE che supporti Java o terminale**: per poter eseguire il nostro progetto è necessario avere un IDE o un terminale.<br>
 
 ## Come eseguire il progetto
-<hr><br>
+<br>
 Per poter eseguire il nostro progetto ci sono due strade possibili:
 
 - **JAR**: scaricare il file `Progetto_MAP_JAR.jar`.
@@ -53,9 +53,9 @@ Quindi per scaricare il JAR è sufficiente andare nella sezione `Actions` del re
 
 Per eseguire il JAR è necessario aprire il terminale e posizionarsi nella cartella del progetto, dopodiché eseguire il seguente comando: 
     
-    ```shell
-    java -jar Progetto_MAP_JAR.jar
-    ```
+```shell
+java -jar Progetto_MAP_JAR.jar
+```
 
 E' ovviamente possibile eseguire il JAR anche tramite un doppio click sul file, ricordandosi ovviamente di posizionare il file JAR nella cartella del progetto, come spiegato precedentemente.
 
