@@ -4,7 +4,8 @@ import org.it.uniba.minima.Type.ParserOutput;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 
 /**
@@ -138,8 +139,8 @@ public class Parser {
      * @throws Exception the exception
      */
     private void setupUselessWords() throws Exception {
-        URL url = getClass().getResource("/static/stopWords.txt");
-        File file = new File(url.toURI());
+        Files.readAllBytes(Paths.get("src/main/resources/static/stopWords.txt"));
+        File file = new File("src/main/resources/static/stopWords.txt");
         BufferedReader reader = new BufferedReader(new FileReader(file));
 
         while (reader.ready()) {
