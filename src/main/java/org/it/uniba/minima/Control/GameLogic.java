@@ -156,6 +156,7 @@ public class GameLogic {
             game.setRoomState("Stanza2", "SerpentiOff");
             Item torcia1 = (Item) GameManager.getAgentFromName("TorciaAccesa1");
             torcia1.setPickable(true);
+            System.out.println(torcia1.isPickable() + torcia1.toString() + System.identityHashCode(torcia1));
             return true;
         }
         if (i1.hasName("Corda") && i2.hasName("Leva")) {

@@ -103,7 +103,7 @@ public class CommandExecutor {
                                 gameLogic.executeLook(p.getAgent1());
                                 p.getAgent1().getDescription(game.getCurrentRoom());
                             } else if (game.getInventory().contains(p.getAgent1())) {
-                                OutputDisplayManager.displayText("> La tua borsa non è trasperente!");
+                                OutputDisplayManager.displayText("> La tua borsa non è trasparente!");
                             } else {
                                 OutputDisplayManager.displayText("> " + p.getAgent1().getName() + " non è nella stanza!");
                             }
@@ -119,6 +119,7 @@ public class CommandExecutor {
                             if (game.getInventory().contains(p.getAgent1())) {
                                 OutputDisplayManager.displayText("> Hai già " + p.getAgent1().getName() + " nell'inventario!");
                             } else if (game.getCurrentRoom().getAgents().contains(p.getAgent1())) {
+                                System.out.println(p.getAgent1().getName() + p.getAgent1().toString() + ((Item) p.getAgent1()).isPickable() + System.identityHashCode(p.getAgent1()));
                                 if (((Item) p.getAgent1()).isPickable()) {
                                     game.addInventory((Item) p.getAgent1());
                                     game.getCurrentRoom().removeAgent(p.getAgent1());

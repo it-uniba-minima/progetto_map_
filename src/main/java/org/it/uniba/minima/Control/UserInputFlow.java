@@ -20,10 +20,6 @@ public class UserInputFlow {
      */
     private static final Parser parser = new Parser();
     /**
-     * The command executor object that executes the commands in case 0.
-     */
-    private static final CommandExecutor commandExecutor = new CommandExecutor(Game.getInstance());
-    /**
      * The wordleGame object that manages the wordle game in case 1.
      */
     private static WordleGame wordleGame;
@@ -83,6 +79,7 @@ public class UserInputFlow {
      */
     private static void parserFlow(String text) {
         ParserOutput output = parser.parse(text);
+        CommandExecutor commandExecutor = new CommandExecutor(Game.getInstance());
         if (output.getArgs() != 0) {
             commandExecutor.execute(output);
         } else {

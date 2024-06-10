@@ -9,7 +9,7 @@ public class HangmanGUI extends JPanel {
     /**
      * The hidden text label.
      */
-    private static JLabel hiddenText;
+    private JLabel hiddenText;
     /**
      * The guessed letters.
      */
