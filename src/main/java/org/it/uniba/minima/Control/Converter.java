@@ -87,6 +87,9 @@ public class Converter {
                     corridor.setArrivingRoom(existingRoom);
                 }
             });
+
+            game.setCurrentRoom(allRooms.get(game.getCurrentRoom().getName()));
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
