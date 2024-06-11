@@ -1,6 +1,7 @@
 package org.it.uniba.minima.GUI;
 import javax.swing.*;
 import java.awt.*;
+import java.util.Arrays;
 
 /**
  * The panel of the hangman game.
@@ -133,6 +134,7 @@ public class HangmanGUI extends JPanel {
      * Reset the guessed letters.
      */
     public void resetGuessedLetters() {
+        Arrays.fill(guessedLetters, (char) 0);
         SwingUtilities.invokeLater(() -> hiddenText.setText("<html><center>__ _____ _____ ________ __ _______</center></html>"));
     }
 }
