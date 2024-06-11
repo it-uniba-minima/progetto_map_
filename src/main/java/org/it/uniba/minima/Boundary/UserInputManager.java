@@ -43,10 +43,8 @@ public class UserInputManager {
     /**
      * Starts the input listener as a new thread.
      * The input listener checks if the user has inserted a new input and calls the game flow.
-     *
-     * @param userInputField the user input field to check
      */
-    public static void startInputListener(JTextField userInputField) {
+    public static void startInputListener() {
         new Thread(() -> {
             while (true) {
                 if (!isCurrentInputEmpty()) {
