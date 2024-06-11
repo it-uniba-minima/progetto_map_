@@ -68,7 +68,9 @@ public class GameLogic {
         }
         if (c.hasName("Mummia") && (game.getCurrentRoom().getState().equals("Start") || game.getCurrentRoom().getState().equals("Sbagliato"))) {
             UserInputFlow.Event = 2;
-            TriviaGame.getQAndA();
+            TriviaGame triviaGame = TriviaGame.getInstance();
+            triviaGame.getQAndA();
+
             return true;
         }
         if (c.hasName("Osiride") && game.getCurrentRoom().getState().equals("SarcofagoAperto")) {
