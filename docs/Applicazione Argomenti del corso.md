@@ -1,6 +1,6 @@
+### In questa sezione verrà spiegato come sono stati applicati gli argomenti trattati durante il corso di "Metodi Avanzati di Programmazione" all'interno del progetto.
 
-- In questa sezione verrà spiegato come sono stati applicati gli argomenti trattati durante il corso di "Metodi Avanzati di Programmazione" all'interno del progetto.
-
+#### NOTA BENE: Gli snippet di codice presenti in questa sezione sono semplificati e non rappresentano l'intero codice del progetto, ma solo una parte significativa.
 <ul>
     <li>
         <h2>1) Utilizzo dei file</h2>
@@ -9,7 +9,7 @@
             <h3><b>Cosa sono i file?</b></h3>
 Un file non è altro che un flusso di I/O che può essere utilizzato sia come sorgente che come destinazione di dati.
 
-In Java, i file sono gestiti attraverso la classe File, che rappresenta un file o una directory nel sistema di file. La classe File fornisce metodi per creare, eliminare, leggere, scrivere e gestire i file e le directory.
+In Java, i file sono gestiti attraverso la classe File, fornisce metodi per creare, eliminare, leggere, scrivere e gestire tutti i flussi di I/O nel Sistema Operativo.
 
 - Un flusso può rappresentare molti tipi diversi: file su disco, dispositivi, altri programmi e array in memoria.
 - Gli stream supportano molti tipi diversi di dati, inclusi byte semplici, tipi di dati primitivi, caratteri e oggetti.
@@ -19,141 +19,60 @@ In Java, i file sono gestiti attraverso la classe File, che rappresenta un file 
 <h3><b>Come abbiamo utilizzato i file nel nostro progetto?</b></h3>
 All'interno del nostro progetto i file sono stati utilizzati sia per l'inizializzazione del gioco, delle stanze e per il salvataggio di quest'ultime. La gestione dei file ci ha permesso di memorizzare e recuperare i dati del gioco in modo persistente, garantendo la continuità dell'esperienza di gioco per gli utenti.
 Come appreso durante il corso, inoltre, abbiamo utilizzato i file in formato JSON per memorizzare i dati in modo strutturato e leggibile, facilitando la gestione e la manipolazione dei dati all'interno del gioco.
-- **Inizializzazione del gioco**:
+- **Inizializzazione del gioco e caricamento di quest'ultimo**:
 
-Per l'inizializzazione del gioco, abbiamo utilizzato la classe <b>Converter</b> per leggere i dati dal file JSON e convertirli in oggetti Java, o viceversa.
+Per l'inizializzazione del gioco o il caricamento di quest'ultimo, abbiamo reso il nostro codice molto modulare, creando un'unica funzione all'interno della classe <b>Converter</b> che si occupa di effettuare la conversione dei dati da JSON a Oggetti Java sia se si tratta di una nuova partita che di un caricamento di una partita salvata.
 
-Concentriamoci sul metodo <b>convertJsonToJavaClass</b> della classe <b>Converter</b>:
+
+Per far ciò abbiamo creato due metodi ausialiari all'interno della classe <b>Converter</b>, il cui compito era solo quello di passare il path del file JSON da leggere e restituirlo al metodo principale <b>convertJsonToJavaClass</b> che si occupa di effettuare la conversione dei dati da JSON a Java, come mostrato di seguito:
 ```java
+/**
+ * Method that manages the conversion of json files to java classes in the case of a new game.
+ *
+ * @return the map of all the agents
+ */
+public Map<String, Agent> convertJsonToJavaClass() {
+  return processJsonFiles("src/main/resources/static/Game.json", "src/main/resources/static/Agents.json");
+}
 
-package org.it.uniba.minima.Control;
+/**
+ * Method that manages the conversion of json files to java classes in the case of a loaded game.
+ *
+ * @return the map of all the agents
+ */
+public Map<String, Agent> loadGame() {
+  return processJsonFiles("src/main/resources/LoadedGame.json", "src/main/resources/LoadedItems.json");
+}
+```
+Come si può notare, i metodi <b>convertJsonToJavaClass</b> e <b>loadGame</b> richiamano il metodo <b>processJsonFiles</b> passando come parametri il path dei file JSON da leggere e restituire.
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
-import com.google.gson.stream.JsonReader;
-import org.it.uniba.minima.Entity.Agent;
-import org.it.uniba.minima.Entity.Game;
-import org.it.uniba.minima.Entity.Room;
-import org.it.uniba.minima.Type.CommandType;
-import org.it.uniba.minima.Type.Corridor;
+In questo modo abbiamo evitato di creare due metodi distinti per la conversione dei dati da JSON a Java, rendendo il nostro codice più modulare e manutenibile.
+Il metodo <b>processJsonFiles</b> ha come compito quello di andare a leggere i file JSON passati come parametri e restituirli in formato Java, andando a creare un oggetto di tipo <b>Map</b> contenente tutti gli agenti presenti nel gioco e inizializzando il gioco con tutte le stanze e gli oggetti presenti.
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.lang.reflect.Type;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.*;
+Particolarmente interessante è stata la registrazione di un TypeAdapter, mediante la libreria Gson, per la gestione degli Agenti all'interno del gioco, come mostrato di seguito:
 
-public class Converter {
-    public Map<String, Agent> convertJsonToJavaClass() {
-        Gson gson = new GsonBuilder()
-                .registerTypeAdapter(Agent.class, new AgentDeserializer())
-                .create();
-        Map<String, Agent> allAgents = new HashMap<>();
-        Map<String, Room> allRooms = new HashMap<>();
+```java
+public class AgentDeserializer implements JsonDeserializer<Agent> {
+    @Override
+    public Agent deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+        JsonObject jsonObject = json.getAsJsonObject();
         try {
-            URL url = getClass().getResource("/static/Game.json");
-            File file = new File(url.toURI());
-            JsonReader reader = new JsonReader(new FileReader(file));
-            Game game = gson.fromJson(reader, Game.class);
-
-            game.getCorridorsMap().forEach(corridor -> {
-                Room room = corridor.getStartingRoom();
-                if (!allRooms.containsKey(room.getName())) {
-                    allRooms.put(room.getName(), room);
-                    room.getAgents().forEach(agent -> allAgents.put(agent.getName(), agent));
-                } else {
-                    Room existingRoom = allRooms.get(room.getName());
-                    corridor.setStartingRoom(existingRoom);
-                }
-                room = corridor.getArrivingRoom();
-                if (!allRooms.containsKey(room.getName())) {
-                    allRooms.put(room.getName(), room);
-                    room.getAgents().forEach(agent -> allAgents.put(agent.getName(), agent));
-                } else {
-                    Room existingRoom = allRooms.get(room.getName());
-                    corridor.setArrivingRoom(existingRoom);
-                }
-            });
-            Game.setUpGame(game);
-        } catch (FileNotFoundException | URISyntaxException e) {
-            e.printStackTrace();
+            jsonObject.get("isPickable").getAsString();
+            return context.deserialize(json, Item.class);
+        } catch (NullPointerException e) {
+            return context.deserialize(json, Personage.class);
         }
-        try {
-            URL url = getClass().getResource("/static/Agents.json");
-            File file = new File(url.toURI());
-            JsonReader reader = new JsonReader(new FileReader(file));
-            Type agentListType = new TypeToken<ArrayList<Agent>>() {
-            }.getType();
-            List<Agent> agentList = gson.fromJson(reader, agentListType);
-            agentList.forEach(agent -> allAgents.put(agent.getName(), agent));
-        } catch (FileNotFoundException | URISyntaxException e) {
-            e.printStackTrace();
-        }
-        return allAgents;
     }
 }
 ```
-Il metodo <b>convertJsonToJavaClass</b> legge i dati dal file JSON e li converte in oggetti Java, utilizzando la libreria Gson per la deserializzazione dei dati.
 
-In particolare, il metodo legge i dati relativi agli agenti e alle stanze del gioco e li converte in oggetti Java, che vengono restituiti come una mappa di agenti.
+Un <b>TypeAdapter</b> è un'interfaccia che definisce come un determinato tipo di oggetto può essere deserializzato da un oggetto Json.<br>
+In questo caso il <b>TypeAdapter</b> si occupa di distinguere tra un oggetto di tipo Item e un oggetto di tipo Personage, in base al valore dell'attributo "isPickable", restituendo l'oggetto corretto in base al tipo di agente, dal momento che Item e Personage estendono la classe Agent.
+Abbiamo scelto di adottare questa soluzione dal momento che, durante la lettura e l'instaziazione di oggetti da un file JSON, se ci sono oggetti che estendono la stessa classe, Gson non è in grado di distinguere tra i due tipi di oggetti, generando un'eccezione oppure restituendo un oggetto di una classe sbagliata.
 
-- **Salvataggio delle stanze**:
-  Nel medesimo modo, abbiamo utilizzato la classe <b>Converter</b> per salvare le stanze del gioco in un file JSON, utilizzando i metodi <b>convertGametoJson</b> e <b>convertRoomstoJson</b>:
-```java
-public void ConvertGametoJson() {
-    Gson gson = new Gson();
-    Game game = Game.getInstance();
-}
 
-        public void ConvertRoomstoJson (List < Room > rooms) throws IOException {
-            Gson gson = new Gson();
-            String json = gson.toJson(rooms);
-            Files.write(Paths.get("src/main/resources/LoadedRooms.json"), json.getBytes());
-        }
-    
-```
-All'interno della classe <b>Converter</b>, il metodo <b>ConvertGametoJson</b> converte l'oggetto Game in formato JSON e il metodo <b>ConvertRoomstoJson</b> converte la lista delle stanze in formato JSON e le scrive su un file.
-
-- **Caricamento del gioco**:
-  Per il caricamento del gioco, abbiamo utilizzato la classe <b>Converter</b> per leggere i dati dal file JSON e convertirli in oggetti Java, come mostrato di seguito:
-```java
- public Game loadGame () {
-            Gson gson = new Gson();
-            try {
-                URL url = getClass().getResource("/resources/LoadedGame.json");
-                File file = new File(url.toURI());
-                JsonReader reader = new JsonReader(new FileReader(file));
-                return gson.fromJson(reader, Game.class);
-            } catch (FileNotFoundException | URISyntaxException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        public List<Room> loadRooms () {
-            Gson gson = new Gson();
-            try {
-                URL url = getClass().getResource("/resources/LoadedRooms.json");
-                File file = new File(url.toURI());
-                JsonReader reader = new JsonReader(new FileReader(file));
-                Type roomListType = new TypeToken<ArrayList<Room>>() {
-                }.getType();
-                return gson.fromJson(reader, roomListType);
-            } catch (FileNotFoundException | URISyntaxException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-```
-I metodi <b>loadGame</b> e <b>loadRooms</b> leggono i dati dal file JSON e li convertono in oggetti Java, utilizzando la libreria Gson per la deserializzazione dei dati e permettono la realizzazione della funzionalità di caricamento del gioco.
-
-L'utilizzo dei file ci ha permesso di memorizzare e recuperare i dati del gioco in modo persistente, garantendo la continuità dell'esperienza di gioco per gli utenti e facilitando la gestione e la manipolazione dei dati all'interno del gioco.
+L'utilizzo dei file ci ha permesso di memorizzare e recuperare i dati del gioco in modo persistente, garantendo la continuità dell'esperienza di gioco per gli utenti e facilitando la gestione e la manipolazione dei dati all'interno del gioco.<br>
+Inoltre, a nostro avviso, utilizzare al i file JSON al posto di implementare Serialazible ci ha permesso di avere un codice più pulito e leggibile, in quanto i file JSON sono più leggibili e facilmente manipolabili rispetto ai file binari.
 </details>
 </li>
 <li>
@@ -162,6 +81,7 @@ L'utilizzo dei file ci ha permesso di memorizzare e recuperare i dati del gioco 
 <summary>Visualizza dettagli</summary>
 <h3><b>Cosa è un Database?</b></h3>
 Uno dei motivi di successo di Java è dovuto alla possibilità di sviluppare applicazioni client/server indipendenti dalla piattaforma:
+
 - L’indipendenza dalla piattaforma deve essere garantita
   anche per applicazioni che lavorano su basi di dati: per questo è nato lo standard Java Data Base Connectivity (JDBC)
 
@@ -174,8 +94,7 @@ Per permettere ciò JDBC fornisce un driver manager che gestisce dinamicamente t
 - Come tutte le API Java anche JDBC è stato progettato in modo da semplificare tutte le normali operazioni di interfacciamento con un database: connessione, creazione di tabelle, interrogazione e visualizzazione dei risultati.
 
 <h3><b>Come abbiamo utilizzato il Database nel nostro progetto?</b></h3>
-Come suggerito dal professore, il database utlizzato è stato un database in memoria, in particolare abbiamo utilizzato il database H2.
-H2 è un database SQL open-source scritto in Java. È molto veloce e leggero, e supporta la modalità server e la modalità embedded.
+Come richiesto dal professore è stato utilizzato H2, un database SQL open-source scritto in Java. È molto veloce e leggero, e supporta la modalità server e la modalità embedded.
 
 H2 è molto popolare in ambito di sviluppo di applicazioni Java, in quanto è facile da usare e da configurare, dunque perfetto per il nostro progetto.
 L'utilizzo del database ci ha permesso di memorizzare i dati relativi a tutti i dialoghi del gioco, i punteggi dei giocatori e le informazioni sui tempi di gioco, garantendo la persistenza dei dati e la possibilità di recuperarli in qualsiasi momento.
@@ -193,64 +112,27 @@ Oltre alla tabella principale contenente i dati relativi ai dialoghi del gioco, 
 
 Il database, come appreso durante il corso, ha bisogno di una connessione per poter essere utilizzato. Per questo motivo, abbiamo implementato la classe <b>DatabaseConnection</b> per gestire la connessione al database e le operazioni di lettura e scrittura dei dati, come mostrato di seguito:
 ```java
-package org.it.uniba.minima.Database;
-
-import org.h2.tools.RunScript;
-import org.it.uniba.minima.Boundary.outputDisplayManager;
-
-import java.sql.*;
-
-public class DatabaseConnection {
-
     static final String JDBC_DRIVER = "org.h2.Driver";
     static final String DB_URL = "jdbc:h2:./src/main/resources/database/db_map";
     static final String USER = "sa";
     static final String PASS = "";
-}
 ```
 La classe <b>DatabaseConnection</b> definisce le costanti per il driver JDBC, l'URL del database, l'utente e la password per la connessione al database.
 
 All'interno della classe <b>DatabaseConnection</b> sono stati implementati i metodi per la connessione al database, la creazione delle tabelle, l'inserimento dei dati e la lettura dei dati, come mostrato di seguito:
 ```java
     public static Connection connect() {
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
         String start = "RUNSCRIPT FROM 'src/main/resources/database/db_start.sql'";
         String fill = "RUNSCRIPT FROM 'src/main/resources/database/db_info.sql'";
-        boolean emptyClassifica = true;
-        boolean emptyDescr = true;
-        try {
-            Class.forName(JDBC_DRIVER);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
         try {
              Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-             stmt = conn.prepareStatement(start);
-             stmt.execute();
-             stmt.close();
-
              String sql = "SELECT * FROM CLASSIFICA";
-             stmt = conn.prepareStatement(sql);
              rs = stmt.executeQuery();
-             while (rs.next()) {
-                 emptyClassifica = false;
-             }
              rs.close();
              String sql2 = "SELECT * FROM DESCRIZIONI";
              stmt = conn.prepareStatement(sql2);
              rs = stmt.executeQuery();
-             while (rs.next()) {
-                 emptyDescr = false;
-             }
              rs.close();
-
-             if (emptyClassifica && emptyDescr) {
-                 stmt = conn.prepareStatement(fill);
-                 stmt.execute();
-                 stmt.close();
-             }
-
              return conn;
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -259,59 +141,37 @@ All'interno della classe <b>DatabaseConnection</b> sono stati implementati i met
 ```
 Il metodo <b>connect</b> si occupa di connettersi al database, creare le tabelle, controllare se le tabelle sono vuote e popolarle con i dati di default, se necessario, restituendo la connessione al database.
 
-Altri metodi fondamentali sono <b>close</b>, <b>setToDatabase</b> , <b>printFromDB</b> , <b>getClassificafromDatabase</b> e <b>getDescriptionFromDatabase</b> che permettono di chiudere la connessione al database, inserire i dati nel database, stampare i dati dal database, ottenere la classifica dei giocatori e ottenere le descrizioni delle stanze dal database, rispettivamente.
+Altri metodi fondamentali sono <b>close</b>, <b>printFromDB</b> , <b>getClassificafromDatabase</b> e <b>getDescriptionFromDatabase</b> che permettono di chiudere la connessione al database, inserire i dati nel database, stampare i dati dal database, ottenere la classifica dei giocatori e ottenere le descrizioni delle stanze dal database, rispettivamente.
 Andiamo a vederli nello specifico:
 ```java
+/**
+ * Close.
+ *
+ * @param conn the conn
+ */
 public static void close(Connection conn) {
-        if (conn != null) {
-            try {
-                conn.close();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        }
+  if (conn != null) {
+    try {
+      conn.close();
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
     }
+  }
+}
 ```
 Il metodo <b>close</b> si occupa di chiudere la connessione al database, se è aperta.
 
-```java
-
-public static void setToDatabase(Connection conn, String nome, String time, char end) {
-    try {
-        String sql = "INSERT INTO CLASSIFICA (USERNAME, TEMPO, FINALE) VALUES (?, ?, ?)";
-        PreparedStatement stmt = conn.prepareStatement(sql);
-        stmt.setString(1, nome);
-        stmt.setTime(2, Time.valueOf(time));
-        stmt.setString(3, String.valueOf(end));
-        stmt.executeUpdate();
-        stmt.close();
-    } catch (SQLException e) {
-        throw new RuntimeException(e);
-    }
-}
-
-```
-Il metodo <b>setToDatabase</b> si occupa di inserire i dati relativi al nome del giocatore, al tempo di gioco e al risultato finale nel database.
 
 ```java
-
-public static void printFromDB(String idComando, String idStanza, String idStato, String idPersonaggio, String idOggetto1, String idOggetto2) {
-    Connection conn;
-    conn = DatabaseConnection.connect();
-    String sql_query = "SELECT DESCRIZIONE FROM DESCRIZIONI WHERE COMANDO = '" + idComando + "' AND STANZA = '" + idStanza + "' AND STATO = '" + idStato + "' AND PERSONAGGIO = '" + idPersonaggio + "' AND OGGETTO1 = '" + idOggetto1 + "' AND OGGETTO2 = '" + idOggetto2 + "'";
-    outputDisplayManager.displayText(DatabaseConnection.getDescriptionFromDatabase(conn, sql_query));
-    DatabaseConnection.close(conn);
-}
-
-public static String querySQL_forCLASSIFICA() {
-    return "SELECT * FROM CLASSIFICA ORDER BY TEMPO";
-}
-
-}
+  public static void printFromDB(String idComando, String idStanza, String idStato, String idPersonaggio, String idOggetto1, String idOggetto2) {
+      Connection conn;
+      conn = DatabaseConnection.connect();
+      String sql_query = "SELECT DESCRIZIONE FROM DESCRIZIONI WHERE COMANDO = '" + idComando + "' AND STANZA = '" + idStanza + "' AND STATO = '" + idStato + "' AND PERSONAGGIO = '" + idPersonaggio + "' AND OGGETTO1 = '" + idOggetto1 + "' AND OGGETTO2 = '" + idOggetto2 + "'";
+      outputDisplayManager.displayText(DatabaseConnection.getDescriptionFromDatabase(conn, sql_query));
+      DatabaseConnection.close(conn);
+  }
 ```
 Il metodo <b>printFromDB</b> si occupa di stampare la descrizione della stanza corrente, in base ai parametri passati, ottenuti dal database.
-
-Il metodo <b>querySQL_forCLASSIFICA</b> restituisce la query SQL per ottenere la classifica dei giocatori dal database.
 
 ```java
 public static String getClassificaFromDatabase(Connection conn, String sql_query) {

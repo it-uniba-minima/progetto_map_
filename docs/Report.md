@@ -133,8 +133,12 @@ Questa classe viene definita come una classe statica, per facilitare l'uso dei s
 - In questa sezione verranno elencate le specifiche algebriche del progetto.
 
 
-#### Specifica algebrica Mappa
+## Specifica algebrica Mappa
 
+- La struttura dati principale utilizzata nel progetto è la **Mappa**, una struttura dati che associa una chiave ad un valore, permettendo di memorizzare e recuperare informazioni in modo efficiente.
+
+
+### Specifica sintattica
 <table>
     <thead>
         <tr>
@@ -151,51 +155,96 @@ Questa classe viene definita come una classe statica, per facilitare l'uso dei s
             <td colspan="2"><strong>Metodi (Operazioni)</strong></td>
         </tr>
         <tr>
-            <td><code>put(key, value)</code></td>
+            <td><code>newMap()</code></td>
+            <td><code> () → Map</code> - Crea una nuova mappa</td>
+        </tr>
+        <tr>
+            <td><code>put(map, key, value)</code></td>
             <td><code>Map × Key × Value → Map</code> - Aggiunge una coppia chiave-valore o aggiorna il valore esistente</td>
         </tr>
         <tr>
-            <td><code>get(key)</code></td>
+            <td><code>get(map, key)</code></td>
             <td><code>Map × Key → Value</code> - Restituisce il valore associato alla chiave specificata</td>
           </tr>
             <tr>
-                <td><code>remove(key)</code></td>
+                <td><code>remove(map, key)</code></td>
                 <td><code>Map × Key → Map</code> - Rimuove la coppia chiave-valore specificata</td>
             </tr> 
             <tr>
-                <td><code>containsKey(key)</code></td>
+                <td><code>containsKey(map, key)</code></td>
                 <td><code>Map × Key → Boolean</code> - Restituisce <code>true</code> se la chiave specificata è presente nella mappa</td>
             </tr> 
             <tr>
-                <td><code>containsValue(value)</code></td>
+                <td><code>containsValue(map, value)</code></td>
                 <td><code>Map × Value → Boolean</code> - Restituisce <code>true</code> se il valore specificato è presente nella mappa</td> 
             </tr> 
             <tr>
-                <td><code>size()</code></td>
+                <td><code>size(map)</code></td>
                 <td><code>Map → Integer</code> - Restituisce il numero di coppie chiave-valore presenti nella mappa</td>  
             </tr>
             <tr>
-                <td><code>isEmpty()</code></td>
+                <td><code>isEmpty(map)</code></td>
                 <td><code>Map → Boolean</code> - Restituisce <code>true</code> se la mappa è vuota</td>
             </tr> 
             <tr>
-                <td><code>clear()</code></td>
+                <td><code>clear(map)</code></td>
                 <td><code>Map → Map</code> - Rimuove tutte le coppie chiave-valore dalla mappa</td> 
             </tr>
             <tr>
-                <td><code>keySet()</code></td>
+                <td><code>keySet(map)</code></td>
                 <td><code>Map → Set</code> - Restituisce un insieme di tutte le chiavi presenti nella mappa</td>
             </tr> 
             <tr>
-                <td><code>values()</code></td>
+                <td><code>values(map)</code></td>
                 <td><code>Map → Collection</code> - Restituisce una collezione di tutti i valori presenti nella mappa</td>
             </tr>
             <tr>
-                <td><code>entrySet()</code></td>
+                <td><code>entrySet(map)</code></td>
                 <td><code>Map → Set</code> - Restituisce un insieme di tutte le coppie chiave-valore presenti nella mappa</td>
             </tr>
     </tbody>
 </table>
+
+### Specifica semantica
+
+<b> Dichiarazione dei tipi </b>
+
+- <code>Map m</code>, struttura dati che associa una chiave ad un valore.
+- <code>Key k</code>,  la chiave è un oggetto che identifica univocamente un valore all'interno della mappa.
+- <code>Value  v</code>, il valore è l'oggetto associato ad una chiave all'interno della mappa.
+
+<b> Operazioni </b>
+
+- `put(m, k, v) = m `
+- `get(put(m, k, v), k) = v`
+- `remove(put(m, k, v), k) = m`
+- `containsKey(put(m, k, v), k) = true`
+- `containsValue(put(m, k, v), v) = true`
+- `size(put(m, k, v)) = size(m) + 1`
+- `size(remove(m, k)) = size(m) - 1`
+- `size(newMap) = 0`
+- `isEmpty(newMap) = true`
+- `isEmpty(put(m, k, v)) = false`
+- `clear(m) = newMap()`
+- `keySet(put(m, k, v)) = keySet(m) ∪ {k}`
+- `values(put(m, k, v)) = values(m) ∪ {v}`
+- `values(remove(m, k)) = values(m) - {v}`
+- `entrySet(put(m, k, v)) = entrySet(m) ∪ {(k, v)}`
+- `entrySet(remove(m, k)) = entrySet(m) - {(k, v)}`
+
+
+### Specifica di restrizione
+
+<b> Restrizioni </b>
+<b>Tipo speciale = error</b>
+
+- `get(newMap, k) = error`
+- `remove(newMap, k) = error`
+- `containsKey(newMap, k) = error`
+- `containsValue(newMap, v) = error`
+- `keySet(newMap) = error`
+- `values(newMap) = error`
+- `entrySet(newMap) = error`
 
 
 #### [Ritorna all'Indice](#indice)
