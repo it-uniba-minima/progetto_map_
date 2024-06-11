@@ -14,7 +14,7 @@ public class GameLogic {
     /**
      * The game instance.
      */
-    Game game;
+    private Game game;
 
     /**
      * Constructor of the class.
