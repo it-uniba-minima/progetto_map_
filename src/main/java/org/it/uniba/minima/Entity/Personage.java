@@ -4,7 +4,7 @@ import org.it.uniba.minima.Database.DatabaseConnection;
 /**
  * The class that represents a personage.
  */
-public class Personage extends Agent{
+public class Personage extends Agent {
     /**
      * Prints the description of the personage.
      *
