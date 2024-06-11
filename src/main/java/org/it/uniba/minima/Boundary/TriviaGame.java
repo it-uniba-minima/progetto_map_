@@ -14,15 +14,15 @@ public class TriviaGame {
     /**
      * The aliases of the 'true' answer.
      */
-    public static String[] possibleTrueAnswers = {"True", "T", "Vero", "V", "Si", "S"};
+    private static String[] possibleTrueAnswers = {"True", "T", "Vero", "V", "Si", "S"};
     /**
      * The aliases of the 'false' answer.
      */
-    public static String[] possibleFalseAnswers = {"False", "F", "Falso", "No", "N"};
+    private static String[] possibleFalseAnswers = {"False", "F", "Falso", "No", "N"};
     /**
      * The number of correct answers so far.
      */
-    public static int correctAnswers = 0;
+    private static int correctAnswers = 0;
     /**
      * The question.
      */
@@ -128,7 +128,7 @@ public class TriviaGame {
      * @param text the answer
      * @return the type of the answer (1 = true, 2 = false, 3 = invalid)
      */
-    public static int checkAnswerIsLegit(String text) {
+    private static int checkAnswerIsLegit(String text) {
         for (String s : possibleTrueAnswers) {
             if (text.equalsIgnoreCase(s)) {
                 return 1;
@@ -147,7 +147,7 @@ public class TriviaGame {
      *
      * @param question the question
      */
-    public static void displayQuestion(String question) {
+    private static void displayQuestion(String question) {
         OutputDisplayManager.displayText("> " + question);
         OutputDisplayManager.displayText("> Rispondi con Vero o Falso");
     }
