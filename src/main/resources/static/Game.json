@@ -34,14 +34,14 @@
       "agents":[
         {"isPickable":false,"isMovable":false,"name":"Leva","aliases":["Gancio","Gancetto","Uncino"]},
         {"isPickable":true,"isMovable":true,"name":"Coltello","aliases":["Lama","Coltellino","ArmaDaTaglio"]},
-        {"isPickable":false,"isMovable":true,"name":"TorciaAccesa2","aliases":["Torcia2","TorciaCascata","TorciaDestra","TorciaDx"]},
+        {"isPickable":false,"isMovable":true,"name":"Torcia2","aliases":["TorciaAccesa2","TorciaCascata","TorciaDestra","TorciaDx"]},
         {"isPickable":false,"isMovable":false,"name":"Brace","aliases":["Accendino","Carboni"]}
       ]}},
     {"startingRoom":{"name":"Stanza3","currentState":"AcquaOn",
       "agents":[
         {"isPickable":false,"isMovable":false,"name":"Leva","aliases":["Gancio","Gancetto","Uncino"]},
         {"isPickable":true,"isMovable":true,"name":"Coltello","aliases":["Lama","Coltellino","ArmaDaTaglio"]},
-        {"isPickable":false,"isMovable":true,"name":"TorciaAccesa2","aliases":["Torcia2","TorciaCascata","TorciaDestra","TorciaDx"]},
+        {"isPickable":false,"isMovable":true,"name":"Torcia2","aliases":["TorciaAccesa2","TorciaCascata","TorciaDestra","TorciaDx"]},
         {"isPickable":false,"isMovable":false,"name":"Brace","aliases":["Accendino","Carboni"]}
       ]},
       "direction":"OVEST","locked":false,"arrivingRoom":{"name":"Stanza1","currentState":"Buio",
@@ -57,14 +57,14 @@
         {"isPickable":true,"isMovable":true,"name":"Corda","aliases":["Stringa","Cordicella","Laccio","Spago","Frusta"]},
         {"isPickable":true,"isMovable":true,"name":"Bastone","aliases":["Ramo","PezzoDiLegno","Ramoscello","Bastoncino","Asta","Legno"]},
         {"isPickable":false,"isMovable":false,"name":"Serpenti","aliases":["Serpente","Cobra","Serpi","Serpe","Vipere","Vipera"]},
-        {"isPickable":false,"isMovable":true,"name":"TorciaAccesa1","aliases":["Torcia1","TorciaSerpenti","TorciaSinistra","TorciaSx"]}
+        {"isPickable":false,"isMovable":true,"name":"Torcia1","aliases":["TorciaAccesa1","TorciaSerpenti","TorciaSinistra","TorciaSx"]}
       ]}},
     {"startingRoom":{"name":"Stanza2","currentState":"SerpentiOn",
       "agents":[
         {"isPickable":true,"isMovable":true,"name":"Corda","aliases":["Stringa","Cordicella","Laccio","Spago","Frusta"]},
         {"isPickable":true,"isMovable":true,"name":"Bastone","aliases":["Ramo","PezzoDiLegno","Ramoscello","Bastoncino","Asta","Legno"]},
         {"isPickable":false,"isMovable":false,"name":"Serpenti","aliases":["Serpente","Cobra","Serpi","Serpe","Vipere","Vipera"]},
-        {"isPickable":false,"isMovable":true,"name":"TorciaAccesa1","aliases":["Torcia1","TorciaSerpenti","TorciaSinistra","TorciaSx"]}
+        {"isPickable":false,"isMovable":true,"name":"Torcia1","aliases":["TorciaAccesa1","TorciaSerpenti","TorciaSinistra","TorciaSx"]}
       ]},
       "direction":"EST","locked":false,"arrivingRoom":{"name":"Stanza1","currentState":"Buio",
       "agents":[
@@ -95,14 +95,14 @@
       "direction":"NORD","locked":true,"arrivingRoom":{"name":"Stanza5","currentState":"Start",
       "agents":[
         {"isPickable":true,"isMovable":true,"name":"ArcoRotto","aliases":["ArcoSenzaCorda","ArcoVuoto","ArcoSenzaSpago"]},
-        {"isPickable":true,"isMovable":true,"name":"FrecciaSmussata","aliases":["FrecciaSpuntata","FrecciaRotta","FrecciaBrutta","FrecciaInutile"]},
-        {"isPickable":false,"isMovable":false,"name":"Target","aliases":["Occhio","OcchioDiVetro","Covino"]}
+        {"isPickable":true,"isMovable":true,"name":"FrecciaSpuntata","aliases":["FrecciaSmussata","FrecciaRotta","FrecciaBrutta","FrecciaInutile"]},
+        {"isPickable":false,"isMovable":false,"name":"Occhio","aliases":["Target","OcchioDiVetro","Covino"]}
       ]}},
     {"startingRoom":{"name":"Stanza5","currentState":"Start",
       "agents":[
         {"isPickable":true,"isMovable":true,"name":"ArcoRotto","aliases":["ArcoSenzaCorda","ArcoVuoto","ArcoSenzaSpago"]},
-        {"isPickable":true,"isMovable":true,"name":"FrecciaSmussata","aliases":["FrecciaSpuntata","FrecciaRotta","FrecciaBrutta","FrecciaInutile"]},
-        {"isPickable":false,"isMovable":false,"name":"Target","aliases":["Occhio","OcchioDiVetro","Covino"]}
+        {"isPickable":true,"isMovable":true,"name":"FrecciaSpuntata","aliases":["FrecciaSmussata","FrecciaRotta","FrecciaBrutta","FrecciaInutile"]},
+        {"isPickable":false,"isMovable":false,"name":"Occhio","aliases":["Target","OcchioDiVetro","Covino"]}
       ]},
       "direction":"SUD","locked":false,"arrivingRoom":{"name":"Stanza4","currentState":"Start",
       "agents":[
@@ -112,8 +112,8 @@
     {"startingRoom":{"name":"Stanza5","currentState":"Start",
       "agents":[
         {"isPickable":true,"isMovable":true,"name":"ArcoRotto","aliases":["ArcoSenzaCorda","ArcoVuoto","ArcoSenzaSpago"]},
-        {"isPickable":true,"isMovable":true,"name":"FrecciaSmussata","aliases":["FrecciaSpuntata","FrecciaRotta","FrecciaBrutta","FrecciaInutile"]},
-        {"isPickable":false,"isMovable":false,"name":"Target","aliases":["Occhio","OcchioDiVetro","Covino"]}
+        {"isPickable":true,"isMovable":true,"name":"FrecciaSpuntata","aliases":["FrecciaSmussata","FrecciaRotta","FrecciaBrutta","FrecciaInutile"]},
+        {"isPickable":false,"isMovable":false,"name":"Occhio","aliases":["Target","OcchioDiVetro","Covino"]}
       ]},
       "direction":"NORD","locked":true,"arrivingRoom":{"name":"Stanza6","currentState":"Start",
       "agents":[
@@ -126,8 +126,8 @@
       "direction":"SUD","locked":false,"arrivingRoom":{"name":"Stanza5","currentState":"Start",
       "agents":[
         {"isPickable":true,"isMovable":true,"name":"ArcoRotto","aliases":["ArcoSenzaCorda","ArcoVuoto","ArcoSenzaSpago"]},
-        {"isPickable":true,"isMovable":true,"name":"FrecciaSmussata","aliases":["FrecciaSpuntata","FrecciaRotta","FrecciaBrutta","FrecciaInutile"]},
-        {"isPickable":false,"isMovable":false,"name":"Target","aliases":["Occhio","OcchioDiVetro","Covino"]}
+        {"isPickable":true,"isMovable":true,"name":"FrecciaSpuntata","aliases":["FrecciaSmussata","FrecciaRotta","FrecciaBrutta","FrecciaInutile"]},
+        {"isPickable":false,"isMovable":false,"name":"Occhio","aliases":["Target","OcchioDiVetro","Covino"]}
       ]}},
     {"startingRoom":{"name":"Stanza6","currentState":"Start",
       "agents":[
