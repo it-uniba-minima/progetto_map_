@@ -12,12 +12,15 @@ public class GameManager {
      * A map containing all the agents mapped to their names.
      */
     private static Map<String, Agent> allAgents;
+    /**
+     * The converter.
+     */
+    private static final Converter converter = new Converter();
 
     /**
      * Instantiates a new game and creates all the agents.
      */
     public static void createGame() {
-        Converter converter = new Converter();
         allAgents = converter.convertJsonToJavaClass();
     }
 
@@ -26,7 +29,6 @@ public class GameManager {
      *
      */
     public void saveGame() {
-        Converter converter = new Converter();
         converter.ConvertGameToJson();
         converter.ConvertAgentsToJson();
     }
@@ -37,7 +39,6 @@ public class GameManager {
      * @return the boolean
      */
     public static boolean loadGame() {
-        Converter converter = new Converter();
         allAgents = converter.loadGame();
 
         try {
@@ -78,19 +79,6 @@ public class GameManager {
                 .map(agent -> (Item) agent)
                 .collect(Collectors.toSet());
         return allItems;
-    }
-
-    /**
-     * Returns a set with all the personages.
-     *
-     * @return the all personages set
-     */
-    public static Set<Personage> getAllPersonages() {
-        Set<Personage> allPersonages = allAgents.values().stream()
-                .filter(agent -> agent instanceof Personage)
-                .map(agent -> (Personage) agent)
-                .collect(Collectors.toSet());
-        return allPersonages;
     }
 
     /**
