@@ -145,4 +145,16 @@ public class WordleGUI extends JPanel {
     public void setBoxText(final int row, final int col, final String text) {
         boxes[row][col].getTextField().setText(text);
     }
+
+    /**
+     * Resets the boxes of the wordle.
+     */
+    public void resetBoxes() {
+        for (int r = 0; r < ROWS; r++) {
+            for (int c = 0; c < COLUMNS; c++) {
+                boxes[r][c].getTextField().setText("");
+                boxes[r][c].getTextField().setBackground(BACKGROUND_COLOR);
+            }
+        }
+    }
 }
