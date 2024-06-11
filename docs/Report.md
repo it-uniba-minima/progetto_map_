@@ -96,6 +96,7 @@ Il progetto è stato realizzato utilizzando il linguaggio di programmazione **Ja
 
 - Il seguente diagramma rappresenta il modello di dominio della nostra avventura testuale, realizzata utilizzando il web software [Lucidchart](https://www.lucidchart.com/)
   ![img_Modello_di_dominio](img/Modello_di_dominio.png)
+Da questo modello abbiamo successivamente realizzato il progetto basandoci su queste idee base, creando le classi e le interfacce necessarie per la realizzazione del gioco.
 
 #### [Ritorna all'Indice](#indice)
 
@@ -104,7 +105,27 @@ Il progetto è stato realizzato utilizzando il linguaggio di programmazione **Ja
     - Creare un'architettura modulare e scalabile che permetta di aggiungere nuove funzionalità in modo semplice e flessibile.
 
 ## Diagramma delle classi
-- Il seguente diagramma rappresenta le classi del nostro progetto, realizzato utilizzando il web software [Lucidchart](https://www.lucidchart.com/)
+- Il seguente diagramma rappresenta le classi del nostro progetto, realizzato utilizzando il web software [StarUML](https://www.lucidchart.com/)
+    ![img_Diagramma_delle_classi](img/Diagramma_delle_classi.png)
+
+Il diagramma rappresenta il funzionamento del nostro progetto, le classi quindi rappresentano le sequenti informazioni:
+- **UserInputManager**: Questa classe è sempre in ascolto tramite un Thread, per ricevere gli input inseriti dall'utente.
+- **UserInputFlow**: Questa classe è responsabile di gestire il flusso di input dell'utente,
+in particolare si occupa di passare l'input dell utente a seconda dell'evento di gioco in cui il giocatore si trova, indicato dall'attributo event della classe.
+Questa classe viene definita come una classe statica, per facilitare l'uso dei suoi funzionamenti nelle altre classi senza andare a creare un oggetto o una copia d'oggetto.
+- **CommandExecutor**: Questa classe si occupa di istanziare una Mappa con i comportamenti dei vari comandi e della loro esecuzione.
+- **GameLogic**: Questa classe è responsabile di descrivere le azioni particolari del gioco, come l'avvio di eventi speciali e il comportamento dei comandi in base agli agenti sui quali eseguire l'azione. (ex: Parla Sfinge, Osserva Mattonella, Usa Piuma su Pergamena e i comandi Dai,Usa,Fondi)
+- **HangmanGame**&&**WorldeGame**&&**TriviaGame**: Queste classi sono responsabili del funzionamento dei minigiochi all'interno della partita.
+- **Parser**: Questa classe è responsabile di interpretare i comandi inseriti dall'utente e di tradurli in azioni all'interno del gioco.
+- **Command**: Questa classe rappresenta un comando all'interno del gioco, associandolo al suo nome e ai suoi alias con cui può essere riconosciuto dal parser.
+- **GameManager**: Gestisce la creazione di una nuova partia, il salvaggio di una partita, il caricamento di una partita. Inoltre si occupa di istanziare una mappa con gli agenti del gioco e l'insieme dei comandi.
+- **Converter**: Questa classe è responsabile della conversione di oggetti in JSON e viceversa.
+- **Game**: Questa classe Singleton rappresenta la partita, contiene le informazioni principali del gioco, tra cui: il nome del giocatore, il tempo di gioco, l'inventario del giocatore, la stanza attuale dove si trova il giocatore e la mappa di gioco.
+- **Room**: Questa classe rappresenta una stanza del gioco, contiene le informazioni principali della stanza tra cui: oggetti, personaggi e lo stato della stanza.
+- **Agent**: Questa classe rappresenta un agente del gioco, può essere un oggetto o un personaggio.
+- **Item**: Questa classe rappresenta un oggetto all'interno del gioco.Un oggeto può essere raccolto o meno dal giocatore, inoltre un oggetto può essere spostabile o meno da una stanza. 
+- **Personage**: Questa classe rappresenta un personaggio all'interno del gioco.
+- **Corridor**: Questa classe rappresenta il collegamento tra due stanze la direzione della stanza di arrivo rispetto a quella di partenza. Un corridoio può essere bloccato o meno.
 
 #### [Ritorna all'Indice](#indice)
 
@@ -399,5 +420,8 @@ Tornando nella **Stanza del Faraone** e usando i comandi:
 
 #### [Ritorna all'Indice](#indice)
 ## 8 - Conclusioni e Opinioni Finali
-
+Concludiamo il nostro progetto, siamo molto soddisfatti del lavoro svolto, abbiamo imparato molto durante il corso e siamo riusciti a mettere in pratica le nozioni apprese.
+Il progetto è stato molto impegnativo, ma allo stesso tempo molto divertente, ci ha permesso di mettere alla prova le nostre capacità di programmazione e di lavorare in team.
+Siamo molto orgogliosi del risultato finale e speriamo che il nostro gioco possa essere apprezzato da tutti coloro che lo proveranno.
+Un ringraziamento speciale al Prof. Pierpaolo Basile per averci dato l'opportunità di realizzare questo progetto e per averci supportato durante tutto il corso.
 #### [Ritorna all'Indice](#indice)
