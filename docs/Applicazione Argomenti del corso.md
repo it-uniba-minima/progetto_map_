@@ -1,6 +1,6 @@
+### In questa sezione verrà spiegato come sono stati applicati gli argomenti trattati durante il corso di "Metodi Avanzati di Programmazione" all'interno del progetto.
 
-- In questa sezione verrà spiegato come sono stati applicati gli argomenti trattati durante il corso di "Metodi Avanzati di Programmazione" all'interno del progetto.
-
+#### NOTA BENE: Gli snippet di codice presenti in questa sezione sono semplificati e non rappresentano l'intero codice del progetto, ma solo una parte significativa.
 <ul>
     <li>
         <h2>1) Utilizzo dei file</h2>
@@ -112,64 +112,27 @@ Oltre alla tabella principale contenente i dati relativi ai dialoghi del gioco, 
 
 Il database, come appreso durante il corso, ha bisogno di una connessione per poter essere utilizzato. Per questo motivo, abbiamo implementato la classe <b>DatabaseConnection</b> per gestire la connessione al database e le operazioni di lettura e scrittura dei dati, come mostrato di seguito:
 ```java
-package org.it.uniba.minima.Database;
-
-import org.h2.tools.RunScript;
-import org.it.uniba.minima.Boundary.outputDisplayManager;
-
-import java.sql.*;
-
-public class DatabaseConnection {
-
     static final String JDBC_DRIVER = "org.h2.Driver";
     static final String DB_URL = "jdbc:h2:./src/main/resources/database/db_map";
     static final String USER = "sa";
     static final String PASS = "";
-}
 ```
 La classe <b>DatabaseConnection</b> definisce le costanti per il driver JDBC, l'URL del database, l'utente e la password per la connessione al database.
 
 All'interno della classe <b>DatabaseConnection</b> sono stati implementati i metodi per la connessione al database, la creazione delle tabelle, l'inserimento dei dati e la lettura dei dati, come mostrato di seguito:
 ```java
     public static Connection connect() {
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
         String start = "RUNSCRIPT FROM 'src/main/resources/database/db_start.sql'";
         String fill = "RUNSCRIPT FROM 'src/main/resources/database/db_info.sql'";
-        boolean emptyClassifica = true;
-        boolean emptyDescr = true;
-        try {
-            Class.forName(JDBC_DRIVER);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
         try {
              Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-             stmt = conn.prepareStatement(start);
-             stmt.execute();
-             stmt.close();
-
              String sql = "SELECT * FROM CLASSIFICA";
-             stmt = conn.prepareStatement(sql);
              rs = stmt.executeQuery();
-             while (rs.next()) {
-                 emptyClassifica = false;
-             }
              rs.close();
              String sql2 = "SELECT * FROM DESCRIZIONI";
              stmt = conn.prepareStatement(sql2);
              rs = stmt.executeQuery();
-             while (rs.next()) {
-                 emptyDescr = false;
-             }
              rs.close();
-
-             if (emptyClassifica && emptyDescr) {
-                 stmt = conn.prepareStatement(fill);
-                 stmt.execute();
-                 stmt.close();
-             }
-
              return conn;
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -178,59 +141,37 @@ All'interno della classe <b>DatabaseConnection</b> sono stati implementati i met
 ```
 Il metodo <b>connect</b> si occupa di connettersi al database, creare le tabelle, controllare se le tabelle sono vuote e popolarle con i dati di default, se necessario, restituendo la connessione al database.
 
-Altri metodi fondamentali sono <b>close</b>, <b>setToDatabase</b> , <b>printFromDB</b> , <b>getClassificafromDatabase</b> e <b>getDescriptionFromDatabase</b> che permettono di chiudere la connessione al database, inserire i dati nel database, stampare i dati dal database, ottenere la classifica dei giocatori e ottenere le descrizioni delle stanze dal database, rispettivamente.
+Altri metodi fondamentali sono <b>close</b>, <b>printFromDB</b> , <b>getClassificafromDatabase</b> e <b>getDescriptionFromDatabase</b> che permettono di chiudere la connessione al database, inserire i dati nel database, stampare i dati dal database, ottenere la classifica dei giocatori e ottenere le descrizioni delle stanze dal database, rispettivamente.
 Andiamo a vederli nello specifico:
 ```java
+/**
+ * Close.
+ *
+ * @param conn the conn
+ */
 public static void close(Connection conn) {
-        if (conn != null) {
-            try {
-                conn.close();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        }
+  if (conn != null) {
+    try {
+      conn.close();
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
     }
+  }
+}
 ```
 Il metodo <b>close</b> si occupa di chiudere la connessione al database, se è aperta.
 
-```java
-
-public static void setToDatabase(Connection conn, String nome, String time, char end) {
-    try {
-        String sql = "INSERT INTO CLASSIFICA (USERNAME, TEMPO, FINALE) VALUES (?, ?, ?)";
-        PreparedStatement stmt = conn.prepareStatement(sql);
-        stmt.setString(1, nome);
-        stmt.setTime(2, Time.valueOf(time));
-        stmt.setString(3, String.valueOf(end));
-        stmt.executeUpdate();
-        stmt.close();
-    } catch (SQLException e) {
-        throw new RuntimeException(e);
-    }
-}
-
-```
-Il metodo <b>setToDatabase</b> si occupa di inserire i dati relativi al nome del giocatore, al tempo di gioco e al risultato finale nel database.
 
 ```java
-
-public static void printFromDB(String idComando, String idStanza, String idStato, String idPersonaggio, String idOggetto1, String idOggetto2) {
-    Connection conn;
-    conn = DatabaseConnection.connect();
-    String sql_query = "SELECT DESCRIZIONE FROM DESCRIZIONI WHERE COMANDO = '" + idComando + "' AND STANZA = '" + idStanza + "' AND STATO = '" + idStato + "' AND PERSONAGGIO = '" + idPersonaggio + "' AND OGGETTO1 = '" + idOggetto1 + "' AND OGGETTO2 = '" + idOggetto2 + "'";
-    outputDisplayManager.displayText(DatabaseConnection.getDescriptionFromDatabase(conn, sql_query));
-    DatabaseConnection.close(conn);
-}
-
-public static String querySQL_forCLASSIFICA() {
-    return "SELECT * FROM CLASSIFICA ORDER BY TEMPO";
-}
-
-}
+  public static void printFromDB(String idComando, String idStanza, String idStato, String idPersonaggio, String idOggetto1, String idOggetto2) {
+      Connection conn;
+      conn = DatabaseConnection.connect();
+      String sql_query = "SELECT DESCRIZIONE FROM DESCRIZIONI WHERE COMANDO = '" + idComando + "' AND STANZA = '" + idStanza + "' AND STATO = '" + idStato + "' AND PERSONAGGIO = '" + idPersonaggio + "' AND OGGETTO1 = '" + idOggetto1 + "' AND OGGETTO2 = '" + idOggetto2 + "'";
+      outputDisplayManager.displayText(DatabaseConnection.getDescriptionFromDatabase(conn, sql_query));
+      DatabaseConnection.close(conn);
+  }
 ```
 Il metodo <b>printFromDB</b> si occupa di stampare la descrizione della stanza corrente, in base ai parametri passati, ottenuti dal database.
-
-Il metodo <b>querySQL_forCLASSIFICA</b> restituisce la query SQL per ottenere la classifica dei giocatori dal database.
 
 ```java
 public static String getClassificaFromDatabase(Connection conn, String sql_query) {
