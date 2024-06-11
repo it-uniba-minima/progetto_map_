@@ -1,5 +1,6 @@
 package org.it.uniba.minima.Control;
 import org.it.uniba.minima.Entity.Agent;
+import org.it.uniba.minima.Entity.Game;
 import org.it.uniba.minima.Type.ParserOutput;
 import java.io.BufferedReader;
 import java.io.File;
@@ -15,16 +16,22 @@ public class Parser {
     /**
      * The available commands set.
      */
-    private final Set<Command> availableCommands = GameManager.getAllCommands();
+    private final Set<Command> availableCommands;
     /**
      * The available agents set
      */
-    private final Set<Agent> availableAgents = GameManager.getAllAgents();
+    private final Set<Agent> availableAgents;
     /**
      * The stop words set.
      */
     private final Set<String> stopWords = new HashSet<>();
 
+    public Parser() {
+        GameManager gameManager = new GameManager();
+
+        availableCommands = gameManager.getAllCommands();
+        availableAgents = gameManager.getAllAgents();
+    }
     /**
      * Parses the input and returns the output of the operation.
      *

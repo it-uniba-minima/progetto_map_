@@ -57,6 +57,10 @@ public class MenuGUI extends JPanel {
      * The site button.
      */
     private JButton site;
+    /**
+     * The instance of game manager.
+     */
+    GameManager gameManager = new GameManager();
 
     /**
      * Constructor of the class.
@@ -291,7 +295,7 @@ public class MenuGUI extends JPanel {
         progressBarGUI = (ProgressBarGUI) this.getParent().getComponent(2);
         CardLayout cl = (CardLayout) getParent().getLayout();
         cl.show(getParent(), "ProgressBarGUI");
-        GameManager.createGame();
+        gameManager.createGame();
 
         progressBarGUI.addPropertyChangeListener(evt1 -> {
             if (evt1.getPropertyName().equals("isFinished") && (boolean) evt1.getNewValue()) {
@@ -336,8 +340,8 @@ public class MenuGUI extends JPanel {
      * @throws ClassNotFoundException the class not found exception
      */
     private void loadGameActionPerformed(ActionEvent evt) throws IOException, ClassNotFoundException {
-        GameManager.resetAllAgents();
-        boolean loadedGameSuccessfully = GameManager.loadGame();
+        gameManager.resetAllAgents();
+        boolean loadedGameSuccessfully = gameManager.loadGame();
 
         if (loadedGameSuccessfully) {
             Game game = Game.getInstance();

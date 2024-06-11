@@ -50,7 +50,7 @@ public class TriviaGame {
      * Gets the question and the answer from the API.
      */
     public void getQAndA() {
-        String urlToRead = "https://opentdb.com/api.php?amount=3&difficulty=easy&type=boolean";
+        String urlToRead = "https://opentdb.com/api.php?amount=1&difficulty=easy&type=boolean";
         int maxAttempts = 3;
 
         // Try to get the question and answer from the API

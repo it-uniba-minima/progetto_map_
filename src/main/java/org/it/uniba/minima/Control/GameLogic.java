@@ -15,6 +15,10 @@ public class GameLogic {
      * The game instance.
      */
     private Game game;
+    /**
+     * The instance of the game manager.
+     */
+    private final GameManager gameManager = new GameManager();
 
     /**
      * Constructor of the class.
@@ -95,10 +99,10 @@ public class GameLogic {
      */
     public boolean executeUseSingleItem(Item i) {
         if (i.hasName("Pala") && game.getCurrentRoom().getName().equals("Desert")
-                && !game.getCurrentRoom().getAgents().contains(GameManager.getAgentFromName("Chiave"))
-                && !game.getInventory().contains(GameManager.getAgentFromName("Chiave"))) {
+                && !game.getCurrentRoom().getAgents().contains(gameManager.getAgentFromName("Chiave"))
+                && !game.getInventory().contains(gameManager.getAgentFromName("Chiave"))) {
 
-            game.addInventory((Item) GameManager.getAgentFromName("Chiave"));
+            game.addInventory((Item) gameManager.getAgentFromName("Chiave"));
             return true;
         }
         if (i.hasName("Leva") && game.getCurrentRoom().getName().equals("Stanza3")) {
@@ -117,27 +121,27 @@ public class GameLogic {
     public boolean executeUseCombinationInInventory(Item i1, Item i2) {
         if (i1.hasName("Coltello") && i2.hasName("Bastone")) {
             game.removeInventory(i2);
-            game.addInventory((Item) GameManager.getAgentFromName("Piffero"));
+            game.addInventory((Item) gameManager.getAgentFromName("Piffero"));
             return true;
         }
         if (i1.hasName("Coltello") && i2.hasName("FrecciaSpuntata")) {
             game.removeInventory(i2);
-            game.addInventory((Item) GameManager.getAgentFromName("FrecciaAffilata"));
+            game.addInventory((Item) gameManager.getAgentFromName("FrecciaAffilata"));
             return true;
         }
         if (i1.hasName("Coltello") && i2.hasName("FrecciaPiuma")) {
             game.removeInventory(i2);
-            game.addInventory((Item) GameManager.getAgentFromName("Freccia"));
+            game.addInventory((Item) gameManager.getAgentFromName("Freccia"));
             return true;
         }
         if (i1.hasName("Pietra") && i2.hasName("Grano")) {
             game.removeInventory(i2);
-            game.addInventory((Item) GameManager.getAgentFromName("Farina"));
+            game.addInventory((Item) gameManager.getAgentFromName("Farina"));
             return true;
         }
         if (i1.hasName("Pietra") && i2.hasName("CannaZucchero")) {
             game.removeInventory(i2);
-            game.addInventory((Item) GameManager.getAgentFromName("Zucchero"));
+            game.addInventory((Item) gameManager.getAgentFromName("Zucchero"));
             return true;
         }
         return false;
@@ -157,13 +161,13 @@ public class GameLogic {
         }
         if (i1.hasName("Piffero") && i2.hasName("Serpenti")) {
             game.setRoomState("Stanza2", "SerpentiOff");
-            Item torcia1 = (Item) GameManager.getAgentFromName("Torcia1");
+            Item torcia1 = (Item) gameManager.getAgentFromName("Torcia1");
             torcia1.setPickable(true);
             return true;
         }
         if (i1.hasName("Corda") && i2.hasName("Leva")) {
             game.setRoomState("Stanza3", "AcquaOff");
-            Item torcia2 = (Item) GameManager.getAgentFromName("Torcia2");
+            Item torcia2 = (Item) gameManager.getAgentFromName("Torcia2");
             torcia2.setPickable(true);
             return true;
         }
@@ -172,8 +176,8 @@ public class GameLogic {
             game.getCurrentRoom().addAgent(i1);
             i1.setPickable(false);
 
-            if (game.getCurrentRoom().hasAgent(GameManager.getAgentFromName("Torcia1"))
-            && game.getCurrentRoom().hasAgent(GameManager.getAgentFromName("Torcia2"))) {
+            if (game.getCurrentRoom().hasAgent(gameManager.getAgentFromName("Torcia1"))
+            && game.getCurrentRoom().hasAgent(gameManager.getAgentFromName("Torcia2"))) {
                 game.setRoomState("Stanza1", "Torcia2");
                 game.unlockCorridor("Stanza1", "Stanza4");
             } else {
@@ -191,7 +195,7 @@ public class GameLogic {
 
         if (i1.hasName("ArcoFreccia") && i2.hasName("Occhio")) {
             game.removeInventory(i1);
-            game.addInventory((Item) GameManager.getAgentFromName("Arco"));
+            game.addInventory((Item) gameManager.getAgentFromName("Arco"));
             game.setRoomState("Stanza5", "End");
             game.unlockCorridor("Stanza5", "Stanza6");
             return true;
@@ -204,14 +208,14 @@ public class GameLogic {
 
         if (i1.hasName("ImpastoCompleto") && i2.hasName("Fuoco")) {
             game.removeInventory(i1);
-            game.addInventory((Item) GameManager.getAgentFromName("ImpastoCotto"));
+            game.addInventory((Item) gameManager.getAgentFromName("ImpastoCotto"));
             return true;
         }
 
         if (i1.hasName("Torta") && i2.hasName("Piedistallo")) {
             game.removeInventory(i1);
             game.setRoomState("Stanza8", "End");
-            game.addInventory((Item) GameManager.getAgentFromName("Ankh"));
+            game.addInventory((Item) gameManager.getAgentFromName("Ankh"));
             return true;
         }
 
@@ -233,7 +237,7 @@ public class GameLogic {
             if (game.getCurrentRoom().getState().equals("Vetro")) {
                 game.removeInventory(i1);
                 game.setRoomState("Stanza9", "Acqua");
-                game.getCurrentRoom().addAgent(GameManager.getAgentFromName("Hekat"));
+                game.getCurrentRoom().addAgent(gameManager.getAgentFromName("Hekat"));
             }
             return true;
         }
@@ -253,7 +257,7 @@ public class GameLogic {
         || i1.hasName("Piuma") && i2.hasName("FrecciaSpuntata")) {
             game.removeInventory(i1);
             game.removeInventory(i2);
-            game.addInventory((Item) GameManager.getAgentFromName("FrecciaPiuma"));
+            game.addInventory((Item) gameManager.getAgentFromName("FrecciaPiuma"));
             return true;
         }
 
@@ -261,7 +265,7 @@ public class GameLogic {
         || i1.hasName("Piuma") && i2.hasName("FrecciaAffilata")){
             game.removeInventory(i1);
             game.removeInventory(i2);
-            game.addInventory((Item) GameManager.getAgentFromName("Freccia"));
+            game.addInventory((Item) gameManager.getAgentFromName("Freccia"));
             return true;
         }
 
@@ -269,7 +273,7 @@ public class GameLogic {
         || i1.hasName("Corda") && i2.hasName("ArcoRotto")) {
             game.removeInventory(i1);
             game.removeInventory(i2);
-            game.addInventory((Item) GameManager.getAgentFromName("Arco"));
+            game.addInventory((Item) gameManager.getAgentFromName("Arco"));
             return true;
         }
 
@@ -277,7 +281,7 @@ public class GameLogic {
         || i1.hasName("Freccia") && i2.hasName("Arco")) {
             game.removeInventory(i1);
             game.removeInventory(i2);
-            game.addInventory((Item) GameManager.getAgentFromName("ArcoFreccia"));
+            game.addInventory((Item) gameManager.getAgentFromName("ArcoFreccia"));
             return true;
         }
 
@@ -285,7 +289,7 @@ public class GameLogic {
         || i1.hasName("Zucchero") && i2.hasName("Farina")) {
             game.removeInventory(i1);
             game.removeInventory(i2);
-            game.addInventory((Item) GameManager.getAgentFromName("ImpastoSecco"));
+            game.addInventory((Item) gameManager.getAgentFromName("ImpastoSecco"));
             return true;
         }
 
@@ -293,7 +297,7 @@ public class GameLogic {
         || i1.hasName("Uova") && i2.hasName("Zucchero")) {
             game.removeInventory(i1);
             game.removeInventory(i2);
-            game.addInventory((Item) GameManager.getAgentFromName("ImpastoDolce"));
+            game.addInventory((Item) gameManager.getAgentFromName("ImpastoDolce"));
             return true;
         }
 
@@ -301,14 +305,14 @@ public class GameLogic {
         || i1.hasName("Uova") && i2.hasName("Farina")) {
             game.removeInventory(i1);
             game.removeInventory(i2);
-            game.addInventory((Item) GameManager.getAgentFromName("ImpastoUmido"));
+            game.addInventory((Item) gameManager.getAgentFromName("ImpastoUmido"));
             return true;
         }
         if (i1.hasName("ImpastoSecco") && i2.hasName("Uova")
         || i1.hasName("Uova") && i2.hasName("ImpastoSecco")) {
             game.removeInventory(i1);
             game.removeInventory(i2);
-            game.addInventory((Item) GameManager.getAgentFromName("ImpastoCompleto"));
+            game.addInventory((Item) gameManager.getAgentFromName("ImpastoCompleto"));
             return true;
         }
 
@@ -316,21 +320,21 @@ public class GameLogic {
         || i1.hasName("Zucchero") && i2.hasName("ImpastoUmido")) {
             game.removeInventory(i1);
             game.removeInventory(i2);
-            game.addInventory((Item) GameManager.getAgentFromName("ImpastoCompleto"));
+            game.addInventory((Item) gameManager.getAgentFromName("ImpastoCompleto"));
             return true;
         }
         if (i1.hasName("ImpastoDolce") && i2.hasName("Farina")
         || i1.hasName("Farina") && i2.hasName("ImpastoDolce")) {
             game.removeInventory(i1);
             game.removeInventory(i2);
-            game.addInventory((Item) GameManager.getAgentFromName("ImpastoCompleto"));
+            game.addInventory((Item) gameManager.getAgentFromName("ImpastoCompleto"));
             return true;
         }
         if (i1.hasName("ImpastoCotto") && i2.hasName("LatteVecchio")
         || i1.hasName("LatteVecchio") && i2.hasName("ImpastoCotto")) {
             game.removeInventory(i1);
             game.removeInventory(i2);
-            game.addInventory((Item) GameManager.getAgentFromName("Torta"));
+            game.addInventory((Item) gameManager.getAgentFromName("Torta"));
             return true;
         }
         return false;
@@ -357,9 +361,9 @@ public class GameLogic {
                 game.setRoomState("Stanza10", "OsirideAnkh");
             }
 
-            if (game.getCurrentRoom().hasAgent(GameManager.getAgentFromName("Hekat")) &&
-                game.getCurrentRoom().hasAgent(GameManager.getAgentFromName("Nekhekh")) &&
-                game.getCurrentRoom().hasAgent(GameManager.getAgentFromName("Ankh"))) {
+            if (game.getCurrentRoom().hasAgent(gameManager.getAgentFromName("Hekat")) &&
+                game.getCurrentRoom().hasAgent(gameManager.getAgentFromName("Nekhekh")) &&
+                game.getCurrentRoom().hasAgent(gameManager.getAgentFromName("Ankh"))) {
 
                 game.setRoomState("Stanza10", "OsirideEnd");
             }
