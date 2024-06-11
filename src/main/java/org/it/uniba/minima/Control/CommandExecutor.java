@@ -85,6 +85,7 @@ public class CommandExecutor {
                     OutputDisplayManager.displayText("> Comandi disponibili:");
                     Set<Command> commands = GameManager.getAllCommands();
                     commands.forEach(c -> OutputDisplayManager.displayText(">  - " + c.getName()));
+                    OutputDisplayManager.displayText("> (Hint: per ulteriori informazioni clicca sul punto interrogativo in alto)");
                 }
         );
 
@@ -113,7 +114,7 @@ public class CommandExecutor {
                     if (game.getInventory().contains(p.getAgent1())) {
                         OutputDisplayManager.displayText("> Hai già " + p.getAgent1().getName() + " nell'inventario!");
                     } else if (game.getCurrentRoom().getAgents().contains(p.getAgent1())) {
-                        if (((Item) p.getAgent1()).isPickable()) {
+                        if ((p.getAgent1() instanceof Item) && ((Item) p.getAgent1()).isPickable()) {
                             game.addInventory((Item) p.getAgent1());
                             game.getCurrentRoom().removeAgent(p.getAgent1());
                             gameLogic.executeTake((Item) p.getAgent1());
@@ -157,13 +158,12 @@ public class CommandExecutor {
         // The behavior might be different for every item so there is a command for each item
         commandMap.put(new CommandExecutorKey(CommandType.USA, 1),
                 p -> {
-                    if (game.getInventory().contains(p.getAgent1())) {
+                    if (game.getInventory().contains(p.getAgent1()) || game.getCurrentRoom().getAgents().contains(p.getAgent1())) {
                         String statusBeforeAction = game.getCurrentRoom().getState();
                         if (gameLogic.executeUseSingleItem((Item) p.getAgent1())) {
                             DatabaseConnection.printFromDB("Usa", game.getCurrentRoom().getName(), statusBeforeAction, "0", p.getAgent1().getName(), "0");
                         } else {
                             OutputDisplayManager.displayText("> Non puoi usare " + p.getAgent1().getName() + " da solo!");
-                            //TODO: call db to print a message
                         }
                     } else {
                         OutputDisplayManager.displayText("> " + p.getAgent1().getName() + " non è nell'inventario!");
