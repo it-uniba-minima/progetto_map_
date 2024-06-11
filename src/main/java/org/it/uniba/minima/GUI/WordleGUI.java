@@ -96,7 +96,7 @@ public class WordleGUI extends JPanel {
             }
         }
 
-        // Set the properties of the frame
+        // Set the properties of the main panel
         setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
         setMaximumSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
         setMinimumSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));

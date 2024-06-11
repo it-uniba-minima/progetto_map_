@@ -79,7 +79,7 @@ public class MenuGUI extends JPanel {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                ImageIcon img = new ImageIcon("src/main/resources/docs/img/placeholder_immagine sfondo.jpeg");
+                ImageIcon img = new ImageIcon("src/main/resources/docs/img/mainBackground.jpeg");
                 Image image = img.getImage();
                 g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
             }
