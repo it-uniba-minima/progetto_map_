@@ -240,12 +240,6 @@ La musica di sottofondo è stata implementata utilizzando un thread separato, in
 
 La classe che gestisce la musica di sottofondo è la classe <b>Mixer</b>, che estende la classe Thread e si occupa di caricare e riprodurre la musica di sottofondo, come mostrato di seguito:
 ```java
-package org.it.uniba.minima;
-import java.io.File;
-import javax.sound.sampled.*;
-import static org.it.uniba.minima.GUI.GameGUI.musicButtonSetTextGame;
-import static org.it.uniba.minima.GUI.MenuGUI.musicButtonSetTextMenu;
-
 public class Mixer extends Thread {
     private static Clip clip;
     private static boolean running = false;
@@ -324,11 +318,6 @@ Il timer di gioco e la ProgressBar sono stati implementati utilizzando un thread
 
 La classe che gestisce il timer di gioco è la classe <b>TimerManager</b>, che estende la classe Thread e si occupa di avviare e fermare il timer di gioco, come mostrato di seguito:
 ```java
-package org.it.uniba.minima;
-import java.util.Timer;
-import java.util.TimerTask;
-import static org.it.uniba.minima.GUI.GameGUI.timerLabelSetTime;
-
 public class TimerManager {
     public static TimerManager instance;
     public static boolean running = false;
@@ -551,144 +540,81 @@ Il nostro progetto è stato sviluppato utilizzando interamente Java Swing per la
 
 Esso vanta lo sviluppo di una GUI molto ricca e complessa utilizzando un unico JFrame, che contiene tutti i componenti grafici necessari per l'interazione con l'utente attraverso l'utilizzo di JPanel e CardLayout.
 
-L'utilizzo delle  Cardlayout, contenenti al loro interno i vari JPanel, ci ha permesso di creare una GUI dinamica e flessibile, in grado di passare da una schermata all'altra in modo fluido e intuitivo e sopratutto di permettere sviluppi futuri senza dover modificare il codice esistente.
+L'utilizzo del Cardlayout, contenente al suo interno i vari JPanel, ci ha permesso di creare una GUI dinamica e flessibile, in grado di passare da una schermata all'altra in modo fluido e intuitivo e sopratutto di permettere sviluppi futuri senza dover modificare il codice esistente.
 
 All'interno del nostro progetto, la classe principale che gestisce la GUI è la classe <b>GUIManager</b>, che estende la classe JFrame e si occupa di inizializzare e gestire tutti i componenti grafici del gioco, come mostrato di seguito:
 ```java
-package org.it.uniba.minima.GUI;
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import javax.swing.plaf.metal.MetalButtonUI;
-import java.awt.*;
-import java.io.File;
-import java.io.IOException;
-import org.it.uniba.minima.Mixer;
+/**
+ * The manager of the GUIs.
+ */
+public class ManagerGUI extends JFrame {
+  static GameGUI game; // The game GUI
 
-public class GUIManager extends JFrame {
-
-    public GUIManager() {
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(800, 600));
-        setResizable(false);
-
-        try {
-            Image icon = ImageIO.read(new File("docs/img/gameIcon.jpg"));
-            setIconImage(icon);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        JPanel cards = new JPanel(new CardLayout());
-
-        MenuGUI menu = new MenuGUI();
-        RiconoscimentiGUI credits = new RiconoscimentiGUI();
-        ProgressBarGUI progressBar = new ProgressBarGUI();
-        GameGUI game = new GameGUI();
-
-        cards.add(menu, "MenuGUI");
-        cards.add(credits, "RiconoscimentiGUI");
-        cards.add(progressBar, "ProgressBarGUI");
-        cards.add(game, "GameGUI");
-
-        add(cards);
-        pack();
-        setLocationRelativeTo(null);
-        setVisible(true);
-
-        Mixer music = Mixer.getInstance();
-        music.start();
-    }
+  /**
+   * Instantiates a new Gui manager.
+   */
+  public ManagerGUI() {
+    // Set the properties of the frame...
+    
+    // Create the cards
+    JPanel cards = new JPanel(new CardLayout());
+    MenuGUI menu = new MenuGUI();
+    CreditsGUI credits = new CreditsGUI();
+    ProgressBarGUI progressBar = new ProgressBarGUI();
+    game = new GameGUI();
+    
+    // Add the panels to cards
+    cards.add(menu, "MenuGUI");
+    cards.add(credits, "CreditsGUI");
+    cards.add(progressBar, "ProgressBarGUI");
+    cards.add(game, "GameGUI");
+    // Start the frame and the music
+  }
+  public static void closeGame() {
+    game.goBack(); // Go back to the menu
+  }
 }
+
 ```
-La classe <b>GUIManager</b> non contiene alcun metodo ma solo il costruttore, che si occupa di inizializzare e mostrare la finestra principale del gioco, impostando le seguenti proprietà:
-- dimensione, impostata a 800x600 pixel e non ridimensionabile.
-- l'icona, impostata con il metodo <b>setIconImage</b> per personalizzare l'icona della finestra.
-- i pannelli, creati e aggiunti al <b>CardLayout</b> per gestire le diverse schermate del gioco.
-- la musica di sottofondo, avviata tramite la classe <b>Mixer</b> per creare un'atmosfera coinvolgente per l'utente.
+La classe <b>GUIManager</b> contiene solo un  metodo e  il costruttore, che si occupa di inizializzare e mostrare la finestra principale del gioco, impostando le proprietà del JFrame e creando i vari JPanel che costituiscono la GUI del gioco.
+<br>
+I panel verranno aggiunti al CardLayout, che permette di passare da una schermata all'altra in modo fluido e intuitivo.
 
-In ordine di esecuzione, la prima schermata che viene mostrata all'utente è quella del Menu principale, che appare come mostrato di seguito:
+Il metodo <b>closeGame()</b> permette di tornare al menu principale del gioco, chiamando il metodo <b>goBack()</b> del pannello del gioco.
 
-![img_GUI](img/immagine_GUI.png)
 
 La classe che gestisce il Menu principale è la classe <b>MenuGUI</b>, che estende la classe JPanel e contiene tutti i componenti grafici del Menu, come mostrato di seguito:
 ```java
-package org.it.uniba.minima.GUI;
-import org.it.uniba.minima.Boundary.outputDisplayManager;
-import org.it.uniba.minima.Control.Serializer;
-import org.it.uniba.minima.Entity.Game;
-import org.it.uniba.minima.Mixer;
-import org.it.uniba.minima.TimerManager;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.GroupLayout;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import java.awt.*;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.io.IOException;
-import javax.swing.ImageIcon;
-
-public class MenuGUI extends javax.swing.JPanel{
-
-  private javax.swing.JPanel backgroundPanel;
-  private javax.swing.JButton newGame;
-  private static javax.swing.JButton sound;
-  private javax.swing.JButton help;
-  private javax.swing.JButton loadGame;
-  private javax.swing.JButton credits;
+/**
+ * The GUI of the menu.
+ */
+public class MenuGUI extends JPanel {
+  private JPanel backgroundPanel; // The background panel
+  private JButton newGame; // The new game button
+  private static JButton sound; // The sound button
+  private JButton help; // The help button
+  private JButton loadGame; // The load game button
+  private JButton credits;  // The credits button
+  private JButton site; // The site button
 
   /**
-   * Creates new form MenuGUI
+   * Constructor of the class.
    */
   public MenuGUI() {
     initComponents();
   }
 
-
+  /**
+   * Initializes the components.
+   */
   private void initComponents() {
-      backgroundPanel = new javax.swing.JPanel() {
-          @Override
-          protected void paintComponent(Graphics g) {
-              super.paintComponent(g);
-              ImageIcon img = new ImageIcon("docs/img/placeholder_immagine sfondo.jpeg");
-              Image image = img.getImage();
-              g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
-          }
-      };
-
-      newGame.setText("Nuova Partita");
-      newGame.setMaximumSize(new java.awt.Dimension(240, 60));
-      newGame.setMinimumSize(new java.awt.Dimension(240, 60));
-      newGame.setPreferredSize(new java.awt.Dimension(240, 60));
-      newGame.addActionListener(new java.awt.event.ActionListener() {
-          public void actionPerformed(java.awt.event.ActionEvent evt) {
-              newGameActionPerformed(evt);
-          }
-      });
-
-    private void newGameActionPerformed(java.awt.event.ActionEvent evt) {
-      ProgressBarGUI progressBarGUI = (ProgressBarGUI) this.getParent().getComponent(2);
-      CardLayout cl = (CardLayout) getParent().getLayout();
-      cl.show(getParent(), "ProgressBarGUI");
-      Game game = new Game();
-      game.setNickname("Player");
-      GameGUI.setGame(game);
-
-      GameGUI gameGUI = (GameGUI) this.getParent().getComponent(3);
-
-      progressBarGUI.addPropertyChangeListener(new PropertyChangeListener() {
-        @Override
-        public void propertyChange(PropertyChangeEvent evt) {
-          if (evt.getPropertyName().equals("isFinished") && (boolean) evt.getNewValue()) {
-            cl.show(getParent(), "GameGUI");
-            TimerManager.getInstance().startTimer();
-          }
-        }
-      });
-
-      progressBarGUI.startProgressBar();
-    }
+      // Create the components
+      backgroundPanel = new JPanel(); //Set the background panel
+      // Initialize the buttons and set the properties...
+      // Create  an action listener for each button...
+      // Add the buttons to the panel...
+      // Set the layout of the panel...
   }
-}
 ```
 La classe MenuGUI rappresenta il pannello principale del gioco e contiene convari pulsanti per azioni diverse. I componenti principali includono:
 
@@ -698,119 +624,144 @@ La classe MenuGUI rappresenta il pannello principale del gioco e contiene convar
 
 Il metodo initComponents imposta il Jpanel dello sfondo e configura i vari pulsanti con testo e dimensioni specificate, aggiungendo un ActionListener a ciascun tasto per gestire i click.
 
-- **Iniziare una Nuova Partita**:
-
-Dopo aver cliccato il pulsante "Nuova Partita", viene cambiata la card del CardLayout e viene mostrata la schermata di caricamento, che contiene una ProgressBar  utilizzata principalmente per rendere l'utente conscio del fatto che il gioco sta caricando e che è pronto per essere giocato.
-
-La ProgressBar è stata implementata aggiungendo anche un'animazione GIF, che rende la schermata di caricamento più accattivante e coinvolgente.
-
-![img_ProgressBar](img/immagine_ProgressBar.gif)
+La creazione di una nuova partita o il caricamento di una partita salvata, innescano la card successiva, che è la ProgressBar, che mostra il caricamento del gioco, come mostrato di seguito:
+![img_ProgressBar](img/ProgressBar.gif)
 
 La ProgressBar è stata implementata utilizzando la classe <b>ProgressBarGUI</b>, che estende la classe JPanel e contiene tutti i componenti grafici della ProgressBar, come mostrato di seguito:
 ```java
-public void startProgressBar() {
+/**
+ * The GUI of the progress bar.
+ */
+public class ProgressBarGUI extends JPanel {
+    private JPanel runningGIFPanel; // The running GIF panel
+    private JPanel backgroundPanel; // The background panel
+    private JProgressBar progressBar; // The progress bar
+    private int counter;  // The counter
+    private int x;    // The x position
+    private final ImageIcon img; // The image icon
+    private final PropertyChangeSupport support; // The property change support
+    private JLabel progressBarLabel; // The progress bar label
+
+    /**
+     * Starts and develops the progress bar.
+     */
+    public void startProgressBar() {
         int imgWidth = 161;
         int panelWidth = runningGIFPanel.getWidth();
         counter = 0;
-
-        Timer timer = new Timer(1, e -> {
-            if (counter < 100) {
-                counter++;
-                progressBar.setValue(counter);
-                progressBar.setString("Loading... " + counter + "%");
-                x = (int) ((double) counter / 100 * (panelWidth + imgWidth)) - imgWidth;
-                runningGIFPanel.repaint();
-            } else {
-                ((Timer) e.getSource()).stop();
-                progressBar.setString("Get Ready to Play!");
-
-                Timer delayTimer = new Timer(1000, e1 -> {
-                    ((Timer) e1.getSource()).stop();
-                    setFinished(true);
-                });
-                delayTimer.start();
-            }
-        });
-        timer.start();
-
+        // Prima TimerTask
+        if (counter < 100) {
+            counter++;
+            progressBar.setValue(counter);
+            progressBarLabel.setText("Loading... " + counter + "%");
+            x = (int) ((double) counter / 100 * (panelWidth + imgWidth)) - imgWidth;
+            runningGIFPanel.repaint();
+        } else {
+            progressBarLabel.setText("Get Ready to Play!");
+            // Secondo TimerTask
+            // Close the progress bar
+        }
     }
+}
 ```
 Questo metodo <b>startProgressBar</b> è stato utilizzato per far partire la barra di progresso nella schermata di caricamento del gioco, in modo che l'utente possa capire quanto manca al completamento dell'azione.
 
-Il metodo qui descritto, nonstante possa sembrare complesso a causa della presenza di due Timer, è in realtà molto semplice e leggibile grazie all'utilizzo delle lambda expressions, che permettono di scrivere codice più conciso e leggibile.
 
-Infatti, nella prima lambda viene contiunamente aggiornato il valore della barra di progresso e la posizione dell'immagine, mentre nella seconda lambda, che viene eseguita al completamento della barra di progresso, viene settato il valore del booleano <b>finished</b> a <b>true</b>, in modo che il gioco possa iniziare.
+Il metodo qui descritto, nonstante possa sembrare complesso a causa della presenza di due TimerTask, è in realtà molto semplice e intuitivo: il primo TimerTask si occupa di incrementare il valore della ProgressBar fino a 100, mentre il secondo TimerTask si occupa di fermare la ProgressBar e mostrare un messaggio di completamento.
+
 
 A seguito del completamento della ProgressBar, la schermata di caricamento viene chiusa e l'utente viene portato alla schermata di gioco, dove il gioco può finalmente iniziare.
 
-![img_GameGUI](img/immagine_nuova_partita.png)
+![img_GameGUI](img/StartGame.png)
 
-La schermata di gioco è stata implementata utilizzando la classe <b>GameGUI</b>, che estende la classe JPanel e contiene tutti i componenti grafici del gioco, come mostrato di seguito:
+A seguito del completamento della ProgressBar, la schermata di caricamento viene chiusa e l'utente viene portato alla schermata di gioco, dove il gioco può finalmente iniziare.
 ```java
-package org.it.uniba.minima.GUI;
+  public class GameGUI extends JPanel {
+    private JButton goBackButton; // The go back button
+    private JButton saveGameButton; // The save game button
+    private JButton helpButton; // The help button
+    private static JButton musicButton; // The music button
+    private static JLabel timerLabel; // The timer label
+    private static JPanel imagePanel; // The image panel
+    private static JTextPane displayTextPane; // The display text pane 
+    private JScrollPane scrollPaneDisplayText; // The scroll pane display text
+    private static JTextArea inventoryTextArea; // The inventory text area
+    private JScrollPane scrollPaneInventoryText; // The scroll pane inventory text
+    private JTextField userInputField; // The user input field 
+    private JToolBar toolBar; // The tool bar
+    private static CardLayout cardLayout; // The card layout
 
-import javax.swing.*;
+    public GameGUI() {
+        UIManager.put("ScrollBar.width", 0); // Set the width of the scroll bar to 0
+        SwingUtilities.updateComponentTreeUI(this); // Update the UI of the component
+        initComponents();
+        initImagePanel();
+    }
 
-public class GameGUI extends JPanel {
-  private JToolBar toolBar = new JToolBar();
-  private JButton goBackButton = new JButton();
-  private JButton saveGameButton = new JButton();
-  private JButton helpButton = new JButton();
-  //other buttons
-  private JLabel timerLabel = new JLabel();
-  private JTextField userInputField = new JTextField();
-  private JScrollPane jScrollPane2 = new JScrollPane();
-  private JTextArea inventoryTextArea = new JTextArea();
-  private JPanel imagePanel = new JPanel();
+    initImagePanel() {
+        // Create the image panel and set the properties...
+        // Add the image panel to the panel...
+    }
 
-  public GameGUI() {
-    UIManager.put("ScrollBar.width", 0);
-    SwingUtilities.updateComponentTreeUI(this);
-    initComponents();
-  }
-
-  private void initComponents() {
-    // Initialize your components here
-  }
+    private void initComponents() {
+        // Create the components...
+        // Set the properties of the components...
+        // Create an action listener for each button...
+        // Add the components to the panel...
+        // Set the layout of the panel...
+    }
 }
     
 ```    
-Allo stesso modo di <b>MenuGUI</b>, la classe <b>GameGUI</b rappresenta il pannello principale del gioco e contiene vari pulsanti per azioni diverse, ciascuno con i propri ActionListener per gestire i click.
+Allo stesso modo di <b>MenuGUI</b>, la classe <b>GameGUI</b> rappresenta il pannello principale del gioco e contiene vari pulsanti per azioni diverse, ciascuno con i propri ActionListener per gestire i click.
 
 
+Il caricamento di una partita salvata avvengono allo stesso modo di una nuova partita, con l'unica differenza che il gioco viene caricato da un file di salvataggio.
 
-- **Carica Partita**
 
-Dopo aver cliccato il pulsante "Carica Partita", l'effetto è simile a quello della "Nuova Partita", ma in questo caso il gioco carica una partita salvata in precedenza, permettendo all'utente di continuare da dove aveva lasciato.
+Dopo aver cliccato il pulsante "Riconoscimenti", viene mostrata una schermata con i nomi dei membri del team di sviluppo, come mostrato di seguito:
 
-- **Riconoscimenti**
+![img_Credits](img/Credits.png)
 
-Dopo aver cliccato il pulsante "Riconoscimenti", viene mostrata una schermata con i nomi dei membri del team di sviluppo e il link al repository GitHub del progetto.
+
 La classe che gestisce i Riconoscimenti è la classe <b>RiconoscimentiGUI</b>, che estende la classe JPanel e contiene tutti i componenti grafici dei Riconoscimenti, che sono implementati allo stesso modo delle altre Card del gioco, apparendo come mostrato di seguito:
 
-![img_Credits](img/immagine_riconoscimenti.png)
-
-- **Musica di sottofondo**
-
-Il gioco include anche una musica di sottofondo che viene riprodotta all'avvio del gioco e può essere attivata o disattivata tramite il pulsante "Sound" presente nel Menu principale. La classe che gestisce la musica di sottofondo è la classe <b>Mixer</b>.
-
-- **Help**
-
-Il pulsante "Help" apre una finestra ulteriore oltre a quella principale del Menu e del Gioco che mostra le istruzioni del gioco e le regole principali.
-
-La finestra di dialogo è stata implementata utilizzando la classe <b>HelpGUI</b>, che estende la classe Jframe ed è stata progettata per essere semplice e intuitiva per l'utente.
-L'implementazione della finestra di dialogo è molto semplice , in cui all'interno del metodo <b>initComponents</b> viene inizializzato un Jpanel con un JTextArea contenente le istruzioni del gioco e un bottone per chiudere la finestra, apparendo come mostrato di seguito:
-
-![img_Help](img/immagine_help.png)
-
-- **Bottone del Browser**
-
-Il bottone del browser è stato implementato utilizzando i socket sulla porta 8080, in particolare il metodo <b>openWebpage</b> che apre una connessione con il browser predefinito del sistema e carica la pagina web contenente le informazioni principali del gioco e la classifica dei migliori tempi di gioco degli utenti.
-
-Il bottone del browser è stato implementato all'interno della classe <b>MenuGUI</b>, in particolare all'interno del metodo <b>initComponents</b>, come mostrato di seguito:
 ```java
+/**
+ * The GUI of the credits.
+ */
+public class CreditsGUI extends JPanel {
+  private JButton goBack; // The go back button
+  private JLabel titleLabel; // The title label
+  private JPanel backgroundPanel; // The background panel 
+  private JPanel marcoIcon; // The marco icon panel
+  private JPanel pascoIcon; // The pasco icon panel
+  private JPanel mikIcon; // The mik icon panel
+  private JLabel contentLabel; // The content label
 
+  /**
+   * Constructor of the class.
+   */
+  public CreditsGUI() {
+    initComponents();
+  }
+
+  initComponents() {
+    // Create the components...
+    // Set the properties of the components...
+    // Create an action listener for the button...
+    // Add the components to the panel...
+    // Set the layout of the panel...
+  }
+}
 ```
+
+Nel Menu principale del gioco è presente un bottone "Help", che apre, al click, una finestra di dialogo contenente le istruzioni per giocare, come mostrato di seguito:
+
+![img_Help](img/Help.png)
+
+La classe che gestisce le Istruzioni è la classe <b>HelpGUI</b>, che estende la classe JFrame ed è strutturata allo stesso modo delle altre Card del gioco, con l'aggiunta di un JTextArea per visualizzare le istruzioni del gioco.
+
 
 In conclusione, l'utilizzo di Java Swing ci ha permesso di creare un'interfaccia grafica coinvolgente e interattiva per il nostro gioco, rendendo l'esperienza di gioco più piacevole e stimolante per l'utente.
   </details>
