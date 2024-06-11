@@ -2,7 +2,6 @@ package org.it.uniba.minima.Control;
 import org.it.uniba.minima.Boundary.*;
 import org.it.uniba.minima.Database.Client;
 import org.it.uniba.minima.Database.DatabaseConnection;
-import org.it.uniba.minima.Database.RestServer;
 import org.it.uniba.minima.Entity.Game;
 import org.it.uniba.minima.Entity.Item;
 import org.it.uniba.minima.GUI.GameGUI;
@@ -101,7 +100,7 @@ public class UserInputFlow {
      * @param text the user input
      */
     private static void hangmanFlow(final String text) {
-        hangmanGame.HangmanChecker(text);
+        hangmanGame.hangmanChecker(text);
     }
 
     /**
@@ -203,14 +202,14 @@ public class UserInputFlow {
     /**
      * Set up a new game
      */
-    public static void setUpGameFlow() {
+    public static void setUpGameFlow(final Game game) {
         Event = 5;
         DatabaseConnection.printFromDB("0", "Desert", "Start", "0", "0", "0");
         isNameConfirmed = false;
         isGameEnded = false;
         wordleGame = new WordleGame();
         parser = new Parser();
-        commandExecutor = new CommandExecutor(Game.getInstance());
+        commandExecutor = new CommandExecutor(game);
     }
 
     /*
