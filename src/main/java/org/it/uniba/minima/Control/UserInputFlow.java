@@ -214,6 +214,8 @@ public class UserInputFlow {
         isNameConfirmed = false;
         isGameEnded = false;
         wordleGame = new WordleGame();
+        triviaGame = TriviaGame.getInstance();
+        triviaGame.resetCorrectAnswers();
         parser = new Parser();
         commandExecutor = new CommandExecutor(game);
     }
@@ -226,6 +228,8 @@ public class UserInputFlow {
         isNameConfirmed = true;
         isGameEnded = false;
         wordleGame = new WordleGame();
+        triviaGame = TriviaGame.getInstance();
+        triviaGame.resetCorrectAnswers();
         parser = new Parser();
         commandExecutor = new CommandExecutor(game);
         List<String> itemsNames = game.getInventory().stream().map(Item::getName).toList();
