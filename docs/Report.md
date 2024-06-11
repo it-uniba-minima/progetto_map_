@@ -260,9 +260,12 @@ Questa classe viene definita come una classe statica, per facilitare l'uso dei s
 
 #### [Ritorna all'Indice](#indice)
 ## 7 - Manuale Utente
-- In questa sezione verrà spiegato come utilizzare l'avventura testuale //INSERIRE TITOLO
+In questa sezione verrà spiegato come utilizzare l'avventura testuale //INSERIRE TITOLO
 
-[Ritorna_all'Indice](#indice)
+L'installazione del progetto può essere effettuata tramite il 
+[README.md](README.md)
+
+[Ritorna all'Indice](#indice)
 ## Walkthrough
 ## Capitolo 1: Deserto
 Avviando una nuova partita, il giocatore si troverà disperso in un deserto.
