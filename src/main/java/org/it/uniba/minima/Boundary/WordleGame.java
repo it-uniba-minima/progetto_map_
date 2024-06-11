@@ -18,11 +18,11 @@ public class WordleGame {
     /**
      * The constant MAX_LETTERS that represents the maximum number of letters in the word.
      */
-    private static final int MAX_LETTERS = 5;
+    private final int MAX_LETTERS = 5;
     /**
      * The constant MAX_ATTEMPTS that represents the maximum number of attempts.
      */
-    private static final int MAX_ATTEMPTS = 6;
+    private final int MAX_ATTEMPTS = 6;
     /**
      * The current attempt.
      */
@@ -71,7 +71,7 @@ public class WordleGame {
         // Check if the word has the correct length
         // Sets the text in the boxes
         // Checks the guess
-        if(checkLenght(text)){
+        if(checkLength(text)){
             String[] newText = text.split("");
             WordleGUI game = GameGUI.getWordle();
             for (int j = 0; j < MAX_LETTERS; j++) {
@@ -111,7 +111,7 @@ public class WordleGame {
      * @param text the user input
      * @return true if the word has the correct length, false otherwise
      */
-    public boolean checkLenght(String text) {
+    private boolean checkLength(String text) {
         if (text.length() != MAX_LETTERS) {
             OutputDisplayManager.displayText("> \"Come puoi vedere, la parola non è di esattamente 5 lettere!\"");
             return false;
@@ -126,7 +126,7 @@ public class WordleGame {
      * @param col   the col of the box to change
      * @param color the color to set
      */
-    public void changeBoxColor(int row, int col, Color color) {
+    private void changeBoxColor(int row, int col, Color color) {
         WordleGUI game = GameGUI.getWordle();
 
         game.setBoxColor(row, col, color);
@@ -137,7 +137,7 @@ public class WordleGame {
      *
      * @param guess the guess of the user
      */
-    public void checkGuess(String guess) {
+    private void checkGuess(String guess) {
         String[] charAlreadyGuessed = guess.split("");
         String[] charGuessingWord = GuessingWord.split("");
 
