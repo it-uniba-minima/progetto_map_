@@ -39,7 +39,7 @@ public class HangmanGame {
      *
      * @param text the input
      */
-    public void HangmanChecker(String text) {
+    public void hangmanChecker(String text) {
         String newText = text.toUpperCase();
 
         // Check if the input is a letter or a phrase
