@@ -57,7 +57,7 @@ public class CreditsGUI extends JPanel {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                ImageIcon img = new ImageIcon("src/main/resources/docs/img/placeholder_immagine sfondo.jpeg");
+                ImageIcon img = new ImageIcon("src/main/resources/docs/img/creditsBackground.jpeg");
                 Image image = img.getImage();
                 g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
             }
@@ -69,7 +69,7 @@ public class CreditsGUI extends JPanel {
         titleLabel = new JLabel();
         contentLabel = new JLabel();
 
-        // Set the properties of the frame
+        // Set the properties of the main panel
         setPreferredSize(new Dimension(800, 600));
 
         // Set the properties of the background panel

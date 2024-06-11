@@ -140,17 +140,21 @@ public class ProgressBarGUI extends JPanel {
         progressBar = new JProgressBar();
         progressBarLabel = new JLabel("Loading... 0%");
 
-        // Set the properties of the frame
+        // Set the properties of the main panel
+        setSize(new Dimension(800, 600));
         setMaximumSize(new Dimension(800, 600));
         setMinimumSize(new Dimension(800, 600));
         setPreferredSize(new Dimension(800, 600));
 
         // Set the properties of the background panel
+        backgroundPanel.setMaximumSize(new Dimension(800, 600));
+        backgroundPanel.setMinimumSize(new Dimension(800, 600));
+        backgroundPanel.setPreferredSize(new Dimension(800, 600));
         backgroundPanel = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                ImageIcon img = new ImageIcon("src/main/resources/docs/img/placeholder_immagine sfondo.jpeg");
+                ImageIcon img = new ImageIcon("src/main/resources/docs/img/progressBarBackground.jpeg");
                 Image image = img.getImage();
                 g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
             }
