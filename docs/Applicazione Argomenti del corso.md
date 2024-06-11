@@ -786,32 +786,58 @@ I verbi HTTP principali sono:
 - Enigma della Sfinge per l'entrata nella Piramide:
   Nella stanza iniziale del gioco, ossia il Deserto, la Sfinge pone un enigma all'utente, ossia indovinare una parola segreta di 5 lettere per poter entrare nella Piramide. Questo enigma è stato implementato utilizzando la Java REST, in modo che l'utente possa ricevere una parola diversa ogni partita, rendendo il gioco più interessante e stimolante.
 
-L'API da noi utilizzata per generare le parole casuali è <a href="https://developer.wordnik.com/">Wordnik API</a>.
+L'API da noi utilizzata per generare le parole casuali è <a href="https://random-word-api.herokuapp.com/home">Random Word API</a>.
 
 L'interfaccia dell'API è la seguente:
 ![img_Random_Words_API](img/immagine_api1.png)
-Come è possibile visualizzare dalla foto, questa API è molto ricca di funzionalità, come per esempio la possibilità di richiedere la parola del giorno, sinonimi, antonimi e ben frasi di esempio per oltre 10 milioni di parole.
+Come è possibile visualizzare dalla foto, questa API è molto ricca di endpoint, ognuno dei quali permette di ottenere informazioni diverse.
 
-Tra le varie possibilità offerte da questa API, la funzionalità che ci interessava era quella di ottenere una parola casuale di una determinata lunghezza, dunque abbiamo modificato i parametri della richiesta di default per ottenere una parola di 5 lettere, come mostrato in figura:
+Tra le varie possibilità offerte da questa API, la funzionalità che ci interessava era quella di ottenere una parola casuale di una determinata lunghezza, dunque abbiamo scelto l'endpoint "/word" e abbiamo impostato il parametro "length" a 5, in modo da ottenere una parola di 5 lettere.<br>
+Inoltre nell' endpoint "/languages" è possibile visualizzare la lingua in cui è possibile ottenere le parole casuali.<br>
+A questo punto, modificando il link su cui effettuare la richiesta, possiamo ottenere la parola casuale di 5 lettere in italiano, come mostrato di seguito:
+```http request
+https://random-word-api.herokuapp.com/word?lang=it&length=5
+```
 
-![img_Random_Words_API](img/immagine_API3.png)
-
-A questo punto, cliccando il pulsante "Try it out", possiamo testare la nostra richiesta e vedere il risultato:
-
-![img_Random_Words_API](img/immagine_API4.png)
 
 Oltre quindi a fornirci immediatamente il link per effettuare la richiesta, possiamo notare anche la risposta in formato JSON e la sua semplice struttura:
 ```json
-{
-  "word": "mbari",
-  "id": 1
+["venti"]
+```
+Il json restituito è un array con solo un elemento , contenente la parola casuale di 5 lettere in italiano, per questo motivo molto semplice da gestire e da interpretare.<br>
+Per parsarlo e ottenere la parola casuale, non è stato nemmeno necessario usare la libreria Gson, bensì un banalissimo replaceAll per eliminare le parentesi quadre e le virgolette.
+
+Il codice per fare la GET e parsare la risposta è il seguente:
+```java
+public WordleGame() {
+  String guessingWord1;
+  StringBuilder result = new StringBuilder();
+
+  try {
+    URL url = new URL("https://random-word-api.herokuapp.com/word?lang=it&length=5");
+    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+    conn.setRequestMethod("GET");
+    try (BufferedReader reader = new BufferedReader(
+            new InputStreamReader(conn.getInputStream()))) {
+      for (String line; (line = reader.readLine()) != null; ) {
+        result.append(line);
+      }
+    }
+    guessingWord1 = result.toString()
+            .replace("[", "")
+            .replace("]", "")
+            .replace("\"", "")
+            .toUpperCase();
+
+  } catch (IOException e) {
+    guessingWord1 = "SALVE";
+  }
+  GuessingWord = guessingWord1;
 }
 ```
-Ovviamente il campo che ci interessa è "word", dunque all'interno del nostro codice Java, andremo a recuperare il valore di questo campo per utilizzarlo come parola segreta dell'enigma della Sfinge effettuando il seguente parsing:
-```java
-// Codice per effettuare il parsing del JSON
 
-```
+
 - Enigma per poter entrare nella stanza del sarcofago:
   All'interno della stanza numero 6 della nostra mappa abbiamo deciso di rendere difficile l'ingresso alla stanza del sarcofago mettendo alla prova l'utente con una serie di domande di varie categorie, dalla cultura generale a domande sui Computer o videogiochi. Per poter superare questa prova l'utente dovrà rispondere correttamente a 3 domande consecutive e, in caso di risposta errata, dovrà ricominciare da capo.
 
@@ -834,44 +860,11 @@ I parametri possibili per la richiesta sono i seguenti:
 
 A questo punto, cliccando il pulsante "Generate API URL", possiamo ottenere il link per effettuare la richiesta e vedere il risultato, che con i campi modificati risulta essere il seguente:
 
+
 ```http request
 https://opentdb.com/api.php?amount=3&difficulty=easy&type=boolean
 ```
-Dopo aver compreso il funzionamento dell'API, abbiamo implementato la richiesta all'interno del nostro codice Java, attraverso una semplice richesta <b>GET</b>, come mostrato di seguito:
-```java
-public static void getQAndA() {
-  String urlToRead = "https://opentdb.com/api.php?amount=3&difficulty=easy&type=boolean";
-  int maxAttempts = 3;
-  for (int attempt = 0; attempt < maxAttempts; attempt++) {
-    try {
-      URL url = new URL(urlToRead);
-      HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-      conn.setRequestMethod("GET");
 
-      StringBuilder result = new StringBuilder();
-      try (BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
-        String line;
-        while ((line = reader.readLine()) != null) {
-          result.append(line);
-        }
-      }
-      Gson gson = new Gson();
-      JsonObject jsonObject = JsonParser.parseString(result.toString()).getAsJsonObject();
-      question = jsonObject.getAsJsonArray("results").get(0).getAsJsonObject().get("question").getAsString();
-      correctAnswer = jsonObject.getAsJsonArray("results").get(0).getAsJsonObject().get("correct_answer").getAsString();
-      displayQuestion(question);
-      break;
-    } catch (IOException e) {
-      System.err.println("Attempt " + (attempt + 1) + " failed. Retrying...");
-      if (attempt == maxAttempts - 1) {
-        System.err.println("All attempts failed. Please check your network connection.");
-        throw new RuntimeException("Error reading from URL", e);
-      }
-    }
-  }
-}
-```
-Come è possibile notare dal codice, la richiesta viene effettuata attraverso un ciclo <b>for</b>, dovuto principalmente al fatto che in fase di testing l'API non rispondeva sempre correttamente, dunque abbiamo deciso di effettuare più tentativi per ottenere le domande e di andare a richiedere, nella singola chiamata, tutte e 3 le domande necessarie per la prova, anzi che effettuare una chiamata per ogni domanda.
 
 Per quanto riguarda la risposta, la struttura del JSON restituito è la seguente:
 ```json
@@ -891,6 +884,136 @@ Per quanto riguarda la risposta, la struttura del JSON restituito è la seguente
   ]
 }
 ```
+
+
+Dopo aver compreso il funzionamento dell'API, abbiamo implementato la richiesta all'interno del nostro codice Java, attraverso una semplice richesta <b>GET</b>, come mostrato di seguito:
+```java
+  public static void getQAndA() {
+  String urlToRead = "https://opentdb.com/api.php?amount=3&difficulty=easy&type=boolean";
+  int maxAttempts = 3;
+
+  // Try to get the question and answer from the API
+  // if it fails 3 times, the player will have to talk to the mummy again
+  for (int attempt = 0; attempt < maxAttempts; attempt++) {
+      try {
+          URL url = new URL(urlToRead);
+          HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+          conn.setRequestMethod("GET");
+
+          StringBuilder result = new StringBuilder();
+          try (BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
+              String line;
+              while ((line = reader.readLine()) != null) {
+                  result.append(line);
+              }
+          }
+
+          JsonObject jsonObject = JsonParser.parseString(result.toString()).getAsJsonObject();
+
+          question = jsonObject.getAsJsonArray("results").get(0).getAsJsonObject().get("question").getAsString().replace("&quot;", "\"")
+                  .replace("&amp;", "&").replace("&apos;", "'").replace("&lt;", "<")
+                  .replace("&gt;", ">").replace("&#039;", "'").replace("&eacute;", "é").replace("&egrave;", "è");
+          correctAnswer = jsonObject.getAsJsonArray("results").get(0).getAsJsonObject().get("correct_answer").getAsString();
+
+          displayQuestion(question);
+          break;
+        } catch (IOException e) {
+      }
+    }
+}
+```
+Come è possibile notare dal codice, la richiesta viene effettuata attraverso un ciclo <b>for</b>, dovuto principalmente al fatto che in fase di testing l'API non rispondeva sempre correttamente, dunque abbiamo deciso di effettuare più tentativi per ottenere le domande e di andare a richiedere, nella singola chiamata, tutte e 3 le domande necessarie per la prova, anzi che effettuare una chiamata per ogni domanda.
+<br> Per quanto riguarda la risposta, essa viene parsata e salvata in due variabili, <b>question</b> e <b>correctAnswer</b>, che verranno utilizzate per visualizzare la domanda e controllare la risposta data dall'utente.
+
+
+- Simulazione Client-Server:
+
+Essendo H2 un database in-memory, abbiamo deciso di richieste GET e POST per simulare la comunicazione tra client e server, utilizzando proprio H2 come server e la nostra macchina come client.
+
+
+Per prima cosa, nel package Database abbiamo creato la classe <b>RESTServer</b>, che si occupa di avviare il server REST e di aggiungere i vari handler per gestire le richieste GET e POST, come mostrato di seguito:
+```java
+public class RestServer {
+    public void startServer() throws IOException {
+        HttpServer server = HttpServer.createSimpleServer("/", 8080);
+        ServerConfiguration config = server.getServerConfiguration();
+        config.addHttpHandler(new DatabaseHandler(), "/api/data");
+
+        Runtime.getRuntime().addShutdownHook(new Thread(server::shutdownNow));
+        // Start the server thread...
+    }
+}
+```
+Come è possibile notare dal codice, la classe <b>RESTServer</b> si occupa di creare un server REST sulla porta 8080 e di aggiungere un handler per gestire le richieste GET e POST all'endpoint "/api/data", che verranno gestite dalla classe <b>DatabaseHandler</b>.
+
+La classe <b>DatabaseHandler</b> si occupa di gestire le richieste GET e POST all'endpoint "/api/data", come mostrato di seguito:
+```java
+public class DatabaseHandler extends HttpHandler {
+  /**
+   * Handles the service request.
+   *
+   * @param request  the request
+   * @param response the response
+   * @throws Exception the exception
+   */
+  @Override
+  public void service(final Request request, final Response response) throws Exception {
+    if ("GET".equalsIgnoreCase(request.getMethod().toString())) {
+      handleGet(request, response);
+    } else if ("POST".equalsIgnoreCase(request.getMethod().toString())) {
+      handlePost(request, response);
+    }
+  }
+  
+    private void handleGet(final Request request, final Response response) {
+        // Handle the GET request by executing a query on the database and showing the results on the site
+    }
+  private void handlePost(final Request request, final Response response) throws IOException {
+    response.setContentType("text/html");
+    PrintWriter out = new PrintWriter(response.getWriter());
+    try (Connection conn = DriverManager.getConnection("jdbc:h2:./src/main/resources/database/db_map", "sa", "");
+         Statement stmt = conn.createStatement()) {
+      stmt.executeUpdate("INSERT INTO CLASSIFICA (USERNAME, TEMPO, FINALE) VALUES ('"
+              + request.getParameter("nickname") + "', '"
+              + request.getParameter("score") + "', '"
+              + request.getParameter("finalchoice") + "')");
+    } catch (SQLException e) {
+      out.println("SQL Error: " + e.getMessage() + "\n");
+      e.printStackTrace(out);
+    }
+  }
+}
+```
+La classe <b>DatabaseHandler</b> estende la classe <b>HttpHandler</b> e si occupa di gestire le richieste GET e POST all'endpoint "/api/data", in base al metodo della richiesta.
+<br> Nel caso in cui la richiesta sia di tipo GET, viene chiamato il metodo <b>handleGet</b>, che si occupa di eseguire una query sul database e di mostrare i risultati sul sito.
+<br> Nel caso in cui la richiesta sia di tipo POST, viene chiamato il metodo <b>handlePost</b>, che si occupa di inserire i dati inviati dalla richiesta nel database.
+
+Tuttavia per poter effettuare una richiesta POST è necessario utilizzare un client, che nel nostro caso è rappresentato dalla classe <b>Client</b>, ed è strutturato come mostrato di seguito:
+```java
+public class Client {
+
+  /**
+   * Send post request.
+   *
+   * @throws Exception the exception
+   */
+  public void sendPostRequest(final String nickname, final String time, final String finalchoice) throws Exception {
+    HttpClient client = HttpClient.newHttpClient();
+    HttpRequest request = HttpRequest.newBuilder()
+            .uri(URI.create("http://localhost:8080/api/data"))
+            .header("Content-Type", "application/x-www-form-urlencoded")
+            .POST(HttpRequest.BodyPublishers.ofString("username=" + nickname + "&tempo=" + time + "&finale=" + finalchoice))
+            .build();
+
+    HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+  }
+}
+```
+
+Il metodo <b>sendPostRequest</b> si occupa di inviare una richiesta POST all'endpoint "/api/data", passando come parametri il nickname, il tempo e la scelta finale dell'utente, che verranno inseriti nel database.
+
+La classe <b>Client</b> non implementa un metodo per la richiesta GET, poichè la richiesta GET viene effettuata direttamente dal browser, che si occupa di visualizzare i risultati sul sito.
+In conclusione, l'utilizzo della Java REST ci ha permesso di rendere il gioco più coinvolgente e vario, permettendo all'utente di affrontare enigmi e prove diverse in ogni partita, rendendo l'esperienza di gioco più stimolante e interessante.
 </details>
 </li>
         <h2>7) Utilizzo delle Espressioni Lambda λ</h2>
