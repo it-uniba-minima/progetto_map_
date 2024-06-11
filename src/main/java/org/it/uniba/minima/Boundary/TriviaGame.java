@@ -14,28 +14,42 @@ public class TriviaGame {
     /**
      * The aliases of the 'true' answer.
      */
-    private static String[] possibleTrueAnswers = {"True", "T", "Vero", "V", "Si", "S"};
+    private String[] possibleTrueAnswers = {"True", "T", "Vero", "V", "Si", "S"};
     /**
      * The aliases of the 'false' answer.
      */
-    private static String[] possibleFalseAnswers = {"False", "F", "Falso", "No", "N"};
+    private String[] possibleFalseAnswers = {"False", "F", "Falso", "No", "N"};
     /**
      * The number of correct answers so far.
      */
-    private static int correctAnswers = 0;
+    private int correctAnswers = 0;
     /**
      * The question.
      */
-    private static String question;
+    private String question;
     /**
      * The correct answer.
      */
-    private static String correctAnswer;
+    private String correctAnswer;
+    /**
+     * The instance of the trivia game.
+     */
+    private static TriviaGame instance;
+
+    /**
+     * The getter of the instance.
+     */
+    public static TriviaGame getInstance() {
+        if (instance == null) {
+            instance = new TriviaGame();
+        }
+        return instance;
+    }
 
     /**
      * Gets the question and the answer from the API.
      */
-    public static void getQAndA() {
+    public void getQAndA() {
         String urlToRead = "https://opentdb.com/api.php?amount=3&difficulty=easy&type=boolean";
         int maxAttempts = 3;
 
@@ -79,7 +93,7 @@ public class TriviaGame {
      *
      * @param guess the guess
      */
-    public static void checkGuess(String guess) {
+    public void checkGuess(String guess) {
         int guessType = checkAnswerIsLegit(guess);
 
         // If the answer is not valid, the player has to insert it again
@@ -128,7 +142,7 @@ public class TriviaGame {
      * @param text the answer
      * @return the type of the answer (1 = true, 2 = false, 3 = invalid)
      */
-    private static int checkAnswerIsLegit(String text) {
+    private int checkAnswerIsLegit(String text) {
         for (String s : possibleTrueAnswers) {
             if (text.equalsIgnoreCase(s)) {
                 return 1;
@@ -147,7 +161,7 @@ public class TriviaGame {
      *
      * @param question the question
      */
-    private static void displayQuestion(String question) {
+    private void displayQuestion(String question) {
         OutputDisplayManager.displayText("> " + question);
         OutputDisplayManager.displayText("> Rispondi con Vero o Falso");
     }
