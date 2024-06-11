@@ -5,7 +5,7 @@ import java.util.Objects;
 /**
  * Class that represents an agent in the game.
  */
-public class Agent {
+public abstract class Agent {
 
     /**
      * Name of the agent.
@@ -72,5 +72,5 @@ public class Agent {
      *
      * @param room the room
      */
-    public void getDescription(Room room) { }
+    public abstract void getDescription(Room room);
 }
