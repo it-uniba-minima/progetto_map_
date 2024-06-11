@@ -20,6 +20,7 @@ public class ManagerGUI extends JFrame {
     public ManagerGUI() {
         // Set the properties of the frame
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Avventura nella Piramide");
         setPreferredSize(new java.awt.Dimension(800, 600));
         setResizable(false);
         try {
