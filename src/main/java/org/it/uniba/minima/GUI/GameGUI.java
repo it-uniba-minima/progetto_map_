@@ -374,7 +374,7 @@ public class GameGUI extends JPanel {
         userInputField.setMinimumSize(new Dimension(335, 31));
         userInputField.setBorder(BorderFactory.createMatteBorder(0, 5, 5, 0, new Color(107, 90, 13)));
         userInputField.setBounds(0, 0, 335, 31);
-        UserInputManager.startInputListener(userInputField);
+        UserInputManager.startInputListener();
 
         Image img2 = new ImageIcon("src/main/resources/docs/img/papyrUserInputField.png").getImage();
 
