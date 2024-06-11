@@ -108,7 +108,8 @@ Da questo modello abbiamo successivamente realizzato il progetto basandoci su qu
 
 ## Diagramma delle classi
 - Il seguente diagramma rappresenta le classi del nostro progetto, realizzato utilizzando il web software [StarUML](https://www.lucidchart.com/)
-    ![img_Diagramma_delle_classi](img/Diagramma_delle_classi.png)
+![img_Diagramma_delle_classi](img/ClassiTop.png)
+![img_Diagramma_delle_classi](img/ClassiBot.png)
 
 Il diagramma rappresenta il funzionamento del nostro progetto, le classi quindi rappresentano le sequenti informazioni:
 - **UserInputManager**: Questa classe è sempre in ascolto tramite un Thread, per ricevere gli input inseriti dall'utente.
@@ -392,7 +393,7 @@ Si noti come <code>Item</code> è un tipo generico, che può essere sostituito c
 
 ## 6 - Applicazione Argomenti del Corso
 
-- In questa sezione verrà spiegato come il progetto //INSERIRE TITOLO si collega agli argomenti trattati durante il corso di "Metodi Avanzati di Programmazione".
+- In questa sezione verrà spiegato come il progetto "Avventura nella Piramide" si collega agli argomenti trattati durante il corso di "Metodi Avanzati di Programmazione".
 
 
 [Applicazione Argomenti del Corso](Applicazione%20Argomenti%20del%20corso.md)
@@ -400,7 +401,7 @@ Si noti come <code>Item</code> è un tipo generico, che può essere sostituito c
 
 #### [Ritorna all'Indice](#indice)
 ## 7 - Manuale Utente
-In questa sezione verrà spiegato come utilizzare l'avventura testuale //INSERIRE TITOLO
+In questa sezione verrà spiegato come utilizzare l'avventura testuale "Avventura nella Piramide"
 
 L'installazione del progetto può essere effettuata tramite il 
 [README.md](README.md)
