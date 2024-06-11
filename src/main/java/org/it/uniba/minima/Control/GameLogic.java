@@ -47,7 +47,7 @@ public class GameLogic {
      * @return true if the action is performed, false otherwise
      */
     public boolean executeTake(Item i) {
-        if ((i.hasName("TorciaAccesa1") || i.hasName("TorciaAccesa2")) && !game.getRoomState("Stanza1").equals("Torcia1")) {
+        if ((i.hasName("Torcia1") || i.hasName("Torcia2")) && !game.getRoomState("Stanza1").equals("Torcia1")) {
             game.setRoomState("Stanza1", "Luce");
             return true;
         }
@@ -99,6 +99,9 @@ public class GameLogic {
             game.addInventory((Item) GameManager.getAgentFromName("Chiave"));
             return true;
         }
+        if (i.hasName("Leva") && game.getCurrentRoom().getName().equals("Stanza3")) {
+            return true;
+        }
         return false;
     }
 
@@ -115,7 +118,7 @@ public class GameLogic {
             game.addInventory((Item) GameManager.getAgentFromName("Piffero"));
             return true;
         }
-        if (i1.hasName("Coltello") && i2.hasName("FrecciaSmussata")) {
+        if (i1.hasName("Coltello") && i2.hasName("FrecciaSpuntata")) {
             game.removeInventory(i2);
             game.addInventory((Item) GameManager.getAgentFromName("FrecciaAffilata"));
             return true;
@@ -152,23 +155,23 @@ public class GameLogic {
         }
         if (i1.hasName("Piffero") && i2.hasName("Serpenti")) {
             game.setRoomState("Stanza2", "SerpentiOff");
-            Item torcia1 = (Item) GameManager.getAgentFromName("TorciaAccesa1");
+            Item torcia1 = (Item) GameManager.getAgentFromName("Torcia1");
             torcia1.setPickable(true);
             return true;
         }
         if (i1.hasName("Corda") && i2.hasName("Leva")) {
             game.setRoomState("Stanza3", "AcquaOff");
-            Item torcia2 = (Item) GameManager.getAgentFromName("TorciaAccesa2");
+            Item torcia2 = (Item) GameManager.getAgentFromName("Torcia2");
             torcia2.setPickable(true);
             return true;
         }
-        if ((i1.hasName("TorciaAccesa1") || i1.hasName("TorciaAccesa2")) && (i2.hasName("Statua"))) {
+        if ((i1.hasName("Torcia1") || i1.hasName("Torcia2")) && (i2.hasName("Statua"))) {
             game.removeInventory(i1);
             game.getCurrentRoom().addAgent(i1);
             i1.setPickable(false);
 
-            if (game.getCurrentRoom().hasAgent(GameManager.getAgentFromName("TorciaAccesa1"))
-            && game.getCurrentRoom().hasAgent(GameManager.getAgentFromName("TorciaAccesa2"))) {
+            if (game.getCurrentRoom().hasAgent(GameManager.getAgentFromName("Torcia1"))
+            && game.getCurrentRoom().hasAgent(GameManager.getAgentFromName("Torcia2"))) {
                 game.setRoomState("Stanza1", "Torcia2");
                 game.unlockCorridor("Stanza1", "Stanza4");
             } else {
@@ -184,7 +187,7 @@ public class GameLogic {
             return true;
         }
 
-        if (i1.hasName("ArcoFreccia") && i2.hasName("Target")) {
+        if (i1.hasName("ArcoFreccia") && i2.hasName("Occhio")) {
             game.removeInventory(i1);
             game.addInventory((Item) GameManager.getAgentFromName("Arco"));
             game.setRoomState("Stanza5", "End");
@@ -244,8 +247,8 @@ public class GameLogic {
      * @return true if the action is performed, false otherwise
      */
     public boolean executeFuseCombination(Item i1, Item i2) {
-        if (i1.hasName("FrecciaSmussata") && i2.hasName("Piuma")
-        || i1.hasName("Piuma") && i2.hasName("FrecciaSmussata")) {
+        if (i1.hasName("FrecciaSpuntata") && i2.hasName("Piuma")
+        || i1.hasName("Piuma") && i2.hasName("FrecciaSpuntata")) {
             game.removeInventory(i1);
             game.removeInventory(i2);
             game.addInventory((Item) GameManager.getAgentFromName("FrecciaPiuma"));
