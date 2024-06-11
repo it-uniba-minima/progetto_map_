@@ -26,23 +26,16 @@ Per l'inizializzazione del gioco o il caricamento di quest'ultimo, abbiamo reso 
 
 Per far ciò abbiamo creato due metodi ausialiari all'interno della classe <b>Converter</b>, il cui compito era solo quello di passare il path del file JSON da leggere e restituirlo al metodo principale <b>convertJsonToJavaClass</b> che si occupa di effettuare la conversione dei dati da JSON a Java, come mostrato di seguito:
 ```java
-/**
- * Method that manages the conversion of json files to java classes in the case of a new game.
- *
- * @return the map of all the agents
- */
-public Map<String, Agent> convertJsonToJavaClass() {
-  return processJsonFiles("src/main/resources/static/Game.json", "src/main/resources/static/Agents.json");
-}
 
-/**
- * Method that manages the conversion of json files to java classes in the case of a loaded game.
- *
- * @return the map of all the agents
- */
-public Map<String, Agent> loadGame() {
-  return processJsonFiles("src/main/resources/LoadedGame.json", "src/main/resources/LoadedItems.json");
-}
+  public Map<String, Agent> convertJsonToJavaClass() {
+    return processJsonFiles("src/main/resources/static/Game.json", "src/main/resources/static/Agents.json");
+  }
+
+
+  public Map<String, Agent> loadGame() {
+    return processJsonFiles("src/main/resources/LoadedGame.json", "src/main/resources/LoadedItems.json");
+  }
+  
 ```
 Come si può notare, i metodi <b>convertJsonToJavaClass</b> e <b>loadGame</b> richiamano il metodo <b>processJsonFiles</b> passando come parametri il path dei file JSON da leggere e restituire.
 
@@ -69,6 +62,23 @@ public class AgentDeserializer implements JsonDeserializer<Agent> {
 Un <b>TypeAdapter</b> è un'interfaccia che definisce come un determinato tipo di oggetto può essere deserializzato da un oggetto Json.<br>
 In questo caso il <b>TypeAdapter</b> si occupa di distinguere tra un oggetto di tipo Item e un oggetto di tipo Personage, in base al valore dell'attributo "isPickable", restituendo l'oggetto corretto in base al tipo di agente, dal momento che Item e Personage estendono la classe Agent.
 Abbiamo scelto di adottare questa soluzione dal momento che, durante la lettura e l'instaziazione di oggetti da un file JSON, se ci sono oggetti che estendono la stessa classe, Gson non è in grado di distinguere tra i due tipi di oggetti, generando un'eccezione oppure restituendo un oggetto di una classe sbagliata.
+
+
+- **Inizializzione delle StopWords da txt**:
+
+Per l'inizializzazione delle StopWords abbiamo utilizzato il metodo <b>setUpUselessWords</b> all'interno della classe <b>Parser</b>, che si occupa di leggere il file <b>StopWords.txt</b> e di inizializzare la lista delle StopWords, come mostrato di seguito:
+```java
+private void setupUselessWords() throws Exception {
+  Files.readAllBytes(Paths.get("src/main/resources/static/stopWords.txt"));
+  File file = new File("src/main/resources/static/stopWords.txt");
+  BufferedReader reader = new BufferedReader(new FileReader(file));
+
+  while (reader.ready()) {
+    stopWords.add(reader.readLine().trim().toLowerCase());
+  }
+  reader.close();
+}
+```
 
 
 L'utilizzo dei file ci ha permesso di memorizzare e recuperare i dati del gioco in modo persistente, garantendo la continuità dell'esperienza di gioco per gli utenti e facilitando la gestione e la manipolazione dei dati all'interno del gioco.<br>
@@ -144,11 +154,7 @@ Il metodo <b>connect</b> si occupa di connettersi al database, creare le tabelle
 Altri metodi fondamentali sono <b>close</b>, <b>printFromDB</b> , <b>getClassificafromDatabase</b> e <b>getDescriptionFromDatabase</b> che permettono di chiudere la connessione al database, inserire i dati nel database, stampare i dati dal database, ottenere la classifica dei giocatori e ottenere le descrizioni delle stanze dal database, rispettivamente.
 Andiamo a vederli nello specifico:
 ```java
-/**
- * Close.
- *
- * @param conn the conn
- */
+
 public static void close(Connection conn) {
   if (conn != null) {
     try {
@@ -211,7 +217,7 @@ Il metodo <b>getClassificaFromDatabase</b> si occupa di ottenere la classifica d
 Il metodo <b>getDescriptionFromDatabase</b> si occupa di ottenere la descrizione della stanza corrente dal database, in base alla query SQL passata come parametro.
 
 
-In conclusione l'utilizzo del database ci ha permesso di memorizzare i dati in modo persistente, garantendo la continuità dell'esperienza di gioco per gli utenti e facilitando la gestione e la manipolazione dei dati all'interno del gioco.
+In conclusione l'utilizzo del database ci ha fornito un modo comodo ed efficiente per memorizzare e recuperare i dialoghi del gioco e di gestire la classifica dei tempi di gioco.
 </details>
 </li>
 <li>
@@ -542,19 +548,19 @@ Esso vanta lo sviluppo di una GUI molto ricca e complessa utilizzando un unico J
 
 L'utilizzo del Cardlayout, contenente al suo interno i vari JPanel, ci ha permesso di creare una GUI dinamica e flessibile, in grado di passare da una schermata all'altra in modo fluido e intuitivo e sopratutto di permettere sviluppi futuri senza dover modificare il codice esistente.
 
-All'interno del nostro progetto, la classe principale che gestisce la GUI è la classe <b>GUIManager</b>, che estende la classe JFrame e si occupa di inizializzare e gestire tutti i componenti grafici del gioco, come mostrato di seguito:
+All'interno del nostro progetto, la classe principale che gestisce la GUI è la classe <b>ManagerGUI</b>, che estende la classe JFrame e si occupa di inizializzare e gestire tutti i componenti grafici del gioco, come mostrato di seguito:
 ```java
-/**
- * The manager of the GUIs.
- */
+
 public class ManagerGUI extends JFrame {
   static GameGUI game; // The game GUI
-
-  /**
-   * Instantiates a new Gui manager.
-   */
+  
   public ManagerGUI() {
-    // Set the properties of the frame...
+    setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+    setTitle("Avventura nella Piramide");
+    setPreferredSize(new java.awt.Dimension(800, 600));
+    setResizable(false);
+    Image icon = ImageIO.read(new File("src/main/resources/docs/img/gameIcon.jpg"));
+    setIconImage(icon);
     
     // Create the cards
     JPanel cards = new JPanel(new CardLayout());
@@ -568,15 +574,17 @@ public class ManagerGUI extends JFrame {
     cards.add(credits, "CreditsGUI");
     cards.add(progressBar, "ProgressBarGUI");
     cards.add(game, "GameGUI");
-    // Start the frame and the music
+    // Start the frame and the music...
   }
+  
   public static void closeGame() {
     game.goBack(); // Go back to the menu
   }
+  
 }
 
 ```
-La classe <b>GUIManager</b> contiene solo un  metodo e  il costruttore, che si occupa di inizializzare e mostrare la finestra principale del gioco, impostando le proprietà del JFrame e creando i vari JPanel che costituiscono la GUI del gioco.
+La classe <b>ManagerGUI</b> contiene solo un  metodo e  il costruttore, che si occupa di inizializzare e mostrare la finestra principale del gioco, impostando le proprietà del JFrame e creando i vari JPanel che costituiscono la GUI del gioco.
 <br>
 I panel verranno aggiunti al CardLayout, che permette di passare da una schermata all'altra in modo fluido e intuitivo.
 
@@ -585,53 +593,48 @@ Il metodo <b>closeGame()</b> permette di tornare al menu principale del gioco, c
 
 La classe che gestisce il Menu principale è la classe <b>MenuGUI</b>, che estende la classe JPanel e contiene tutti i componenti grafici del Menu, come mostrato di seguito:
 ```java
-/**
- * The GUI of the menu.
- */
+
 public class MenuGUI extends JPanel {
-  private JPanel backgroundPanel; // The background panel
-  private JButton newGame; // The new game button
-  private static JButton sound; // The sound button
-  private JButton help; // The help button
-  private JButton loadGame; // The load game button
-  private JButton credits;  // The credits button
-  private JButton site; // The site button
+    private JPanel backgroundPanel; // The background panel
+    private JButton newGame; // The new game button
+    private static JButton sound; // The sound button
+    private JButton help; // The help button
+    private JButton loadGame; // The load game button
+    private JButton credits;  // The credits button
+    private JButton site; // The site button
 
-  /**
-   * Constructor of the class.
-   */
-  public MenuGUI() {
-    initComponents();
-  }
 
-  /**
-   * Initializes the components.
-   */
-  private void initComponents() {
-      // Create the components
-      backgroundPanel = new JPanel(); //Set the background panel
-      // Initialize the buttons and set the properties...
-      // Create  an action listener for each button...
-      // Add the buttons to the panel...
-      // Set the layout of the panel...
-  }
+    public MenuGUI() {
+        initComponents();
+    }
+
+
+    private void initComponents() {
+        // Create the components
+        // Sets the background image
+        // Initialize the buttons and set the properties...
+        // Create  an action listener for each button...
+        // Add the buttons to the panel...
+        // Set the layout of the panel...
+    }
+}
 ```
-La classe MenuGUI rappresenta il pannello principale del gioco e contiene convari pulsanti per azioni diverse. I componenti principali includono:
+La classe **MenuGUI** rappresenta il pannello principale del gioco e contiene vari pulsanti per azioni diverse. I componenti principali includono:
 
 - backgroundPanel: un pannello che disegna un'immagine di sfondo.
-- Pulsanti: newGame, sound, help, loadGame, credits.
-  Nel costruttore, viene chiamato initComponents() per configurare i componenti della GUI.
+- pulsanti: newGame, sound, help, loadGame, credits.
+
+
+Nel costruttore, viene chiamato initComponents() per configurare i componenti della GUI.
 
 Il metodo initComponents imposta il Jpanel dello sfondo e configura i vari pulsanti con testo e dimensioni specificate, aggiungendo un ActionListener a ciascun tasto per gestire i click.
 
 La creazione di una nuova partita o il caricamento di una partita salvata, innescano la card successiva, che è la ProgressBar, che mostra il caricamento del gioco, come mostrato di seguito:
 ![img_ProgressBar](img/ProgressBar.gif)
 
-La ProgressBar è stata implementata utilizzando la classe <b>ProgressBarGUI</b>, che estende la classe JPanel e contiene tutti i componenti grafici della ProgressBar, come mostrato di seguito:
+La ProgressBar è stata implementata utilizzando la classe <b>ProgressBarGUI</b>, che estende la classe JPanel e contiene tutti i componenti grafici necessari, come mostrato di seguito:
 ```java
-/**
- * The GUI of the progress bar.
- */
+
 public class ProgressBarGUI extends JPanel {
     private JPanel runningGIFPanel; // The running GIF panel
     private JPanel backgroundPanel; // The background panel
@@ -641,15 +644,12 @@ public class ProgressBarGUI extends JPanel {
     private final ImageIcon img; // The image icon
     private final PropertyChangeSupport support; // The property change support
     private JLabel progressBarLabel; // The progress bar label
-
-    /**
-     * Starts and develops the progress bar.
-     */
+  
     public void startProgressBar() {
         int imgWidth = 161;
         int panelWidth = runningGIFPanel.getWidth();
         counter = 0;
-        // Prima TimerTask
+        // Primo TimerTask
         if (counter < 100) {
             counter++;
             progressBar.setValue(counter);
@@ -670,11 +670,11 @@ Questo metodo <b>startProgressBar</b> è stato utilizzato per far partire la bar
 Il metodo qui descritto, nonstante possa sembrare complesso a causa della presenza di due TimerTask, è in realtà molto semplice e intuitivo: il primo TimerTask si occupa di incrementare il valore della ProgressBar fino a 100, mentre il secondo TimerTask si occupa di fermare la ProgressBar e mostrare un messaggio di completamento.
 
 
-A seguito del completamento della ProgressBar, la schermata di caricamento viene chiusa e l'utente viene portato alla schermata di gioco, dove il gioco può finalmente iniziare.
+A seguito del completamento della ProgressBar, la schermata di caricamento viene chiusa e l'utente viene portato alla schermata di gioco, dove finalmente si può iniziare a giocare.
 
 ![img_GameGUI](img/StartGame.png)
 
-A seguito del completamento della ProgressBar, la schermata di caricamento viene chiusa e l'utente viene portato alla schermata di gioco, dove il gioco può finalmente iniziare.
+La classe che gestisce la schermata di gioco è la classe <b>GameGUI</b>, che estende la classe JPanel e contiene tutti i componenti grafici del gioco, come mostrato di seguito:
 ```java
   public class GameGUI extends JPanel {
     private JButton goBackButton; // The go back button
@@ -699,8 +699,9 @@ A seguito del completamento della ProgressBar, la schermata di caricamento viene
     }
 
     initImagePanel() {
-        // Create the image panel and set the properties...
-        // Add the image panel to the panel...
+        // Create the image panel...
+        // Adds all the images in the game to a CardLayout...
+        // Assigns the card layout to the image panel...
     }
 
     private void initComponents() {
@@ -716,7 +717,7 @@ A seguito del completamento della ProgressBar, la schermata di caricamento viene
 Allo stesso modo di <b>MenuGUI</b>, la classe <b>GameGUI</b> rappresenta il pannello principale del gioco e contiene vari pulsanti per azioni diverse, ciascuno con i propri ActionListener per gestire i click.
 
 
-Il caricamento di una partita salvata avvengono allo stesso modo di una nuova partita, con l'unica differenza che il gioco viene caricato da un file di salvataggio.
+Il caricamento di una partita salvata avviene  allo stesso modo di una nuova partita, con l'unica differenza che il gioco viene caricato da un file di salvataggio.
 
 
 Dopo aver cliccato il pulsante "Riconoscimenti", viene mostrata una schermata con i nomi dei membri del team di sviluppo, come mostrato di seguito:
@@ -724,12 +725,10 @@ Dopo aver cliccato il pulsante "Riconoscimenti", viene mostrata una schermata co
 ![img_Credits](img/Credits.png)
 
 
-La classe che gestisce i Riconoscimenti è la classe <b>RiconoscimentiGUI</b>, che estende la classe JPanel e contiene tutti i componenti grafici dei Riconoscimenti, che sono implementati allo stesso modo delle altre Card del gioco, apparendo come mostrato di seguito:
+La classe che gestisce i Riconoscimenti è la classe <b>RiconoscimentiGUI</b>, che estende la classe JPanel e contiene tutti i componenti grafici dei Riconoscimenti, come mostrato di seguito:
 
 ```java
-/**
- * The GUI of the credits.
- */
+
 public class CreditsGUI extends JPanel {
   private JButton goBack; // The go back button
   private JLabel titleLabel; // The title label
@@ -739,9 +738,6 @@ public class CreditsGUI extends JPanel {
   private JPanel mikIcon; // The mik icon panel
   private JLabel contentLabel; // The content label
 
-  /**
-   * Constructor of the class.
-   */
   public CreditsGUI() {
     initComponents();
   }
@@ -760,8 +756,45 @@ Nel Menu principale del gioco è presente un bottone "Help", che apre, al click,
 
 ![img_Help](img/Help.png)
 
-La classe che gestisce le Istruzioni è la classe <b>HelpGUI</b>, che estende la classe JFrame ed è strutturata allo stesso modo delle altre Card del gioco, con l'aggiunta di un JTextArea per visualizzare le istruzioni del gioco.
+La classe che mostra i comandi è la classe <b>HelpGUI</b>, che estende la classe JFrame e, con l'aggiunta di una JLabel permette la visualizzazione delle istruzioni del gioco.
 
+All'interno del gioco sono presenti dei minigiochi che non sono semplicemente testuali, ma hanno la loro controparte grafica, come ad esempio il gioco delle mattonelle, il gioco della parola nascosta e il Wordle.
+
+Tra questi quello che a nostro parere è il più interessante è il gioco del Wordle, che è stato implementato attraverso la classe <b>BoxLetter</b> che è strutturata nel seguente modo:
+```java
+public class BoxLetter {
+    
+  private JTextField textField; // The text field
+
+  
+  public BoxLetter() {
+    textField = new JTextField(1); // Single character input
+    textField.setFont(new Font("Papyrus", Font.BOLD, 30));
+    textField.setHorizontalAlignment(JTextField.CENTER);((AbstractDocument) textField.getDocument()).setDocumentFilter(new SingleCharDocumentFilter());}
+
+  public JTextField getTextField() {
+    return textField;
+  }
+  
+  protected void setBoxColor(Color color) {
+    textField.setBackground(color);
+  }
+  
+  private static class SingleCharDocumentFilter extends DocumentFilter {
+      @Override
+  public void insertString(FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {
+    if ((fb.getDocument().getLength() + string.length()) <= 1 && string.matches("[A-Z]")) {
+      super.insertString(fb, offset, string, attr);
+              }
+         }
+    }
+}
+```
+
+Questa classe rappresenta una casella di testo in cui l'utente può inserire una singola lettera, in modo da indovinare la parola nascosta.
+Assieme alla GUI, abbiamo implementato anche la logica del gioco, che permette all'utente di inserire una lettera e di verificare se la lettera è presente nella parola nascosta, come mostrato di seguito:
+
+![img_Wordle](img/Wordle.gif)
 
 In conclusione, l'utilizzo di Java Swing ci ha permesso di creare un'interfaccia grafica coinvolgente e interattiva per il nostro gioco, rendendo l'esperienza di gioco più piacevole e stimolante per l'utente.
   </details>
@@ -781,10 +814,15 @@ I verbi HTTP principali sono:
 - <b>POST</b>: per inviare informazioni al server.
 - <b>PUT</b>: per aggiornare informazioni sul server.
 - <b>DELETE</b>: per eliminare informazioni dal server.
-  <h3><b>Come abbiamo utilizzato la Java REST nel nostro progetto?</b></h3>
-  Nel nostro progetto abbiamo utilizzato le <b>Java REST</b> per rendere gli enigmi nelle stanze dinamici, in modo che l'utente possa avere un'esperienza di gioco più coinvolgente e varia, e andando a simulare in locale quello che è lo scambio e la ricezione dati di tipo client-server.
+
+
+<h3><b>Come abbiamo utilizzato la Java REST nel nostro progetto?</b></h3>
+
+
+Nel nostro progetto abbiamo utilizzato le <b>Java REST</b> per rendere gli enigmi nelle stanze dinamici, in modo che l'utente possa avere un'esperienza di gioco più coinvolgente e varia, e andando a simulare in locale quello che è lo scambio e la ricezione dati di tipo client-server.
+
 - Enigma della Sfinge per l'entrata nella Piramide:
-  Nella stanza iniziale del gioco, ossia il Deserto, la Sfinge pone un enigma all'utente, ossia indovinare una parola segreta di 5 lettere per poter entrare nella Piramide. Questo enigma è stato implementato utilizzando la Java REST, in modo che l'utente possa ricevere una parola diversa ogni partita, rendendo il gioco più interessante e stimolante.
+  nella stanza iniziale del gioco, ossia il Deserto, la Sfinge pone un enigma all'utente, ossia indovinare una parola segreta di 5 lettere per poter entrare nella Piramide. Questo enigma è stato implementato utilizzando la Java REST, in modo che l'utente possa ricevere una parola diversa ogni partita, rendendo il gioco più interessante e stimolante.
 
 L'API da noi utilizzata per generare le parole casuali è <a href="https://random-word-api.herokuapp.com/home">Random Word API</a>.
 
@@ -805,7 +843,7 @@ Oltre quindi a fornirci immediatamente il link per effettuare la richiesta, poss
 ["venti"]
 ```
 Il json restituito è un array con solo un elemento , contenente la parola casuale di 5 lettere in italiano, per questo motivo molto semplice da gestire e da interpretare.<br>
-Per parsarlo e ottenere la parola casuale, non è stato nemmeno necessario usare la libreria Gson, bensì un banalissimo replaceAll per eliminare le parentesi quadre e le virgolette.
+Per parsarlo e ottenere la parola casuale, non è stato nemmeno necessario usare la libreria Gson, bensì un banalissimo replace per eliminare le parentesi quadre e le virgolette.
 
 Il codice per fare la GET e parsare la risposta è il seguente:
 ```java
@@ -886,7 +924,7 @@ Per quanto riguarda la risposta, la struttura del JSON restituito è la seguente
 ```
 
 
-Dopo aver compreso il funzionamento dell'API, abbiamo implementato la richiesta all'interno del nostro codice Java, attraverso una semplice richesta <b>GET</b>, come mostrato di seguito:
+Dopo aver compreso il funzionamento dell'API, abbiamo implementato la richiesta all'interno del nostro codice Java, attraverso una semplice <b>GET</b>, come mostrato di seguito:
 ```java
   public static void getQAndA() {
   String urlToRead = "https://opentdb.com/api.php?amount=3&difficulty=easy&type=boolean";
@@ -922,13 +960,16 @@ Dopo aver compreso il funzionamento dell'API, abbiamo implementato la richiesta 
     }
 }
 ```
-Come è possibile notare dal codice, la richiesta viene effettuata attraverso un ciclo <b>for</b>, dovuto principalmente al fatto che in fase di testing l'API non rispondeva sempre correttamente, dunque abbiamo deciso di effettuare più tentativi per ottenere le domande e di andare a richiedere, nella singola chiamata, tutte e 3 le domande necessarie per la prova, anzi che effettuare una chiamata per ogni domanda.
-<br> Per quanto riguarda la risposta, essa viene parsata e salvata in due variabili, <b>question</b> e <b>correctAnswer</b>, che verranno utilizzate per visualizzare la domanda e controllare la risposta data dall'utente.
+Come è possibile notare dal codice, la richiesta viene effettuata attraverso un ciclo <b>for</b>, dovuto principalmente al fatto che in fase di testing l'API non rispondeva sempre correttamente, dunque abbiamo deciso di effettuare più tentativi per ottenere la singola domanda e salvarla nella variabile <b>question</b>.
+<br> Per quanto riguarda la risposta, essa viene parsata e salvata nella variabile <b>correctAnswer</b>. 
+
+Entrambe verranno utilizzate per visualizzare la domanda e controllare la risposta data dall'utente.
 
 
 - Simulazione Client-Server:
 
-Essendo H2 un database in-memory, abbiamo deciso di richieste GET e POST per simulare la comunicazione tra client e server, utilizzando proprio H2 come server e la nostra macchina come client.
+Un'altra funzionalitò
+
 
 
 Per prima cosa, nel package Database abbiamo creato la classe <b>RESTServer</b>, che si occupa di avviare il server REST e di aggiungere i vari handler per gestire le richieste GET e POST, come mostrato di seguito:
@@ -1020,12 +1061,11 @@ In conclusione, l'utilizzo della Java REST ci ha permesso di rendere il gioco pi
         <details open>
             <summary>Visualizza dettagli</summary>
             <h3><b>Cosa sono le Lambda expressions?</b></h3>
-Le <b>lambda expressions</b> sono una caratteristica introdotta in Java 8 che permette di scrivere codice più conciso e leggibile, migliorando la leggibilità del codice.
+Le <b>lambda expressions</b> sono una caratteristica introdotta in Java 8 che permette di scrivere codice più conciso e leggibile.
 
 Le espressioni lambda sono esempi di programmazione funzionale:
 - il flusso di esecuzione del programma assume la forma di una serie di
   valutazioni di funzioni
-- mancanza di side-effect
 - la programmazione funzionale pone il focus sulla definizione di funzioni, infatti un tale programma è immutabile poichè i valori non vengono calcolati cambiando
   lo stato del programma, ma costruendo nuovi stati a partire dai precedenti
 - la programmazione funzionale ha le sue radici nel lambda calcolo , basato sulle funzioni composto da un linguaggio formale utilizzato per
@@ -1043,94 +1083,46 @@ Un’espressione lambda è composta:
   valore (void) si possono omettere le parentesi
 
 <h3><b>Come abbiamo utilizzato le Lambda expressions nel nostro progetto?</b></h3>
-L'utilizzo migliore delle lambda expressions in un gioco testuale è stato per la gestione delle azioni possibili all'interno di una stanza, come ad esempio la possibilità di spostarsi in una direzione, di raccogliere un oggetto o di interagire con un personaggio.
+L'utilizzo migliore delle lambda expressions in un gioco testuale è sicuramente quello relativo alla gestione dei comandi, come ad esempio la possibilità di spostarsi in una direzione, di raccogliere un oggetto o di interagire con un personaggio.
 
 Andiamo a vedere tutti gli utilizzi delle lambda expressions all'interno del nostro progetto:
 
-- <b>ProgressBar:</b> per la gestione della barra di progresso del gioco, che indica il tempo rimanente per completare una determinata azione.
+
+- **Mappa dei comandi**: 
+  Per gestire i comandi all'interno del gioco, abbiamo utilizzato una mappa di comandi, in cui ad ogni comando è associata una lambda expression che ne definisce il comportamento.
+
+  Ecco un esempio di codice che mostra come abbiamo implementato la mappa dei comandi all'interno del gioco:
 ```java
-public void startProgressBar() {
-    int imgWidth = 161;
-    int panelWidth = runningGIFPanel.getWidth();
-    counter = 0;
-
-    Timer timer = new Timer(1, e -> {
-        if (counter < 100) {
-            counter++;
-            progressBar.setValue(counter);
-            progressBar.setString("Loading... " + counter + "%");
-            x = (int) ((double) counter / 100 * (panelWidth + imgWidth)) - imgWidth;
-            runningGIFPanel.repaint();
-        } else {
-            ((Timer) e.getSource()).stop();
-            progressBar.setString("Get Ready to Play!");
-
-            Timer delayTimer = new Timer(1000, e1 -> {
-                ((Timer) e1.getSource()).stop();
-                setFinished(true);
+public CommandExecutor(Game game) {
+    this.game = game;
+    this.gameLogic = new GameLogic(game);
+    commandMap = new HashMap<>();
+    commandMap.put(new CommandExecutorKey(CommandType.USA, 2),
+            p -> {
+                if (game.getInventory().contains(p.getAgent1())) {
+                    if (game.getCurrentRoom().getAgents().contains(p.getAgent2())) {
+                        String statusBeforeAction = game.getCurrentRoom().getState();
+                        if (gameLogic.executeUseCombinationInRoom((Item) p.getAgent1(), (Item) p.getAgent2())) {
+                            DatabaseConnection.printFromDB("Usa", game.getCurrentRoom().getName(), statusBeforeAction, "0", p.getAgent1().getName(), p.getAgent2().getName());
+                        } else {
+                            OutputDisplayManager.displayText("> Non puoi usare " + p.getAgent1().getName() + " su " + p.getAgent2().getName() + "!");
+                        }
+                    } else if (game.getInventory().contains(p.getAgent2())) {
+                        if (gameLogic.executeUseCombinationInInventory((Item) p.getAgent1(), (Item) p.getAgent2())) {
+                            DatabaseConnection.printFromDB("Usa", "0", "0", "0", p.getAgent1().getName(), p.getAgent2().getName());
+                        } else {
+                            OutputDisplayManager.displayText("> Non puoi usare " + p.getAgent1().getName() + " su " + p.getAgent2().getName() + "!");
+                        }
+                    } else {
+                        OutputDisplayManager.displayText("> " + p.getAgent2().getName() + " non è qui con noi!");
+                    }
+                } else {
+                    OutputDisplayManager.displayText("> " + p.getAgent1().getName() + " non è nell'inventario!");
+                }
             });
-            delayTimer.start();
-        }
-    });
-    timer.start();
-}
-``` 
-Questo metodo <b>startProgressBar</b> è stato utilizzato per far partire la barra di progresso nella schermata di caricamento del gioco, in modo che l'utente possa capire quanto manca al completamento dell'azione.
-
-Il metodo qui descritto, nonstante possa sembrare complesso a causa della presenza di due Timer, è in realtà molto semplice e leggibile grazie all'utilizzo delle lambda expressions, che permettono di scrivere codice più conciso e leggibile.
-
-Infatti, nella prima lambda viene contiunamente aggiornato il valore della barra di progresso e la posizione dell'immagine, mentre nella seconda lambda, che viene eseguita al completamento della barra di progresso, viene settato il valore del booleano <b>finished</b> a <b>true</b>, in modo che il gioco possa iniziare.
-
-- <b>InputUtente</b>: dopo il caricamento della progressBar, dunque nel momento in cui l'effettivo gioco inizia, l'utente dovrà poter inserire i comandi per interagire con il gioco.
-```java
-// Codice per la gestione dell'input utente
-public static void startInputListener(javax.swing.JTextField userInputField) {
-  new Thread(() -> {
-    while (true) {
-      if (!isCurrentInputEmpty()) {
-        userInputFlow.GameFlow(getCurrentInput());
-      }
-      try {
-        Thread.sleep(100);
-      } catch (InterruptedException e) {
-        e.printStackTrace();
-      }
-    }
-  }).start();
 }
 ```
-Il codice Java presentato definisce un metodo startInputListener che avvia un listener per un campo di input (JTextField).
-
-Questo listener, eseguito in un thread separato, monitora continuamente il campo di input per verificare se ci sono nuovi input da processare.
-
-Sebbene si tratti di un Thread, esso è inizializzato con una lambda expression al cui interno è presente un ciclo while che controlla continuamente se il campo di input è vuoto o meno.
-Durante l'esecuzione, precisamente ogni 100 millisecondi, il thread verifica se c'è nuovo input nel campo di testo (JTextField). Se il campo di input non è vuoto, chiama il metodo GameFlow della classe userInputFlow con il testo attuale del campo di input come parametro.
-
-- **Mappa dei comandi**:
-  Per la gestione dei comandi all'interno del gioco, abbiamo utilizzato una mappa di comandi, in cui ad ogni comando è associata una lambda expression che definisce il comportamento da eseguire, come ad esempio:
-```java
-public void InitializeCommandMap() {
-        commandMap = new HashMap<>();
-
-        commandMap.put(
-    new CommandExecutorKey(CommandType.LOOK, null, null),
-commandMap.put(
-    new CommandExecutorKey(CommandType.LOOK, null, null),
-p -> outputDisplayManager.displayText(game.getCurrentRoom().getDescription())
-        );
-
-        commandMap.put(
-    new CommandExecutorKey(CommandType.HELP, null, null),
-p -> outputDisplayManager.displayText("List of commands")
-);
-
-        commandMap.put(
-    new CommandExecutorKey(CommandType.INVENTORY, null, null),
-p -> game.printInventory()
-);
-}
-```
-Analizziamo i comandi presenti nel codice:
+Altri comandi presenti nel codice sono i seguenti:
 
 <ul>
   <li>
