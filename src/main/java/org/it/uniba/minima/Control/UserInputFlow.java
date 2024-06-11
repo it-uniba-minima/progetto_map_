@@ -30,6 +30,10 @@ public class UserInputFlow {
      */
     private static WordleGame wordleGame;
     /**
+     * The triviaGame object that manages the trivia game in case 2.
+     */
+    private static TriviaGame triviaGame;
+    /**
      * The hangmanGame object that manages the hangman game in case 4.
      */
     private static HangmanGame hangmanGame;
@@ -118,9 +122,11 @@ public class UserInputFlow {
      * @param text the user input
      */
     public static void triviaFlow(final String text) {
+        triviaGame = TriviaGame.getInstance();
+
         try {
-            TriviaGame.checkGuess(text);
-            if (Event == 2) TriviaGame.getQAndA();
+            triviaGame.checkGuess(text);
+            if (Event == 2) triviaGame.getQAndA();
         } catch (Exception e) {
             e.printStackTrace();
         }
