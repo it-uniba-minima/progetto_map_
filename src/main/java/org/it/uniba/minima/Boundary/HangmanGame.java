@@ -62,12 +62,13 @@ public class HangmanGame {
 
             currentAttempt = 0;
             UserInputFlow.Event = 0;
-            hangmanGUI.resetGuessedLetters();
 
             Game game = Game.getInstance();
 
             game.setRoomState("Stanza4", "Sbagliato");
             GameGUI.setImagePanel(game.getCurrentRoom().getName());
+
+            hangmanGUI.resetGuessedLetters();
         }
     }
 
@@ -105,6 +106,10 @@ public class HangmanGame {
      */
     public void checkLetter(String text) {
         char letter = text.charAt(0);
+
+        if (currentAttempt == 0) {
+            hangmanGUI.resetGuessedLetters();
+        }
 
         // Check if the letter has already been guessed
         for (int i = 0; i < PHRASE_LENGTH; i++) {
