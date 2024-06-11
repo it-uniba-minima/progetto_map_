@@ -40,39 +40,41 @@ public class HelpGUI extends JFrame {
 
         // Set the properties of the frame
         setTitle("Guida Comandi");
-        setPreferredSize(new Dimension(500, 340));
-        setMaximumSize(new Dimension(500, 340));
-        setMinimumSize(new Dimension(500, 340));
+        setPreferredSize(new Dimension(460, 780));
+        setMaximumSize(new Dimension(460, 780));
+        setMinimumSize(new Dimension(460, 780));
         setResizable(false);
         getContentPane().setBackground(new Color(204, 173, 27));
         setIconImage(new ImageIcon("src/main/resources/docs/img/gameIcon.jpg").getImage());
 
         // Set the properties of the label
-        Font font = new Font("Papyrus", Font.BOLD, 12);
+        Font font = new Font("Georgia", Font.PLAIN, 16);
         listaComandi.setOpaque(true);
-        listaComandi.setBackground(new Color(204, 173, 27));
-        listaComandi.setForeground(Color.BLACK);
+        listaComandi.setBackground(new Color(169, 144, 22));
+        listaComandi.setForeground(Color.WHITE);
         listaComandi.setFont(font);
         listaComandi.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, new Color(107, 90, 13)));
         listaComandi.setText(
                 "<html>" +
-                        "Comandi di movimento:<br>" +
-                        "Nord - Permette all'utente di muoversi in avanti<br>" +
-                        "Est - Permette all'utente di muoversi a destra<br>" +
-                        "Sud - Permette all'utente di muoversi indietro<br>" +
-                        "Ovest - Permette all'utente di muoversi a sinistra<br>" +
-                        "<br>Comandi di gioco:<br>" +
-                        "Inventario - Mostra l'inventario dell'utente<br>" +
-                        "Aiuto - Mostra i comandi disponibili<br>" +
-                        "Osserva - Mostra la descrizione della stanza.<br>" +
-                        "Osserva [oggetto|personaggio] - Mostra la descrizione dell'oggetto o del personaggio, presente nella stanza.<br>" +
-                        "Usa [oggetto] - Utilizza l'oggetto specificato.<br>" +
-                        "Usa [oggetto1] [oggetto2] - Utilizza l'oggetto1 sull'oggetto2.<br>" +
-                        "Prendi [oggetto] - Prendi l'oggetto specificato.<br>" +
-                        "Lascia [oggetto] - Lascia l'oggetto specificato, deve essere presente nell'inventario.<br>" +
-                        "Parla [personaggio] - Parla con il personaggio specificato.<br>" +
-                        "Fondi [oggetto1] [oggetto2] - Fonde l'oggetto1 con l'oggetto2, creando un [oggetto3] presente nell'inventario<br>" +
-                        "Dai [oggetto] [personaggio] - Dai l'oggetto specificato al personaggio specificato.<br>" +
+                    "<center>" +
+                        "<p><b>Comandi di movimento:</b></p><br>" +
+                        "<p><b>Nord</b> - Permette all'utente di muoversi in avanti</p><br>" +
+                        "<p><b>Est</b> - Permette all'utente di muoversi a destra</p><br>" +
+                        "<p><b>Sud</b> - Permette all'utente di muoversi indietro</p><br>" +
+                        "<p><b>Ovest</b> - Permette all'utente di muoversi a sinistra</p><br>" +
+                        "<p><b>Comandi di gioco:</b></p><br>" +
+                        "<p><b>Inventario</b> - Mostra l'inventario dell'utente</p><br>" +
+                        "<p><b>Aiuto</b> - Mostra i comandi disponibili</p><br>" +
+                        "<p><b>Osserva</b> - Mostra la descrizione della stanza</p><br>" +
+                        "<p><b>Osserva</b> [<i>oggetto</i>|<i>personaggio</i>] - Mostra la descrizione dell'oggetto o del personaggio, se presente nella stanza<br><br>" +
+                        "<p><b>Usa</b> [<i>oggetto</i>] - Utilizza l'oggetto specificato</p><br>" +
+                        "<p><b>Usa</b> [<i>oggetto1</i>] [<i>oggetto2</i>] - Utilizza l'oggetto1 sull'oggetto2</p><br>" +
+                        "<p><b>Prendi</b> [<i>oggetto</i>] - Prendi l'oggetto specificato</p><br>" +
+                        "<p><b>Lascia</b> [<i>oggetto</i>] - Lascia l'oggetto specificato, deve essere presente nell'inventario</p><br>" +
+                        "<p><b>Parla</b> [<i>personaggio</i>] - Parla con il personaggio specificato</p><br>" +
+                        "<p><b>Fondi</b> [<i>oggetto1</i>] [<i>oggetto2</i>] - Fonde l'oggetto1 con l'oggetto2, creando un [<i>oggetto3</i>] nell'inventario</p><br>" +
+                        "<p><b>Dai</b> [<i>oggetto</i>] [<i>personaggio</i>] - Dai l'oggetto specificato al personaggio specificato</p>" +
+                    "</center>" +
                 "</html>"
         );
 
