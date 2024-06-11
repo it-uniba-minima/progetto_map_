@@ -7,7 +7,14 @@ import javax.swing.BorderFactory;
 import javax.swing.SwingConstants;
 import javax.swing.GroupLayout;
 import javax.swing.plaf.basic.BasicProgressBarUI;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Insets;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 import java.util.Timer;
@@ -134,9 +141,9 @@ public class ProgressBarGUI extends JPanel {
         progressBarLabel = new JLabel("Loading... 0%");
 
         // Set the properties of the frame
-        setMaximumSize(new java.awt.Dimension(800, 600));
-        setMinimumSize(new java.awt.Dimension(800, 600));
-        setPreferredSize(new java.awt.Dimension(800, 600));
+        setMaximumSize(new Dimension(800, 600));
+        setMinimumSize(new Dimension(800, 600));
+        setPreferredSize(new Dimension(800, 600));
 
         // Set the properties of the background panel
         backgroundPanel = new JPanel() {
@@ -174,14 +181,14 @@ public class ProgressBarGUI extends JPanel {
         );
 
         // Set the properties of the progress bar
-        progressBar.setFont(new java.awt.Font("Papyrus", 1, 24));
-        progressBar.setForeground(new java.awt.Color(204, 173, 27));
-        progressBar.setBackground(new java.awt.Color(107, 90, 13));
+        progressBar.setFont(new Font("Papyrus", 1, 24));
+        progressBar.setForeground(new Color(204, 173, 27));
+        progressBar.setBackground(new Color(107, 90, 13));
         progressBar.setOpaque(true);
-        progressBar.setBorder(BorderFactory.createLineBorder(new java.awt.Color(107, 90, 13), 5));
-        progressBar.setMaximumSize(new java.awt.Dimension(482, 48));
-        progressBar.setMinimumSize(new java.awt.Dimension(482, 48));
-        progressBar.setPreferredSize(new java.awt.Dimension(482, 48));
+        progressBar.setBorder(BorderFactory.createLineBorder(new Color(107, 90, 13), 5));
+        progressBar.setMaximumSize(new Dimension(482, 48));
+        progressBar.setMinimumSize(new Dimension(482, 48));
+        progressBar.setPreferredSize(new Dimension(482, 48));
         progressBar.setStringPainted(false);
 
         // Set the UI of the progress bar
@@ -217,8 +224,8 @@ public class ProgressBarGUI extends JPanel {
         });
 
         // Configure the label of the progress bar
-        progressBarLabel.setFont(new java.awt.Font("Papyrus", 1, 24));
-        progressBarLabel.setForeground(new java.awt.Color(255, 255, 255));
+        progressBarLabel.setFont(new Font("Papyrus", 1, 24));
+        progressBarLabel.setForeground(new Color(255, 255, 255));
         progressBarLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
         // Add the label to the progress bar

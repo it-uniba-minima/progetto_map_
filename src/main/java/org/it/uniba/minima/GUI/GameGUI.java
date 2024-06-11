@@ -609,7 +609,7 @@ public class GameGUI extends JPanel {
         WordleGUI wordleGUI = getWordle();
         wordleGUI.resetBoxes();
         TilesGUI tilesGUI = (TilesGUI) imagePanel.getComponent(2);
-        tilesGUI.resetAllMattonelle();
+        tilesGUI.resetAllMattonelle(true);
         HangmanGUI hangmanGUI = (HangmanGUI) imagePanel.getComponent(3);
         hangmanGUI.resetGuessedLetters();
     }

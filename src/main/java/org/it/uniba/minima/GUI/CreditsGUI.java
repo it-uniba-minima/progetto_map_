@@ -1,8 +1,13 @@
 package org.it.uniba.minima.GUI;
 import javax.swing.*;
 import javax.swing.plaf.metal.MetalButtonUI;
-import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.Dimension;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Image;
+import java.awt.Graphics;
+import java.awt.CardLayout;
 
 /**
  * The GUI of the credits.
@@ -65,11 +70,11 @@ public class CreditsGUI extends JPanel {
         contentLabel = new JLabel();
 
         // Set the properties of the frame
-        setPreferredSize(new java.awt.Dimension(800, 600));
+        setPreferredSize(new Dimension(800, 600));
 
         // Set the properties of the background panel
-        backgroundPanel.setMinimumSize(new java.awt.Dimension(800, 600));
-        backgroundPanel.setPreferredSize(new java.awt.Dimension(800, 600));
+        backgroundPanel.setMinimumSize(new Dimension(800, 600));
+        backgroundPanel.setPreferredSize(new Dimension(800, 600));
 
         // Set the properties of the go back button
         goBack.setUI(new MetalButtonUI() {
@@ -84,9 +89,9 @@ public class CreditsGUI extends JPanel {
         goBack.setBorder(BorderFactory.createLineBorder(new Color(107, 90, 13), 5));
         goBack.setFont(goBack.getFont().deriveFont(26f));
         goBack.setText("⮜");
-        goBack.setMaximumSize(new java.awt.Dimension(40, 40));
-        goBack.setMinimumSize(new java.awt.Dimension(40, 40));
-        goBack.setPreferredSize(new java.awt.Dimension(40, 40));
+        goBack.setMaximumSize(new Dimension(40, 40));
+        goBack.setMinimumSize(new Dimension(40, 40));
+        goBack.setPreferredSize(new Dimension(40, 40));
         goBack.addActionListener(this::goBackActionPerformed);
 
         // Set the properties of the icon of Marco
@@ -99,8 +104,8 @@ public class CreditsGUI extends JPanel {
                 g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
             }
         };
-        marcoIcon.setMinimumSize(new java.awt.Dimension(150, 150));
-        marcoIcon.setPreferredSize(new java.awt.Dimension(150, 150));
+        marcoIcon.setMinimumSize(new Dimension(150, 150));
+        marcoIcon.setPreferredSize(new Dimension(150, 150));
 
         // Set layout of the icon of Marco
         GroupLayout marcoIconLayout = new GroupLayout(marcoIcon);
@@ -124,8 +129,8 @@ public class CreditsGUI extends JPanel {
                 g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
             }
         };
-        pascoIcon.setMinimumSize(new java.awt.Dimension(150, 150));
-        pascoIcon.setPreferredSize(new java.awt.Dimension(150, 150));
+        pascoIcon.setMinimumSize(new Dimension(150, 150));
+        pascoIcon.setPreferredSize(new Dimension(150, 150));
 
         // Set layout of the icon of Pasco
         GroupLayout pascoIconLayout = new GroupLayout(pascoIcon);
@@ -149,8 +154,8 @@ public class CreditsGUI extends JPanel {
                 g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
             }
         };
-        mikIcon.setMinimumSize(new java.awt.Dimension(150, 150));
-        mikIcon.setPreferredSize(new java.awt.Dimension(150, 150));
+        mikIcon.setMinimumSize(new Dimension(150, 150));
+        mikIcon.setPreferredSize(new Dimension(150, 150));
 
         // Set layout of the icon of Mik
         GroupLayout mikIconLayout = new GroupLayout(mikIcon);
@@ -165,12 +170,12 @@ public class CreditsGUI extends JPanel {
         );
 
         // Set the properties of the title label
-        titleLabel.setFont(new java.awt.Font("Papyrus", 0, 34));
-        titleLabel.setForeground(new java.awt.Color(255, 255, 255));
+        titleLabel.setFont(new Font("Papyrus", 0, 34));
+        titleLabel.setForeground(new Color(255, 255, 255));
         titleLabel.setOpaque(true);
         titleLabel.setBackground(new Color(204, 173, 27));
         titleLabel.setText("Riconoscimenti");
-        titleLabel.setPreferredSize(new java.awt.Dimension(220, 39));
+        titleLabel.setPreferredSize(new Dimension(220, 39));
 
         // Set the properties of the content label
         contentLabel.setBackground(new Color(204, 173, 27));

@@ -8,7 +8,9 @@ import javax.swing.plaf.metal.MetalButtonUI;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Dimension;
 
 public class TilesGUI extends JPanel {
     /**
@@ -86,9 +88,9 @@ public class TilesGUI extends JPanel {
         G2 = new JButton();
         G3 = new JButton();
 
-        setMaximumSize(new java.awt.Dimension(440, 400));
-        setMinimumSize(new java.awt.Dimension(440, 400));
-        setPreferredSize(new java.awt.Dimension(440, 400));
+        setMaximumSize(new Dimension(440, 400));
+        setMinimumSize(new Dimension(440, 400));
+        setPreferredSize(new Dimension(440, 400));
 
         C1.setEnabled(false);
         C1.setUI(new MetalButtonUI() {
@@ -110,13 +112,13 @@ public class TilesGUI extends JPanel {
         });
         C1.setFocusPainted(false);
         C1.setBackground(new Color(201, 164, 71));
-        C1.setForeground(new java.awt.Color(255, 255, 255));
+        C1.setForeground(new Color(255, 255, 255));
         C1.setBorder(BorderFactory.createLineBorder(new Color(119, 95, 43), 3));
-        C1.setMaximumSize(new java.awt.Dimension(100, 50));
-        C1.setMinimumSize(new java.awt.Dimension(100, 50));
-        C1.setPreferredSize(new java.awt.Dimension(100, 50));
-        C1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        C1.setMaximumSize(new Dimension(100, 50));
+        C1.setMinimumSize(new Dimension(100, 50));
+        C1.setPreferredSize(new Dimension(100, 50));
+        C1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 C1ActionPerformed(evt);
             }
         });
@@ -141,13 +143,13 @@ public class TilesGUI extends JPanel {
         });
         B1.setFocusPainted(false);
         B1.setBackground(new Color(201, 164, 71));
-        B1.setForeground(new java.awt.Color(255, 255, 255));
+        B1.setForeground(new Color(255, 255, 255));
         B1.setBorder(BorderFactory.createLineBorder(new Color(119, 95, 43), 3));
-        B1.setMaximumSize(new java.awt.Dimension(100, 50));
-        B1.setMinimumSize(new java.awt.Dimension(100, 50));
-        B1.setPreferredSize(new java.awt.Dimension(100, 50));
-        B1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        B1.setMaximumSize(new Dimension(100, 50));
+        B1.setMinimumSize(new Dimension(100, 50));
+        B1.setPreferredSize(new Dimension(100, 50));
+        B1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 B1ActionPerformed(evt);
             }
         });
@@ -173,13 +175,13 @@ public class TilesGUI extends JPanel {
         });
         B3.setFocusPainted(false);
         B3.setBackground(new Color(201, 164, 71));
-        B3.setForeground(new java.awt.Color(255, 255, 255));
+        B3.setForeground(new Color(255, 255, 255));
         B3.setBorder(BorderFactory.createLineBorder(new Color(119, 95, 43), 3));
-        B3.setMaximumSize(new java.awt.Dimension(100, 50));
-        B3.setMinimumSize(new java.awt.Dimension(100, 50));
-        B3.setPreferredSize(new java.awt.Dimension(100, 50));
-        B3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        B3.setMaximumSize(new Dimension(100, 50));
+        B3.setMinimumSize(new Dimension(100, 50));
+        B3.setPreferredSize(new Dimension(100, 50));
+        B3.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 B3ActionPerformed(evt);
             }
         });
@@ -205,13 +207,13 @@ public class TilesGUI extends JPanel {
         });
         B2.setFocusPainted(false);
         B2.setBackground(new Color(201, 164, 71));
-        B2.setForeground(new java.awt.Color(255, 255, 255));
+        B2.setForeground(new Color(255, 255, 255));
         B2.setBorder(BorderFactory.createLineBorder(new Color(119, 95, 43), 3));
-        B2.setMaximumSize(new java.awt.Dimension(100, 50));
-        B2.setMinimumSize(new java.awt.Dimension(100, 50));
-        B2.setPreferredSize(new java.awt.Dimension(100, 50));
-        B2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        B2.setMaximumSize(new Dimension(100, 50));
+        B2.setMinimumSize(new Dimension(100, 50));
+        B2.setPreferredSize(new Dimension(100, 50));
+        B2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 B2ActionPerformed(evt);
             }
         });
@@ -237,13 +239,13 @@ public class TilesGUI extends JPanel {
         });
         C3.setFocusPainted(false);
         C3.setBackground(new Color(201, 164, 71));
-        C3.setForeground(new java.awt.Color(255, 255, 255));
+        C3.setForeground(new Color(255, 255, 255));
         C3.setBorder(BorderFactory.createLineBorder(new Color(119, 95, 43), 3));
-        C3.setMaximumSize(new java.awt.Dimension(100, 50));
-        C3.setMinimumSize(new java.awt.Dimension(100, 50));
-        C3.setPreferredSize(new java.awt.Dimension(100, 50));
-        C3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        C3.setMaximumSize(new Dimension(100, 50));
+        C3.setMinimumSize(new Dimension(100, 50));
+        C3.setPreferredSize(new Dimension(100, 50));
+        C3.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 C3ActionPerformed(evt);
             }
         });
@@ -269,13 +271,13 @@ public class TilesGUI extends JPanel {
         });
         D1.setFocusPainted(false);
         D1.setBackground(new Color(201, 164, 71));
-        D1.setForeground(new java.awt.Color(255, 255, 255));
+        D1.setForeground(new Color(255, 255, 255));
         D1.setBorder(BorderFactory.createLineBorder(new Color(119, 95, 43), 3));
-        D1.setMaximumSize(new java.awt.Dimension(100, 50));
-        D1.setMinimumSize(new java.awt.Dimension(100, 50));
-        D1.setPreferredSize(new java.awt.Dimension(100, 50));
-        D1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        D1.setMaximumSize(new Dimension(100, 50));
+        D1.setMinimumSize(new Dimension(100, 50));
+        D1.setPreferredSize(new Dimension(100, 50));
+        D1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 D1ActionPerformed(evt);
             }
         });
@@ -301,11 +303,11 @@ public class TilesGUI extends JPanel {
         });
         D2.setFocusPainted(false);
         D2.setBackground(new Color(201, 164, 71));
-        D2.setForeground(new java.awt.Color(255, 255, 255));
+        D2.setForeground(new Color(255, 255, 255));
         D2.setBorder(BorderFactory.createLineBorder(new Color(119, 95, 43), 3));
-        D2.setMaximumSize(new java.awt.Dimension(100, 50));
-        D2.setMinimumSize(new java.awt.Dimension(100, 50));
-        D2.setPreferredSize(new java.awt.Dimension(100, 50));
+        D2.setMaximumSize(new Dimension(100, 50));
+        D2.setMinimumSize(new Dimension(100, 50));
+        D2.setPreferredSize(new Dimension(100, 50));
         D2.addActionListener(this::D2ActionPerformed);
 
 
@@ -329,13 +331,13 @@ public class TilesGUI extends JPanel {
         });
         D3.setFocusPainted(false);
         D3.setBackground(new Color(201, 164, 71));
-        D3.setForeground(new java.awt.Color(255, 255, 255));
+        D3.setForeground(new Color(255, 255, 255));
         D3.setBorder(BorderFactory.createLineBorder(new Color(119, 95, 43), 3));
-        D3.setMaximumSize(new java.awt.Dimension(100, 50));
-        D3.setMinimumSize(new java.awt.Dimension(100, 50));
-        D3.setPreferredSize(new java.awt.Dimension(100, 50));
-        D3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        D3.setMaximumSize(new Dimension(100, 50));
+        D3.setMinimumSize(new Dimension(100, 50));
+        D3.setPreferredSize(new Dimension(100, 50));
+        D3.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 D3ActionPerformed(evt);
             }
         });
@@ -361,13 +363,13 @@ public class TilesGUI extends JPanel {
         });
         C2.setFocusPainted(false);
         C2.setBackground(new Color(201, 164, 71));
-        C2.setForeground(new java.awt.Color(255, 255, 255));
+        C2.setForeground(new Color(255, 255, 255));
         C2.setBorder(BorderFactory.createLineBorder(new Color(119, 95, 43), 3));
-        C2.setMaximumSize(new java.awt.Dimension(100, 50));
-        C2.setMinimumSize(new java.awt.Dimension(100, 50));
-        C2.setPreferredSize(new java.awt.Dimension(100, 50));
-        C2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        C2.setMaximumSize(new Dimension(100, 50));
+        C2.setMinimumSize(new Dimension(100, 50));
+        C2.setPreferredSize(new Dimension(100, 50));
+        C2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 C2ActionPerformed(evt);
             }
         });
@@ -393,13 +395,13 @@ public class TilesGUI extends JPanel {
         });
         G1.setFocusPainted(false);
         G1.setBackground(new Color(201, 164, 71));
-        G1.setForeground(new java.awt.Color(255, 255, 255));
+        G1.setForeground(new Color(255, 255, 255));
         G1.setBorder(BorderFactory.createLineBorder(new Color(119, 95, 43), 3));
-        G1.setMaximumSize(new java.awt.Dimension(100, 50));
-        G1.setMinimumSize(new java.awt.Dimension(100, 50));
-        G1.setPreferredSize(new java.awt.Dimension(100, 50));
-        G1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        G1.setMaximumSize(new Dimension(100, 50));
+        G1.setMinimumSize(new Dimension(100, 50));
+        G1.setPreferredSize(new Dimension(100, 50));
+        G1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 G1ActionPerformed(evt);
             }
         });
@@ -425,13 +427,13 @@ public class TilesGUI extends JPanel {
         });
         G2.setFocusPainted(false);
         G2.setBackground(new Color(201, 164, 71));
-        G2.setForeground(new java.awt.Color(255, 255, 255));
+        G2.setForeground(new Color(255, 255, 255));
         G2.setBorder(BorderFactory.createLineBorder(new Color(119, 95, 43), 3));
-        G2.setMaximumSize(new java.awt.Dimension(100, 50));
-        G2.setMinimumSize(new java.awt.Dimension(100, 50));
-        G2.setPreferredSize(new java.awt.Dimension(100, 50));
-        G2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        G2.setMaximumSize(new Dimension(100, 50));
+        G2.setMinimumSize(new Dimension(100, 50));
+        G2.setPreferredSize(new Dimension(100, 50));
+        G2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 G2ActionPerformed(evt);
             }
         });
@@ -457,13 +459,13 @@ public class TilesGUI extends JPanel {
         });
         G3.setFocusPainted(false);
         G3.setBackground(new Color(201, 164, 71));
-        G3.setForeground(new java.awt.Color(255, 255, 255));
+        G3.setForeground(new Color(255, 255, 255));
         G3.setBorder(BorderFactory.createLineBorder(new Color(119, 95, 43), 3));
-        G3.setMaximumSize(new java.awt.Dimension(100, 50));
-        G3.setMinimumSize(new java.awt.Dimension(100, 50));
-        G3.setPreferredSize(new java.awt.Dimension(100, 50));
-        G3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        G3.setMaximumSize(new Dimension(100, 50));
+        G3.setMinimumSize(new Dimension(100, 50));
+        G3.setPreferredSize(new Dimension(100, 50));
+        G3.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 G3ActionPerformed(evt);
             }
         });
@@ -489,13 +491,13 @@ public class TilesGUI extends JPanel {
         });
         F2.setFocusPainted(false);
         F2.setBackground(new Color(201, 164, 71));
-        F2.setForeground(new java.awt.Color(255, 255, 255));
+        F2.setForeground(new Color(255, 255, 255));
         F2.setBorder(BorderFactory.createLineBorder(new Color(119, 95, 43), 3));
-        F2.setMaximumSize(new java.awt.Dimension(100, 50));
-        F2.setMinimumSize(new java.awt.Dimension(100, 50));
-        F2.setPreferredSize(new java.awt.Dimension(100, 50));
-        F2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        F2.setMaximumSize(new Dimension(100, 50));
+        F2.setMinimumSize(new Dimension(100, 50));
+        F2.setPreferredSize(new Dimension(100, 50));
+        F2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 F2ActionPerformed(evt);
             }
         });
@@ -521,13 +523,13 @@ public class TilesGUI extends JPanel {
         });
         F1.setFocusPainted(false);
         F1.setBackground(new Color(201, 164, 71));
-        F1.setForeground(new java.awt.Color(255, 255, 255));
+        F1.setForeground(new Color(255, 255, 255));
         F1.setBorder(BorderFactory.createLineBorder(new Color(119, 95, 43), 3));
-        F1.setMaximumSize(new java.awt.Dimension(100, 50));
-        F1.setMinimumSize(new java.awt.Dimension(100, 50));
-        F1.setPreferredSize(new java.awt.Dimension(100, 50));
-        F1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        F1.setMaximumSize(new Dimension(100, 50));
+        F1.setMinimumSize(new Dimension(100, 50));
+        F1.setPreferredSize(new Dimension(100, 50));
+        F1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 F1ActionPerformed(evt);
             }
         });
@@ -553,13 +555,13 @@ public class TilesGUI extends JPanel {
         });
         E1.setFocusPainted(false);
         E1.setBackground(new Color(201, 164, 71));
-        E1.setForeground(new java.awt.Color(255, 255, 255));
+        E1.setForeground(new Color(255, 255, 255));
         E1.setBorder(BorderFactory.createLineBorder(new Color(119, 95, 43), 3));
-        E1.setMaximumSize(new java.awt.Dimension(100, 50));
-        E1.setMinimumSize(new java.awt.Dimension(100, 50));
-        E1.setPreferredSize(new java.awt.Dimension(100, 50));
-        E1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        E1.setMaximumSize(new Dimension(100, 50));
+        E1.setMinimumSize(new Dimension(100, 50));
+        E1.setPreferredSize(new Dimension(100, 50));
+        E1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 E1ActionPerformed(evt);
             }
         });
@@ -585,13 +587,13 @@ public class TilesGUI extends JPanel {
         });
         E3.setFocusPainted(false);
         E3.setBackground(new Color(201, 164, 71));
-        E3.setForeground(new java.awt.Color(255, 255, 255));
+        E3.setForeground(new Color(255, 255, 255));
         E3.setBorder(BorderFactory.createLineBorder(new Color(119, 95, 43), 3));
-        E3.setMaximumSize(new java.awt.Dimension(100, 50));
-        E3.setMinimumSize(new java.awt.Dimension(100, 50));
-        E3.setPreferredSize(new java.awt.Dimension(100, 50));
-        E3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        E3.setMaximumSize(new Dimension(100, 50));
+        E3.setMinimumSize(new Dimension(100, 50));
+        E3.setPreferredSize(new Dimension(100, 50));
+        E3.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 E3ActionPerformed(evt);
             }
         });
@@ -617,13 +619,13 @@ public class TilesGUI extends JPanel {
         });
         E2.setFocusPainted(false);
         E2.setBackground(new Color(201, 164, 71));
-        E2.setForeground(new java.awt.Color(255, 255, 255));
+        E2.setForeground(new Color(255, 255, 255));
         E2.setBorder(BorderFactory.createLineBorder(new Color(119, 95, 43), 3));
-        E2.setMaximumSize(new java.awt.Dimension(100, 50));
-        E2.setMinimumSize(new java.awt.Dimension(100, 50));
-        E2.setPreferredSize(new java.awt.Dimension(100, 50));
-        E2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        E2.setMaximumSize(new Dimension(100, 50));
+        E2.setMinimumSize(new Dimension(100, 50));
+        E2.setPreferredSize(new Dimension(100, 50));
+        E2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 E2ActionPerformed(evt);
             }
         });
@@ -649,13 +651,13 @@ public class TilesGUI extends JPanel {
         });
         F3.setFocusPainted(false);
         F3.setBackground(new Color(201, 164, 71));
-        F3.setForeground(new java.awt.Color(255, 255, 255));
+        F3.setForeground(new Color(255, 255, 255));
         F3.setBorder(BorderFactory.createLineBorder(new Color(119, 95, 43), 3));
-        F3.setMaximumSize(new java.awt.Dimension(100, 50));
-        F3.setMinimumSize(new java.awt.Dimension(100, 50));
-        F3.setPreferredSize(new java.awt.Dimension(100, 50));
-        F3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        F3.setMaximumSize(new Dimension(100, 50));
+        F3.setMinimumSize(new Dimension(100, 50));
+        F3.setPreferredSize(new Dimension(100, 50));
+        F3.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 F3ActionPerformed(evt);
             }
         });
@@ -681,13 +683,13 @@ public class TilesGUI extends JPanel {
         });
         A1.setFocusPainted(false);
         A1.setBackground(new Color(201, 164, 71));
-        A1.setForeground(new java.awt.Color(255, 255, 255));
+        A1.setForeground(new Color(255, 255, 255));
         A1.setBorder(BorderFactory.createLineBorder(new Color(119, 95, 43), 3));
-        A1.setMaximumSize(new java.awt.Dimension(100, 50));
-        A1.setMinimumSize(new java.awt.Dimension(100, 50));
-        A1.setPreferredSize(new java.awt.Dimension(100, 50));
-        A1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        A1.setMaximumSize(new Dimension(100, 50));
+        A1.setMinimumSize(new Dimension(100, 50));
+        A1.setPreferredSize(new Dimension(100, 50));
+        A1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 A1ActionPerformed(evt);
             }
         });
@@ -712,13 +714,13 @@ public class TilesGUI extends JPanel {
         });
         A3.setFocusPainted(false);
         A3.setBackground(new Color(201, 164, 71));
-        A3.setForeground(new java.awt.Color(255, 255, 255));
+        A3.setForeground(new Color(255, 255, 255));
         A3.setBorder(BorderFactory.createLineBorder(new Color(119, 95, 43), 3));
-        A3.setMaximumSize(new java.awt.Dimension(100, 50));
-        A3.setMinimumSize(new java.awt.Dimension(100, 50));
-        A3.setPreferredSize(new java.awt.Dimension(100, 50));
-        A3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        A3.setMaximumSize(new Dimension(100, 50));
+        A3.setMinimumSize(new Dimension(100, 50));
+        A3.setPreferredSize(new Dimension(100, 50));
+        A3.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 A3ActionPerformed(evt);
             }
         });
@@ -743,13 +745,13 @@ public class TilesGUI extends JPanel {
         });
         A2.setFocusPainted(false);
         A2.setBackground(new Color(201, 164, 71));
-        A2.setForeground(new java.awt.Color(255, 255, 255));
+        A2.setForeground(new Color(255, 255, 255));
         A2.setBorder(BorderFactory.createLineBorder(new Color(119, 95, 43), 3));
-        A2.setMaximumSize(new java.awt.Dimension(100, 50));
-        A2.setMinimumSize(new java.awt.Dimension(100, 50));
-        A2.setPreferredSize(new java.awt.Dimension(100, 50));
-        A2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        A2.setMaximumSize(new Dimension(100, 50));
+        A2.setMinimumSize(new Dimension(100, 50));
+        A2.setPreferredSize(new Dimension(100, 50));
+        A2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 A2ActionPerformed(evt);
             }
         });
@@ -852,51 +854,51 @@ public class TilesGUI extends JPanel {
 
 
     private void A1ActionPerformed(final ActionEvent evt) {
-        resetAllMattonelle();
+        resetAllMattonelle(false);
     }
 
-    private void A2ActionPerformed(final java.awt.event.ActionEvent evt) {
+    private void A2ActionPerformed(final ActionEvent evt) {
         makeVisible('A');
     }
 
-    private void A3ActionPerformed(final java.awt.event.ActionEvent evt) {
-        resetAllMattonelle();
+    private void A3ActionPerformed(final ActionEvent evt) {
+        resetAllMattonelle(false);
     }
 
     private void B1ActionPerformed(final ActionEvent evt) {
         makeVisible('B');
     }
 
-    private void B2ActionPerformed(final java.awt.event.ActionEvent evt) {
+    private void B2ActionPerformed(final ActionEvent evt) {
         makeVisible('B');
     }
 
     private void B3ActionPerformed(final ActionEvent evt) {
-        resetAllMattonelle();
+        resetAllMattonelle(false);
     }
 
-    private void C1ActionPerformed(final java.awt.event.ActionEvent evt) {
-        resetAllMattonelle();
+    private void C1ActionPerformed(final ActionEvent evt) {
+        resetAllMattonelle(false);
     }
 
-    private void C2ActionPerformed(final java.awt.event.ActionEvent evt) {
-        resetAllMattonelle();
+    private void C2ActionPerformed(final ActionEvent evt) {
+        resetAllMattonelle(false);
 
     }
 
-    private void C3ActionPerformed(final java.awt.event.ActionEvent evt) {
+    private void C3ActionPerformed(final ActionEvent evt) {
         makeVisible('C');
     }
 
-    private void D1ActionPerformed(final java.awt.event.ActionEvent evt) {
+    private void D1ActionPerformed(final ActionEvent evt) {
         makeVisible('D');
     }
 
-    private void D2ActionPerformed(final java.awt.event.ActionEvent evt) {
+    private void D2ActionPerformed(final ActionEvent evt) {
         makeVisible('D');
     }
 
-    private void D3ActionPerformed(final java.awt.event.ActionEvent evt) {
+    private void D3ActionPerformed(final ActionEvent evt) {
         makeVisible('D');
     }
 
@@ -912,23 +914,23 @@ public class TilesGUI extends JPanel {
         makeVisible('E');
     }
 
-    private void F1ActionPerformed(final java.awt.event.ActionEvent evt) {
+    private void F1ActionPerformed(final ActionEvent evt) {
         makeVisible('F');
     }
 
-    private void F2ActionPerformed(final java.awt.event.ActionEvent evt) {
-        resetAllMattonelle();
+    private void F2ActionPerformed(final ActionEvent evt) {
+        resetAllMattonelle(false);
     }
 
-    private void F3ActionPerformed(final java.awt.event.ActionEvent evt) {
+    private void F3ActionPerformed(final ActionEvent evt) {
         makeVisible('F');
     }
 
-    private void G1ActionPerformed(final java.awt.event.ActionEvent evt) {
-        resetAllMattonelle();
+    private void G1ActionPerformed(final ActionEvent evt) {
+        resetAllMattonelle(false);
     }
 
-    private void G2ActionPerformed(final java.awt.event.ActionEvent evt) {
+    private void G2ActionPerformed(final ActionEvent evt) {
         makeVisible('G');
         DatabaseConnection.printFromDB("0", "Stanza7", "Corretto", "0", "Mattonella", "0");
         UserInputFlow.Event = 0;
@@ -937,7 +939,7 @@ public class TilesGUI extends JPanel {
         GameGUI.setImagePanel(game.getCurrentRoom().getName());
     }
 
-    private void G3ActionPerformed(final java.awt.event.ActionEvent evt) {
+    private void G3ActionPerformed(final ActionEvent evt) {
         makeVisible('G');
     }
 
@@ -1004,12 +1006,14 @@ public class TilesGUI extends JPanel {
     /**
      * Reset all mattonelle.
      */
-    public void resetAllMattonelle() {
-        UserInputFlow.Event = 0;
-        Game game = Game.getInstance();
-        game.setRoomState("Stanza7", "Sbagliato");
-        GameGUI.setImagePanel(game.getCurrentRoom().getName());
-        DatabaseConnection.printFromDB("0", "Stanza7", "Sbagliato", "0", "Mattonella", "0");
+    public void resetAllMattonelle(boolean startGame) {
+        if (!startGame) {
+            UserInputFlow.Event = 0;
+            Game game = Game.getInstance();
+            game.setRoomState("Stanza7", "Sbagliato");
+            GameGUI.setImagePanel(game.getCurrentRoom().getName());
+            DatabaseConnection.printFromDB("0", "Stanza7", "Sbagliato", "0", "Mattonella", "0");
+        }
         A1.setText("");
         A2.setText("");
         A3.setText("");
@@ -1050,7 +1054,4 @@ public class TilesGUI extends JPanel {
         G3.setText("");
         G3.setEnabled(false);
     }
-
-
 }
-
