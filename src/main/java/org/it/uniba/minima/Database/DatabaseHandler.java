@@ -77,7 +77,6 @@ public class DatabaseHandler extends HttpHandler {
                     "        .side-image {\n" +
                     "            width: 25%;\n" +
                     "            height: 100vh;\n" +
-                    "            background-image: url('../../../../docs/img/immagine per sito.jpeg');\n" +
                     "            background-size: cover;\n" +
                     "            background-position: center;\n" +
                     "        }\n" +
@@ -244,10 +243,7 @@ public class DatabaseHandler extends HttpHandler {
         PrintWriter out = new PrintWriter(response.getWriter());
         try (Connection conn = DriverManager.getConnection("jdbc:h2:./src/main/resources/database/db_map", "sa", "");
              Statement stmt = conn.createStatement()) {
-            stmt.executeUpdate("INSERT INTO CLASSIFICA (USERNAME, TEMPO, FINALE) VALUES ('"
-                    + request.getParameter("nickname") + "', '"
-                    + request.getParameter("score") + "', '"
-                    + request.getParameter("finalchoice") + "')");
+            stmt.executeUpdate( "INSERT INTO CLASSIFICA (USERNAME, TEMPO, FINALE) VALUES ('" + request.getParameter("username") + "', '" + request.getParameter("tempo") + "', '" + request.getParameter("finale") + "')");
         } catch (SQLException e) {
             out.println("SQL Error: " + e.getMessage() + "\n");
             e.printStackTrace(out);
