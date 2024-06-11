@@ -295,7 +295,8 @@ public class MenuGUI extends JPanel {
         progressBarGUI.startProgressBar();
 
         //new thread to set up a new game during the charge of the progress bar
-        new Thread(UserInputFlow::setUpGameFlow).start();
+        Game game = Game.getInstance();
+        new Thread(() -> UserInputFlow.setUpGameFlow(game)).start();
     }
 
     /**
