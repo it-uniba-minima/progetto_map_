@@ -36,7 +36,7 @@ public class Game {
     /**
      * The instance of the game.
      */
-    public static Game game = new Game();
+    private static Game game = new Game();
 
     /**
      * Sets up the instance of the game.
@@ -191,7 +191,7 @@ public class Game {
      * @param room the room
      * @return the room state
      */
-    public Object getRoomState(String room) {
+    public String getRoomState(String room) {
         return game.statesMap.get(room);
     }
 
