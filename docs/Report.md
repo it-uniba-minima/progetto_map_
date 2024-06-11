@@ -402,10 +402,12 @@ Si noti come <code>Item</code> è un tipo generico, che può essere sostituito c
 ## 7 - Manuale Utente
 In questa sezione verrà spiegato come utilizzare l'avventura testuale //INSERIRE TITOLO
 
-L'installazione del progetto può essere effettuata tramite il 
-[README.md](README.md)
+L'installazione del progetto può essere effettuata tramite la lettura della
+[Guida all'installazione](README.md)
 
-[Ritorna all'Indice](#indice)
+Prima di entrare nel vivo del gioco, è importante conscere come è strutturata la mappa del gioco, mostrata qui di seguito:
+![img_Mappa](img/Mappa.png)
+
 ## Walkthrough
 ## Capitolo 1: Deserto
 Avviando una nuova partita, il giocatore si troverà disperso in un deserto.
@@ -562,6 +564,7 @@ Tornando nella **Stanza del Faraone** e usando i comandi:
   Arriviamo allo stato finale del gioco, dove l'utente con il comando `Parla con Faraone`, dove alla fine del gioco l'utente potrà scegliere uno dei due finali: **Ricchezza** o **Saggezza**.
 
 #### [Ritorna all'Indice](#indice)
+
 ## 8 - Conclusioni e Opinioni Finali
 Concludiamo il nostro progetto, siamo molto soddisfatti del lavoro svolto, abbiamo imparato molto durante il corso e siamo riusciti a mettere in pratica le nozioni apprese.
 Il progetto è stato molto impegnativo, ma allo stesso tempo molto divertente, ci ha permesso di mettere alla prova le nostre capacità di programmazione e di lavorare in team.
