@@ -455,6 +455,7 @@ public class GameGUI extends JPanel {
         game.setCurrentTime(timerLabel.getText());
         gameManager.saveGame();
         JOptionPane.showMessageDialog(this, "Game saved successfully", "Save", JOptionPane.INFORMATION_MESSAGE);
+        resetAllGames();
         goBack();
     }
 
@@ -490,7 +491,9 @@ public class GameGUI extends JPanel {
         cl.show(getParent(), "MenuGUI");
         displayTextPane.setText("");
         inventoryTextArea.setText(" Inventory:\n");
+        resetAllGames();
     }
+
     /**
      * Method when you don't go back
      */
@@ -597,5 +600,17 @@ public class GameGUI extends JPanel {
         }
 
         inventoryTextArea.setText(inventory.toString());
+    }
+
+    /**
+     * Resets all the GUIs of the games.
+     */
+    private void resetAllGames() {
+        WordleGUI wordleGUI = getWordle();
+        wordleGUI.resetBoxes();
+        TilesGUI tilesGUI = (TilesGUI) imagePanel.getComponent(2);
+        tilesGUI.resetAllMattonelle();
+        HangmanGUI hangmanGUI = (HangmanGUI) imagePanel.getComponent(3);
+        hangmanGUI.resetGuessedLetters();
     }
 }
