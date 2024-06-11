@@ -165,4 +165,11 @@ public class TriviaGame {
         OutputDisplayManager.displayText("> " + question);
         OutputDisplayManager.displayText("> Rispondi con Vero o Falso");
     }
+
+    /**
+     * Resets the correct answers.
+     */
+    public void resetCorrectAnswers() {
+        correctAnswers = 0;
+    }
 }
