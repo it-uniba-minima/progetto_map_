@@ -9,7 +9,7 @@
 - ### [Applicazione Argomenti del Corso](#6---applicazione-argomenti-del-corso)
 - ### [Javadoc](#7---javadoc)
 - ### [Manuale Utente](#8---manuale-utente)
-- ### [Walkthrough](#8.1---walkthrough)
+- ### [Walkthrough](#81---walkthrough)
 - ### [Conclusioni e Opinioni Finali](#9---conclusioni-e-opinioni-finali)
 <hr>
 
