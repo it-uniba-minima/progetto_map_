@@ -1,16 +1,29 @@
 package org.it.uniba.minima.GUI;
-import org.it.uniba.minima.Control.GameManager;
-import org.it.uniba.minima.Control.UserInputFlow;
-import org.it.uniba.minima.Database.RestServer;
+import org.it.uniba.minima.Logic.GameManager;
+import org.it.uniba.minima.InteractionManager.UserInputFlow;
 import org.it.uniba.minima.Entity.Game;
-import org.it.uniba.minima.Mixer;
-import org.it.uniba.minima.TimerManager;
-import javax.swing.*;
+import org.it.uniba.minima.Util.Mixer;
+import org.it.uniba.minima.Util.TimerManager;
+import javax.swing.JPanel;
+import javax.swing.JButton;
+import javax.swing.ImageIcon;
+import javax.swing.SwingConstants;
+import javax.swing.GroupLayout;
+import javax.swing.BorderFactory;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.plaf.metal.MetalButtonUI;
-import java.awt.*;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Insets;
+import java.awt.CardLayout;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Desktop;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -49,6 +62,10 @@ public class MenuGUI extends JPanel {
      * The site button.
      */
     private JButton site;
+    /**
+     * The instance of game manager.
+     */
+    GameManager gameManager = new GameManager();
 
     /**
      * Constructor of the class.
@@ -67,7 +84,7 @@ public class MenuGUI extends JPanel {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                ImageIcon img = new ImageIcon("src/main/resources/docs/img/placeholder_immagine sfondo.jpeg");
+                ImageIcon img = new ImageIcon("src/main/resources/docs/img/mainBackground.jpeg");
                 Image image = img.getImage();
                 g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
             }
@@ -82,12 +99,12 @@ public class MenuGUI extends JPanel {
         site = new JButton();
 
         // Set the properties of the panel
-        setPreferredSize(new java.awt.Dimension(800, 600));
-        setSize(new java.awt.Dimension(800, 600));
+        setPreferredSize(new Dimension(800, 600));
+        setSize(new Dimension(800, 600));
 
         // Set the properties of the background panel
-        backgroundPanel.setMinimumSize(new java.awt.Dimension(800, 600));
-        backgroundPanel.setPreferredSize(new java.awt.Dimension(800, 600));
+        backgroundPanel.setMinimumSize(new Dimension(800, 600));
+        backgroundPanel.setPreferredSize(new Dimension(800, 600));
         backgroundPanel.setRequestFocusEnabled(false);
 
         // Set the properties of the site button
@@ -105,11 +122,10 @@ public class MenuGUI extends JPanel {
         site.setFont(site.getFont().deriveFont(40f));
         site.setText("\uD83C\uDF10");
         site.setHorizontalTextPosition(SwingConstants.CENTER);
-        site.setMaximumSize(new java.awt.Dimension(60, 60));
-        site.setMinimumSize(new java.awt.Dimension(60, 60));
-        site.setPreferredSize(new java.awt.Dimension(60, 60));
-        site.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
+        site.setMaximumSize(new Dimension(60, 60));
+        site.setMinimumSize(new Dimension(60, 60));
+        site.setPreferredSize(new Dimension(60, 60));
+        site.addActionListener(evt -> {
             try {
                 siteActionPerformed(evt);
             } catch (URISyntaxException e) {
@@ -117,8 +133,7 @@ public class MenuGUI extends JPanel {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-        }
-    });
+        });
 
         // Set the properties of the new game button
         newGame.setUI(new MetalButtonUI() {
@@ -134,9 +149,9 @@ public class MenuGUI extends JPanel {
         newGame.setBorderPainted(true);
         newGame.setBorder(BorderFactory.createLineBorder(new Color(107, 90, 13), 5));
         newGame.setText("Nuova Partita");
-        newGame.setMaximumSize(new java.awt.Dimension(240, 60));
-        newGame.setMinimumSize(new java.awt.Dimension(240, 60));
-        newGame.setPreferredSize(new java.awt.Dimension(240, 60));
+        newGame.setMaximumSize(new Dimension(240, 60));
+        newGame.setMinimumSize(new Dimension(240, 60));
+        newGame.setPreferredSize(new Dimension(240, 60));
         newGame.addActionListener(this::newGameActionPerformed);
 
         // Set the properties of the sound button
@@ -153,10 +168,10 @@ public class MenuGUI extends JPanel {
         sound.setBorderPainted(true);
         sound.setBorder(BorderFactory.createLineBorder(new Color(107, 90, 13), 5));
         sound.setText("🔊");
-        sound.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        sound.setMaximumSize(new java.awt.Dimension(40, 40));
-        sound.setMinimumSize(new java.awt.Dimension(40, 40));
-        sound.setPreferredSize(new java.awt.Dimension(40, 40));
+        sound.setMargin(new Insets(0, 0, 0, 0));
+        sound.setMaximumSize(new Dimension(40, 40));
+        sound.setMinimumSize(new Dimension(40, 40));
+        sound.setPreferredSize(new Dimension(40, 40));
         sound.addActionListener(this::soundActionPerformed);
 
         // Set the properties of the help button
@@ -172,10 +187,10 @@ public class MenuGUI extends JPanel {
         help.setFont(new Font("Papyrus", 1, 24));
         help.setBorderPainted(true);
         help.setBorder(BorderFactory.createLineBorder(new Color(107, 90, 13), 5));
-        help.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        help.setMaximumSize(new java.awt.Dimension(40, 40));
-        help.setMinimumSize(new java.awt.Dimension(40, 40));
-        help.setPreferredSize(new java.awt.Dimension(40, 40));
+        help.setMargin(new Insets(0, 0, 0, 0));
+        help.setMaximumSize(new Dimension(40, 40));
+        help.setMinimumSize(new Dimension(40, 40));
+        help.setPreferredSize(new Dimension(40, 40));
         help.addActionListener(this::helpActionPerformed);
 
         // Set the properties of the load game button
@@ -192,9 +207,9 @@ public class MenuGUI extends JPanel {
         loadGame.setBorderPainted(true);
         loadGame.setBorder(BorderFactory.createLineBorder(new Color(107, 90, 13), 5));
         loadGame.setText("Carica Partita");
-        loadGame.setMaximumSize(new java.awt.Dimension(240, 60));
-        loadGame.setMinimumSize(new java.awt.Dimension(240, 60));
-        loadGame.setPreferredSize(new java.awt.Dimension(240, 60));
+        loadGame.setMaximumSize(new Dimension(240, 60));
+        loadGame.setMinimumSize(new Dimension(240, 60));
+        loadGame.setPreferredSize(new Dimension(240, 60));
         loadGame.addActionListener(evt -> {
             try {
                 loadGameActionPerformed(evt);
@@ -217,9 +232,9 @@ public class MenuGUI extends JPanel {
         credits.setBorderPainted(true);
         credits.setBorder(BorderFactory.createLineBorder(new Color(107, 90, 13), 5));
         credits.setText("Riconoscimenti");
-        credits.setMaximumSize(new java.awt.Dimension(240, 60));
-        credits.setMinimumSize(new java.awt.Dimension(240, 60));
-        credits.setPreferredSize(new java.awt.Dimension(240, 60));
+        credits.setMaximumSize(new Dimension(240, 60));
+        credits.setMinimumSize(new Dimension(240, 60));
+        credits.setPreferredSize(new Dimension(240, 60));
         credits.addActionListener(this::creditsActionPerformed);
 
         GroupLayout backgroundPanelLayout = new GroupLayout(backgroundPanel);
@@ -283,7 +298,7 @@ public class MenuGUI extends JPanel {
         progressBarGUI = (ProgressBarGUI) this.getParent().getComponent(2);
         CardLayout cl = (CardLayout) getParent().getLayout();
         cl.show(getParent(), "ProgressBarGUI");
-        GameManager.createGame();
+        gameManager.createGame();
 
         progressBarGUI.addPropertyChangeListener(evt1 -> {
             if (evt1.getPropertyName().equals("isFinished") && (boolean) evt1.getNewValue()) {
@@ -295,7 +310,8 @@ public class MenuGUI extends JPanel {
         progressBarGUI.startProgressBar();
 
         //new thread to set up a new game during the charge of the progress bar
-        new Thread(UserInputFlow::setUpGameFlow).start();
+        Game game = Game.getInstance();
+        new Thread(() -> UserInputFlow.setUpGameFlow(game)).start();
     }
 
     /**
@@ -327,8 +343,8 @@ public class MenuGUI extends JPanel {
      * @throws ClassNotFoundException the class not found exception
      */
     private void loadGameActionPerformed(ActionEvent evt) throws IOException, ClassNotFoundException {
-        GameManager.resetAllAgents();
-        boolean loadedGameSuccessfully = GameManager.loadGame();
+        gameManager.resetAllAgents();
+        boolean loadedGameSuccessfully = gameManager.loadGame();
 
         if (loadedGameSuccessfully) {
             Game game = Game.getInstance();
@@ -367,7 +383,7 @@ public class MenuGUI extends JPanel {
      *
      * @param evt the event
      */
-private void siteActionPerformed(final java.awt.event.ActionEvent evt) throws URISyntaxException, IOException {
+private void siteActionPerformed(final ActionEvent evt) throws URISyntaxException, IOException {
         if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
             Desktop.getDesktop().browse(new URI("http://localhost:8080/api/data"));
         }

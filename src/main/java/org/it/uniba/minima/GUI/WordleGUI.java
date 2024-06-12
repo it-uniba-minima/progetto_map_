@@ -1,5 +1,4 @@
 package org.it.uniba.minima.GUI;
-
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.GroupLayout;
@@ -17,7 +16,6 @@ import java.io.IOException;
  * The class of the WordleGUI GUI.
  */
 public class WordleGUI extends JPanel {
-
     /**
      * The constants.
      */
@@ -96,7 +94,7 @@ public class WordleGUI extends JPanel {
             }
         }
 
-        // Set the properties of the frame
+        // Set the properties of the main panel
         setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
         setMaximumSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
         setMinimumSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
@@ -144,5 +142,17 @@ public class WordleGUI extends JPanel {
      */
     public void setBoxText(final int row, final int col, final String text) {
         boxes[row][col].getTextField().setText(text);
+    }
+
+    /**
+     * Resets the boxes of the wordle.
+     */
+    public void resetBoxes() {
+        for (int r = 0; r < ROWS; r++) {
+            for (int c = 0; c < COLUMNS; c++) {
+                boxes[r][c].getTextField().setText("");
+                boxes[r][c].getTextField().setBackground(BACKGROUND_COLOR);
+            }
+        }
     }
 }

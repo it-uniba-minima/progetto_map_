@@ -48,7 +48,6 @@ public class ParserOutput {
         this.args = args;
     }
 
-
     /**
      * Sets command type.
      *
@@ -103,6 +102,12 @@ public class ParserOutput {
         return agent2;
     }
 
+    /**
+     * Override of the equals method.
+     *
+     * @param o the object to compare
+     * @return true if the objects are equal, false otherwise
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -113,6 +118,11 @@ public class ParserOutput {
                 (agent2 != null ? agent2.equals(that.agent2) : that.agent2 == null);
     }
 
+    /**
+     * Override of the hashcode method.
+     *
+     * @return the hashcode
+     */
     @Override
     public int hashCode() {
         int result = command != null ? command.hashCode() : 0;

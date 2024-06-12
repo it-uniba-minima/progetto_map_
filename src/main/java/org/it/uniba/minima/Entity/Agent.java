@@ -5,7 +5,7 @@ import java.util.Objects;
 /**
  * Class that represents an agent in the game.
  */
-public class Agent {
+public abstract class Agent {
 
     /**
      * Name of the agent.
@@ -53,6 +53,12 @@ public class Agent {
         return this.name.equals(name);
     }
 
+    /**
+     * Override of the equals method.
+     *
+     * @param o the object to compare
+     * @return the boolean
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -62,6 +68,11 @@ public class Agent {
                 Objects.equals(aliases, agent.aliases);
     }
 
+    /**
+     * Override of the hashcode method.
+     *
+     * @return the hashcode
+     */
     @Override
     public int hashCode() {
         return Objects.hash(name, aliases);
@@ -72,5 +83,5 @@ public class Agent {
      *
      * @param room the room
      */
-    public void getDescription(Room room) { }
+    public abstract void getDescription(Room room);
 }

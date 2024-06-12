@@ -1,5 +1,5 @@
 package org.it.uniba.minima.Entity;
-import org.it.uniba.minima.Database.DatabaseConnection;
+import org.it.uniba.minima.DB_Web.DatabaseConnection;
 
 /**
  * The class that represent an item.
@@ -8,11 +8,11 @@ public class Item extends Agent{
     /**
      * Represents if the item is pickable.
      */
-    boolean isPickable;
+    private boolean isPickable;
     /**
      * Represents if the item is movable.
      */
-    boolean isMovable;
+    private boolean isMovable;
 
     /**
      * Prints the description of the item.

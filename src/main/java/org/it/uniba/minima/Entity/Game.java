@@ -1,7 +1,7 @@
 package org.it.uniba.minima.Entity;
-import org.it.uniba.minima.Boundary.OutputDisplayManager;
+import org.it.uniba.minima.InteractionManager.OutputDisplayManager;
 import org.it.uniba.minima.GUI.GameGUI;
-import org.it.uniba.minima.Type.Corridor;
+
 import java.util.List;
 import java.util.Map;
 
@@ -36,7 +36,7 @@ public class Game {
     /**
      * The instance of the game.
      */
-    public static Game game = new Game();
+    private static Game game = new Game();
 
     /**
      * Sets up the instance of the game.
@@ -191,7 +191,7 @@ public class Game {
      * @param room the room
      * @return the room state
      */
-    public Object getRoomState(String room) {
+    public String getRoomState(String room) {
         return game.statesMap.get(room);
     }
 

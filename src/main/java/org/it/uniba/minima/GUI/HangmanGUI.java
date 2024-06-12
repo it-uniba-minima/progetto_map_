@@ -1,6 +1,16 @@
 package org.it.uniba.minima.GUI;
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.SwingUtilities;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.GroupLayout;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.BorderLayout;
+import java.awt.Image;
+import java.awt.Graphics;
+import java.util.Arrays;
 
 /**
  * The panel of the hangman game.
@@ -48,16 +58,16 @@ public class HangmanGUI extends JPanel {
         // Create and set the properties of the label
         hiddenText = new JLabel();
 
-        setMaximumSize(new java.awt.Dimension(440, 400));
-        setMinimumSize(new java.awt.Dimension(440, 400));
-        setPreferredSize(new java.awt.Dimension(440, 400));
-        hiddenText.setFont(new java.awt.Font("Papyrus", Font.BOLD, 24)); // NOI18N
+        setMaximumSize(new Dimension(440, 400));
+        setMinimumSize(new Dimension(440, 400));
+        setPreferredSize(new Dimension(440, 400));
+        hiddenText.setFont(new Font("Papyrus", Font.BOLD, 24)); // NOI18N
         hiddenText.setFocusable(false);
         hiddenText.setText("<html><center>__ _____ _____ ________ __ _______</center></html>");
         hiddenText.setIconTextGap(1);
-        hiddenText.setMaximumSize(new java.awt.Dimension(250, 301));
-        hiddenText.setMinimumSize(new java.awt.Dimension(250, 301));
-        hiddenText.setPreferredSize(new java.awt.Dimension(250, 301));
+        hiddenText.setMaximumSize(new Dimension(250, 301));
+        hiddenText.setMinimumSize(new Dimension(250, 301));
+        hiddenText.setPreferredSize(new Dimension(250, 301));
         hiddenText.setVerifyInputWhenFocusTarget(false);
 
         // Create a panel for the background image
@@ -133,6 +143,7 @@ public class HangmanGUI extends JPanel {
      * Reset the guessed letters.
      */
     public void resetGuessedLetters() {
+        Arrays.fill(guessedLetters, (char) 0);
         SwingUtilities.invokeLater(() -> hiddenText.setText("<html><center>__ _____ _____ ________ __ _______</center></html>"));
     }
 }

@@ -1,13 +1,38 @@
 package org.it.uniba.minima.GUI;
-import org.it.uniba.minima.Control.GameManager;
+import org.it.uniba.minima.Logic.GameManager;
 import org.it.uniba.minima.Entity.Game;
-import org.it.uniba.minima.Mixer;
-import org.it.uniba.minima.Boundary.UserInputManager;
+import org.it.uniba.minima.Util.Mixer;
+import org.it.uniba.minima.InteractionManager.UserInputManager;
 import javax.swing.plaf.metal.MetalButtonUI;
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JPanel;
+import javax.swing.JButton;
+import javax.swing.JToolBar;
+import javax.swing.JTextArea;
+import javax.swing.JScrollPane;
+import javax.swing.JViewport;
+import javax.swing.JTextPane;
+import javax.swing.JTextField;
+import javax.swing.ImageIcon;
+import javax.swing.Box;
+import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import javax.swing.SwingUtilities;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.GroupLayout;
+import javax.swing.Timer;
+import javax.swing.SwingConstants;
+import javax.swing.BorderFactory;
+import javax.swing.JLabel;
+import java.awt.Dimension;
+import java.awt.FontMetrics;
+import java.awt.Font;
+import java.awt.CardLayout;
+import java.awt.Color;
+import java.awt.Insets;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.awt.Image;
 
 /**
  * The GUI of the game.
@@ -374,7 +399,7 @@ public class GameGUI extends JPanel {
         userInputField.setMinimumSize(new Dimension(335, 31));
         userInputField.setBorder(BorderFactory.createMatteBorder(0, 5, 5, 0, new Color(107, 90, 13)));
         userInputField.setBounds(0, 0, 335, 31);
-        UserInputManager.startInputListener(userInputField);
+        UserInputManager.startInputListener();
 
         Image img2 = new ImageIcon("src/main/resources/docs/img/papyrUserInputField.png").getImage();
 
@@ -455,6 +480,7 @@ public class GameGUI extends JPanel {
         game.setCurrentTime(timerLabel.getText());
         gameManager.saveGame();
         JOptionPane.showMessageDialog(this, "Game saved successfully", "Save", JOptionPane.INFORMATION_MESSAGE);
+        resetAllGames();
         goBack();
     }
 
@@ -490,7 +516,10 @@ public class GameGUI extends JPanel {
         cl.show(getParent(), "MenuGUI");
         displayTextPane.setText("");
         inventoryTextArea.setText(" Inventory:\n");
+        resetAllGames();
+        Mixer.changRoomMusic("Menu");
     }
+
     /**
      * Method when you don't go back
      */
@@ -562,6 +591,7 @@ public class GameGUI extends JPanel {
      * @param panelName the panel name
      */
     public static void setImagePanel(String panelName) {
+        Mixer.changRoomMusic(panelName);
         Timer timerImagePanel = new Timer(600, e -> cardLayout.show(imagePanel, panelName));
         timerImagePanel.setRepeats(false);
         timerImagePanel.start();
@@ -597,5 +627,17 @@ public class GameGUI extends JPanel {
         }
 
         inventoryTextArea.setText(inventory.toString());
+    }
+
+    /**
+     * Resets all the GUIs of the games.
+     */
+    private void resetAllGames() {
+        WordleGUI wordleGUI = getWordle();
+        wordleGUI.resetBoxes();
+        TilesGUI tilesGUI = (TilesGUI) imagePanel.getComponent(2);
+        tilesGUI.resetAllMattonelle(true);
+        HangmanGUI hangmanGUI = (HangmanGUI) imagePanel.getComponent(3);
+        hangmanGUI.resetGuessedLetters();
     }
 }

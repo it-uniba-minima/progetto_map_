@@ -1,12 +1,14 @@
 package org.it.uniba.minima.GUI;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import java.awt.CardLayout;
-import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
-import org.it.uniba.minima.Mixer;
+import org.it.uniba.minima.Util.Mixer;
+import java.awt.Dimension;
+import java.awt.CardLayout;
+import java.awt.Image;
+import javax.swing.JPanel;
+import javax.swing.WindowConstants;
 
 /**
  * The manager of the GUIs.
@@ -19,8 +21,9 @@ public class ManagerGUI extends JFrame {
      */
     public ManagerGUI() {
         // Set the properties of the frame
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(800, 600));
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Avventura nella Piramide");
+        setPreferredSize(new Dimension(800, 600));
         setResizable(false);
         try {
 
