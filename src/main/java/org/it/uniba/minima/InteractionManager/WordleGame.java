@@ -37,18 +37,29 @@ public class WordleGame {
     public WordleGame() {
         String guessingWord1;
         StringBuilder result = new StringBuilder();
+        int timeout = 4000;
 
+        /*
+         * Sfortunatamente all'ultimo secondo abbiamo scoperto che l'API è in down e non sappiamo
+         * se tornerà a funzionare. Abbiamo quindi deciso di utilizzare una seconda API per generare
+         * la parola da indovinare. Questa seconda API è però in inglese e non in italiano.
+         * Inoltre se anche questa API dovesse smettere di funzionare, abbiamo una parola di default.
+         */
         try {
             URL url = new URL("https://random-word-api.herokuapp.com/word?lang=it&length=5");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
             conn.setRequestMethod("GET");
+            conn.setConnectTimeout(timeout);
+            conn.setReadTimeout(timeout);
+
             try (BufferedReader reader = new BufferedReader(
                     new InputStreamReader(conn.getInputStream()))) {
                 for (String line; (line = reader.readLine()) != null; ) {
                     result.append(line);
                 }
             }
+
             guessingWord1 = result.toString()
                                   .replace("[", "")
                                   .replace("]", "")
@@ -56,7 +67,30 @@ public class WordleGame {
                                   .toUpperCase();
 
         } catch (IOException e) {
-            guessingWord1 = "SALVE";
+            try {
+                URL url = new URL("https://random-word.ryanrk.com//api/en/word/random/?minlength=5&maxlength=5");
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+                conn.setRequestMethod("GET");
+                conn.setConnectTimeout(timeout);
+                conn.setReadTimeout(timeout);
+
+                try (BufferedReader reader = new BufferedReader(
+                        new InputStreamReader(conn.getInputStream()))) {
+                    for (String line; (line = reader.readLine()) != null; ) {
+                        result.append(line);
+                    }
+                }
+
+                guessingWord1 = result.toString()
+                        .replace("[", "")
+                        .replace("]", "")
+                        .replace("\"", "")
+                        .toUpperCase();
+
+            } catch (IOException e1) {
+                guessingWord1 = "SALVE";
+            }
         }
         GuessingWord = guessingWord1;
     }

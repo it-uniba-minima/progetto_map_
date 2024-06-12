@@ -1,6 +1,9 @@
 INSERT INTO CLASSIFICA ( USERNAME, TEMPO, FINALE)
 VALUES
-    ( 'Osiride', '23:59:59', 'Secret');
+    ( 'Osiride', '23:59:59', 'Secret'),
+    ('Apand0', '00:17:31', 'Ricchezza'),
+    ('Pasco', '00:12:21', 'Saggezza'),
+    ('Mik', '00:04:20', 'Saggezza');
 
 INSERT INTO DESCRIZIONI (ID, COMANDO, STANZA, STATO, PERSONAGGIO, OGGETTO1, OGGETTO2, DESCRIZIONE) VALUES
     (1, '0', 'Desert', 'Start', '0', '0', '0', '> Apri gli occhi e ti ritrovi disteso in un letto di sabbia... "Dove sono?? Come mi chiamo?? Se potessi scrivere il mio nome potrei ricordarlo... (Hint: se sbagli a scrivere il tuo nome potrai tornare indietro)"'),

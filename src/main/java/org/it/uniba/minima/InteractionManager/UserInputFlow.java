@@ -8,6 +8,7 @@ import org.it.uniba.minima.Entity.Item;
 import org.it.uniba.minima.GUI.GameGUI;
 import org.it.uniba.minima.GUI.ManagerGUI;
 import org.it.uniba.minima.Type.ParserOutput;
+import org.it.uniba.minima.Util.TimerManager;
 import java.util.List;
 
 /**
@@ -185,7 +186,7 @@ public class UserInputFlow {
 
             try {
                 Client client = new Client();
-                client.sendPostRequest(Game.getInstance().getNickname(), Game.getInstance().getCurrentTime(), finale);
+                client.sendPostRequest(Game.getInstance().getNickname(), TimerManager.getTime(), finale);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
@@ -214,7 +215,9 @@ public class UserInputFlow {
         DatabaseConnection.printFromDB("0", "Desert", "Start", "0", "0", "0");
         isNameConfirmed = false;
         isGameEnded = false;
-        wordleGame = new WordleGame();
+        // poiché la prima API è andata in down, spostiamo il setup del Wordle su un thread separato
+        // così da non bloccare il flusso del gioco
+        new Thread(() -> wordleGame = new WordleGame()).start();
         triviaGame = TriviaGame.getInstance();
         triviaGame.resetCorrectAnswers();
         parser = new Parser();
@@ -228,7 +231,9 @@ public class UserInputFlow {
         Event = 0;
         isNameConfirmed = true;
         isGameEnded = false;
-        wordleGame = new WordleGame();
+        // poiché la prima API è andata in down, spostiamo il setup del Wordle su un thread separato
+        // così da non bloccare il flusso del gioco
+        new Thread(() -> wordleGame = new WordleGame()).start();
         triviaGame = TriviaGame.getInstance();
         triviaGame.resetCorrectAnswers();
         parser = new Parser();
