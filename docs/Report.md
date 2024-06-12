@@ -545,7 +545,7 @@ Per iniziare la sfida si userà il comando `Osserva Mattonelle`.
 L'utente dovrà cliccare sui pulsanti presenti sullo schermo nell'ordine corretto. 
 La soluzione alla sfida è la seguente: *Centro*, *Sinistra*, *Destra*, *Destra*, *Sinistra*, *Destra*, *Centro*.
 
-![Soluzione](img/MattonelleGioco.png)
+![Soluzione](img/Soluzione.gif)
 
   Dopo aver completato la sfida, usando il comando `Prendi Nekhekh` otteniamo il tesoro da dare al **Faraone**, ora possiamo tornare nella **Stanza del Faraone** usando il comando `Ovest`.
 ### Capitolo 4.2: Sfida della Torta
