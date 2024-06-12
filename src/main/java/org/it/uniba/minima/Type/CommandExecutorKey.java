@@ -17,6 +17,7 @@ public class CommandExecutorKey {
      * Instantiates a new Command executor key with the agents.
      *
      * @param c  the command type
+     * @param a the number of arguments
      */
     public CommandExecutorKey(CommandType c, int a) {
         this.command = c;
