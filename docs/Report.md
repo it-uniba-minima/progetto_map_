@@ -1,24 +1,18 @@
-# //INSERIRE TITOLO
+# Avventura nella Piramide
 
 # Report
 ## Indice
-- ### [**1 - Introduzione**](#1---introduzione)
-    -  [**1.1 - Sviluppatori**](#partecipanti-al-progetto)
-    -  [**1.2 - Descrizione Progetto**](#descrizione-progetto)
-- ### [**2 - Modello di Dominio**](#2---modello-di-dominio)
-- ### [**3 - Progettazione**](#3---progettazione)
-    - [**3.1 - Diagramma delle Classi**](#diagramma-delle-classi)
-- ### [**4 - Specifiche Algebriche**](#4---specifiche-algebriche)
-    - [**4.1 - Specifica algebrica della Lista**](#4.1---specifica-algebrica-della-lista)
-    - [**4.2 - Specifica algebrica della Mappa**](#4.2---specifica-algebrica-della-mappa)
-- ### [**5 - Applicazione Argomenti del Corso**](#6---applicazione-argomenti-del-corso)
-- ### [**7 - Manuale Utente**](#7---manuale-utente)
-    - [**7.1 - Walkthrough**](#walkthrough)
-- ### [**8 - Conclusioni e Opinioni Finali**](#8---conclusioni-e-opinioni-finali)
-
-## 1 - Introduzione
+- ### [Introduzione](#1---introduzione)
+- ### [Modello di Dominio](#2---modello-di-dominio)
+- ### [Progettazione](#3---progettazione)
+- ### [Specifiche Algebriche](#4---specifiche-algebriche)
+- ### [Applicazione Argomenti del Corso](#6---applicazione-argomenti-del-corso)
+- ### [Manuale Utente](#7---manuale-utente)
+- ### [Walkthrough](#walkthrough)
+- ### [Conclusioni e Opinioni Finali](#8---conclusioni-e-opinioni-finali)
 <hr>
 
+## 1 - Introduzione
 ## Partecipanti al progetto
 <hr>
 
@@ -35,11 +29,11 @@ Il team di sviluppatori è composto da:
 ## Descrizione Progetto
 <hr>
 
-### Nome Progetto: //INSERIRE TITOLO
+### Nome Progetto: Avventura nella Piramide
 #### Introduzione generale
 <hr>
 
-Questo progetto, intitolato **//INSERIRE TITOLO**, è stato sviluppato come esame finale del corso di **Metodi Avanzati di Programmazione**, tenuto dal Prof. [Pierpaolo Basile](https://github.com/pippokill) presso l'Università degli Studi di Bari "Aldo Moro".
+Questo progetto, intitolato **Avventura nella Piramide**, è stato sviluppato come esame finale del corso di **Metodi Avanzati di Programmazione**, tenuto dal Prof. [Pierpaolo Basile](https://github.com/pippokill) presso l'Università degli Studi di Bari "Aldo Moro".
 
 
 L'obiettivo del corso è stato quello di introdurre, conoscere e approfondire un ulteriore paradigma di programmazione, ossia la **Programmazione ad Oggetti** e di andare ad utilizzare i concetti appresi per la realizzazione di un progetto software.
@@ -393,7 +387,7 @@ Si noti come <code>Item</code> è un tipo generico, che può essere sostituito c
 
 ## 6 - Applicazione Argomenti del Corso
 
-- In questa sezione verrà spiegato come il progetto "Avventura nella Piramide" si collega agli argomenti trattati durante il corso di "Metodi Avanzati di Programmazione".
+- In questa sezione verrà spiegato come il progetto **Avventura nella Piramide** si collega agli argomenti trattati durante il corso di "Metodi Avanzati di Programmazione".
 
 
 [Applicazione Argomenti del Corso](Applicazione%20Argomenti%20del%20corso.md)
@@ -401,7 +395,7 @@ Si noti come <code>Item</code> è un tipo generico, che può essere sostituito c
 
 #### [Ritorna all'Indice](#indice)
 ## 7 - Manuale Utente
-In questa sezione verrà spiegato come utilizzare l'avventura testuale "Avventura nella Piramide"
+In questa sezione verrà spiegato come utilizzare l'avventura testuale **Avventura nella Piramide**
 
 L'installazione del progetto può essere effettuata tramite la lettura della
 [Guida all'installazione](README.md)

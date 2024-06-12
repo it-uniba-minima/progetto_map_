@@ -1,6 +1,8 @@
 ### In questa sezione verrà spiegato come sono stati applicati gli argomenti trattati durante il corso di "Metodi Avanzati di Programmazione" all'interno del progetto.
 
 #### NOTA BENE: Gli snippet di codice presenti in questa sezione sono semplificati e non rappresentano l'intero codice del progetto, ma solo una parte significativa.
+
+
 <ul>
     <li>
         <h2>1) Utilizzo dei file</h2>
@@ -242,154 +244,200 @@ Nel nostro progetto abbiamo utilizzato i Thread per gestire operazioni quali la 
 
 - **Musica di sottofondo**:
 
-La musica di sottofondo è stata implementata utilizzando un thread separato, in modo che la musica possa essere riprodotta in modo indipendente dal resto del gioco e possa essere interrotta o riprodotta nuovamente in qualsiasi momento, sia dal Menu principale che dalla schermata di gioco, con due traccie audio diverse.
+La musica di sottofondo è stata implementata utilizzando un thread separato, in modo che la musica possa essere riprodotta in modo indipendente dal resto del gioco e possa essere interrotta o riprodotta nuovamente in qualsiasi momento, sia dal Menu principale che dalla schermata di gioco, con ben 9 traccie audio diverse.
 
 La classe che gestisce la musica di sottofondo è la classe <b>Mixer</b>, che estende la classe Thread e si occupa di caricare e riprodurre la musica di sottofondo, come mostrato di seguito:
 ```java
 public class Mixer extends Thread {
-    private static Clip clip;
-    private static boolean running = false;
-    private static Mixer instance;
+    private static Clip[] clips; // array of clips
+    private static int currentClip; // current clip index 
+    private static boolean running = false; // running status
+    private static HashMap<String, Integer> roomToClipIndex; // map room to clip index
+    private static Mixer instance; // instance of Mixer
 
-    public static Mixer getInstance()  {
-        if (instance == null) {
-            instance = new Mixer();
-        }
-        return instance;
-    }
+    private Mixer() {
+        clips = new Clip[9];
+        // load clips..
 
-    @Override
-    public void run() {
-        running = true;
-        try {
-            File file = new File("docs/audio/Desert_Menu-newSMB_DS.wav");
-            AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
-            clip = AudioSystem.getClip();
-            clip.open(audioStream);
-            clip.start();
-            clip.loop(Clip.LOOP_CONTINUOUSLY);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
-    public static void startClip() {
-        running = true;
-        reverseIcones();
-        clip.start();
-    }
+        // map room to clip instantiation
+        roomToClipIndex = new HashMap<>();
 
-    public static void stopClip() {
-        running = false;
-        reverseIcones();
-        clip.stop();
-    }
-
-    public static boolean isRunning() {
-        return running;
-    }
-
-    public static void reverseIcones() {
-        if (!running) {
-            musicButtonSetTextGame("🔇");
-            musicButtonSetTextMenu("🔇");
-        } else {
-            musicButtonSetTextGame("🔊");
-            musicButtonSetTextMenu("🔊");
-        }
+        // populate map
     }
 }
+  ```
 
-```
-Questo codice Java definisce una classe chiamata Mixer che gestisce la riproduzione di un file audio in un'applicazione.
+Il costruttore della classe <b>Mixer</b> si occupa di inizializzare l'array di Clip, l'indice corrente del clip, lo stato di esecuzione e la mappatura delle stanze all'indice del clip, come mostrato di seguito:
 
-La classe Mixer è progettata come un singleton, assicurando che esista solo un'istanza della classe ed utilizza la libreria <b>javax.sound.sampled</b> per gestire l'audio.
-
-Il metodo <b>run()</b> viene sovrascritto per avviare il thread e riprodurre la musica di sottofondo in modo continuo, mentre i metodi <b>startClip()</b> e <b>stopClip()</b> vengono utilizzati per avviare e fermare la riproduzione della musica.
-
-Il metodo <b>isRunning()</b> restituisce lo stato del thread, mentre il metodo <b>reverseIcones()</b> viene utilizzato per invertire l'icona del pulsante della musica tra il simbolo del volume con la musica in riproduzione e il simbolo del volume disattivato.
-
-All'interno di <b>MenuGUI</b> e <b>GameGUI</b> è stato implementato un bottone per avviare e fermare la musica di sottofondo, che chiama i metodi <b>startClip()</b> e <b>stopClip()</b> per avviare e fermare la riproduzione della musica, in questo modo:
-```java
-private void soundActionPerformed(java.awt.event.ActionEvent evt) {
-  if (Mixer.isRunning()) {
-    Mixer.stopClip();
-  } else {
-    Mixer.startClip();
+```java  
+  private void loadClip(int index, String filePath) {
+    try {
+      File file = new File(filePath);
+      AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
+      clips[index] = AudioSystem.getClip();
+      clips[index].open(audioStream);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
+  
+  public static Mixer getInstance() {
+    if (instance == null) {
+      instance = new Mixer();
+    }
+    return instance;
+  }
+  ```
+
+Il metodo <b>loadClip</b> si occupa di caricare il file audio in un oggetto Clip, mentre il metodo <b>getInstance</b> restituisce l'istanza della classe Mixer, garantendo che esista solo un'istanza della classe.
+
+```java
+
+  @Override
+  public void run() {
+    running = true;
+    try {
+      if (clips[0] != null) {
+        clips[0].start();
+        clips[0].loop(Clip.LOOP_CONTINUOUSLY);
+        currentClip = 0;
+      }
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+    }
+  }
+
+
+  public static void startClip() {
+    if (clips[currentClip] != null) {
+      running = true;
+      reverseIcons();
+      clips[currentClip].start();
+    }
+  }
+  ```
+
+Il metodo <b>run</b> viene sovrascritto per avviare il thread e riprodurre la musica di sottofondo in modo continuo, mentre il metodo <b>startClip</b> viene utilizzato per avviare la riproduzione della musica.
+
+```java
+  public static void stopClip() {
+    if (clips[currentClip] != null) {
+      running = false;
+      reverseIcons();
+      clips[currentClip].stop();
+    }
+  }
+  
+  private static void changeClip(int i) {
+    if (running) {
+      if (clips[currentClip] != null) {
+        clips[currentClip].stop();
+      }
+      if (clips[i] != null) {
+        clips[i].start();
+        clips[i].loop(Clip.LOOP_CONTINUOUSLY);
+      }
+    }
+    currentClip = i;
+  }
+  ```
+  
+Il metodo <b>stopClip</b> viene utilizzato per fermare la riproduzione della musica, mentre il metodo <b>changeClip</b> viene utilizzato per cambiare il clip audio in base all'indice passato come parametro.
+
+```java
+  public static boolean isRunning() {
+    return running;
+  }
+  
+  public static void reverseIcons() {
+    if (!running) {
+      musicButtonSetTextGame("🔇");
+      musicButtonSetTextMenu("🔇");
+    } else {
+      musicButtonSetTextGame("🔊");
+      musicButtonSetTextMenu("🔊");
+    }
+  }
+  
+  public static void changRoomMusic(String room) {
+    changeClip(roomToClipIndex.getOrDefault(room, 3));
+  }
+
+```
+Il metodo <b>isRunning</b> restituisce lo stato di esecuzione della musica, il metodo <b>reverseIcons</b> cambia l'icona del bottone della musica in base allo stato di esecuzione della musica e il metodo <b>changeRoomMusic</b> cambia il clip audio in base alla stanza passata come parametro.
+
+
+- **La ProgressBar**:
+
+La ProgressBar non è stata implementata direttamente nel nostro codice come Thread separato, quindi estendendo direttamente la classe Thread, ma sfruttando la classe Timer di Java che è essa stessa un Thread, come mostrato di seguito:<br>
+
+```java
+public class ProgressBarGUI extends JPanel {
+
+    private JPanel runningGIFPanel; // panel for running GIF
+    private JPanel backgroundPanel; // panel for background
+    private JProgressBar progressBar; // progress bar
+    private int counter; // counter for progress bar
+    private int x; // x position for running GIF
+    private final ImageIcon img; // running GIF
+    private final PropertyChangeSupport support; // property change support
+    private JLabel progressBarLabel; // label for progress bar
+
+    // constructor
+    public ProgressBarGUI() {
+        initComponents();
+        img = new ImageIcon("src/main/resources/docs/img/runningChar.png");
+        x = -img.getIconWidth();
+        support = new PropertyChangeSupport(this);
+    }
+    // add property change listener..
+    // remove property change listener..
+    //set progress bar value..
+  
+    // start progress bar
+    public void startProgressBar() {
+        int imgWidth = 161;
+        int panelWidth = runningGIFPanel.getWidth();
+        counter = 0;
+
+        Timer timerP = new Timer();
+        TimerTask taskProgressBar = new TimerTask() {
+            @Override
+            public void run() {
+                if (counter < 100) {
+                    counter++;
+                    progressBar.setValue(counter);
+                    progressBarLabel.setText("Loading... " + counter + "%");
+                    x = (int) ((double) counter / 100 * (panelWidth + imgWidth)) - imgWidth;
+                    runningGIFPanel.repaint();
+                } else {
+                    progressBarLabel.setText("Get Ready to Play!");
+                    Timer timerPLW = new Timer();
+                    TimerTask taskProgressBarLastWord = new TimerTask() {
+                        @Override
+                        public void run() {
+                            setFinished(true);
+                            timerPLW.cancel();
+                        }
+                    };
+                    timerPLW.schedule(taskProgressBarLastWord, 1000);
+                    timerP.cancel();
+                }
+            }
+        };
+        timerP.scheduleAtFixedRate(taskProgressBar, 0, 10);
+    }
+    
+    //Sets the components..
 }
 ```
-- **Timer di gioco**:
 
-Il timer di gioco e la ProgressBar sono stati implementati utilizzando un thread separato, in modo che il gioco possa essere gestito in modo indipendente dal resto del gioco e possa essere interrotto o ripreso in qualsiasi momento.
+Questa classe si occupa di creare e gestire la ProgressBar, inizializzando i componenti grafici, aggiungendo i listener per la gestione degli eventi e avviando la ProgressBar.
 
-La classe che gestisce il timer di gioco è la classe <b>TimerManager</b>, che estende la classe Thread e si occupa di avviare e fermare il timer di gioco, come mostrato di seguito:
-```java
-public class TimerManager {
-    public static TimerManager instance;
-    public static boolean running = false;
-    static int seconds = 0;
-    static int minutes = 0;
-    static int hours = 0;
-    static Timer timer;
+Il metodo <b>startProgressBar</b> si occupa di avviare la ProgressBar, incrementando il valore della ProgressBar e aggiornando il testo della ProgressBar in base al valore corrente, fino a raggiungere il 100%, momento in cui la ProgressBar si ferma e mostra il messaggio "Get Ready to Play!".
 
-    public static synchronized TimerManager getInstance() {
-        if (instance == null && !running) {
-            instance = new TimerManager();
-            timer = new Timer();
-            timer.scheduleAtFixedRate(new TimerTask() {
-                @Override
-                public void run() {
-                    seconds++;
-                    if (seconds == 60) {
-                        seconds = 0;
-                        minutes++;
-                    }
-                    if (minutes == 60) {
-                        minutes = 0;
-                        hours++;
-                    }
-                    timerLabelSetTime(getTime());
-                }
-            }, 1000, 1000);
-        }
-        return instance;
-    }
+Il metodo <b>setFinished</b> si occupa di impostare lo stato di completamento della ProgressBar, permettendo di avviare il gioco una volta completata la ProgressBar.
 
-    public void startTimer() {
-        running = true;
-        timerLabelSetTime("00:00:00");
-    }
-
-    public static String getTime() {
-        return String.format("%02d:%02d:%02d", hours, minutes, seconds);
-    }
-
-    public void stopTimer() {
-        if (timer != null) {
-            timer.cancel();
-        }
-        running = false;
-    }
-
-    public void killTimer() {
-        if (timer != null) {
-            timer.cancel();
-        }
-        timerLabelSetTime("00:00:00");
-        seconds = 0;
-        minutes = 0;
-        hours = 0;
-        running = false;
-        instance = null;
-    }
-}
-``` 
-La classe è progettata come un singleton, assicurando che esista solo un'istanza della classe ed utilizza la classe <b>Timer</b> di Java per gestire il conteggio del tempo.
-
-Dopo l'inizializzazione delle variabili, il metodo <b>getInstance()</b> avvia il timer e incrementa i secondi, i minuti e le ore ogni secondo, aggiornando l'etichetta del timer con il tempo trascorso.
-Il metodo getInstance() garantisce che il timer venga avviato una e una sola volta e vanta un'incredibile efficienza grazie all'utilizzo del metodo <b>scheduleAtFixedRate()</b> che permette di eseguire il task a intervalli regolari.
-
-Il metodo <b>startTimer()</b> avvia il timer, il metodo <b>getTime()</b> restituisce il tempo trascorso nel formato HH:MM:SS, il metodo <b>stopTimer()</b> ferma il timer e il metodo <b>killTimer()</b> ferma il timer e azzera il tempo trascorso.
 
 - **Input da parte dell'utente**:
 
@@ -397,7 +445,7 @@ L'input da parte dell'utente è stato gestito utilizzando un thread separato, in
 
 La classe che gestisce l'input da parte dell'utente è la classe <b>InputManager</b>, che estende la classe Thread e si occupa di ricevere i comandi dall'utente e trasmetterli al Parser per l'esecuzione, come mostrato di seguito:
 ```java
-public static void startInputListener(javax.swing.JTextField userInputField) {
+public static void startInputListener(userInputField userInputFlow) {
         new Thread(() -> {
             while (true) {
                 if (!isCurrentInputEmpty()) {
@@ -412,9 +460,10 @@ public static void startInputListener(javax.swing.JTextField userInputField) {
         }).start();
     }
 
-public static void GameFlow(String text) {
-  outputDisplayManager.displayText(text);
-  switch(Event) {
+public static void gameFlow(final String text) {
+  OutputDisplayManager.displayText(text);
+
+  switch (Event) {
     case 0:
       parserFlow(text);
       break;
@@ -427,17 +476,24 @@ public static void GameFlow(String text) {
     case 3:
       mattonelleFlow();
       break;
+    case 4:
+      hangmanFlow(text);
+      break;
+    case 5:
+      nicknameFlow(text);
+      break;
+    case 6:
+      endingFlow(text);
+      break;
     default:
       parserFlow(text);
       break;
   }
 }
+
 ```
 Questo codice gestisce l'ascolto degli input dell'utente e dirige il flusso del gioco in base agli input ricevuti. La funzione startInputListener avvia un thread che monitora continuamente il campo di input dell'utente (userInputField). La funzione GameFlow processa l'input dell'utente e avvia diversi flussi di gioco a seconda del valore di Event.
 
-Il metodo <b>startInputListener()</b> avvia un nuovo thread che esegue un ciclo infinito per controllare se c'è un nuovo input da parte dell'utente.
-
-Il metodo <b>GameFlow()</b>, presente nella classe <b>userInputFlow</b> gestisce il flusso del gioco in base all'input dell'utente, visualizzando il testo in output e avviando il flusso corretto in base al valore di Event.
 
 Implementando i Thread all'interno del gioco siamo riusciti a garantire un'esperienza di gioco fluida e reattiva, permettendo all'utente di interagire con il gioco in modo intuitivo e coinvolgente, non accorgendosi della presenza di operazioni in background.
 
@@ -471,20 +527,20 @@ Generalmente quando si crea un Serversocket, si specifica solo la porta del serv
 
 Nel nostro caso, essendo il server e il client sulla stessa macchina, non è stato necessario specificare l'indirizzo IP.
 <h3><b>Come abbiamo utilizzato i Socket nel nostro progetto?</b></h3>
-Nel menu  del nostro gioco è presente un bottone "", che apre, al click, una pagina web contenente le informazioni principali del gioco e le istruzioni per giocare.
+Nel menu  del nostro gioco è presente un bottone "🌐", che apre, al click, una pagina web contenente le informazioni principali del gioco e le istruzioni per giocare.
 
 Questo bottone è stato implementato utilizzando i socket sulla porta 8080, in particolare il metodo <b>openWebpage</b> che apre una connessione con il browser predefinito del sistema e carica la pagina web desiderata.
 <h4><b>Che informazioni contiene il sito web?</b></h4>
 Ecco come appare il sito web:
-![img_Sito_Web](img/immagine_sito_web.png)
+![img_Sito_Web](img/immagine_sito_web1.png)
+![img_Sito_Web](img/immagine_sito_web2.png)
 
 Il sito web contiene le seguenti informazioni:
-- **Titolo del gioco**: il nome del gioco, ossia "Escape the Pyramid".
-- **Bottone Play** / **Bottone Pause**: permette di avviare o fermare la musica di sottofondo.
+- **Titolo del gioco**: il nome del gioco, ossia "Avventura nella Piramide".
 - **Indice linkato**: permette di accedere rapidamente alle varie sezioni del sito web.
-- **Spiegazione Progetto**: una breve descrizione del progetto e degli obiettivi.
-- **Manuale Utente**: spiega come giocare e le regole del gioco.
 - **Migliori Tempi di Gioco**: mostra i migliori tempi di gioco degli utenti.
+- **Manuale Utente**: spiega come giocare e le regole del gioco.
+- **Spiegazione Progetto**: una breve descrizione del progetto e degli obiettivi.
 - **Sviluppatori**: elenca i membri del team di sviluppo e il link al repository GitHub.
 
 Ovviamente ciascuna sezione contiene, al suo termine, un link che permette di tornare all'indice del sito web.
@@ -495,36 +551,48 @@ All'interno del nostro codice, in particolare nel package "Database", sono prese
 Andiamo ad osservare il codice nel dettaglio:
 ```java
 // Codice per l'inizializzazione del RestServer
-package org.it.uniba.minima.Database;
 
-import org.glassfish.grizzly.http.server.HttpServer;
-import org.glassfish.grizzly.http.server.StaticHttpHandler;
-import org.glassfish.grizzly.http.server.ServerConfiguration;
-
-import java.io.IOException;
-
-public class RESTServer {
-
-  public void startServer() {
-    HttpServer server = HttpServer.createSimpleServer("/", 8080);
-    ServerConfiguration config = server.getServerConfiguration();
-    String staticDir = RESTServer.class.getResource("/static").getPath();
-    StaticHttpHandler staticHttpHandler = new StaticHttpHandler(staticDir);
-    config.addHttpHandler(staticHttpHandler, "/");
-    config.addHttpHandler(new DatabaseHandler(), "/api/data");
-    try {
-      server.start();
-      System.out.println("Server started at http://localhost:8080/api/data");
-      System.out.println("Press any key to stop the server...");
-      System.in.read();
-    } catch (IOException e) {
-      e.printStackTrace();
-    } finally {
-      server.shutdownNow();
-    }
-  }
+public void startServer() throws IOException {
+  HttpServer server = HttpServer.createSimpleServer("/", 8080);
+  ServerConfiguration config = server.getServerConfiguration();
+  config.addHttpHandler(new DatabaseHandler(), "/api/data");
+  // Thread per avviare il server..
 }
 ``` 
+Nel metodo <b>startServer()</b> viene creato un oggetto di tipo <b>HttpServer</b> che si mette in ascolto sulla porta 8080. Viene inoltre aggiunto un <b>HttpHandler</b> che si occupa di gestire le richieste in arrivo sulla porta 8080.
+
+```java
+ private void handleGet(final Request request, final  Response response) throws IOException {
+  response.setContentType("text/html");
+  response.setCharacterEncoding("UTF-8");
+  PrintWriter out = new PrintWriter(response.getWriter());
+  try (Connection conn = DriverManager.getConnection("jdbc:h2:./src/main/resources/database/db_map", "sa", "");
+       Statement stmt = conn.createStatement();
+       ResultSet rs = stmt.executeQuery("SELECT * FROM CLASSIFICA ORDER BY TEMPO")) {
+    out.println("<!DOCTYPE html>\n" +
+            "<html lang=\"it\">\n" +
+            "<head>\n" +
+            "    <meta charset=\"UTF-8\">\n" +
+            "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" +
+            "...");
+            out.println("<tr><th> USERNAME </th><th> TEMPO </th><th> FINALE </th></tr>");
+    while (rs.next()) {
+      out.println("<tr><td>" + rs.getString("USERNAME") + "</td><td>" + rs.getString("TEMPO") + "</td><td>" +rs.getString("FINALE") + "</td></tr>");
+    }
+    out.println("</table><br>");
+
+  } catch (SQLException e) {
+    out.println("SQL Error: " + e.getMessage());
+    e.printStackTrace(out);
+    }
+  // Rest of the HTML...
+  
+}
+```
+Nel metodo <b>handleGet()</b> viene gestita la richiesta GET in arrivo sulla porta 8080. Viene impostato il tipo di contenuto della risposta come "text/html" e viene creato un oggetto di tipo <b>PrintWriter</b> per scrivere la risposta.
+Nel PrintWriter viene scritto il codice HTML della pagina web, e vengono recuperati i dati dal database e inseriti all'interno della tabella HTML.
+
+In conclusione, l'utilizzo dei socket ci ha permesso di creare un sito web per il nostro gioco, per permettere agli utenti di accedere alle informazioni principali del gioco e del progetto e, allo stesso tempo, di sfidare gli altri giocatori per ottenere il miglior tempo di gioco.
 </details>
 </li>
 <li>
@@ -590,6 +658,8 @@ I panel verranno aggiunti al CardLayout, che permette di passare da una schermat
 
 Il metodo <b>closeGame()</b> permette di tornare al menu principale del gioco, chiamando il metodo <b>goBack()</b> del pannello del gioco.
 
+Nel momento in cui il gioco viene avviato, viene mostrato il Menu principale, che contiene vari pulsanti per iniziare una nuova partita, caricare una partita salvata, visualizzare i crediti, aprire il sito web del gioco e attivare o disattivare la musica di sottofondo, come mostrato di seguito:
+![img_MenuGUI](img/MenuGUI.png)
 
 La classe che gestisce il Menu principale è la classe <b>MenuGUI</b>, che estende la classe JPanel e contiene tutti i componenti grafici del Menu, come mostrato di seguito:
 ```java
@@ -754,7 +824,7 @@ public class CreditsGUI extends JPanel {
 
 Nel Menu principale del gioco è presente un bottone "Help", che apre, al click, una finestra di dialogo contenente le istruzioni per giocare, come mostrato di seguito:
 
-![img_Help](img/Help.png)
+![img_HelpGUI](img/Help.png)
 
 La classe che mostra i comandi è la classe <b>HelpGUI</b>, che estende la classe JFrame e, con l'aggiunta di una JLabel permette la visualizzazione delle istruzioni del gioco.
 
@@ -968,9 +1038,7 @@ Entrambe verranno utilizzate per visualizzare la domanda e controllare la rispos
 
 - Simulazione Client-Server:
 
-Un'altra funzionalitò
-
-
+Un'altra funzionalità interessante che abbiamo implementato utilizzando la Java REST è la possibilità di inviare i dati di gioco al server, in questo caso il database, in modo da poter salvare i migliori tempi di gioco degli utenti e visualizzarli sul sito web del gioco.
 
 Per prima cosa, nel package Database abbiamo creato la classe <b>RESTServer</b>, che si occupa di avviare il server REST e di aggiungere i vari handler per gestire le richieste GET e POST, come mostrato di seguito:
 ```java
@@ -990,13 +1058,7 @@ Come è possibile notare dal codice, la classe <b>RESTServer</b> si occupa di cr
 La classe <b>DatabaseHandler</b> si occupa di gestire le richieste GET e POST all'endpoint "/api/data", come mostrato di seguito:
 ```java
 public class DatabaseHandler extends HttpHandler {
-  /**
-   * Handles the service request.
-   *
-   * @param request  the request
-   * @param response the response
-   * @throws Exception the exception
-   */
+    
   @Override
   public void service(final Request request, final Response response) throws Exception {
     if ("GET".equalsIgnoreCase(request.getMethod().toString())) {
@@ -1033,11 +1095,6 @@ Tuttavia per poter effettuare una richiesta POST è necessario utilizzare un cli
 ```java
 public class Client {
 
-  /**
-   * Send post request.
-   *
-   * @throws Exception the exception
-   */
   public void sendPostRequest(final String nickname, final String time, final String finalchoice) throws Exception {
     HttpClient client = HttpClient.newHttpClient();
     HttpRequest request = HttpRequest.newBuilder()
@@ -1045,16 +1102,17 @@ public class Client {
             .header("Content-Type", "application/x-www-form-urlencoded")
             .POST(HttpRequest.BodyPublishers.ofString("username=" + nickname + "&tempo=" + time + "&finale=" + finalchoice))
             .build();
-
-    HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
   }
 }
 ```
 
 Il metodo <b>sendPostRequest</b> si occupa di inviare una richiesta POST all'endpoint "/api/data", passando come parametri il nickname, il tempo e la scelta finale dell'utente, che verranno inseriti nel database.
 
-La classe <b>Client</b> non implementa un metodo per la richiesta GET, poichè la richiesta GET viene effettuata direttamente dal browser, che si occupa di visualizzare i risultati sul sito.
-In conclusione, l'utilizzo della Java REST ci ha permesso di rendere il gioco più coinvolgente e vario, permettendo all'utente di affrontare enigmi e prove diverse in ogni partita, rendendo l'esperienza di gioco più stimolante e interessante.
+La classe Client, tuttavia, non implementa alcun tipo di metodo per inviare la richiesta GET, questo perchè?
+
+
+E' importante comprendere la presenza di un unico vero server all'interno del nostro progetto, ossia il Rest Server, che si occupa di avviare un vero e proprio HttpServer servendosi della libreria Grizzly, e di conseguenza un proprio Handler per gestire le richieste GET e POST.
+Il database infatti, come detto all'inizio di questa sezione, non è altro che un server fittizio poichè il nostro intento, nonostante fosse quello di ricevere e scrivere dati sul database, non era certo quello di  mostrare il database sul sito web, bensì l'HTML, dunque effettuare la GET non avrebbe avuto senso.
 </details>
 </li>
         <h2>7) Utilizzo delle Espressioni Lambda λ</h2>
@@ -1320,3 +1378,5 @@ In particolare, viene creato un set di Stanze, così da evitare duplicati, poi v
 
 In conclusione, l'utilizzo delle lambda expressions ci ha permesso di scrivere codice più conciso e leggibile, semplificando la gestione dei comandi, la gestione di tutte le operazioni che richiedono l'implementazione di interfacce funzionali e la gestione dei dati all'interno del gioco.
 </ul>
+
+Ritorna al [Manuale Utente](Report.md#7---manuale-utente)
