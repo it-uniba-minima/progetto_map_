@@ -1,6 +1,8 @@
 ### In questa sezione verrà spiegato come sono stati applicati gli argomenti trattati durante il corso di "Metodi Avanzati di Programmazione" all'interno del progetto.
 
 #### NOTA BENE: Gli snippet di codice presenti in questa sezione sono semplificati e non rappresentano l'intero codice del progetto, ma solo una parte significativa.
+
+
 <ul>
     <li>
         <h2>1) Utilizzo dei file</h2>
@@ -1283,3 +1285,5 @@ In conclusione, l'utilizzo delle lambda expressions ci ha permesso di scrivere c
 </details>
     </li>
 </ul>
+
+Ritorna al [Manuale Utente](Report.md#7---manuale-utente)
