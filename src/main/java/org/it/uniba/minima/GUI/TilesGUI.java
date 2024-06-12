@@ -18,6 +18,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Dimension;
 
+/**
+ * The type Tiles gui.
+ */
 public class TilesGUI extends JPanel {
     /**
      * The buttons of the tiles.
@@ -1011,6 +1014,8 @@ public class TilesGUI extends JPanel {
 
     /**
      * Reset all mattonelle.
+     *
+     * @param startGame the start game
      */
     public void resetAllMattonelle(boolean startGame) {
         if (!startGame) {
