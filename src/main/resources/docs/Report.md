@@ -429,14 +429,14 @@ Usando il comando `Nord` si entrerà nella piramide, accedendo alla prima stanza
 ### Capitolo 2.1: Enigma delle Torce
 Entrando nella Piramide, ci troviamo nella **Stanza Iniziale**, questa è buia e si può accedere solo alle due stanze laterali, altrimenti se  è illuminata e si usa il comando `Osserva`,  si può notare una **Statua**, essa sarà usata per completare l'enigma delle torce.
 
-![StanzaIniziale](img/Stanza1.png)
+![StanzaIniziale](img/RStanza1.png)
 
 Nella stanza è presente:
 - **Statua** - Una statua che serve per andare avanti, quando l'enigma sarà risolto.
 #### Capitolo 2.1.1: Stanza dei Serpenti
 Usando il comando `Ovest` entreremo nella **Stanza dei Serpenti**.
 
-![StanzaSerpenti](img/Stanza2.png)
+![StanzaSerpenti](img/RStanza2.png)
 
 Nella stanza sono presenti:
 - **Bastone** - Un bastone di legno, utile per risolvere l'enigma della stanza attuale.
@@ -447,7 +447,7 @@ Nella stanza sono presenti:
 #### Capitolo 2.1.2: Stanza della Cascata
 Usando il comando `Est` entreremo nella **Stanza della Cascata**.
 
-![StanzaCascata](img/Stanza3.png)
+![StanzaCascata](img/RStanza3.png)
 
 Nella stanza sono presenti:
 - **Coltello** - Un coltello, utile per risolvere l'enigma della **Stanza dei Serpenti** e successivamente per la **Stanza del Tiro con l'Arco**.
@@ -480,7 +480,7 @@ Dalla **Stanza Iniziale** andando verso il `Nord`, il giocatore dovrà risolvere
 ### Capitolo 3.1: Sfida di Scrittura
 Usando il comando `Nord` entreremo nella **Stanza dello Scriba**.
 
-![StanzaScriba](img/Stanza4.png)
+![StanzaScriba](img/RStanza4.png)
 
 Nella stanza troveremo i seguenti oggetti:
 - **Piuma** - Una piuma, utile a risolvere la sfida della stanza e successivamente servirà per la **Stanza del Tiro con l'Arco**.
@@ -496,7 +496,7 @@ Nella stanza troveremo i seguenti oggetti:
 Usando il comando `Nord` entreremo nella **Stanza del Tiro con l'Arco**.
 In questa Stanza l'utente dovrà colpire l'obiettivo con l'Arco e la Freccia.
 
-![StanzaArcoFreccia](img/Stanza5.png)
+![StanzaArcoFreccia](img/RStanza5.png)
 
 Nella stanza sono presenti:
 - **ArcoRotto** - Un Arco che dovrà essere aggiustato e unito con la freccia per completare la sfida.
@@ -514,7 +514,7 @@ Usando il comando `Fondi Arco e Freccia` otteniamo l'oggetto **ArcoFreccia** che
 ### Capitolo 3.3: Sfida di Trivia
 Usando il comando `Nord` entriamo nella **Stanza dei Trivia**.
 
-![StanzaTrivia](img/Stanza6.png)
+![StanzaTrivia](img/RStanza6.png)
 
 Nella stanza è presente solo:
 - **Mummia** - Una mummia anziana con cui l'utente può parlare e iniziare la sfida.
@@ -524,7 +524,7 @@ Nella stanza è presente solo:
 ## Capitolo 4: La Stanza del Faraone
 Usando il comando `Nord` entriamo nella **Stanza del Faraone**.
 
-![StanzaFaraone](img/Stanza10.png)
+![StanzaFaraone](img/RStanza10.png)
 
 Nella stanza sono presenti:
 - **Sarcofago** - Il Sarcofago del Faraone servirà aprirlo per poter andare avanti.
@@ -535,7 +535,7 @@ Nella stanza sono presenti:
 ### Capitolo 4.1: Sfida delle Mattonelle
 Usando il comando `Est` si entrerà nella **Stanza delle Mattonelle**.
 
-![StanzaMattonelle](img/Stanza7.png)
+![StanzaMattonelle](img/RStanza7.png)
 
 Nella stanza sono presenti:
 - **Mattonelle** - Le Mattonelle della stanza serviranno per iniziare la sfida.
@@ -552,7 +552,7 @@ La soluzione alla sfida è la seguente: *Centro*, *Sinistra*, *Destra*, *Destra*
 Usando il comando `Ovest` si entrerà nella **Stanza della Torta**.
 Dato l'indizio della stanza, l'obiettivo è quello di creare una **Torta**.
 
-![StanzaTorta](img/Stanza8.png)
+![StanzaTorta](img/RStanza8.png)
 
 Nella Stanza sono presenti:
 - Gli ingredienti per creare la torta:
@@ -573,7 +573,7 @@ Nella Stanza sono presenti:
 ### Capitolo 4.3: Enigma della Luce
 Usando il comando `Nord` entreremo nella **Stanza del Buco**.
 
-![StanzaBuco](img/Stanza9.png)
+![StanzaBuco](img/RStanza9.png)
 
 Nella Stanza sono presenti:
 - Gli oggetti per risolvere l'enigma:
