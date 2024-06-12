@@ -139,8 +139,6 @@ public class Converter {
 
     /**
      * Converts the agents to json file to save the game.
-     *
-     * @throws IOException the io exception
      */
     public void ConvertAgentsToJson() {
         Gson gson = new Gson();
