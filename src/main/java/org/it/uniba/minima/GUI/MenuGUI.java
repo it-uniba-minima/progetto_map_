@@ -125,8 +125,7 @@ public class MenuGUI extends JPanel {
         site.setMaximumSize(new Dimension(60, 60));
         site.setMinimumSize(new Dimension(60, 60));
         site.setPreferredSize(new Dimension(60, 60));
-        site.addActionListener(new ActionListener() {
-        public void actionPerformed(ActionEvent evt) {
+        site.addActionListener(evt -> {
             try {
                 siteActionPerformed(evt);
             } catch (URISyntaxException e) {
@@ -134,8 +133,7 @@ public class MenuGUI extends JPanel {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-        }
-    });
+        });
 
         // Set the properties of the new game button
         newGame.setUI(new MetalButtonUI() {
