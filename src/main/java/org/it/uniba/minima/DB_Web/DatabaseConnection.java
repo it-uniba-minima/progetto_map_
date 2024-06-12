@@ -96,28 +96,6 @@ public class DatabaseConnection {
     }
 
     /**
-     * Sets to database.
-     *
-     * @param conn the conn
-     * @param nome the nome
-     * @param time the time
-     * @param end  the end
-     */
-    public static void setToDatabase(Connection conn, String nome, String time, char end) {
-        try {
-            String sql = "INSERT INTO CLASSIFICA (USERNAME, TEMPO, FINALE) VALUES (?, ?, ?)";
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, nome);
-            stmt.setTime(2, Time.valueOf(time));
-            stmt.setString(3, String.valueOf(end));
-            stmt.executeUpdate();
-            stmt.close();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    /**
      * Print from db.
      *
      * @param idComando     the id comando
@@ -144,33 +122,11 @@ public class DatabaseConnection {
         return "SELECT * FROM CLASSIFICA ORDER BY TEMPO";
     }
 
-    /**
-     * Gets classifica from database.
-     *
-     * @param conn      the conn
-     * @param sql_query the sql query
-     * @return the classifica from database
-     */
-    public static String getClassificaFromDatabase(Connection conn, String sql_query) {
-        try {
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(sql_query);
-            StringBuilder sb = new StringBuilder();
-            while (rs.next()) {
-                sb.append(rs.getString("USERNAME")).append(" ").append(rs.getTime("TEMPO")).append(" ").append(rs.getString("FINALE")).append("\n");
-            }
-            rs.close();
-            stmt.close();
-            return sb.toString();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     /**
      * Gets description from database.
      *
-     * @param conn      the conn
+     * @param conn the conn
      * @param sql_query the sql query
      * @return the description from database
      */
