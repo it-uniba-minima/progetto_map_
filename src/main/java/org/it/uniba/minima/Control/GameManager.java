@@ -15,12 +15,12 @@ public class GameManager {
     /**
      * The converter.
      */
-    private static final Converter converter = new Converter();
+    private final Converter converter = new Converter();
 
     /**
      * Instantiates a new game and creates all the agents.
      */
-    public static void createGame() {
+    public void createGame() {
         allAgents = converter.convertJsonToJavaClass();
     }
 
@@ -38,7 +38,7 @@ public class GameManager {
      *
      * @return the boolean
      */
-    public static boolean loadGame() {
+    public boolean loadGame() {
         allAgents = converter.loadGame();
 
         try {
@@ -55,7 +55,7 @@ public class GameManager {
      * @param name the name of the agent
      * @return the agent
      */
-    public static Agent getAgentFromName(String name) {
+    public Agent getAgentFromName(String name) {
         return allAgents.get(name);
     }
 
@@ -64,7 +64,7 @@ public class GameManager {
      *
      * @return the all agents set
      */
-    public static Set<Agent> getAllAgents() {
+    public Set<Agent> getAllAgents() {
         return new HashSet<>(allAgents.values());
     }
 
@@ -73,7 +73,7 @@ public class GameManager {
      *
      * @return the all items set
      */
-    public static Set<Item> getAllItems() {
+    public Set<Item> getAllItems() {
         Set<Item> allItems = allAgents.values().stream()
                 .filter(agent -> agent instanceof Item)
                 .map(agent -> (Item) agent)
@@ -86,7 +86,7 @@ public class GameManager {
      *
      * @return the all commands set
      */
-    public static Set<Command> getAllCommands() {
+    public Set<Command> getAllCommands() {
         Set<Command> availableCommands = new HashSet<>();
 
         availableCommands.add(new Command("Aiuto", List.of("h", "help", "comandi", "comando", "guida"), CommandType.AIUTO));
@@ -106,7 +106,7 @@ public class GameManager {
         return availableCommands;
     }
 
-    public static void resetAllAgents() {
+    public void resetAllAgents() {
         allAgents = null;
     }
 }

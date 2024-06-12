@@ -139,7 +139,8 @@ public class Converter {
     public void ConvertAgentsToJson() {
         Gson gson = new Gson();
         Game game = Game.getInstance();
-        Set<Item> allItems = GameManager.getAllItems();
+        GameManager gameManager = new GameManager();
+        Set<Item> allItems = gameManager.getAllItems();
 
         // Save only the items that are not in the inventory or in a room
         Set<Room> rooms = game.getCorridorsMap().stream()

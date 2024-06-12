@@ -492,6 +492,7 @@ public class GameGUI extends JPanel {
         displayTextPane.setText("");
         inventoryTextArea.setText(" Inventory:\n");
         resetAllGames();
+        Mixer.changRoomMusic("Menu");
     }
 
     /**
@@ -565,6 +566,7 @@ public class GameGUI extends JPanel {
      * @param panelName the panel name
      */
     public static void setImagePanel(String panelName) {
+        Mixer.changRoomMusic(panelName);
         Timer timerImagePanel = new Timer(600, e -> cardLayout.show(imagePanel, panelName));
         timerImagePanel.setRepeats(false);
         timerImagePanel.start();

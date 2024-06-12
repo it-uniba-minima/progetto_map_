@@ -59,42 +59,42 @@ public class CommandExecutor {
         this.gameLogic = new GameLogic(game);
         commandMap = new HashMap<>();
 
-        // The command north
+        // The command to go north
         commandMap.put(new CommandExecutorKey(CommandType.NORD, 0),
                 createDirectionCommandBehavior(CommandType.NORD));
 
-        // The command est
+        // The command to go east
         commandMap.put(new CommandExecutorKey(CommandType.EST, 0),
                 createDirectionCommandBehavior(CommandType.EST));
 
-        // The command south
+        // The command to go south
         commandMap.put(new CommandExecutorKey(CommandType.SUD, 0),
                 createDirectionCommandBehavior(CommandType.SUD));
 
-        // The command west
+        // The command to go west
         commandMap.put(new CommandExecutorKey(CommandType.OVEST, 0),
                 createDirectionCommandBehavior(CommandType.OVEST));
 
-        // The command look
+        // The command to print the description of the room
         commandMap.put(new CommandExecutorKey(CommandType.OSSERVA, 0),
                 p -> game.getCurrentRoom().printDescription());
 
-        // The command help
+        // The command to print the help
         commandMap.put(new CommandExecutorKey(CommandType.AIUTO, 0),
                 p -> {
                     OutputDisplayManager.displayText("> Comandi disponibili:");
-                    Set<Command> commands = GameManager.getAllCommands();
+                    GameManager gameManager = new GameManager();
+                    Set<Command> commands = gameManager.getAllCommands();
                     commands.forEach(c -> OutputDisplayManager.displayText(">  - " + c.getName()));
                     OutputDisplayManager.displayText("> (Hint: per ulteriori informazioni clicca sul punto interrogativo in alto)");
                 }
         );
 
-        // The command inventory
+        // The command to print the inventory
         commandMap.put(new CommandExecutorKey(CommandType.INVENTARIO, 0),
                 p -> game.printInventory());
 
-        // The commands to look at an agent
-        // The behavior might be different for every agent so there is a command for each agent
+        // The command to look at an agent
         commandMap.put(new CommandExecutorKey(CommandType.OSSERVA, 1),
                 p -> {
                     if (game.getCurrentRoom().getAgents().contains(p.getAgent1())) {
@@ -107,8 +107,7 @@ public class CommandExecutor {
                     }
                 });
 
-        // The commands to take an item
-        // The behavior might be different for every item so there is a command for each item
+        // The command to take an item
         commandMap.put(new CommandExecutorKey(CommandType.PRENDI, 1),
                 p -> {
                     if (game.getInventory().contains(p.getAgent1())) {
@@ -127,8 +126,7 @@ public class CommandExecutor {
                     }
                 });
 
-        // The commands to leave an item
-        // The behavior might be different for every item so there is a command for each item
+        // The command to drop an item
         commandMap.put(new CommandExecutorKey(CommandType.LASCIA, 1),
                 p -> {
                     if (game.getInventory().contains(p.getAgent1())) {
@@ -142,8 +140,7 @@ public class CommandExecutor {
                     }
                 });
 
-        // The commands to talk to a personage
-        // The behavior might be different for every personage so there is a command for each personage
+        // The command to talk to a personage
         commandMap.put(new CommandExecutorKey(CommandType.PARLA, 1),
                 p -> {
                     if (game.getCurrentRoom().getAgents().contains(p.getAgent1())) {
@@ -154,8 +151,7 @@ public class CommandExecutor {
                     }
                 });
 
-        // The commands to use an item alone
-        // The behavior might be different for every item so there is a command for each item
+        // The command to use an item alone
         commandMap.put(new CommandExecutorKey(CommandType.USA, 1),
                 p -> {
                     if (game.getInventory().contains(p.getAgent1()) || game.getCurrentRoom().getAgents().contains(p.getAgent1())) {
@@ -170,8 +166,7 @@ public class CommandExecutor {
                     }
                 });
 
-        // The commands to use an item alone
-        // The behavior might be different for every item so there is a command for each item
+        // The command to use an item on another item
         commandMap.put(new CommandExecutorKey(CommandType.USA, 2),
                 p -> {
                     if (game.getInventory().contains(p.getAgent1())) {
@@ -196,8 +191,7 @@ public class CommandExecutor {
                     }
                 });
 
-        // The fuse command should be different for every combination of items
-        // in case the combination isn't valid, we need call the db to print a message
+        // The command to fuse two items
         commandMap.put(new CommandExecutorKey(CommandType.UNISCI, 2),
                 p -> {
                     if (game.getInventory().contains(p.getAgent1()) && game.getInventory().contains(p.getAgent2())) {
@@ -213,8 +207,7 @@ public class CommandExecutor {
                     }
                 });
 
-        // The give command should be different for every combination of items and agents
-        // in case the combination isn't valid, we need call the db to print a message
+        // The give command to give an item to a personage
         commandMap.put(new CommandExecutorKey(CommandType.DAI, 2),
                 p -> {
                     if (game.getInventory().contains(p.getAgent1())) {
