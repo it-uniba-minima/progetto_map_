@@ -11,7 +11,7 @@
             <h3><b>Cosa sono i file?</b></h3>
 Un file non è altro che un flusso di I/O che può essere utilizzato sia come sorgente che come destinazione di dati.
 
-In Java, i file sono gestiti attraverso la classe File, fornisce metodi per creare, eliminare, leggere, scrivere e gestire tutti i flussi di I/O nel Sistema Operativo.
+In Java, i file sono gestiti attraverso la classe File,che fornisce metodi per creare, eliminare, leggere, scrivere e gestire tutti i flussi di I/O nel Sistema Operativo.
 
 - Un flusso può rappresentare molti tipi diversi: file su disco, dispositivi, altri programmi e array in memoria.
 - Gli stream supportano molti tipi diversi di dati, inclusi byte semplici, tipi di dati primitivi, caratteri e oggetti.
@@ -19,14 +19,18 @@ In Java, i file sono gestiti attraverso la classe File, fornisce metodi per crea
 - Indipendentemente dal modo in cui funzionano internamente, tutti i flussi presentano lo stesso modello: una sequenza di dati.
 
 <h3><b>Come abbiamo utilizzato i file nel nostro progetto?</b></h3>
-All'interno del nostro progetto i file sono stati utilizzati sia per l'inizializzazione del gioco, delle stanze e per il salvataggio di quest'ultime. La gestione dei file ci ha permesso di memorizzare e recuperare i dati del gioco in modo persistente, garantendo la continuità dell'esperienza di gioco per gli utenti.
-Come appreso durante il corso, inoltre, abbiamo utilizzato i file in formato JSON per memorizzare i dati in modo strutturato e leggibile, facilitando la gestione e la manipolazione dei dati all'interno del gioco.
+All'interno del nostro progetto i file sono stati utilizzati sia per l'inizializzazione del gioco, delle stanze che per il salvataggio.
+
+La gestione dei file ci ha permesso di memorizzare e recuperare i dati del gioco in modo persistente, garantendo la continuità dell'esperienza di gioco per gli utenti.
+
+Come appreso durante il corso, inoltre, abbiamo utilizzato i file in formato JSON per memorizzare i dati in modo strutturato e leggibile, facilitandone la gestione e la manipolazione.
+
 - **Inizializzazione del gioco e caricamento di quest'ultimo**:
 
-Per l'inizializzazione del gioco o il caricamento di quest'ultimo, abbiamo reso il nostro codice molto modulare, creando un'unica funzione all'interno della classe <b>Converter</b> che si occupa di effettuare la conversione dei dati da JSON a Oggetti Java sia se si tratta di una nuova partita che di un caricamento di una partita salvata.
+Per l'inizializzazione del gioco o il caricamento di quest'ultimo, abbiamo reso il nostro codice molto modulare, creando un unico metodo all'interno della classe <b>Converter</b> che si occupa di effettuare la conversione dei dati da JSON a Oggetti Java sia se si tratta di una nuova partita che di un caricamento di una partita salvata.
 
 
-Per far ciò abbiamo creato due metodi ausialiari all'interno della classe <b>Converter</b>, il cui compito era solo quello di passare il path del file JSON da leggere e restituirlo al metodo principale <b>convertJsonToJavaClass</b> che si occupa di effettuare la conversione dei dati da JSON a Java, come mostrato di seguito:
+Per far ciò abbiamo creato due metodi ausialiari all'interno della classe <b>Converter</b>, il cui compito è solo quello di passare i path del file JSON da leggere e restituirli al metodo principale <b>convertJsonToJavaClass</b> che si occupa di effettuare la conversione dei dati da JSON a Java, come mostrato di seguito:
 ```java
 
   public Map<String, Agent> convertJsonToJavaClass() {
@@ -39,10 +43,9 @@ Per far ciò abbiamo creato due metodi ausialiari all'interno della classe <b>Co
   }
   
 ```
-Come si può notare, i metodi <b>convertJsonToJavaClass</b> e <b>loadGame</b> richiamano il metodo <b>processJsonFiles</b> passando come parametri il path dei file JSON da leggere e restituire.
 
 In questo modo abbiamo evitato di creare due metodi distinti per la conversione dei dati da JSON a Java, rendendo il nostro codice più modulare e manutenibile.
-Il metodo <b>processJsonFiles</b> ha come compito quello di andare a leggere i file JSON passati come parametri e restituirli in formato Java, andando a creare un oggetto di tipo <b>Map</b> contenente tutti gli agenti presenti nel gioco e inizializzando il gioco con tutte le stanze e gli oggetti presenti.
+Il metodo <b>processJsonFiles</b> ha come compito quello di andare a leggere i file JSON passati come parametri e restituirli in formato Java, andando a creare un oggetto di tipo <b>Map</b> contenente tutti gli agenti presenti nel gioco e inizializzando il gioco.
 
 Particolarmente interessante è stata la registrazione di un TypeAdapter, mediante la libreria Gson, per la gestione degli Agenti all'interno del gioco, come mostrato di seguito:
 
@@ -62,13 +65,51 @@ public class AgentDeserializer implements JsonDeserializer<Agent> {
 ```
 
 Un <b>TypeAdapter</b> è un'interfaccia che definisce come un determinato tipo di oggetto può essere deserializzato da un oggetto Json.<br>
-In questo caso il <b>TypeAdapter</b> si occupa di distinguere tra un oggetto di tipo Item e un oggetto di tipo Personage, in base al valore dell'attributo "isPickable", restituendo l'oggetto corretto in base al tipo di agente, dal momento che Item e Personage estendono la classe Agent.
-Abbiamo scelto di adottare questa soluzione dal momento che, durante la lettura e l'instaziazione di oggetti da un file JSON, se ci sono oggetti che estendono la stessa classe, Gson non è in grado di distinguere tra i due tipi di oggetti, generando un'eccezione oppure restituendo un oggetto di una classe sbagliata.
+In questo caso il <b>TypeAdapter</b> si occupa di distinguere tra un oggetto di tipo Item e un oggetto di tipo Personage, in base alla presenza dell'attributo "isPickable", restituendo l'oggetto corretto in base al tipo di agente, dal momento che Item e Personage estendono la classe Agent.
+
+Abbiamo scelto di adottare questa soluzione visto che, durante la lettura e l'instaziazione di oggetti da un file JSON, se ci sono oggetti che estendono la stessa classe, Gson non è in grado di distinguere tra i due tipi di oggetti, generando un'eccezione oppure restituendo un oggetto di una classe sbagliata.
+
+
+- **Salvataggio del gioco**:
+
+
+Tra gli utilizzi dei file, uno dei più importanti è sicuramente quello del salvataggio del gioco, anch'esso effettuato tramite file JSON.
+
+La classe che si occupa di fare ciò è <b>Converter</b>, in particolare il suo metodo <b>ConvertGameToJson</b> e <b>ConvertAgentsToJson</b>, come mostrato di seguito:
+```java
+  public void ConvertGameToJson() {
+    Gson gson = new Gson();
+    Game game = Game.getInstance();
+    String json = gson.toJson(game);
+  }
+
+  public void ConvertAgentsToJson() {
+    Gson gson = new Gson();
+    Game game = Game.getInstance();
+    GameManager gameManager = new GameManager();
+    Set<Item> allItems = gameManager.getAllItems();
+  
+    // Save only the items that are not in the inventory or in a room
+    Set<Room> rooms = game.getCorridorsMap().stream()
+            .map(Corridor::getStartingRoom)
+            .collect(Collectors.toSet());
+  
+    Set<Item> itemsToSave = allItems.stream()
+            .filter(item -> !game.getInventory().contains(item))
+            .filter(item -> rooms.stream()
+                    .noneMatch(room -> room.getAgents().contains(item)))
+            .collect(Collectors.toSet());
+  
+    String json = gson.toJson(itemsToSave);
+}
+```
+
+Il metodo <b>ConvertGameToJson</b> si occupa di convertire l'oggetto Game in formato JSON, mentre il metodo <b>ConvertAgentsToJson</b> si occupa di convertire gli oggetti di tipo Item in formato JSON, salvando solo gli oggetti che non sono presenti nell'inventario o in una stanza.
 
 
 - **Inizializzione delle StopWords da txt**:
 
-Per l'inizializzazione delle StopWords abbiamo utilizzato il metodo <b>setUpUselessWords</b> all'interno della classe <b>Parser</b>, che si occupa di leggere il file <b>StopWords.txt</b> e di inizializzare la lista delle StopWords, come mostrato di seguito:
+Per l'inizializzazione delle StopWords abbiamo utilizzato il metodo <b>setUpUselessWords</b> all'interno della classe <b>Parser</b>, che si occupa di leggere il file <b>StopWords.txt</b> e di inizializzarne la lista, come mostrato di seguito:
 ```java
 private void setupUselessWords() throws Exception {
   Files.readAllBytes(Paths.get("src/main/resources/static/stopWords.txt"));
@@ -82,9 +123,8 @@ private void setupUselessWords() throws Exception {
 }
 ```
 
-
 L'utilizzo dei file ci ha permesso di memorizzare e recuperare i dati del gioco in modo persistente, garantendo la continuità dell'esperienza di gioco per gli utenti e facilitando la gestione e la manipolazione dei dati all'interno del gioco.<br>
-Inoltre, a nostro avviso, utilizzare al i file JSON al posto di implementare Serialazible ci ha permesso di avere un codice più pulito e leggibile, in quanto i file JSON sono più leggibili e facilmente manipolabili rispetto ai file binari.
+Inoltre, a nostro avviso, utilizzare al i file JSON al posto di implementare Serialazible ci ha permesso di avere un codice più pulito e leggibile, in quanto i file JSON sono più comodi da manipolare rispetto ai file binari.
 </details>
 </li>
 <li>
@@ -153,7 +193,7 @@ All'interno della classe <b>DatabaseConnection</b> sono stati implementati i met
 ```
 Il metodo <b>connect</b> si occupa di connettersi al database, creare le tabelle, controllare se le tabelle sono vuote e popolarle con i dati di default, se necessario, restituendo la connessione al database.
 
-Altri metodi fondamentali sono <b>close</b>, <b>printFromDB</b> , <b>getClassificafromDatabase</b> e <b>getDescriptionFromDatabase</b> che permettono di chiudere la connessione al database, inserire i dati nel database, stampare i dati dal database, ottenere la classifica dei giocatori e ottenere le descrizioni delle stanze dal database, rispettivamente.
+Altri metodi fondamentali sono <b>close</b>, <b>printFromDB</b> e <b>getDescriptionFromDatabase</b> che permettono di chiudere la connessione al database, inserire i dati nel database, stampare i dati dal database, ottenere la classifica dei giocatori e ottenere le descrizioni delle stanze dal database, rispettivamente.
 Andiamo a vederli nello specifico:
 ```java
 
@@ -180,24 +220,6 @@ Il metodo <b>close</b> si occupa di chiudere la connessione al database, se è a
   }
 ```
 Il metodo <b>printFromDB</b> si occupa di stampare la descrizione della stanza corrente, in base ai parametri passati, ottenuti dal database.
-
-```java
-public static String getClassificaFromDatabase(Connection conn, String sql_query) {
-        try {
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(sql_query);
-            StringBuilder sb = new StringBuilder();
-            while (rs.next()) { sb.append(rs.getString("USERNAME")).append(" ").append(rs.getTime("TEMPO")).append(" ").append(rs.getString("FINALE")).append("\n"); }
-            rs.close();
-            stmt.close();
-            return sb.toString();
-        }
-        catch (SQLException e) {
-        throw new RuntimeException(e);
-        }
-}
-```
-Il metodo <b>getClassificaFromDatabase</b> si occupa di ottenere la classifica dei giocatori dal database, in base alla query SQL passata come parametro.
 
 ```java
   public static String getDescriptionFromDatabase(Connection conn, String sql_query) {
@@ -240,11 +262,11 @@ Il thread può essere interrotto chiamando il metodo interrupt(), che invia un s
 Esiste anche il metodo join(), che permette di attendere che il thread termini la sua esecuzione.
 
 <h3><b>Come abbiamo utilizzato i Thread nel nostro progetto?</b></h3>
-Nel nostro progetto abbiamo utilizzato i Thread per gestire operazioni quali la riproduzione della musica di sottofondo,la gestione dell'input da parte dell'utente e il timer di gioco.
+Nel nostro progetto abbiamo utilizzato i Thread per gestire operazioni quali la riproduzione della musica di sottofondo, la gestione dell'input da parte dell'utente e il timer di gioco.
 
 - **Musica di sottofondo**:
-
-La musica di sottofondo è stata implementata utilizzando un thread separato, in modo che la musica possa essere riprodotta in modo indipendente dal resto del gioco e possa essere interrotta o riprodotta nuovamente in qualsiasi momento, sia dal Menu principale che dalla schermata di gioco, con ben 9 traccie audio diverse.
+<br>
+La musica di sottofondo è stata implementata utilizzando un thread separato, in modo che  possa essere riprodotta indipendentemente dal resto del gioco e possa essere interrotta o riprodotta nuovamente in qualsiasi momento, sia dal menù principale che dalla schermata di gioco, con ben 9 traccie audio diverse.
 
 La classe che gestisce la musica di sottofondo è la classe <b>Mixer</b>, che estende la classe Thread e si occupa di caricare e riprodurre la musica di sottofondo, come mostrato di seguito:
 ```java
@@ -267,7 +289,7 @@ public class Mixer extends Thread {
 }
   ```
 
-Il costruttore della classe <b>Mixer</b> si occupa di inizializzare l'array di Clip, l'indice corrente del clip, lo stato di esecuzione e la mappatura delle stanze all'indice del clip, come mostrato di seguito:
+Il costruttore della classe <b>Mixer</b> si occupa di inizializzare l'array di Clip, l'indice corrente del clip, lo stato di esecuzione e la mappatura delle stanze all'indice della clip corrispondente.
 
 ```java  
   private void loadClip(int index, String filePath) {
@@ -364,11 +386,11 @@ Il metodo <b>stopClip</b> viene utilizzato per fermare la riproduzione della mus
   }
 
 ```
-Il metodo <b>isRunning</b> restituisce lo stato di esecuzione della musica, il metodo <b>reverseIcons</b> cambia l'icona del bottone della musica in base allo stato di esecuzione della musica e il metodo <b>changeRoomMusic</b> cambia il clip audio in base alla stanza passata come parametro.
+Il metodo <b>isRunning</b> restituisce lo stato di esecuzione della musica, il metodo <b>reverseIcons</b> cambia l'icona del bottone della musica in base allo stato di esecuzione e il metodo <b>changeRoomMusic</b> cambia il clip audio in base alla stanza passata come parametro.
 
 
 - **La ProgressBar**:
-
+<br>
 La ProgressBar non è stata implementata direttamente nel nostro codice come Thread separato, quindi estendendo direttamente la classe Thread, ma sfruttando la classe Timer di Java che è essa stessa un Thread, come mostrato di seguito:<br>
 
 ```java
@@ -434,65 +456,42 @@ public class ProgressBarGUI extends JPanel {
 
 Questa classe si occupa di creare e gestire la ProgressBar, inizializzando i componenti grafici, aggiungendo i listener per la gestione degli eventi e avviando la ProgressBar.
 
-Il metodo <b>startProgressBar</b> si occupa di avviare la ProgressBar, incrementando il valore della ProgressBar e aggiornando il testo della ProgressBar in base al valore corrente, fino a raggiungere il 100%, momento in cui la ProgressBar si ferma e mostra il messaggio "Get Ready to Play!".
+Il metodo <b>startProgressBar</b> si occupa di avviare la ProgressBar, incrementandone il valore e aggiornandone il testo fino a raggiungere il 100%, momento in cui la ProgressBar si ferma e mostra il messaggio "Get Ready to Play!".
 
-Il metodo <b>setFinished</b> si occupa di impostare lo stato di completamento della ProgressBar, permettendo di avviare il gioco una volta completata la ProgressBar.
+Il metodo <b>setFinished</b> si occupa di impostare lo stato di completamento della ProgressBar, permettendo di avviare il gioco una volta completata.
 
 
 - **Input da parte dell'utente**:
 
-L'input da parte dell'utente è stato gestito utilizzando un thread separato, in modo che l'utente possa inserire i comandi in modo indipendente dal resto del gioco e possa interagire con il gioco in modo fluido e intuitivo.
+L'input da parte dell'utente è stato gestito utilizzando un thread separato, che è sempre in ascolto sul campo di testo in modo che i comandi inseriti dall'utente possano essere presi in modo indipendente e immediato.
 
-La classe che gestisce l'input da parte dell'utente è la classe <b>InputManager</b>, che estende la classe Thread e si occupa di ricevere i comandi dall'utente e trasmetterli al Parser per l'esecuzione, come mostrato di seguito:
+La classe che gestisce l'input da parte dell'utente è la classe <b>UserInputManager</b> che si occupa di ricevere i comandi dall'utente e trasmetterli alla classe <b>UserInputFlow</b> per il corretto instradamento, come mostrato di seguito:
 ```java
-public static void startInputListener(userInputField userInputFlow) {
-        new Thread(() -> {
-            while (true) {
-                if (!isCurrentInputEmpty()) {
-                    userInputFlow.GameFlow(getCurrentInput());
-                }
-                try {
-                    Thread.sleep(100); 
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
+public static void startInputListener() {
+  new Thread(() -> {
+    while (true) {
+      if (!isCurrentInputEmpty()) {
+        UserInputFlow.gameFlow(getCurrentInput());
+      }
+      try {
+        Thread.sleep(100);
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
     }
-
-public static void gameFlow(final String text) {
-  OutputDisplayManager.displayText(text);
-
-  switch (Event) {
-    case 0:
-      parserFlow(text);
-      break;
-    case 1:
-      wordleFlow(text);
-      break;
-    case 2:
-      triviaFlow(text);
-      break;
-    case 3:
-      mattonelleFlow();
-      break;
-    case 4:
-      hangmanFlow(text);
-      break;
-    case 5:
-      nicknameFlow(text);
-      break;
-    case 6:
-      endingFlow(text);
-      break;
-    default:
-      parserFlow(text);
-      break;
-  }
+  }).start();
 }
 
 ```
-Questo codice gestisce l'ascolto degli input dell'utente e dirige il flusso del gioco in base agli input ricevuti. La funzione startInputListener avvia un thread che monitora continuamente il campo di input dell'utente (userInputField). La funzione GameFlow processa l'input dell'utente e avvia diversi flussi di gioco a seconda del valore di Event.
+Questo codice gestisce l'ascolto degli input dell'utente. La funzione <b>startInputListener</b> avvia un thread che monitora continuamente il campo di input dell'utente. 
+
+<b>Altri Thread sono stati istanziati ed utilizzati per piccoli task da eseguire contemporaneamente ad altre operazioni, come ad esempio:</b>
+
+- **Setup degli elementi del gioco per una nuova partita**.
+- **Setup degli elementi del gioco per una partita caricata da un file di salvataggio**.
+- **Run del RestServer in background**.
+- **Gestione del timer di gioco, attraverso la classe Timer**.
+- **Timer per il cambiamento dei panel all'interno del gioco**.
 
 
 Implementando i Thread all'interno del gioco siamo riusciti a garantire un'esperienza di gioco fluida e reattiva, permettendo all'utente di interagire con il gioco in modo intuitivo e coinvolgente, non accorgendosi della presenza di operazioni in background.
@@ -516,7 +515,7 @@ Ci sono due classi socket basate su stream:
 
 - ServerSocket che il server usa per ascoltare una
   richiesta di connessione
-- Socket usata dal client per inizializzare la connessione
+- Socket usata dal client per inizializzare la connessione<br>
 
 Una volta che un client richiede una connessione
 socket, il ServerSocket restituisce  un Socket corrispondente
@@ -532,8 +531,9 @@ Nel menu  del nostro gioco è presente un bottone "🌐", che apre, al click, un
 Questo bottone è stato implementato utilizzando i socket sulla porta 8080, in particolare il metodo <b>openWebpage</b> che apre una connessione con il browser predefinito del sistema e carica la pagina web desiderata.
 <h4><b>Che informazioni contiene il sito web?</b></h4>
 Ecco come appare il sito web:
-![img_Sito_Web](img/immagine_sito_web1.png)
-![img_Sito_Web](img/immagine_sito_web2.png)
+
+![img_Sito_Web1](img/immagine_sito_web1.png)
+![img_Sito_Web2](img/immagine_sito_web2.png)
 
 Il sito web contiene le seguenti informazioni:
 - **Titolo del gioco**: il nome del gioco, ossia "Avventura nella Piramide".
@@ -541,7 +541,7 @@ Il sito web contiene le seguenti informazioni:
 - **Migliori Tempi di Gioco**: mostra i migliori tempi di gioco degli utenti.
 - **Manuale Utente**: spiega come giocare e le regole del gioco.
 - **Spiegazione Progetto**: una breve descrizione del progetto e degli obiettivi.
-- **Sviluppatori**: elenca i membri del team di sviluppo e il link al repository GitHub.
+- **Sviluppatori**: elenca i membri del team di sviluppo e il link al repository GitHub.<br>
 
 Ovviamente ciascuna sezione contiene, al suo termine, un link che permette di tornare all'indice del sito web.
 
@@ -559,7 +559,7 @@ public void startServer() throws IOException {
   // Thread per avviare il server..
 }
 ``` 
-Nel metodo <b>startServer()</b> viene creato un oggetto di tipo <b>HttpServer</b> che si mette in ascolto sulla porta 8080. Viene inoltre aggiunto un <b>HttpHandler</b> che si occupa di gestire le richieste in arrivo sulla porta 8080.
+Nel metodo <b>startServer()</b> viene creato un oggetto di tipo <b>HttpServer</b> che si mette in ascolto sulla porta 8080. Viene inoltre aggiunto un <b>HttpHandler</b> che si occupa di gestire le richieste in arrivo sulla stessa porta.
 
 ```java
  private void handleGet(final Request request, final  Response response) throws IOException {
@@ -592,7 +592,10 @@ Nel metodo <b>startServer()</b> viene creato un oggetto di tipo <b>HttpServer</b
 Nel metodo <b>handleGet()</b> viene gestita la richiesta GET in arrivo sulla porta 8080. Viene impostato il tipo di contenuto della risposta come "text/html" e viene creato un oggetto di tipo <b>PrintWriter</b> per scrivere la risposta.
 Nel PrintWriter viene scritto il codice HTML della pagina web, e vengono recuperati i dati dal database e inseriti all'interno della tabella HTML.
 
-In conclusione, l'utilizzo dei socket ci ha permesso di creare un sito web per il nostro gioco, per permettere agli utenti di accedere alle informazioni principali del gioco e del progetto e, allo stesso tempo, di sfidare gli altri giocatori per ottenere il miglior tempo di gioco.
+Viene inoltre creato un clientSocket nella classe <b>Client</b> che si occuperà successivamente di effettuare una chiamata POST al nostro server per inserire nel database i dati relativi al tempo di gioco di una partita conclusa.
+
+
+In conclusione, l'utilizzo dei socket ci ha permesso di creare un sito web per il nostro gioco, per permettere agli utenti di accedere alle informazioni principali del progetto e, allo stesso tempo, di sfidare gli altri giocatori per ottenere il miglior tempo di gioco.
 </details>
 </li>
 <li>
@@ -891,8 +894,9 @@ I verbi HTTP principali sono:
 
 Nel nostro progetto abbiamo utilizzato le <b>Java REST</b> per rendere gli enigmi nelle stanze dinamici, in modo che l'utente possa avere un'esperienza di gioco più coinvolgente e varia, e andando a simulare in locale quello che è lo scambio e la ricezione dati di tipo client-server.
 
-- Enigma della Sfinge per l'entrata nella Piramide:
+- **Enigma della Sfinge per l'entrata nella Piramide**:
   nella stanza iniziale del gioco, ossia il Deserto, la Sfinge pone un enigma all'utente, ossia indovinare una parola segreta di 5 lettere per poter entrare nella Piramide. Questo enigma è stato implementato utilizzando la Java REST, in modo che l'utente possa ricevere una parola diversa ogni partita, rendendo il gioco più interessante e stimolante.
+
 
 L'API da noi utilizzata per generare le parole casuali è <a href="https://random-word-api.herokuapp.com/home">Random Word API</a>.
 
@@ -946,8 +950,9 @@ public WordleGame() {
 ```
 
 
-- Enigma per poter entrare nella stanza del sarcofago:
+- **Enigma per poter entrare nella stanza del sarcofago**:
   All'interno della stanza numero 6 della nostra mappa abbiamo deciso di rendere difficile l'ingresso alla stanza del sarcofago mettendo alla prova l'utente con una serie di domande di varie categorie, dalla cultura generale a domande sui Computer o videogiochi. Per poter superare questa prova l'utente dovrà rispondere correttamente a 3 domande consecutive e, in caso di risposta errata, dovrà ricominciare da capo.
+
 
 Per implementare questa funzionalità abbiamo utilizzato la Java REST, in particolare andando a cercare un database che permettesse di ottenere domande di varie categorie e difficoltà.
 
@@ -960,7 +965,7 @@ A questo punto, cliccando il pulsante API, possiamo andare ad analizzare l'inter
 
 ![img_Open_Trivia_Database](img/immagine_trivia2.png)
 I parametri possibili per la richiesta sono i seguenti:
-- <b>amount</b>: il numero di domande da ottenere, nel nostro caso 3.
+- <b>amount</b>: il numero di domande da ottenere, nel nostro caso 1.
 - <b>category</b>: l'ID della categoria delle domande, nel nostro  caso la scelta è stata lasciata a "Any Category", indicando che le domande possono essere di qualsiasi categoria.
 - <b>difficulty</b>: la difficoltà delle domande, nel nostro caso la scelta è stata "Easy", indicando che le domande saranno di facile difficoltà, vista già la complessità della prova.
 - <b>type</b>: il tipo di domande (multiple o boolean), nel nostro caso la scelta è stata "boolean", indicando che la risposta sarà vera o falsa.
@@ -970,7 +975,7 @@ A questo punto, cliccando il pulsante "Generate API URL", possiamo ottenere il l
 
 
 ```http request
-https://opentdb.com/api.php?amount=3&difficulty=easy&type=boolean
+https://opentdb.com/api.php?amount=1&difficulty=easy&type=boolean
 ```
 
 
@@ -997,7 +1002,7 @@ Per quanto riguarda la risposta, la struttura del JSON restituito è la seguente
 Dopo aver compreso il funzionamento dell'API, abbiamo implementato la richiesta all'interno del nostro codice Java, attraverso una semplice <b>GET</b>, come mostrato di seguito:
 ```java
   public static void getQAndA() {
-  String urlToRead = "https://opentdb.com/api.php?amount=3&difficulty=easy&type=boolean";
+  String urlToRead = "https://opentdb.com/api.php?amount=1&difficulty=easy&type=boolean";
   int maxAttempts = 3;
 
   // Try to get the question and answer from the API
@@ -1030,15 +1035,16 @@ Dopo aver compreso il funzionamento dell'API, abbiamo implementato la richiesta 
     }
 }
 ```
-Come è possibile notare dal codice, la richiesta viene effettuata attraverso un ciclo <b>for</b>, dovuto principalmente al fatto che in fase di testing l'API non rispondeva sempre correttamente, dunque abbiamo deciso di effettuare più tentativi per ottenere la singola domanda e salvarla nella variabile <b>question</b>.
-<br> Per quanto riguarda la risposta, essa viene parsata e salvata nella variabile <b>correctAnswer</b>. 
+Come è possibile notare dal codice, la richiesta viene effettuata attraverso un ciclo <b>for</b>, dovuto principalmente al fatto che in fase di testing l'API non rispondeva sempre correttamente, dunque abbiamo deciso di effettuare più tentativi per ottenere la singola domanda e salvarla nella variabile <b>question</b>.<br>
+
+Per quanto riguarda la risposta, essa viene parsata e salvata nella variabile <b>correctAnswer</b>. 
 
 Entrambe verranno utilizzate per visualizzare la domanda e controllare la risposta data dall'utente.
 
 
-- Simulazione Client-Server:
-
-Un'altra funzionalità interessante che abbiamo implementato utilizzando la Java REST è la possibilità di inviare i dati di gioco al server, in questo caso il database, in modo da poter salvare i migliori tempi di gioco degli utenti e visualizzarli sul sito web del gioco.
+- **Simulazione Client-Server**:
+<br>
+Un'altra funzionalità interessante che abbiamo implementato utilizzando la Java REST è la possibilità di inviare i dati di gioco al server, in questo caso il database, in modo da poter salvare i migliori tempi di gioco degli utenti e visualizzarli sul sito web.
 
 Per prima cosa, nel package Database abbiamo creato la classe <b>RESTServer</b>, che si occupa di avviare il server REST e di aggiungere i vari handler per gestire le richieste GET e POST, come mostrato di seguito:
 ```java
@@ -1053,7 +1059,6 @@ public class RestServer {
     }
 }
 ```
-Come è possibile notare dal codice, la classe <b>RESTServer</b> si occupa di creare un server REST sulla porta 8080 e di aggiungere un handler per gestire le richieste GET e POST all'endpoint "/api/data", che verranno gestite dalla classe <b>DatabaseHandler</b>.
 
 La classe <b>DatabaseHandler</b> si occupa di gestire le richieste GET e POST all'endpoint "/api/data", come mostrato di seguito:
 ```java
@@ -1115,7 +1120,7 @@ E' importante comprendere la presenza di un unico vero server all'interno del no
 Il database infatti, come detto all'inizio di questa sezione, non è altro che un server fittizio poichè il nostro intento, nonostante fosse quello di ricevere e scrivere dati sul database, non era certo quello di  mostrare il database sul sito web, bensì l'HTML, dunque effettuare la GET non avrebbe avuto senso.
 </details>
 </li>
-        <h2>7) Utilizzo delle Espressioni Lambda λ</h2>
+        <h2>7) Utilizzo delle Espressioni Lambda </h2>
         <details open>
             <summary>Visualizza dettagli</summary>
             <h3><b>Cosa sono le Lambda expressions?</b></h3>
@@ -1190,38 +1195,41 @@ A seconda dei diversi casi poi, viene stampato un determinato messaggio sul disp
 
 
 A seguito l'elenco di tutti gli altri comandi, anch'essi implementati attraverso le lambda:
-<ul>
-  <li>
-    <p><strong>Comando AIUTO:</strong> stampa l'elenco dei comandi disponibili.</p>
-  </li>
-  <li>
-    <p> <strong>Comando OSSERVA:</strong> che ha due implementazioni, quella con 0 argomenti, che stampa la descrizione della stanza corrente e quella con 1 argomento che stampa la descrizione dell'agente specificato.</p>
-  </li>
-  <li>
-    <p><strong>Comando INVENTARIO:</strong> stampa l'inventario.</p>
-  </li>
-  <li>
-    <p><strong>Comando PRENDI:</strong> permette di raccogliere un oggetto e metterlo nell'inventario.</p>
-  </li>
-  <li>
-      <p><strong>Comando LASCIA:</strong> permette di lasciare per terra un oggetto nell'inventario.</p>
-  </li>
-  <li>
-    <p><strong>Comando USA:</strong> che oltre all'implementazione vista, ne ha anche una con un solo argomento.</p>
-  </li>
-  <li>
-    <p><strong>Comando UNISCI:</strong> che permette di unire 2 oggetti per crearne uno nuovo.</p>
-  </li>
-  <li>
-    <p><strong>Comando PARLA:</strong> che permette di parlare con un personaggio.</p>
-  </li>
-  <li>
-    <p><strong>Comando DAI:</strong> che permette di dare un oggetto ad un personaggio.</p>
-  </li>
-  <li>
-    <p><strong>Comando NORD|EST|SUD|OVEST:</strong> che permettono il movimento del giocatore da una stanza all'altra. In particolare per questi quattro comandi, la lambda expression è stata ulteriormente generalizzata in questa maniera:</p>
-  </li>
-</ul>
+### Comandi Disponibili:
+
+1. **Comando AIUTO**:
+  - **Descrizione**: Stampa l'elenco dei comandi disponibili.
+
+2. **Comando OSSERVA**:
+  - **0 argomenti**: Stampa la descrizione della stanza corrente.
+  - **1 argomento**: Stampa la descrizione dell'agente specificato.
+
+3. **Comando INVENTARIO**:
+  - **Descrizione**: Stampa l'inventario.
+
+4. **Comando PRENDI**:
+  - **Descrizione**: Permette di raccogliere un oggetto e metterlo nell'inventario.
+
+5. **Comando LASCIA**:
+  - **Descrizione**: Permette di lasciare per terra un oggetto nell'inventario.
+
+6. **Comando USA**:
+  - **Descrizione**: Ha due implementazioni, una con nessun argomento e una con un solo argomento.
+
+7. **Comando UNISCI**:
+  - **Descrizione**: Permette di unire due oggetti per crearne uno nuovo.
+
+8. **Comando PARLA**:
+  - **Descrizione**: Permette di parlare con un personaggio.
+
+9. **Comando DAI**:
+  - **Descrizione**: Permette di dare un oggetto a un personaggio.
+
+10. **Comando NORD|EST|SUD|OVEST**:
+  - **Descrizione**: Permettono il movimento del giocatore da una stanza all'altra. In particolare, per questi quattro comandi, la lambda expression è stata ulteriormente generalizzata.
+
+
+
 
 ```java
 private CommandBehavior createDirectionCommandBehavior(CommandType direction) {
@@ -1377,6 +1385,7 @@ In particolare, viene creato un set di Stanze, così da evitare duplicati, poi v
 
 
 In conclusione, l'utilizzo delle lambda expressions ci ha permesso di scrivere codice più conciso e leggibile, semplificando la gestione dei comandi, la gestione di tutte le operazioni che richiedono l'implementazione di interfacce funzionali e la gestione dei dati all'interno del gioco.
+</details>
 </ul>
 
-Ritorna al [Manuale Utente](Report.md#7---manuale-utente)
+Ritorna al [Report](Report.md)
