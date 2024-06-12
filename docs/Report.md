@@ -607,4 +607,5 @@ Il progetto è stato molto impegnativo, ma allo stesso tempo molto divertente, c
 Siamo molto orgogliosi del risultato finale e speriamo che il nostro gioco possa essere apprezzato da tutti coloro che lo proveranno.
 
 Un ringraziamento speciale al Prof. Pierpaolo Basile per averci dato l'opportunità di realizzare questo progetto e per averci supportato durante tutto il corso.
+
 #### [Ritorna all'Indice](#indice)
