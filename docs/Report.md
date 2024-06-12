@@ -1,4 +1,4 @@
-# //INSERIRE TITOLO
+# Avventura nella Piramide
 
 # Report
 ## Indice
@@ -35,11 +35,11 @@ Il team di sviluppatori è composto da:
 ## Descrizione Progetto
 <hr>
 
-### Nome Progetto: //INSERIRE TITOLO
+### Nome Progetto: Avventura nella Piramide
 #### Introduzione generale
 <hr>
 
-Questo progetto, intitolato **//INSERIRE TITOLO**, è stato sviluppato come esame finale del corso di **Metodi Avanzati di Programmazione**, tenuto dal Prof. [Pierpaolo Basile](https://github.com/pippokill) presso l'Università degli Studi di Bari "Aldo Moro".
+Questo progetto, intitolato **Avventura nella Piramide**, è stato sviluppato come esame finale del corso di **Metodi Avanzati di Programmazione**, tenuto dal Prof. [Pierpaolo Basile](https://github.com/pippokill) presso l'Università degli Studi di Bari "Aldo Moro".
 
 
 L'obiettivo del corso è stato quello di introdurre, conoscere e approfondire un ulteriore paradigma di programmazione, ossia la **Programmazione ad Oggetti** e di andare ad utilizzare i concetti appresi per la realizzazione di un progetto software.
@@ -393,7 +393,7 @@ Si noti come <code>Item</code> è un tipo generico, che può essere sostituito c
 
 ## 6 - Applicazione Argomenti del Corso
 
-- In questa sezione verrà spiegato come il progetto "Avventura nella Piramide" si collega agli argomenti trattati durante il corso di "Metodi Avanzati di Programmazione".
+- In questa sezione verrà spiegato come il progetto **Avventura nella Piramide** si collega agli argomenti trattati durante il corso di "Metodi Avanzati di Programmazione".
 
 
 [Applicazione Argomenti del Corso](Applicazione%20Argomenti%20del%20corso.md)
@@ -401,7 +401,7 @@ Si noti come <code>Item</code> è un tipo generico, che può essere sostituito c
 
 #### [Ritorna all'Indice](#indice)
 ## 7 - Manuale Utente
-In questa sezione verrà spiegato come utilizzare l'avventura testuale "Avventura nella Piramide"
+In questa sezione verrà spiegato come utilizzare l'avventura testuale **Avventura nella Piramide**
 
 L'installazione del progetto può essere effettuata tramite la lettura della
 [Guida all'installazione](README.md)
