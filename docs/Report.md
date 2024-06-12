@@ -2,23 +2,17 @@
 
 # Report
 ## Indice
-- ### [**1 - Introduzione**](#1---introduzione)
-    -  [**1.1 - Sviluppatori**](#partecipanti-al-progetto)
-    -  [**1.2 - Descrizione Progetto**](#descrizione-progetto)
-- ### [**2 - Modello di Dominio**](#2---modello-di-dominio)
-- ### [**3 - Progettazione**](#3---progettazione)
-    - [**3.1 - Diagramma delle Classi**](#diagramma-delle-classi)
-- ### [**4 - Specifiche Algebriche**](#4---specifiche-algebriche)
-    - [**4.1 - Specifica algebrica della Lista**](#4.1---specifica-algebrica-della-lista)
-    - [**4.2 - Specifica algebrica della Mappa**](#4.2---specifica-algebrica-della-mappa)
-- ### [**5 - Applicazione Argomenti del Corso**](#6---applicazione-argomenti-del-corso)
-- ### [**7 - Manuale Utente**](#7---manuale-utente)
-    - [**7.1 - Walkthrough**](#walkthrough)
-- ### [**8 - Conclusioni e Opinioni Finali**](#8---conclusioni-e-opinioni-finali)
-
-## 1 - Introduzione
+- ### [Introduzione](#1---introduzione)
+- ### [Modello di Dominio](#2---modello-di-dominio)
+- ### [Progettazione](#3---progettazione)
+- ### [Specifiche Algebriche](#4---specifiche-algebriche)
+- ### [Applicazione Argomenti del Corso](#6---applicazione-argomenti-del-corso)
+- ### [Manuale Utente](#7---manuale-utente)
+- ### [Walkthrough](#walkthrough)
+- ### [Conclusioni e Opinioni Finali](#8---conclusioni-e-opinioni-finali)
 <hr>
 
+## 1 - Introduzione
 ## Partecipanti al progetto
 <hr>
 
