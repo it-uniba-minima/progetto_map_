@@ -158,13 +158,15 @@ public class Mixer extends Thread {
      * @param i the index of the music
      */
     private static void changeClip(int i) {
-        if (clips[currentClip] != null) {
-            clips[currentClip].stop();
-        }
-        if (clips[i] != null) {
-            clips[i].start();
-            clips[i].loop(Clip.LOOP_CONTINUOUSLY);
-            currentClip = i;
+        if (running) {
+            if (clips[currentClip] != null) {
+                clips[currentClip].stop();
+            }
+            if (clips[i] != null) {
+                clips[i].start();
+                clips[i].loop(Clip.LOOP_CONTINUOUSLY);
+                currentClip = i;
+            }
         }
     }
 
