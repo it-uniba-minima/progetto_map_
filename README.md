@@ -13,7 +13,7 @@ Per controllare la versione di Java installata sul proprio computer è possibile
 Nel caso in cui non fosse installato è possibile scaricarlo dal sito ufficiale di [Oracle](https://www.oracle.com/it/java/technologies/downloads/).<br>
 Appena aperto il link, vi si presenterà la seguente schermata:
 
-![Java](src/main/resources/docs/img/JAVA22DOWNLOAD.png)
+![Java](resources/img/JAVA22DOWNLOAD.png)
 
 A questo punto sarete già sulla sezione della JDK 22, quindi non dovrete fare altro che cliccare sulla sezione del sistema operativo che state utilizzando e scaricare il file eseguibile.
 
@@ -37,17 +37,17 @@ Come già detto, il primo passo è scaricare il file `Progetto_MAP_JAR.jar` nel 
 Dal momento che il progetto utilizza il framework Maven, la gestione del JAR è stata gestita automaticamente usando il `pom.xml` con i suoi plugin e l'utilizzo delle `GitHub Actions`.<br>
 Quindi per scaricare il JAR è sufficiente andare nella sezione `Actions` del repository GitHub del progetto e scaricare l'ultima build eseguita, in questo modo:
 - Andare nella sezione `Actions` del repository GitHub del progetto.
-![Actions](src/main/resources/docs/img/MENUPRINCIPALE.png)
+![Actions](resources/img/MENUPRINCIPALE.png)
 
 - Nella sezione `All Workflows` cliccare sulla  `Build` più recente, in questo caso `Creazione JAR`.
-![Build](src/main/resources/docs/img/Workflows.png)
+![Build](resources/img/Workflows.png)
 
 - A questo punto il gioco è fatto, basta vedere la sezione `Artifacts` e cliccare sul file `Progetto_MAP_JAR.jar` per scaricarlo.
-![Artifacts](src/main/resources/docs/img/Scarica_JAR.png)
+![Artifacts](resources/img/Scarica_JAR.png)
 
 - Nella sezione `Downloads` vi sarà apparso il download del file JAR in un file zip, che dovrete semplicemente spostare sul vostro desktop e spostare il file JAR all'interno della `cartella del progetto`, in questo modo:
 
-![Downloads](src/main/resources/docs/img/Downloads.png)
+![Downloads](resources/img/Downloads.png)
 
 ### Esecuzione del JAR tramite terminale
 
@@ -65,7 +65,7 @@ Per eseguire il JAR tramite IDE è necessario aprire il progetto in un IDE, come
 
 Una volta aperto l'IDE, è possibile eseguire il JAR cliccando sul file JAR e selezionando l'opzione `Run` o `Esegui`, oppure è banalmente possibile runnare l'entrypoint del progetto, ossia la classe `Main.java`, nella cartella `src/main/java/org/it/uniba/minima`.
 
-Cosa aspetti? Scarica il nostro progetto e divertiti a giocare! Ricorda che in caso di difficoltà abbiamo avuto anche la premura di realizzare un WalkTrough del gioco che puoi trovare direttamente all'interno del [Report](src/main/resources/docs/Report.md) del progetto.
+Cosa aspetti? Scarica il nostro progetto e divertiti a giocare! Ricorda che in caso di difficoltà abbiamo avuto anche la premura di realizzare un WalkTrough del gioco che puoi trovare direttamente all'interno del [Report](docs/Report.md) del progetto.
 
 
 

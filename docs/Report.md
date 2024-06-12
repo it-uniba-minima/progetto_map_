@@ -89,7 +89,7 @@ Il progetto è stato realizzato utilizzando il linguaggio di programmazione **Ja
 Il seguente diagramma rappresenta il modello di dominio della nostra avventura testuale, realizzata utilizzando il web software [Lucidchart](https://www.lucidchart.com/)
 
 
-  ![img_Modello_di_dominio](img/Modello_di_dominio.png)
+  ![img_Modello_di_dominio](../resources/img/Modello_di_dominio.png)
 
 Questo modello ha sancito la base per il nostro progetto. 
 
@@ -105,8 +105,8 @@ A partire da quest'ultimo infatti, abbiamo potuto definire le classi e le relazi
 ## Diagramma delle classi
 Il seguente diagramma rappresenta le classi del nostro progetto, realizzato utilizzando il software [StarUML](https://www.lucidchart.com/)
 
-![img_Diagramma_delle_classi](img/ClassiTop.png)
-![img_Diagramma_delle_classi](img/ClassiBot.png)
+![img_Diagramma_delle_classi](../resources/img/ClassiTop.png)
+![img_Diagramma_delle_classi](../resources/img/ClassiBot.png)
 
 Il diagramma rappresenta il funzionamento del nostro progetto, le classi rappresentano le seguenti informazioni:
 - **UserInputManager**: Questa classe è sempre in ascolto tramite un Thread, per ricevere gli input inseriti dall'utente.
@@ -393,23 +393,23 @@ Si noti come <code>Item</code> è un tipo generico, che può essere sostituito c
 - In questa sezione verrà spiegato come il progetto **Avventura nella Piramide** si collega agli argomenti trattati durante il corso di "Metodi Avanzati di Programmazione".
 
 
-[Applicazione Argomenti del Corso](Applicazione Argomenti del corso.md)
+[Applicazione Argomenti del Corso](Applicazione%20Argomenti%20del%20corso.md)
 
 
 ## 7 - Manuale Utente
 In questa sezione verrà spiegato come giocare all'avventura testuale **Avventura nella Piramide**.
 
 L'installazione del progetto può essere effettuata tramite la lettura della
-[Guida all'installazione](../../../../README.md).
+[Guida all'installazione](../README.md).
 
 Prima di entrare nel vivo del gioco, è importante conscere com' è strutturata la mappa del gioco, mostrata qui di seguito:
-![img_Mappa](img/Mappa.png)
+![img_Mappa](../resources/img/Mappa.png)
 
 ## Walkthrough
 ## Capitolo 1: Deserto
 Avviando una nuova partita, il giocatore si troverà disperso in un deserto.
 
-![StartGame](img/StartGame.png)
+![StartGame](../resources/img/StartGame.png)
 
 Nella stanza sono presenti:
 - **Sfinge** - Una sfinge tipica egizia.
@@ -419,7 +419,7 @@ Nella stanza sono presenti:
 ### Capitolo 1.1: Enigma della Sfinge
 Usando il comando `Parla Sfinge`, si avvierà un minigioco:
 
-![WorldeSinge](img/WorldeSfinge.png)
+![WorldeSinge](../resources/img/WorldeSfinge.png)
 
 Il minigioco è un Wordle clone, la parola è scelta in modo casuale da un API.
 Se il minigioco viene completato con successo, le porte della piramide si apriranno.
@@ -429,14 +429,14 @@ Usando il comando `Nord` si entrerà nella piramide, accedendo alla prima stanza
 ### Capitolo 2.1: Enigma delle Torce
 Entrando nella Piramide, ci troviamo nella **Stanza Iniziale**, questa è buia e si può accedere solo alle due stanze laterali, altrimenti se  è illuminata e si usa il comando `Osserva`,  si può notare una **Statua**, essa sarà usata per completare l'enigma delle torce.
 
-![StanzaIniziale](img/RStanza1.png)
+![StanzaIniziale](../resources/img/RStanza1.png)
 
 Nella stanza è presente:
 - **Statua** - Una statua che serve per andare avanti, quando l'enigma sarà risolto.
 #### Capitolo 2.1.1: Stanza dei Serpenti
 Usando il comando `Ovest` entreremo nella **Stanza dei Serpenti**.
 
-![StanzaSerpenti](img/RStanza2.png)
+![StanzaSerpenti](../resources/img/RStanza2.png)
 
 Nella stanza sono presenti:
 - **Bastone** - Un bastone di legno, utile per risolvere l'enigma della stanza attuale.
@@ -447,7 +447,7 @@ Nella stanza sono presenti:
 #### Capitolo 2.1.2: Stanza della Cascata
 Usando il comando `Est` entreremo nella **Stanza della Cascata**.
 
-![StanzaCascata](img/RStanza3.png)
+![StanzaCascata](../resources/img/RStanza3.png)
 
 Nella stanza sono presenti:
 - **Coltello** - Un coltello, utile per risolvere l'enigma della **Stanza dei Serpenti** e successivamente per la **Stanza del Tiro con l'Arco**.
@@ -480,7 +480,7 @@ Dalla **Stanza Iniziale** andando verso il `Nord`, il giocatore dovrà risolvere
 ### Capitolo 3.1: Sfida di Scrittura
 Usando il comando `Nord` entreremo nella **Stanza dello Scriba**.
 
-![StanzaScriba](img/RStanza4.png)
+![StanzaScriba](../resources/img/RStanza4.png)
 
 Nella stanza troveremo i seguenti oggetti:
 - **Piuma** - Una piuma, utile a risolvere la sfida della stanza e successivamente servirà per la **Stanza del Tiro con l'Arco**.
@@ -488,7 +488,7 @@ Nella stanza troveremo i seguenti oggetti:
   Usando il comando `Usa Piuma su Pergamena`, esso inizierà.
   L'obiettivo è indovinare la frase nascosta.
   
-![Impiccato](img/PergamenaScriba.png)
+![Impiccato](../resources/img/PergamenaScriba.png)
 
   La frase è: ***Ti trovi nella Piramide di Osiride***.
   Completando la sfida, il corridoio si apre, si può usare il comando `Nord` per andare avanti.
@@ -496,7 +496,7 @@ Nella stanza troveremo i seguenti oggetti:
 Usando il comando `Nord` entreremo nella **Stanza del Tiro con l'Arco**.
 In questa Stanza l'utente dovrà colpire l'obiettivo con l'Arco e la Freccia.
 
-![StanzaArcoFreccia](img/RStanza5.png)
+![StanzaArcoFreccia](../resources/img/RStanza5.png)
 
 Nella stanza sono presenti:
 - **ArcoRotto** - Un Arco che dovrà essere aggiustato e unito con la freccia per completare la sfida.
@@ -514,7 +514,7 @@ Usando il comando `Fondi Arco e Freccia` otteniamo l'oggetto **ArcoFreccia** che
 ### Capitolo 3.3: Sfida di Trivia
 Usando il comando `Nord` entriamo nella **Stanza dei Trivia**.
 
-![StanzaTrivia](img/RStanza6.png)
+![StanzaTrivia](../resources/img/RStanza6.png)
 
 Nella stanza è presente solo:
 - **Mummia** - Una mummia anziana con cui l'utente può parlare e iniziare la sfida.
@@ -524,7 +524,7 @@ Nella stanza è presente solo:
 ## Capitolo 4: La Stanza del Faraone
 Usando il comando `Nord` entriamo nella **Stanza del Faraone**.
 
-![StanzaFaraone](img/RStanza10.png)
+![StanzaFaraone](../resources/img/RStanza10.png)
 
 Nella stanza sono presenti:
 - **Sarcofago** - Il Sarcofago del Faraone servirà aprirlo per poter andare avanti.
@@ -535,7 +535,7 @@ Nella stanza sono presenti:
 ### Capitolo 4.1: Sfida delle Mattonelle
 Usando il comando `Est` si entrerà nella **Stanza delle Mattonelle**.
 
-![StanzaMattonelle](img/RStanza7.png)
+![StanzaMattonelle](../resources/img/RStanza7.png)
 
 Nella stanza sono presenti:
 - **Mattonelle** - Le Mattonelle della stanza serviranno per iniziare la sfida.
@@ -545,14 +545,14 @@ Per iniziare la sfida si userà il comando `Osserva Mattonelle`.
 L'utente dovrà cliccare sui pulsanti presenti sullo schermo nell'ordine corretto. 
 La soluzione alla sfida è la seguente: *Centro*, *Sinistra*, *Destra*, *Destra*, *Sinistra*, *Destra*, *Centro*.
 
-![Soluzione](img/Soluzione.gif)
+![Soluzione](../resources/img/Soluzione.gif)
 
   Dopo aver completato la sfida, usando il comando `Prendi Nekhekh` otteniamo il tesoro da dare al **Faraone**, ora possiamo tornare nella **Stanza del Faraone** usando il comando `Ovest`.
 ### Capitolo 4.2: Sfida della Torta
 Usando il comando `Ovest` si entrerà nella **Stanza della Torta**.
 Dato l'indizio della stanza, l'obiettivo è quello di creare una **Torta**.
 
-![StanzaTorta](img/RStanza8.png)
+![StanzaTorta](../resources/img/RStanza8.png)
 
 Nella Stanza sono presenti:
 - Gli ingredienti per creare la torta:
@@ -573,7 +573,7 @@ Nella Stanza sono presenti:
 ### Capitolo 4.3: Enigma della Luce
 Usando il comando `Nord` entreremo nella **Stanza del Buco**.
 
-![StanzaBuco](img/RStanza9.png)
+![StanzaBuco](../resources/img/RStanza9.png)
 
 Nella Stanza sono presenti:
 - Gli oggetti per risolvere l'enigma:

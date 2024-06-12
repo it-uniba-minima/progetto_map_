@@ -152,15 +152,15 @@ H2 è molto popolare in ambito di sviluppo di applicazioni Java, in quanto è fa
 L'utilizzo del database ci ha permesso di memorizzare i dati relativi a tutti i dialoghi del gioco, i punteggi dei giocatori e le informazioni sui tempi di gioco, garantendo la persistenza dei dati e la possibilità di recuperarli in qualsiasi momento.
 Un ulteriore vantaggio di H2 è il fatto di avere una console web che permette di visualizzare i dati del database in modo semplice e intuitivo, facilitando il debug e il controllo dei dati memorizzati, come mostrato di seguito:
 
-![img_H2](img/database1.png)
+![img_H2](../resources/img/database1.png)
 
 A seguito dell'inserimento dei dati nel database, è possibile visualizzare i dati memorizzati all'interno del database, come mostrato di seguito:
 
-![img_H2](img/database3.png)
+![img_H2](../resources/img/database3.png)
 
 Oltre alla tabella principale contenente i dati relativi ai dialoghi del gioco, abbiamo creato una tabella per memorizzare i punteggi dei giocatori , come mostrato di seguito:
 
-![img_H2](img/database2.png)
+![img_H2](../resources/img/database2.png)
 
 Il database, come appreso durante il corso, ha bisogno di una connessione per poter essere utilizzato. Per questo motivo, abbiamo implementato la classe <b>DatabaseConnection</b> per gestire la connessione al database e le operazioni di lettura e scrittura dei dati, come mostrato di seguito:
 ```java
@@ -532,8 +532,8 @@ Questo bottone è stato implementato utilizzando i socket sulla porta 8080, in p
 <h4><b>Che informazioni contiene il sito web?</b></h4>
 Ecco come appare il sito web:
 
-![img_Sito_Web1](img/immagine_sito_web1.png)
-![img_Sito_Web2](img/immagine_sito_web2.png)
+![img_Sito_Web1](../resources/img/immagine_sito_web1.png)
+![img_Sito_Web2](../resources/img/immagine_sito_web2.png)
 
 Il sito web contiene le seguenti informazioni:
 - **Titolo del gioco**: il nome del gioco, ossia "Avventura nella Piramide".
@@ -703,7 +703,7 @@ Nel costruttore, viene chiamato initComponents() per configurare i componenti de
 Il metodo initComponents imposta il Jpanel dello sfondo e configura i vari pulsanti con testo e dimensioni specificate, aggiungendo un ActionListener a ciascun tasto per gestire i click.
 
 La creazione di una nuova partita o il caricamento di una partita salvata, innescano la card successiva, che è la ProgressBar, che mostra il caricamento del gioco, come mostrato di seguito:
-![img_ProgressBar](img/ProgressBar.gif)
+![img_ProgressBar](../resources/img/ProgressBar.gif)
 
 La ProgressBar è stata implementata utilizzando la classe <b>ProgressBarGUI</b>, che estende la classe JPanel e contiene tutti i componenti grafici necessari, come mostrato di seguito:
 ```java
@@ -745,7 +745,7 @@ Il metodo qui descritto, nonstante possa sembrare complesso a causa della presen
 
 A seguito del completamento della ProgressBar, la schermata di caricamento viene chiusa e l'utente viene portato alla schermata di gioco, dove finalmente si può iniziare a giocare.
 
-![img_GameGUI](img/StartGame.png)
+![img_GameGUI](../resources/img/StartGame.png)
 
 La classe che gestisce la schermata di gioco è la classe <b>GameGUI</b>, che estende la classe JPanel e contiene tutti i componenti grafici del gioco, come mostrato di seguito:
 ```java
@@ -795,7 +795,7 @@ Il caricamento di una partita salvata avviene  allo stesso modo di una nuova par
 
 Dopo aver cliccato il pulsante "Riconoscimenti", viene mostrata una schermata con i nomi dei membri del team di sviluppo, come mostrato di seguito:
 
-![img_Credits](img/Credits.png)
+![img_Credits](../resources/img/Credits.png)
 
 
 La classe che gestisce i Riconoscimenti è la classe <b>RiconoscimentiGUI</b>, che estende la classe JPanel e contiene tutti i componenti grafici dei Riconoscimenti, come mostrato di seguito:
@@ -827,7 +827,7 @@ public class CreditsGUI extends JPanel {
 
 Nel Menu principale del gioco è presente un bottone "Help", che apre, al click, una finestra di dialogo contenente le istruzioni per giocare, come mostrato di seguito:
 
-![img_HelpGUI](img/Help.png)
+![img_HelpGUI](../resources/img/Help.png)
 
 La classe che mostra i comandi è la classe <b>HelpGUI</b>, che estende la classe JFrame e, con l'aggiunta di una JLabel permette la visualizzazione delle istruzioni del gioco.
 
@@ -867,7 +867,7 @@ public class BoxLetter {
 Questa classe rappresenta una casella di testo in cui l'utente può inserire una singola lettera, in modo da indovinare la parola nascosta.
 Assieme alla GUI, abbiamo implementato anche la logica del gioco, che permette all'utente di inserire una lettera e di verificare se la lettera è presente nella parola nascosta, come mostrato di seguito:
 
-![img_Wordle](img/Wordle.gif)
+![img_Wordle](../resources/img/Wordle.gif)
 
 In conclusione, l'utilizzo di Java Swing ci ha permesso di creare un'interfaccia grafica coinvolgente e interattiva per il nostro gioco, rendendo l'esperienza di gioco più piacevole e stimolante per l'utente.
   </details>
@@ -901,7 +901,7 @@ Nel nostro progetto abbiamo utilizzato le <b>Java REST</b> per rendere gli enigm
 L'API da noi utilizzata per generare le parole casuali è <a href="https://random-word-api.herokuapp.com/home">Random Word API</a>.
 
 L'interfaccia dell'API è la seguente:
-![img_Random_Words_API](img/immagine_api1.png)
+![img_Random_Words_API](../resources/img/immagine_api1.png)
 Come è possibile visualizzare dalla foto, questa API è molto ricca di endpoint, ognuno dei quali permette di ottenere informazioni diverse.
 
 Tra le varie possibilità offerte da questa API, la funzionalità che ci interessava era quella di ottenere una parola casuale di una determinata lunghezza, dunque abbiamo scelto l'endpoint "/word" e abbiamo impostato il parametro "length" a 5, in modo da ottenere una parola di 5 lettere.<br>
@@ -959,11 +959,11 @@ Per implementare questa funzionalità abbiamo utilizzato la Java REST, in partic
 A nostro avviso l'API più adatta per questo scopo è <a href="https://opentdb.com/">Open Trivia Database</a>, un database di domande di trivia open-source che offre una vasta gamma di domande di varie categorie e difficoltà.
 
 L'interfaccia del database è la seguente:
-![img_Open_Trivia_Database](img/immagine_trivia1.png)
+![img_Open_Trivia_Database](../resources/img/immagine_trivia1.png)
 
 A questo punto, cliccando il pulsante API, possiamo andare ad analizzare l'interfaccia di nostro maggiore interesse, ossia la richiesta per ottenere domande di varie categorie e difficoltà:
 
-![img_Open_Trivia_Database](img/immagine_trivia2.png)
+![img_Open_Trivia_Database](../resources/img/immagine_trivia2.png)
 I parametri possibili per la richiesta sono i seguenti:
 - <b>amount</b>: il numero di domande da ottenere, nel nostro caso 1.
 - <b>category</b>: l'ID della categoria delle domande, nel nostro  caso la scelta è stata lasciata a "Any Category", indicando che le domande possono essere di qualsiasi categoria.
