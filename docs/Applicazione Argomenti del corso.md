@@ -1190,9 +1190,133 @@ La lambda expression inizia con un ulteriore lambda che prende tutti i corridoio
 Il risultato di questa ricerca viene poi usato per controllare se il corridoio esiste e se è bloccato o meno, stampando un messaggio appropriato a seconda dei casi.
 Nel caso in cui il corridoio esista e non sia bloccato, il giocatore viene spostato nella stanza di arrivo del corridoio.
 
+- **Assegnazione dei Task ai Thread**
+  In alcuni casi abbiamo creato dei Thread per eseguire operazioni in background, come l'esecuzione del server REST durante l'esecuzione del programma ed il set up del game flow in caso di nuova partita e caricamento di una partita salvata in contempornea al caricamento della progress bar.
 
-In conclusione, l'utilizzo delle lambda expressions ci ha permesso di scrivere codice più conciso e leggibile, migliorando la leggibilità del codice e rendendo il nostro gioco più facile da mantenere e da estendere.
+- **Aggiornamento posticipato della GUI del gioco della parola nascosta**
+  Similmente al punto precedente, sono state utilizzate delle lambda per assegnare al metodo statico <code>invokeLater</code> della classe <code>SwingUtilities</code> il compito di aggiornare la GUI del gioco della parola nascosta al momento più appropriato.
 
-</details>
-    </li>
+- **Inizializzazione degli actionListener dei bottoni delle varie GUI**
+
+- **Sovrascrittura di proprietà estetiche di alcuni componenti delle GUI**
+
+- **Assegnazione dei task ai TimerTask**
+  Usati, ad esempio, nella progressBar e nel timer del gioco.
+
+- **Contribuzione al parsing dell'input**
+  Tra le altre cose, parte del parsing dell'input è svolto mediante lambda expressions, in particolare lo split ed eliminazione delle stopWords e la ricerca all'interno dei set di aliases. A seguito il codice:
+```java
+public class Parser {
+    // Attributes declaration...
+
+    public ParserOutput parse(String input) {
+      // rest of the code...
+        
+      words = Arrays.stream(input.split(" "))
+                .map(String::toLowerCase)
+                .filter(w -> !stopWords.contains(w))
+                .toArray(String[]::new);
+
+      // rest of the code...
+
+      String theAlias = agent.getAliases().stream()
+                .filter(alias -> alias.equalsIgnoreCase(words[2]))
+                .findFirst()
+                .orElse(null);
+      if (theAlias != null) output.setAgent2(agent);
+
+      // rest of the code...
+    }
+
+  // Other methods...
+}
+```
+In particolare, la prima lambda expression si occupa di splittare la stringa in input in un array di stringhe, trasformarle in lowercase, filtrare le stopWords e trasformare il tutto in un array di stringhe.
+La seconda lambda expression si occupa di cercare all'interno degli alias dell'agente specificato se è presente una corrispondenza con la terza parola inserita dall'utente, trasformata in lowercase. Se la corrispondenza è trovata, l'agente viene settato come secondo agente dell'output.
+
+- **Creazione di un set contenente tutti gli Items del gioco**
+  All'interno della classe GameManager è presente un metodo che a partire dalla mappa di tutti gli agenti mappati ai loro nomi crea un set contenente tutti gli Items del gioco. Ecco il codice:
+```java
+public class GameManager {
+    private static Map<String, Agent> allAgents;
+
+    // Other attributes declaration...
+  
+    // Other methods...
+
+    public Set<Item> getAllItems() {
+         Set<Item> allItems = allAgents.values().stream()
+              .filter(agent -> agent instanceof Item)
+              .map(agent -> (Item) agent)
+              .collect(Collectors.toSet());
+        return allItems;
+    }
+
+    // Other methods...
+}
+```
+
+- **Conversione da file Json ad oggetti e viceversa**
+  Infine, le lambda expressions sono state utilizzate per l'istanziazione di tutti i componenti del gioco a partire dai file base, nel caso di una nuova partita o dai file di salvataggio, nel caso di un partita da caricare.
+  Stessa cosa è stata fatta per la conversione da oggetti a file Json, per salvare lo stato del gioco. A seguito il codice relativo:
+```java
+public class Converter {
+    // Other methods...
+
+  private Map<String, Agent> processJsonFiles(String gameFilePath, String agentsFilePath) {
+        // rest of the code...
+  
+        game.getInventory().forEach(item -> allAgents.put(item.getName(), item));
+
+        game.getCorridorsMap().forEach(corridor -> {
+          Room room = corridor.getStartingRoom();
+
+          if (!allRooms.containsKey(room.getName())) {
+            allRooms.put(room.getName(), room);
+            room.getAgents().forEach(agent -> allAgents.put(agent.getName(), agent));
+          } else {
+            Room existingRoom = allRooms.get(room.getName());
+            corridor.setStartingRoom(existingRoom);
+          }
+
+          room = corridor.getArrivingRoom();
+
+          if (!allRooms.containsKey(room.getName())) {
+            allRooms.put(room.getName(), room);
+            room.getAgents().forEach(agent -> allAgents.put(agent.getName(), agent));
+          } else {
+            Room existingRoom = allRooms.get(room.getName());
+            corridor.setArrivingRoom(existingRoom);
+          }
+        });
+        
+      // rest of the code...
+  }
+
+  public void ConvertAgentsToJson() {
+    // rest of the code...
+
+    // Save only the items that are not in the inventory or in a room
+    Set<Room> rooms = game.getCorridorsMap().stream()
+            .map(Corridor::getStartingRoom)
+            .collect(Collectors.toSet());
+
+    Set<Item> itemsToSave = allItems.stream()
+            .filter(item -> !game.getInventory().contains(item))
+            .filter(item -> rooms.stream()
+                    .noneMatch(room -> room.getAgents().contains(item)))
+            .collect(Collectors.toSet());
+
+    // rest of the code...
+  }
+}
+```
+Il metodo <code>processJsonFiles</code> si occupa di leggere i file Json contenenti le informazioni del gioco e di creare tutti gli agenti e le stanze del gioco a partire da essi.
+In particolare, per evitare duplicazioni di Agenti e Stanze, vengono utilizzate delle lambda expressions per controllare se una stanza è già presente nella lista di tutte le stanze, se non lo è allora i suoi agenti vengono inseriti nella mappa di tutti gli agenti e la stanza è inserita nella lista di tutte le stanze; 
+se lo è, invece, viene presa la sua copia già istanziata e viene utilizzata quella per proseguire con l'instanziazione della partita.
+Il secondo metodo, <code>ConvertAgentsToJson</code>, interviene invece quando dobbiamo salvare, si occupa di convertire tutti gli agenti del gioco in file Json, in modo da poter salvare lo stato del gioco.
+In particolare, viene creato un set di Stanze, così da evitare duplicati, poi viene creato un set di Item che non sono presenti nell'inventario o in una stanza, il risultato viene salvato nel file json.
+
+
+In conclusione, l'utilizzo delle lambda expressions ci ha permesso di scrivere codice più conciso e leggibile, semplificando la gestione dei comandi, la gestione di tutte le operazioni che richiedono l'implementazione di interfacce funzionali e la gestione dei dati all'interno del gioco.
 </ul>
