@@ -1,5 +1,5 @@
 package org.it.uniba.minima.Entity;
-import org.it.uniba.minima.Database.DatabaseConnection;
+import org.it.uniba.minima.DB_Web.DatabaseConnection;
 
 /**
  * The class that represents a personage.

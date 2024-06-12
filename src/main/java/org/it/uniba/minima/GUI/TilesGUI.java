@@ -1,9 +1,15 @@
 package org.it.uniba.minima.GUI;
-import org.it.uniba.minima.Control.UserInputFlow;
-import org.it.uniba.minima.Database.DatabaseConnection;
+import org.it.uniba.minima.InteractionManager.UserInputFlow;
+import org.it.uniba.minima.DB_Web.DatabaseConnection;
 import org.it.uniba.minima.Entity.Game;
-
-import javax.swing.*;
+import javax.swing.GroupLayout;
+import javax.swing.LayoutStyle;
+import javax.swing.JPanel;
+import javax.swing.JButton;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.AbstractButton;
+import javax.swing.JComponent;
 import javax.swing.plaf.metal.MetalButtonUI;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -103,7 +109,7 @@ public class TilesGUI extends JPanel {
             public void paint(final Graphics g, final JComponent c) {
                 AbstractButton b = (AbstractButton) c;
                 if (!b.isEnabled()) {
-                    g.setColor(new Color(119, 95, 43)); // Change this to the color you want when the button is disabled
+                    g.setColor(new Color(119, 95, 43)); 
                     g.fillRect(0, 0, c.getWidth(), c.getHeight());
                 } else {
                     super.paint(g, c);
@@ -134,7 +140,7 @@ public class TilesGUI extends JPanel {
             public void paint(final Graphics g, final JComponent c) {
                 AbstractButton b = (AbstractButton) c;
                 if (!b.isEnabled()) {
-                    g.setColor(new Color(119, 95, 43)); // Change this to the color you want when the button is disabled
+                    g.setColor(new Color(119, 95, 43)); 
                     g.fillRect(0, 0, c.getWidth(), c.getHeight());
                 } else {
                     super.paint(g, c);
@@ -166,7 +172,7 @@ public class TilesGUI extends JPanel {
             public void paint(final Graphics g, final JComponent c) {
                 AbstractButton b = (AbstractButton) c;
                 if (!b.isEnabled()) {
-                    g.setColor(new Color(119, 95, 43)); // Change this to the color you want when the button is disabled
+                    g.setColor(new Color(119, 95, 43)); 
                     g.fillRect(0, 0, c.getWidth(), c.getHeight());
                 } else {
                     super.paint(g, c);
@@ -198,7 +204,7 @@ public class TilesGUI extends JPanel {
             public void paint(final Graphics g, final JComponent c) {
                 AbstractButton b = (AbstractButton) c;
                 if (!b.isEnabled()) {
-                    g.setColor(new Color(119, 95, 43)); // Change this to the color you want when the button is disabled
+                    g.setColor(new Color(119, 95, 43)); 
                     g.fillRect(0, 0, c.getWidth(), c.getHeight());
                 } else {
                     super.paint(g, c);
@@ -230,7 +236,7 @@ public class TilesGUI extends JPanel {
             public void paint(final Graphics g, final JComponent c) {
                 AbstractButton b = (AbstractButton) c;
                 if (!b.isEnabled()) {
-                    g.setColor(new Color(119, 95, 43)); // Change this to the color you want when the button is disabled
+                    g.setColor(new Color(119, 95, 43)); 
                     g.fillRect(0, 0, c.getWidth(), c.getHeight());
                 } else {
                     super.paint(g, c);
@@ -262,7 +268,7 @@ public class TilesGUI extends JPanel {
             public void paint(final Graphics g, final JComponent c) {
                 AbstractButton b = (AbstractButton) c;
                 if (!b.isEnabled()) {
-                    g.setColor(new Color(119, 95, 43)); // Change this to the color you want when the button is disabled
+                    g.setColor(new Color(119, 95, 43)); 
                     g.fillRect(0, 0, c.getWidth(), c.getHeight());
                 } else {
                     super.paint(g, c);
@@ -294,7 +300,7 @@ public class TilesGUI extends JPanel {
             public void paint(final Graphics g, final JComponent c) {
                 AbstractButton b = (AbstractButton) c;
                 if (!b.isEnabled()) {
-                    g.setColor(new Color(119, 95, 43)); // Change this to the color you want when the button is disabled
+                    g.setColor(new Color(119, 95, 43)); 
                     g.fillRect(0, 0, c.getWidth(), c.getHeight());
                 } else {
                     super.paint(g, c);
@@ -322,7 +328,7 @@ public class TilesGUI extends JPanel {
             public void paint(final Graphics g, final JComponent c) {
                 AbstractButton b = (AbstractButton) c;
                 if (!b.isEnabled()) {
-                    g.setColor(new Color(119, 95, 43)); // Change this to the color you want when the button is disabled
+                    g.setColor(new Color(119, 95, 43)); 
                     g.fillRect(0, 0, c.getWidth(), c.getHeight());
                 } else {
                     super.paint(g, c);
@@ -354,7 +360,7 @@ public class TilesGUI extends JPanel {
             public void paint(final Graphics g, final JComponent c) {
                 AbstractButton b = (AbstractButton) c;
                 if (!b.isEnabled()) {
-                    g.setColor(new Color(119, 95, 43)); // Change this to the color you want when the button is disabled
+                    g.setColor(new Color(119, 95, 43)); 
                     g.fillRect(0, 0, c.getWidth(), c.getHeight());
                 } else {
                     super.paint(g, c);
@@ -386,7 +392,7 @@ public class TilesGUI extends JPanel {
             public void paint(final Graphics g, final JComponent c) {
                 AbstractButton b = (AbstractButton) c;
                 if (!b.isEnabled()) {
-                    g.setColor(new Color(119, 95, 43)); // Change this to the color you want when the button is disabled
+                    g.setColor(new Color(119, 95, 43)); 
                     g.fillRect(0, 0, c.getWidth(), c.getHeight());
                 } else {
                     super.paint(g, c);
@@ -418,7 +424,7 @@ public class TilesGUI extends JPanel {
             public void paint(final Graphics g, final JComponent c) {
                 AbstractButton b = (AbstractButton) c;
                 if (!b.isEnabled()) {
-                    g.setColor(new Color(119, 95, 43)); // Change this to the color you want when the button is disabled
+                    g.setColor(new Color(119, 95, 43)); 
                     g.fillRect(0, 0, c.getWidth(), c.getHeight());
                 } else {
                     super.paint(g, c);
@@ -450,7 +456,7 @@ public class TilesGUI extends JPanel {
             public void paint(final Graphics g, final JComponent c) {
                 AbstractButton b = (AbstractButton) c;
                 if (!b.isEnabled()) {
-                    g.setColor(new Color(119, 95, 43)); // Change this to the color you want when the button is disabled
+                    g.setColor(new Color(119, 95, 43)); 
                     g.fillRect(0, 0, c.getWidth(), c.getHeight());
                 } else {
                     super.paint(g, c);
@@ -482,7 +488,7 @@ public class TilesGUI extends JPanel {
             public void paint(final Graphics g, final JComponent c) {
                 AbstractButton b = (AbstractButton) c;
                 if (!b.isEnabled()) {
-                    g.setColor(new Color(119, 95, 43)); // Change this to the color you want when the button is disabled
+                    g.setColor(new Color(119, 95, 43)); 
                     g.fillRect(0, 0, c.getWidth(), c.getHeight());
                 } else {
                     super.paint(g, c);
@@ -514,7 +520,7 @@ public class TilesGUI extends JPanel {
             public void paint(final Graphics g, final JComponent c) {
                 AbstractButton b = (AbstractButton) c;
                 if (!b.isEnabled()) {
-                    g.setColor(new Color(119, 95, 43)); // Change this to the color you want when the button is disabled
+                    g.setColor(new Color(119, 95, 43)); 
                     g.fillRect(0, 0, c.getWidth(), c.getHeight());
                 } else {
                     super.paint(g, c);
@@ -546,7 +552,7 @@ public class TilesGUI extends JPanel {
             public void paint(Graphics g, JComponent c) {
                 AbstractButton b = (AbstractButton) c;
                 if (!b.isEnabled()) {
-                    g.setColor(new Color(119, 95, 43)); // Change this to the color you want when the button is disabled
+                    g.setColor(new Color(119, 95, 43)); 
                     g.fillRect(0, 0, c.getWidth(), c.getHeight());
                 } else {
                     super.paint(g, c);
@@ -578,7 +584,7 @@ public class TilesGUI extends JPanel {
             public void paint(final Graphics g, final JComponent c) {
                 AbstractButton b = (AbstractButton) c;
                 if (!b.isEnabled()) {
-                    g.setColor(new Color(119, 95, 43)); // Change this to the color you want when the button is disabled
+                    g.setColor(new Color(119, 95, 43)); 
                     g.fillRect(0, 0, c.getWidth(), c.getHeight());
                 } else {
                     super.paint(g, c);
@@ -610,7 +616,7 @@ public class TilesGUI extends JPanel {
             public void paint(final Graphics g, final JComponent c) {
                 AbstractButton b = (AbstractButton) c;
                 if (!b.isEnabled()) {
-                    g.setColor(new Color(119, 95, 43)); // Change this to the color you want when the button is disabled
+                    g.setColor(new Color(119, 95, 43)); 
                     g.fillRect(0, 0, c.getWidth(), c.getHeight());
                 } else {
                     super.paint(g, c);
@@ -642,7 +648,7 @@ public class TilesGUI extends JPanel {
             public void paint(Graphics g, JComponent c) {
                 AbstractButton b = (AbstractButton) c;
                 if (!b.isEnabled()) {
-                    g.setColor(new Color(119, 95, 43)); // Change this to the color you want when the button is disabled
+                    g.setColor(new Color(119, 95, 43)); 
                     g.fillRect(0, 0, c.getWidth(), c.getHeight());
                 } else {
                     super.paint(g, c);
@@ -674,7 +680,7 @@ public class TilesGUI extends JPanel {
             public void paint(final Graphics g, final JComponent c) {
                 AbstractButton b = (AbstractButton) c;
                 if (!b.isEnabled()) {
-                    g.setColor(new Color(119, 95, 43)); // Change this to the color you want when the button is disabled
+                    g.setColor(new Color(119, 95, 43)); 
                     g.fillRect(0, 0, c.getWidth(), c.getHeight());
                 } else {
                     super.paint(g, c);
@@ -705,7 +711,7 @@ public class TilesGUI extends JPanel {
             public void paint(final Graphics g, final JComponent c) {
                 AbstractButton b = (AbstractButton) c;
                 if (!b.isEnabled()) {
-                    g.setColor(new Color(119, 95, 43)); // Change this to the color you want when the button is disabled
+                    g.setColor(new Color(119, 95, 43)); 
                     g.fillRect(0, 0, c.getWidth(), c.getHeight());
                 } else {
                     super.paint(g, c);
@@ -736,7 +742,7 @@ public class TilesGUI extends JPanel {
             public void paint(final Graphics g, final JComponent c) {
                 AbstractButton b = (AbstractButton) c;
                 if (!b.isEnabled()) {
-                    g.setColor(new Color(119, 95, 43)); // Change this to the color you want when the button is disabled
+                    g.setColor(new Color(119, 95, 43)); 
                     g.fillRect(0, 0, c.getWidth(), c.getHeight());
                 } else {
                     super.paint(g, c);

@@ -3,7 +3,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import java.io.File;
 import java.io.IOException;
-import org.it.uniba.minima.Mixer;
+import org.it.uniba.minima.Util.Mixer;
 import java.awt.Dimension;
 import java.awt.CardLayout;
 import java.awt.Image;

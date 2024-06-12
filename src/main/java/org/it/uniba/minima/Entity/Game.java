@@ -1,7 +1,7 @@
 package org.it.uniba.minima.Entity;
-import org.it.uniba.minima.Boundary.OutputDisplayManager;
+import org.it.uniba.minima.InteractionManager.OutputDisplayManager;
 import org.it.uniba.minima.GUI.GameGUI;
-import org.it.uniba.minima.Type.Corridor;
+
 import java.util.List;
 import java.util.Map;
 

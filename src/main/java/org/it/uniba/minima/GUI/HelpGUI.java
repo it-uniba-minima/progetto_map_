@@ -1,6 +1,12 @@
 package org.it.uniba.minima.GUI;
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.GroupLayout;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Dimension;
 
 /**
  * The GUI of the help dialog.

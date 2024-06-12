@@ -1,5 +1,11 @@
 package org.it.uniba.minima.GUI;
-import javax.swing.*;
+import javax.swing.JPanel;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.GroupLayout;
+import javax.swing.SwingConstants;
 import javax.swing.plaf.metal.MetalButtonUI;
 import java.awt.event.ActionEvent;
 import java.awt.Dimension;

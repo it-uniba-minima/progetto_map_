@@ -1,5 +1,5 @@
 package org.it.uniba.minima.Entity;
-import org.it.uniba.minima.Database.DatabaseConnection;
+import org.it.uniba.minima.DB_Web.DatabaseConnection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -107,11 +107,22 @@ public class Room {
         DatabaseConnection.printFromDB("Osserva", name, currentState, "0", "0", "0");
     }
 
+    /**
+     * Override of the equals method.
+     *
+     * @param obj the object to compare
+     * @return true if the two objects are equals, false otherwise
+     */
     @Override
     public boolean equals(Object obj) {
         return this == obj;
     }
 
+    /**
+     * Override of the hashcode method.
+     *
+     * @return the hashcode of the object
+     */
     @Override
     public int hashCode() {
         return System.identityHashCode(this);

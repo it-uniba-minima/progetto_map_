@@ -1,5 +1,10 @@
 package org.it.uniba.minima.GUI;
-import javax.swing.*;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.SwingUtilities;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.GroupLayout;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.BorderLayout;

@@ -1,5 +1,5 @@
 package org.it.uniba .minima;
-import org.it.uniba.minima.Database.RestServer;
+import org.it.uniba.minima.DB_Web.RestServer;
 import org.it.uniba.minima.GUI.ManagerGUI;
 
 /**

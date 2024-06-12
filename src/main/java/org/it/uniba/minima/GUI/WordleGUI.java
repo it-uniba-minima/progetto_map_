@@ -1,5 +1,4 @@
 package org.it.uniba.minima.GUI;
-
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.GroupLayout;
@@ -17,7 +16,6 @@ import java.io.IOException;
  * The class of the WordleGUI GUI.
  */
 public class WordleGUI extends JPanel {
-
     /**
      * The constants.
      */

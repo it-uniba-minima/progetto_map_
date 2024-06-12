@@ -1,13 +1,38 @@
 package org.it.uniba.minima.GUI;
-import org.it.uniba.minima.Control.GameManager;
+import org.it.uniba.minima.Logic.GameManager;
 import org.it.uniba.minima.Entity.Game;
-import org.it.uniba.minima.Mixer;
-import org.it.uniba.minima.Boundary.UserInputManager;
+import org.it.uniba.minima.Util.Mixer;
+import org.it.uniba.minima.InteractionManager.UserInputManager;
 import javax.swing.plaf.metal.MetalButtonUI;
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JPanel;
+import javax.swing.JButton;
+import javax.swing.JToolBar;
+import javax.swing.JTextArea;
+import javax.swing.JScrollPane;
+import javax.swing.JViewport;
+import javax.swing.JTextPane;
+import javax.swing.JTextField;
+import javax.swing.ImageIcon;
+import javax.swing.Box;
+import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import javax.swing.SwingUtilities;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.GroupLayout;
+import javax.swing.Timer;
+import javax.swing.SwingConstants;
+import javax.swing.BorderFactory;
+import javax.swing.JLabel;
+import java.awt.Dimension;
+import java.awt.FontMetrics;
+import java.awt.Font;
+import java.awt.CardLayout;
+import java.awt.Color;
+import java.awt.Insets;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.awt.Image;
 
 /**
  * The GUI of the game.

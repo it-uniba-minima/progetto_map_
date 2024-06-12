@@ -53,6 +53,12 @@ public abstract class Agent {
         return this.name.equals(name);
     }
 
+    /**
+     * Override of the equals method.
+     *
+     * @param o the object to compare
+     * @return the boolean
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -62,6 +68,11 @@ public abstract class Agent {
                 Objects.equals(aliases, agent.aliases);
     }
 
+    /**
+     * Override of the hashcode method.
+     *
+     * @return the hashcode
+     */
     @Override
     public int hashCode() {
         return Objects.hash(name, aliases);

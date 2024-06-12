@@ -23,6 +23,11 @@ public class CommandExecutorKey {
         this.args = a;
     }
 
+    /**
+     * Override of the equals method.
+     *
+     * @return true if the two objects are equals, false otherwise
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -31,6 +36,11 @@ public class CommandExecutorKey {
         return command == that.command && args == that.args;
     }
 
+    /**
+     * Override of the hashcode method.
+     *
+     * @return the hashcode of the object
+     */
     @Override
     public int hashCode() {
         int result = command != null ? command.hashCode() : 0;
@@ -38,4 +48,3 @@ public class CommandExecutorKey {
         return result;
     }
 }
-
