@@ -65,7 +65,7 @@ Per eseguire il JAR tramite IDE è necessario aprire il progetto in un IDE, come
 
 Una volta aperto l'IDE, è possibile eseguire il JAR cliccando sul file JAR e selezionando l'opzione `Run` o `Esegui`, oppure è banalmente possibile runnare l'entrypoint del progetto, ossia la classe `Main.java`, nella cartella `src/main/java/org/it/uniba/minima`.
 
-Cosa aspetti? Scarica il nostro progetto e divertiti a giocare! Ricorda che in caso di difficoltà abbiamo avuto anche la premura di realizzare un WalkTrough del gioco che puoi trovare direttamente all'interno del [Report](docs/Report.md) del progetto.
+Cosa aspetti? Scarica il nostro progetto e divertiti a giocare! Ricorda che in caso di difficoltà abbiamo avuto anche la premura di realizzare un WalkTrough del gioco che puoi trovare direttamente all'interno del [Report](src/main/resources/docs/Report.md) del progetto.
 
 
 

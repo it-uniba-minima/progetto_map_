@@ -662,7 +662,7 @@ I panel verranno aggiunti al CardLayout, che permette di passare da una schermat
 Il metodo <b>closeGame()</b> permette di tornare al menu principale del gioco, chiamando il metodo <b>goBack()</b> del pannello del gioco.
 
 Nel momento in cui il gioco viene avviato, viene mostrato il Menu principale, che contiene vari pulsanti per iniziare una nuova partita, caricare una partita salvata, visualizzare i crediti, aprire il sito web del gioco e attivare o disattivare la musica di sottofondo, come mostrato di seguito:
-![img_MenuGUI](img/MenuGUI.png)
+![img_MenuGUI](../src/main/resources/img/MenuGUI.png)
 
 La classe che gestisce il Menu principale è la classe <b>MenuGUI</b>, che estende la classe JPanel e contiene tutti i componenti grafici del Menu, come mostrato di seguito:
 ```java

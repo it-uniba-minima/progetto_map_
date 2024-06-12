@@ -393,14 +393,14 @@ Si noti come <code>Item</code> è un tipo generico, che può essere sostituito c
 - In questa sezione verrà spiegato come il progetto **Avventura nella Piramide** si collega agli argomenti trattati durante il corso di "Metodi Avanzati di Programmazione".
 
 
-[Applicazione Argomenti del Corso](Applicazione%20Argomenti%20del%20corso.md)
+[Applicazione Argomenti del Corso](Applicazione Argomenti del corso.md)
 
 
 ## 7 - Manuale Utente
 In questa sezione verrà spiegato come giocare all'avventura testuale **Avventura nella Piramide**.
 
 L'installazione del progetto può essere effettuata tramite la lettura della
-[Guida all'installazione](../README.md).
+[Guida all'installazione](../../../../README.md).
 
 Prima di entrare nel vivo del gioco, è importante conscere com' è strutturata la mappa del gioco, mostrata qui di seguito:
 ![img_Mappa](img/Mappa.png)
