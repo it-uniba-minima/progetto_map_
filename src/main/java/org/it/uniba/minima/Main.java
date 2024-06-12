@@ -1,4 +1,5 @@
 package org.it.uniba .minima;
+import org.it.uniba.minima.DB_Web.DatabaseConnection;
 import org.it.uniba.minima.DB_Web.RestServer;
 import org.it.uniba.minima.GUI.ManagerGUI;
 
@@ -12,12 +13,12 @@ public class Main {
      * @param args the input arguments
      */
     public static void main(final String[] args) {
-        new ManagerGUI();
-        RestServer restServer = new RestServer();
-        try {
-            restServer.startServer();
-        } catch (Exception e) {
-            e.printStackTrace();
+            new ManagerGUI();
+            try {
+                new RestServer().startServer();
+                DatabaseConnection.connect();
+            } catch (Exception e) {
+                e.printStackTrace();
         }
     }
 }
