@@ -45,7 +45,7 @@ public class DatabaseHandler extends HttpHandler {
         PrintWriter out = new PrintWriter(response.getWriter());
         try (Connection conn = DriverManager.getConnection("jdbc:h2:./src/main/resources/database/db_map", "sa", "");
              Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT * FROM CLASSIFICA ORDER BY TEMPO")) {
+             ResultSet rs = stmt.executeQuery(DatabaseConnection.querySQL_forCLASSIFICA())) {
             out.println("<!DOCTYPE html>\n" +
                     "<html lang=\"it\">\n" +
                     "<head>\n" +
@@ -77,6 +77,7 @@ public class DatabaseHandler extends HttpHandler {
                     "        .side-image {\n" +
                     "            width: 25%;\n" +
                     "            height: 100vh;\n" +
+                    "            background-image: url('../../../../docs/img/immagine per sito.jpeg');\n" +
                     "            background-size: cover;\n" +
                     "            background-position: center;\n" +
                     "        }\n" +
@@ -194,15 +195,15 @@ public class DatabaseHandler extends HttpHandler {
                         "            <b>Comandi di gioco:</b><br>\n" +
                         "            <b>Inventario</b> - Mostra l'inventario dell'utente<br>\n" +
                         "            <b>Aiuto</b> - Mostra i comandi disponibili<br>\n" +
-                        "            <b>Osserva</b> - Mostra la descrizione della stanza<br>\n" +
-                        "            <b>Osserva [<i>oggetto</i>|<i>personaggio</i>]</b> - Mostra la descrizione dell'oggetto o del personaggio, se presente nella stanza<br>\n" +
-                        "            <b>Usa [<i>oggetto</i>]</b> - Utilizza l'oggetto specificato<br>\n" +
-                        "            <b>Usa [<i>oggetto1</i>] [<i>oggetto2</i>]</b> - Utilizza l'oggetto1 sull'oggetto2<br>\n" +
-                        "            <b>Prendi [<i>oggetto</i>]</b> - Prendi l'oggetto specificato<br>\n" +
-                        "            <b>Lascia [<i>oggetto</i>]</b> - Lascia l'oggetto specificato, deve essere presente nell'inventario<br>\n" +
-                        "            <b>Parla [<i>personaggio</i>]</b> - Parla con il personaggio specificato<br>\n" +
-                        "            <b>Fondi [<i>oggetto1</i>] [<i>oggetto2</i>]</b> - Fonde l'oggetto1 con l'oggetto2, creando un [<i>oggetto3</i>] presente nell'inventario<br>\n" +
-                        "            <b>Dai [<i>oggetto</i>] [<i>personaggio</i>]</b> - Dai l'oggetto specificato al personaggio specificato<br>\n" +
+                        "            <b>Osserva</b> - Mostra la descrizione della stanza.<br>\n" +
+                        "            <b>Osserva [oggetto|personaggio]</b> - Mostra la descrizione dell'oggetto o del personaggio, presente nella stanza.<br>\n" +
+                        "            <b>Usa [oggetto]</b> - Utilizza l'oggetto specificato.<br>\n" +
+                        "            <b>Usa [oggetto1] [oggetto2]</b> - Utilizza l'oggetto1 sull'oggetto2.<br>\n" +
+                        "            <b>Prendi [oggetto]</b> - Prendi l'oggetto specificato.<br>\n" +
+                        "            <b>Lascia [oggetto]</b> - Lascia l'oggetto specificato, deve essere presente nell'inventario.<br>\n" +
+                        "            <b>Parla [personaggio]</b> - Parla con il personaggio specificato.<br>\n" +
+                        "            <b>Fondi [oggetto1] [oggetto2]</b> - Fonde l'oggetto1 con l'oggetto2, creando un [oggetto3] presente nell'inventario<br>\n" +
+                        "            <b>Dai [oggetto] [personaggio]</b> - Dai l'oggetto specificato al personaggio specificato.<br>\n" +
                         "        </p><br>\n" +
                         "        <p class=\"link\"><a href=\"#top\">Torna all'indice</a></p>\n" +
                         "\n" +
@@ -243,7 +244,7 @@ public class DatabaseHandler extends HttpHandler {
         PrintWriter out = new PrintWriter(response.getWriter());
         try (Connection conn = DriverManager.getConnection("jdbc:h2:./src/main/resources/database/db_map", "sa", "");
              Statement stmt = conn.createStatement()) {
-            stmt.executeUpdate( "INSERT INTO CLASSIFICA (USERNAME, TEMPO, FINALE) VALUES ('" + request.getParameter("username") + "', '" + request.getParameter("tempo") + "', '" + request.getParameter("finale") + "')");
+             stmt.executeUpdate("INSERT INTO CLASSIFICA (USERNAME, TEMPO, FINALE) VALUES ('" + request.getParameter("username") + "', '" + request.getParameter("tempo") + "', '" + request.getParameter("finale") + "')");
         } catch (SQLException e) {
             out.println("SQL Error: " + e.getMessage() + "\n");
             e.printStackTrace(out);
