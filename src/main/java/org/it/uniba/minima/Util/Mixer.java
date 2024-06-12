@@ -165,9 +165,9 @@ public class Mixer extends Thread {
             if (clips[i] != null) {
                 clips[i].start();
                 clips[i].loop(Clip.LOOP_CONTINUOUSLY);
-                currentClip = i;
             }
         }
+        currentClip = i;
     }
 
     /**
