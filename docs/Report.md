@@ -7,9 +7,10 @@
 - ### [Progettazione](#3---progettazione)
 - ### [Specifiche Algebriche](#4---specifiche-algebriche)
 - ### [Applicazione Argomenti del Corso](#6---applicazione-argomenti-del-corso)
-- ### [Manuale Utente](#7---manuale-utente)
-- ### [Walkthrough](#walkthrough)
-- ### [Conclusioni e Opinioni Finali](#8---conclusioni-e-opinioni-finali)
+- ### [Javadoc](#7---javadoc)
+- ### [Manuale Utente](#8---manuale-utente)
+- ### [Walkthrough](#8.1---walkthrough)
+- ### [Conclusioni e Opinioni Finali](#9---conclusioni-e-opinioni-finali)
 <hr>
 
 ## 1 - Introduzione
@@ -396,7 +397,14 @@ Si noti come <code>Item</code> è un tipo generico, che può essere sostituito c
 [Applicazione Argomenti del Corso](Applicazione%20Argomenti%20del%20corso.md)
 
 
-## 7 - Manuale Utente
+## 7 - Javadoc
+
+- Il Javadoc del progetto è disponibile al seguente link: [Javadoc](javadoc/index.html)
+
+#### [Ritorna all'Indice](#indice)
+
+
+## 8 - Manuale Utente
 In questa sezione verrà spiegato come giocare all'avventura testuale **Avventura nella Piramide**.
 
 L'installazione del progetto può essere effettuata tramite la lettura della
@@ -405,7 +413,8 @@ L'installazione del progetto può essere effettuata tramite la lettura della
 Prima di entrare nel vivo del gioco, è importante conscere com' è strutturata la mappa del gioco, mostrata qui di seguito:
 ![img_Mappa](../resources/img/Mappa.png)
 
-## Walkthrough
+## 8.1 - Walkthrough
+
 ## Capitolo 1: Deserto
 Avviando una nuova partita, il giocatore si troverà disperso in un deserto.
 
@@ -597,7 +606,7 @@ Arriviamo allo stato finale del gioco, dove l'utente con il comando `Parla con F
 
 #### [Ritorna all'Indice](#indice)
 
-## 8 - Conclusioni e Opinioni Finali
+## 9 - Conclusioni e Opinioni Finali
 Concludiamo il nostro progetto dicendo che siamo molto soddisfatti del lavoro svolto.
 
 Abbiamo imparato molto durante il corso e siamo riusciti a mettere in pratica le nozioni apprese.

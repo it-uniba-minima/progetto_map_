@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"org.it.uniba.minima"},{"l":"org.it.uniba.minima.DB_Web"},{"l":"org.it.uniba.minima.Entity"},{"l":"org.it.uniba.minima.GUI"},{"l":"org.it.uniba.minima.InteractionManager"},{"l":"org.it.uniba.minima.Logic"},{"l":"org.it.uniba.minima.Type"},{"l":"org.it.uniba.minima.Util"}];updateSearchResults();

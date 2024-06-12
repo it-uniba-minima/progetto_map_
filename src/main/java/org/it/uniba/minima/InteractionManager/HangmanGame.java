@@ -76,7 +76,6 @@ public class HangmanGame {
      * If it is, the hangman game is won.
      *
      * @param text the input phrase
-     * @return the result of the check
      */
     public void checkGuess(String text) {
         if (text.equals(GUESSING_PHRASE)) {
@@ -101,7 +100,6 @@ public class HangmanGame {
      * Run various checks on the letter.
      *
      * @param text the letter
-     * @return the result of the check
      */
     public void checkLetter(String text) {
         char letter = text.charAt(0);

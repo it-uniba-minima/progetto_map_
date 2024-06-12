@@ -1,0 +1,8 @@
+org.it.uniba.minima
+org.it.uniba.minima.DB_Web
+org.it.uniba.minima.Entity
+org.it.uniba.minima.GUI
+org.it.uniba.minima.InteractionManager
+org.it.uniba.minima.Logic
+org.it.uniba.minima.Type
+org.it.uniba.minima.Util
