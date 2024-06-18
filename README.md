@@ -9,7 +9,7 @@
 Per poter eseguire il nostro progetto è necessario:
 
 - **Java 22**: per poter eseguire il nostro progetto è necessario avere installato Java 22.<br>
-Per controllare la versione di Java installata sul proprio computer è possibile eseguire il comando `java -version` da terminale.
+Per controllare la versione di Java installata sul proprio computer è possibile eseguire il comando `java --version` da terminale.
 Nel caso in cui non fosse installato è possibile scaricarlo dal sito ufficiale di [Oracle](https://www.oracle.com/it/java/technologies/downloads/).<br>
 Appena aperto il link, vi si presenterà la seguente schermata:
 
