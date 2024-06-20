@@ -141,11 +141,15 @@ public class CommandExecutor {
         // The command to talk to a personage
         commandMap.put(new CommandExecutorKey(CommandType.PARLA, 1),
                 p -> {
-                    if (game.getCurrentRoom().getAgents().contains(p.getAgent1())) {
-                            DatabaseConnection.printFromDB("Parla", game.getCurrentRoom().getName(), game.getCurrentRoom().getState(), p.getAgent1().getName(), "0", "0");
-                            gameLogic.talkToPersonage((Personage) p.getAgent1());
+                    if (p.getAgent1() instanceof Personage) {
+                        if (game.getCurrentRoom().getAgents().contains(p.getAgent1())) {
+                                DatabaseConnection.printFromDB("Parla", game.getCurrentRoom().getName(), game.getCurrentRoom().getState(), p.getAgent1().getName(), "0", "0");
+                                gameLogic.talkToPersonage((Personage) p.getAgent1());
+                        } else {
+                            OutputDisplayManager.displayText("> " + p.getAgent1().getName() + " non è nella stanza!");
+                        }
                     } else {
-                        OutputDisplayManager.displayText("> " + p.getAgent1().getName() + " non è nella stanza!");
+                        OutputDisplayManager.displayText("> Non puoi parlare con un oggetto inanimato!");
                     }
                 });
 
